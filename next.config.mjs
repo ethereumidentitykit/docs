@@ -5,4 +5,6 @@ const withNextra = nextra({
   themeConfig: './theme.config.jsx',
 })
 
-export default withNextra()
+export default withNextra({
+  transpilePackages: ['@encrypteddegen/identity-kit'],
+})

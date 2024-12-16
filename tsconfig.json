@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "ESNext",
+    "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -15,6 +16,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "reset.d.ts", "**/*.ts", "**/*.tsx", "theme.config.jsx", "tailwind.config.mjs"],
+  "include": [
+    "next-env.d.ts",
+    "reset.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "theme.jsx",
+    "tailwind.config.mjs",
+    "theme.config.jsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -23,9 +23,9 @@ const Home = () => {
   return (
     <>
       <Navigation />
-      <main className="landing-page px-4 md:px-12 2xl:px-16 overflow-x-hidden w-full min-h-screen h-full dark:bg-[#111111] text-white bg-white bg-repeat dark:bg-grid-white/[0.1] bg-grid-black/[0.1] relative">
+      <main className="landing-page px-4 md:px-12 2xl:px-16 overflow-x-hidden w-full min-h-screen h-full bg-[#111111] text-white bg-repeat bg-grid-white/[0.1] relative">
         {/* Radial gradient for the container to give a faded look */}
-        <div className="absolute pointer-events-none h-full inset-0 dark:bg-[#111111] bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_10%,#111111cc_80%)]" />
+        <div className="absolute pointer-events-none h-full inset-0 bg-[#111111] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,#111111cc_80%)]" />
         <div className="max-w-[1700px] mx-auto items-center flex xl:flex-row flex-col justify-between z-50 gap-20 xl:gap-6 pt-4 xs:pt-8 xl:pt-28 pb-12 xl:pb-0">
           <div className="flex flex-col items-center xl:items-start xl:text-left text-center gap-4 sm:gap-8 z-50 mt-24">
             <h1 className="text-5xl xs:text-6xl sm:text-7xl md:text-8xl font-bold max-w-[700px] relative z-20">Ethereum Identity Kit</h1>

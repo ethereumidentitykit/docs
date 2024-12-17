@@ -7,4 +7,13 @@ const withNextra = nextra({
 
 export default withNextra({
   transpilePackages: ['@encrypteddegen/identity-kit'],
+  async redirects() {
+    return [
+      {
+        source: '/playground',
+        destination: 'https://ethereumidentitykit.github.io/ethereum-identity-kit/',
+        permanent: true,
+      },
+    ]
+  },
 })

@@ -1,6 +1,7 @@
 {
   "name": "docs",
   "version": "0.0.1",
+  "title": "Ethereum Identity Kit",
   "description": "Documentation for Ethereum Identity Kit",
   "type": "module",
   "scripts": {

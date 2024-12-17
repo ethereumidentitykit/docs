@@ -1,9 +1,14 @@
+import { Metadata } from 'next'
 import { Chivo_Mono } from 'next/font/google'
+
 import Providers from './providers'
+import { sharedMetadata } from '../lib/metadata'
 
 import './global.css'
 import '@encrypteddegen/identity-kit/css'
 import '@rainbow-me/rainbowkit/styles.css'
+
+export const metadata: Metadata = sharedMetadata
 
 const ChivoMono = Chivo_Mono({
   subsets: ['latin'],

@@ -6,5 +6,17 @@ export default {
   project: {
     link: 'https://github.com/ethereumidentitykit/docs',
   },
+  darkMode: false,
+  nextThemes: {
+    defaultTheme: 'dark',
+  },
+  color: {
+    hue: 58,
+    saturation: 100,
+    lightness: {
+      dark: 75,
+      light: 35,
+    },
+  },
   // ... other theme options
 }

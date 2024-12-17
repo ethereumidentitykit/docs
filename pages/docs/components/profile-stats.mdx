@@ -1,0 +1,32 @@
+import { ProfileStats } from '@encrypteddegen/identity-kit'
+
+# Profile Stats
+
+The Profile Stats component displays follower and following statistics for a given Ethereum address or ENS name.
+
+### Add to your project
+
+```tsx copy
+import { ProfileStats } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <ProfileStats addressOrName="brantly.eth" />
+}
+```
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  <ProfileStats addressOrName="brantly.eth" />
+</div>
+
+## Parameters
+
+| Parameter            | Description                                                                                             | Required | Default Value        |
+| -------------------- | ------------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| `addressOrName`      | Address or ENS name to lookup stats for.                                                                | Yes      | -                    |
+| `list`               | List to lookup stats for; overrides `addressOrName` if provided.                                        | No       | -                    |
+| `containerDirection` | Direction of the container layout (e.g., 'row', 'column').                                              | No       | 'row'                |
+| `statsDirection`     | Direction of the stats layout (e.g., 'row', 'column').                                                  | No       | 'column'             |
+| `statsStyle`         | Inline styles for the stats section.                                                                    | No       | -                    |
+| `containerStyle`     | Inline styles for the container.                                                                        | No       | -                    |
+| `onStatClick`        | Function to be called when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
+| `props`              | Additional props for the `<div>` element.                                                               | No       | -                    |

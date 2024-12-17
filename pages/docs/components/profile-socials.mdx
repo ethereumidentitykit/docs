@@ -1,0 +1,43 @@
+import { ProfileSocials } from '@encrypteddegen/identity-kit'
+
+# Profile Socials
+
+The Profile Socials component displays the social links of a user, including URLs and decentralized web links.
+
+### Add to your project
+
+```tsx copy
+import { ProfileSocials } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <ProfileSocials userAddress="0x1234...abcd" name="brantly.eth" records={{ url: 'example.com' }} />
+}
+```
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  <ProfileSocials
+    userAddress="0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+    name="brantly.eth"
+    records={{
+      'com.discord': 'brantly.eth',
+      'com.github': 'brantlymillegan',
+      'com.twitter': 'brantlymillegan',
+      'org.telegram': 'brantlymillegan',
+      url: 'https://ethfollow.xyz/',
+    }}
+    includeUrls={true}
+    darkMode={true}
+  />
+</div>
+
+## Parameters
+
+| Parameter     | Description                                                                  | Required | Default Value |
+| ------------- | ---------------------------------------------------------------------------- | -------- | ------------- |
+| `userAddress` | The Ethereum address of the user.                                            | Yes      | -             |
+| `name`        | The ENS name of the user.                                                    | No       | -             |
+| `records`     | The records of the user, including URLs and content hashes.                  | Yes      | -             |
+| `darkMode`    | Whether the profile is in dark mode.                                         | No       | false         |
+| `includeUrls` | Whether to include the URLs in the profile.                                  | No       | false         |
+| `iconSize`    | The size of the icons displayed.                                             | No       | 32            |
+| `isLoading`   | Whether the profile is loading, showing placeholders instead of actual data. | No       | false         |

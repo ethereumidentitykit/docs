@@ -1,0 +1,39 @@
+import { useFollowerState } from '@encrypteddegen/identity-kit'
+
+# useFollowerState
+
+The `useFollowerState` hook fetches and manages the follower state between a given Ethereum address or ENS name and the connected user, indicating if the user is followed, blocked, or muted by the address.
+
+### Add to your project
+
+```tsx copy
+import { useFollowerState } from '@encrypteddegen/identity-kit'
+
+export default function FollowerStateComponent() {
+  const { followState, followerTag, isFollowerStateLoading } = useFollowerState({
+    addressOrName: 'brantly.eth',
+    connectedAddress: '0x1234...abcd',
+  })
+
+  // Create your own loading states
+  if (isFollowerStateLoading) return <div>Loading...</div>
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter          | Description                                                                         | Required | Default Value |
+| ------------------ | ----------------------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`    | Ethereum Address or ENS name to check the follower state for.                       | Yes      | -             |
+| `connectedAddress` | Ethereum address of the currently connected user.                                   | Yes      | -             |
+| `list`             | List number to check the follower state for; overrides `addressOrName` if provided. | No       | -             |
+
+## Return Values
+
+| Return Value             | Description                                                                               |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| `followState`            | The follower state, indicating if the user is followed, blocked, or muted by the address. |
+| `followerTag`            | Object containing text and className for displaying the follower state.                   |
+| `isFollowerStateLoading` | Boolean indicating if the follower state is currently loading.                            |

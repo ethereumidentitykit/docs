@@ -1,3 +1,62 @@
+import { Steps } from 'nextra/components'
+
 # Welcome to Ethereum Indetity Kit
 
-Ethereum Indetity Kit is a library for building Ethereum identity solutions.
+Ethereum Ideintity Kit allows you to easily implement Ethereum identity stack into your application.
+
+<Steps>
+### Install
+
+Install the library using your package manager.
+
+```sh npm2yarn
+npm install @encrypteddegen/identity-kit
+```
+
+### Setup Query Client
+
+Library uses [Tanstack Query](https://tanstack.com/query) for data fetching, so you need to setup a query client and provider.
+
+```tsx copy
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+    </QueryClientProvider>
+  )
+}
+```
+
+### Apply Styles
+
+Add the following to your `layout.tsx` or `_app.tsx` file:
+
+```tsx copy
+import '@encrypteddegen/identity-kit/css'
+```
+
+### You're all set!
+
+Library is typed with TypeScript, which allows for autocompletion and type safety.
+
+```tsx copy
+import { ProfileCard } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <ProfileCard addressOrName="brantly.eth" />
+  // or 0x983110309620d911731ac0932219af06091b6744
+}
+```
+
+</Steps>
+
+## Discover More
+
+Discover the hooks and components available inside the Ethereum Identity Kit.
+
+- [Hooks](/docs/hooks)
+- [Components](/docs/components)

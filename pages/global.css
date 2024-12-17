@@ -7,3 +7,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* body {
+  background: light-dark(white, #222222);
+} */
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: light-dark(white, black);
+  background: light-dark(black, white);
+}
+
+::selection {
+  color: light-dark(white, black);
+  background: light-dark(black, white);
+}

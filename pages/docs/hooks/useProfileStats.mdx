@@ -1,0 +1,40 @@
+import { useProfileStats } from '@encrypteddegen/identity-kit'
+
+# useProfileStats
+
+The `useProfileStats` hook fetches and manages the follower and following statistics for a given Ethereum address or ENS name.
+
+### Add to your project
+
+```tsx copy
+import { useProfileStats } from '@encrypteddegen/identity-kit'
+
+export default function StatsComponent() {
+  const { followers, following, statsLoading, refreshProfileStats } = useProfileStats({
+    addressOrName: 'brantly.eth',
+  })
+
+  // Create your own loading states
+  if (statsLoading) return <div>Loading...</div>
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter               | Description                                                                    | Required | Default Value |
+| ----------------------- | ------------------------------------------------------------------------------ | -------- | ------------- |
+| `addressOrName`         | Ethereum Address or ENS name to fetch profile stats for.                       | Yes      | -             |
+| `list`                  | List number to fetch profile stats for; overrides `addressOrName` if provided. | No       | -             |
+| `prefetchedData`        | Prefetched stats data to use initially.                                        | No       | -             |
+| `refetchPrefetchedData` | Function to refetch prefetched stats data.                                     | No       | -             |
+
+## Return Values
+
+| Return Value          | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| `followers`           | Number of followers for the profile.                           |
+| `following`           | Number of accounts the profile is following.                   |
+| `statsLoading`        | Boolean indicating if the profile stats are currently loading. |
+| `refreshProfileStats` | Function to manually refresh the profile stats.                |

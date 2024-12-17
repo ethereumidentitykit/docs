@@ -1,0 +1,40 @@
+import { FollowerTag } from '@encrypteddegen/identity-kit'
+
+# Follower Tag
+
+The Follower Tag component displays the relationship status between a given Ethereum address and the connected user, such as whether the user follows, blocks, or mutes the address.
+
+### Add to your project
+
+```tsx copy
+import { FollowerTag } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return (
+    <FollowerTag
+      addressOrName="0x983110309620d911731ac0932219af06091b6744" // replace with your address
+      connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3" // replace with a connected address
+      showLoading={true} // displays loading cell
+    />
+  )
+}
+```
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  <FollowerTag
+    addressOrName="0x983110309620d911731ac0932219af06091b6744"
+    connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3"
+    showLoading={true}
+  />
+</div>
+
+## Parameters
+
+| Parameter          | Description                                                           | Required | Default Value |
+| ------------------ | --------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`    | The Ethereum address or ENS name of the follower.                     | Yes      | -             |
+| `connectedAddress` | The Ethereum address of the currently connected user.                 | Yes      | -             |
+| `list`             | The list of the user (selected list in EFP app).                      | No       | -             |
+| `showLoading`      | Whether to show a loading state while fetching follower status.       | No       | false         |
+| `className`        | Additional CSS class names to apply to the component.                 | No       | -             |
+| `props`            | Additional props for the `<div>` element containing the follower tag. | No       | -             |

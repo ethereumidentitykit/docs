@@ -1,0 +1,40 @@
+import { useProfileDetails } from '@encrypteddegen/identity-kit'
+
+# useProfileDetails
+
+The `useProfileDetails` hook fetches and manages the profile details for a given Ethereum address or ENS name, including ENS data and primary list information.
+
+### Add to your project
+
+```tsx copy
+import { useProfileDetails } from '@encrypteddegen/identity-kit'
+
+export default function ProfileComponent() {
+  const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
+    addressOrName: 'brantly.eth',
+  })
+
+  if (detailsLoading) return <div>Loading...</div> // Create your own loading states
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter               | Description                                                                      | Required | Default Value |
+| ----------------------- | -------------------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`         | Ethereum Address or ENS name to fetch profile details for.                       | Yes      | -             |
+| `list`                  | List number to fetch profile details for; overrides `addressOrName` if provided. | No       | -             |
+| `prefetchedData`        | Prefetched profile data to use initially.                                        | No       | -             |
+| `refetchPrefetchedData` | Function to refetch prefetched profile data.                                     | No       | -             |
+
+## Return Values
+
+| Return Value            | Description                                                      |
+| ----------------------- | ---------------------------------------------------------------- |
+| `ens`                   | ENS data for the profile, including name and records.            |
+| `address`               | Ethereum address associated with the profile.                    |
+| `primaryList`           | Primary list number associated with the profile.                 |
+| `detailsLoading`        | Boolean indicating if the profile details are currently loading. |
+| `refreshProfileDetails` | Function to manually refresh the profile details.                |

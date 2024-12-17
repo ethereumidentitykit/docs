@@ -1,0 +1,30 @@
+import { Avatar } from '@encrypteddegen/identity-kit'
+
+# Avatar
+
+The Avatar component displays an avatar image for a given Ethereum address or ENS name, with support for fallback images.
+
+### Add to your project
+
+```tsx copy
+import { Avatar } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <Avatar address="0x1234...abcd" name="brantly.eth" />
+}
+```
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  <Avatar address="0x1234...abcd" name="brantly.eth" style={{ width: 100, height: 100 }} />
+</div>
+
+## Parameters
+
+| Parameter  | Description                                                         | Required | Default Value                                                                                              |
+| ---------- | ------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| `address`  | The Ethereum address for the profile of the avatar.                 | Yes      | -                                                                                                          |
+| `src`      | The source URL of the avatar image.                                 | No       | `https://metadata.ens.domains/mainnet/avatar/{name}`                                                       |
+| `name`     | The ENS name of the avatar.                                         | No       | -                                                                                                          |
+| `fallback` | The fallback image to display if the avatar image cannot be loaded. | No       | [https://ethfollow.xyz/assets/art/default-avatar.svg](https://ethfollow.xyz/assets/art/default-avatar.svg) |
+| `style`    | Inline styles to apply to the avatar.                               | No       | -                                                                                                          |
+| `props`    | Additional props for the `<div>` element containing the avatar.     | No       | -                                                                                                          |

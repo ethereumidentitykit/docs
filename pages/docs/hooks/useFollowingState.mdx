@@ -1,0 +1,38 @@
+import { useFollowingState } from '@encrypteddegen/identity-kit'
+
+# useFollowingState
+
+The `useFollowingState` hook fetches and manages the following state between a given Ethereum address or ENS name and the connected user, indicating if the user follows, blocks, or mutes the address.
+
+### Add to your project
+
+```tsx copy
+import { useFollowingState } from '@encrypteddegen/identity-kit'
+
+export default function FollowingStateComponent() {
+  const { state, isLoading } = useFollowingState({
+    lookupAddressOrName: 'brantly.eth',
+    connectedAddress: '0x1234...abcd',
+  })
+
+  // Create your own loading states
+  if (isLoading) return <div>Loading...</div>
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter             | Description                                                                                | Required | Default Value |
+| --------------------- | ------------------------------------------------------------------------------------------ | -------- | ------------- |
+| `lookupAddressOrName` | Ethereum Address or ENS name to check the following state for.                             | Yes      | -             |
+| `connectedAddress`    | Ethereum address of the currently connected user.                                          | Yes      | -             |
+| `list`                | List number to check the following state for; overrides `lookupAddressOrName` if provided. | No       | -             |
+
+## Return Values
+
+| Return Value | Description                                                                        |
+| ------------ | ---------------------------------------------------------------------------------- |
+| `state`      | The following state, indicating if the user follows, blocks, or mutes the address. |
+| `isLoading`  | Boolean indicating if the following state is currently loading.                    |

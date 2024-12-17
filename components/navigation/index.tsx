@@ -11,11 +11,11 @@ const Navigation = () => {
   const { isConnected, address } = useAccount()
 
   return (
-    <div className="flex fixed top-0 left-0 right-0 h-20 z-[1000] items-center max-w-[1700px] mx-auto justify-between w-full">
+    <div className="navigation flex fixed top-0 border-b-2 border-white/30 backdrop-blur-lg bg-[#111111]/50 left-0 right-0 h-20 z-[1000] items-center max-w-[1700px] mx-auto justify-between w-full px-4 md:px-12 2xl:px-16">
       <div>
         <Image src={logo} alt="Ethereum Identity Kit" width={50} height={50} />
       </div>
-      <div className="flex items-center gap-12">
+      <div className="flex items-center gap-4 md:gap-12">
         <Link href="/docs" className="text-white/70 hover:text-white cursor-pointer transition-all text-lg font-bold">
           Docs
         </Link>

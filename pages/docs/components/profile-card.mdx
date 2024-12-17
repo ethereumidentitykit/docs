@@ -1,0 +1,52 @@
+import { ProfileCard } from '@encrypteddegen/identity-kit'
+
+# Profile Card
+
+The Profile Card component displays a user's ENS and EFP details like:
+
+- Primary List Number (EFP List)
+- Avatar
+- Header Image
+- Name
+- Description (Bio)
+- Links
+- Socials
+- Followers
+- Following
+
+### Add to your project
+
+```tsx copy
+import { ProfileCard } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <ProfileCard addressOrName="brantly.eth" />
+}
+```
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  <ProfileCard addressOrName="brantly.eth" darkMode={true} />
+</div>
+
+## Parameters
+
+| Parameter           | Description                                                                                         | Required | Default Value        |
+| ------------------- | --------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| `addressOrName`     | Ethereum Address or ENS name to fetch profile data for.                                             | Yes      | -                    |
+| `list`              | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -                    |
+| `connectedAddress`  | Address of the user connected to the app.                                                           | No       | -                    |
+| `darkMode`          | Enables dark mode styling for the profile card.                                                     | No       | false                |
+| `showFollowerState` | Shows follower state tag (e.g., follows you, blocks you, mutes you).                                | No       | -                    |
+| `onStatClick`       | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
+| `options`           | Additional options for profile data and stats. See `ProfileCardOption` type for details:            | No       | -                    |
+|                     | - `followButton`: React node for a follow button.                                                   |          |                      |
+|                     | - `nameMenu`: React node for a name menu.                                                           |          |                      |
+|                     | - `profileData`: Prefetched profile data.                                                           |          |                      |
+|                     | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |                      |
+|                     | - `refetchProfileData`: Function to refetch profile data.                                           |          |                      |
+|                     | - `statsData`: Prefetched stats data.                                                               |          |                      |
+|                     | - `prefetchedStatsLoading`: Loading state for prefetched stats data.                                |          |                      |
+|                     | - `refetchStatsData`: Function to refetch stats data.                                               |          |                      |
+| `className`         | Additional CSS class names to apply to the component.                                               | No       | -                    |
+| `style`             | Inline CSS styles to apply to the component.                                                        | No       | -                    |
+| `props`             | Additional props for the `<div>` element.                                                           | No       | -                    |

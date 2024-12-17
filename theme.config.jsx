@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import logo from '/public/logo.svg'
+import ConnectWalletButton from './components/connect-wallet-button'
 
 export default {
   title: 'Ethereum Identity Kit',
@@ -9,6 +10,7 @@ export default {
   },
   darkMode: false,
   nextThemes: {
+    themes: ['dark'],
     defaultTheme: 'dark',
     enableSystem: false,
   },
@@ -20,5 +22,17 @@ export default {
       light: 35,
     },
   },
+  sidebar: {
+    defaultMenuCollapseLevel: Infinity,
+  },
+  footer: {
+    component: <div />,
+  },
+  navbar: {
+    extraContent: <ConnectWalletButton />,
+  },
+  // navbar: {
+  //   component: <Navigation />,
+  // },
   // ... other theme options
 }

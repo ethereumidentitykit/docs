@@ -1,17 +1,18 @@
 'use client'
 
+import Link from 'next/link'
 import Image from 'next/image'
+import { useAccount } from 'wagmi'
 import React, { useState } from 'react'
 import { ProfileCard, ProfileStats, truncateAddress } from '@encrypteddegen/identity-kit'
+
+import Navigation from '../components/navigation'
 import efp from '/public/assets/efp.png'
 import ens from '/public/assets/ens.png'
 import siwe from '/public/assets/siwe.png'
 import Copy from '/public/assets/icons/copy.svg'
 import EFPLogo from '/public/assets/efp-logo.svg'
 import Check from '/public/assets/icons/check.svg'
-import Navigation from '../components/navigation'
-import Link from 'next/link'
-import { useAccount } from 'wagmi'
 import Ethereum from '/public/assets/icons/ethereum.svg'
 import ArrowDown from '/public/assets/icons/arrow-down.svg'
 

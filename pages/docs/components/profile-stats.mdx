@@ -14,7 +14,18 @@ export default function Home() {
 }
 ```
 
-<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+<a
+  className="w-full block border-[3px] rounded-md border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethid.org/?path=/docs/molecules-profile-stats--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethid.org/?path=/docs/molecules-profile-stats--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
   <ProfileStats addressOrName="brantly.eth" />
 </div>
 

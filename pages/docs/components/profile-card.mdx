@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ProfileCard } from '@encrypteddegen/identity-kit'
 
 # Profile Card
@@ -24,7 +25,18 @@ export default function Home() {
 }
 ```
 
-<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+<a
+  className="w-full block border-[3px] rounded-md border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethid.org/?path=/docs/organisms-profile-card--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethid.org/?path=/docs/organisms-profile-card--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-6 flex justify-center items-center">
   <ProfileCard addressOrName="brantly.eth" darkMode={true} />
 </div>
 

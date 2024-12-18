@@ -34,5 +34,3 @@ jobs:
 
       - name: 'Lint / Build / Test'
         uses: ethereumidentitykit/docs/.github/actions/checks@main
-        with:
-          skip-steps: 'test'

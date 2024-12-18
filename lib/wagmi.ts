@@ -10,8 +10,10 @@ import {
   safeWallet,
 } from '@rainbow-me/rainbowkit/wallets'
 import { mainnet, optimism, base } from 'wagmi/chains'
-import { type Chain, connectorsForWallets } from '@rainbow-me/rainbowkit'
 import { http, createStorage, cookieStorage, createConfig } from 'wagmi'
+import { type Chain, connectorsForWallets } from '@rainbow-me/rainbowkit'
+
+import { envConfig } from './env-config'
 import { APP_DESCRIPTION, APP_NAME, APP_URL } from '../constants'
 
 // Define the connectors for the app
@@ -33,8 +35,7 @@ const connectors = connectorsForWallets(
   ],
   {
     appName: APP_NAME,
-    // @ts-expect-error WalletConnect project ID is parsed as an environment variable
-    projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
+    projectId: envConfig.walletConnectProjectId,
     appDescription: APP_DESCRIPTION,
     appUrl: APP_URL,
     appIcon: 'https://ethfollow.xyz/logo.png',

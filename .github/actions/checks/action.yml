@@ -1,9 +1,6 @@
 name: 'Lint/Format/Build'
 description: 'lint, format, typecheck, build'
 
-env:
-  NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ vars.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID }}
-
 inputs:
   skip-steps:
     description: "Format is comma-seperated steps to skip. Example: 'build,typecheck'"

@@ -1,5 +1,5 @@
-name: 'Lint/Build/Test'
-description: 'lint, format, typecheck, build, and test'
+name: 'Lint/Format/Build'
+description: 'lint, format, typecheck, build'
 
 inputs:
   skip-steps:
@@ -29,8 +29,3 @@ runs:
       shell: bash
       if: ${{ !contains(inputs.skip-steps, 'build') }}
       run: bun run build
-
-    - name: '🧪 Test'
-      shell: bash
-      if: ${{ !contains(inputs.skip-steps, 'test') }}
-      run: bun test

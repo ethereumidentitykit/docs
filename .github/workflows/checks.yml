@@ -27,12 +27,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 'Install Dependencies'
-        uses: ethereumfollowprotocol/actions/.github/actions/setup@main
+        uses: ethereumidentitykit/docs/.github/actions/setup@main
         with:
           bun-version: 'latest'
           install-dependencies: true
 
       - name: 'Lint / Build / Test'
-        uses: ethereumfollowprotocol/actions/.github/actions/checks@main
+        uses: ethereumidentitykit/docs/.github/actions/checks@main
         with:
           skip-steps: 'test'

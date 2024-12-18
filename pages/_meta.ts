@@ -1,3 +1,10 @@
 export default {
-  docs: 'Documentation',
+  index: {
+    title: 'Home',
+    type: 'page',
+  },
+  docs: {
+    title: 'Documentation',
+    type: 'page',
+  },
 }

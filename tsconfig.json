@@ -25,5 +25,6 @@
     "tailwind.config.mjs",
     "theme.config.jsx"
   ],
+  "files": ["environment.d.ts"],
   "exclude": ["node_modules"]
 }

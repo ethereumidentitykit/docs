@@ -13,7 +13,6 @@ import { mainnet, optimism, base } from 'wagmi/chains'
 import { http, createStorage, cookieStorage, createConfig } from 'wagmi'
 import { type Chain, connectorsForWallets } from '@rainbow-me/rainbowkit'
 
-import { envConfig } from './env-config'
 import { APP_DESCRIPTION, APP_NAME, APP_URL } from '../constants'
 
 // Define the connectors for the app
@@ -35,7 +34,7 @@ const connectors = connectorsForWallets(
   ],
   {
     appName: APP_NAME,
-    projectId: envConfig.walletConnectProjectId,
+    projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
     appDescription: APP_DESCRIPTION,
     appUrl: APP_URL,
     appIcon: 'https://ethfollow.xyz/logo.png',

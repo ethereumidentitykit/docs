@@ -10,7 +10,7 @@ Ethereum Ideintity Kit allows you to easily implement Ethereum identity stack in
 Install the library using your package manager.
 
 ```sh npm2yarn
-npm install @encrypteddegen/identity-kit
+npm install ethereum-identity-kit
 ```
 
 ### Setup Query Client
@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
 Add the following to your `layout.tsx` or `_app.tsx` file:
 
 ```tsx copy
-import '@encrypteddegen/identity-kit/css'
+import 'ethereum-identity-kit/css'
 ```
 
 ### You're all set!
@@ -44,7 +44,7 @@ import '@encrypteddegen/identity-kit/css'
 Library is typed with TypeScript, which allows for autocompletion and type safety.
 
 ```tsx copy
-import { ProfileCard } from '@encrypteddegen/identity-kit'
+import { ProfileCard } from 'ethereum-identity-kit'
 
 export default function Home() {
   return <ProfileCard addressOrName="brantly.eth" />

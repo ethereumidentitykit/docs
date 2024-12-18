@@ -6,7 +6,7 @@ const withNextra = nextra({
 })
 
 export default withNextra({
-  transpilePackages: ['@encrypteddegen/identity-kit'],
+  transpilePackages: ['ethereum-identity-kit'],
   async redirects() {
     return [
       {

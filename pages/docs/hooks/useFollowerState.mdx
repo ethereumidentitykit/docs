@@ -1,4 +1,4 @@
-import { useFollowerState } from '@encrypteddegen/identity-kit'
+import { useFollowerState } from 'ethereum-identity-kit'
 
 # useFollowerState
 
@@ -7,7 +7,7 @@ The `useFollowerState` hook fetches and manages the follower state between a giv
 ### Add to your project
 
 ```tsx copy
-import { useFollowerState } from '@encrypteddegen/identity-kit'
+import { useFollowerState } from 'ethereum-identity-kit'
 
 export default function FollowerStateComponent() {
   const { followState, followerTag, isFollowerStateLoading } = useFollowerState({

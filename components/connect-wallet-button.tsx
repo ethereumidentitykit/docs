@@ -3,7 +3,7 @@
 import { useAccount } from 'wagmi'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useAccountModal } from '@rainbow-me/rainbowkit'
-import { truncateAddress } from '@encrypteddegen/identity-kit'
+import { truncateAddress } from 'ethereum-identity-kit'
 
 const ConnectWalletButton = () => {
   const { openConnectModal } = useConnectModal()

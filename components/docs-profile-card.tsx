@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { ProfileCard } from '@encrypteddegen/identity-kit'
+import { ProfileCard } from 'ethereum-identity-kit'
 import { useAccount } from 'wagmi'
 
 const DocsProfileCard = () => {

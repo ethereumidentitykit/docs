@@ -5,7 +5,7 @@ import Providers from './providers'
 import { sharedMetadata } from '../lib/metadata'
 
 import './global.css'
-import '@encrypteddegen/identity-kit/css'
+import 'ethereum-identity-kit/css'
 import '@rainbow-me/rainbowkit/styles.css'
 
 export const metadata: Metadata = sharedMetadata

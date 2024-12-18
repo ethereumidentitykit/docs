@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useAccount } from 'wagmi'
 import React, { useState } from 'react'
-import { ProfileCard, ProfileStats, truncateAddress } from '@encrypteddegen/identity-kit'
+import { ProfileCard, ProfileStats, truncateAddress } from 'ethereum-identity-kit'
 
 import efp from '/public/assets/efp.png'
 import ens from '/public/assets/ens.png'

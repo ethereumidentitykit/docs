@@ -11,7 +11,7 @@ export default withNextra({
     return [
       {
         source: '/playground',
-        destination: 'https://ethereumidentitykit.github.io/ethereum-identity-kit/',
+        destination: 'https://playground.ethid.org',
         permanent: true,
       },
     ]

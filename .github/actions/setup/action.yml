@@ -1,0 +1,25 @@
+name: 'Install Dependencies'
+description: 'setup runtimes'
+
+inputs:
+  bun-version:
+    description: 'Bun Version'
+    required: false
+    default: 'latest'
+  install-dependencies:
+    description: 'Install Dependencies'
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - name: '🐰 Set up Bun'
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.bun-version }}
+
+    - name: '📦 Install Dependencies'
+      shell: bash
+      if: ${{ inputs.install-dependencies == 'true' }}
+      run: bun install --frozen-lockfile

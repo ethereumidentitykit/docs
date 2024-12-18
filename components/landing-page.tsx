@@ -2,12 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Metadata } from 'next'
 import { useAccount } from 'wagmi'
 import React, { useState } from 'react'
 import { ProfileCard, ProfileStats, truncateAddress } from '@encrypteddegen/identity-kit'
 
-import { sharedMetadata } from '../lib/metadata'
 import efp from '/public/assets/efp.png'
 import ens from '/public/assets/ens.png'
 import siwe from '/public/assets/siwe.png'
@@ -16,8 +14,6 @@ import EFPLogo from '/public/assets/efp-logo.svg'
 import Check from '/public/assets/icons/check.svg'
 import Ethereum from '/public/assets/icons/ethereum.svg'
 import ArrowDown from '/public/assets/icons/arrow-down.svg'
-
-export const metadata: Metadata = sharedMetadata
 
 const Home = () => {
   const [copied, setCopied] = useState(false)
@@ -65,7 +61,7 @@ const Home = () => {
                 Get started
               </button>
             </Link>
-            <Link href="https://ethereumidentitykit.github.io/ethereum-identity-kit/" target="_blank">
+            <Link href="https://playground.ethid.org" target="_blank">
               <button className="text-[#111111] bg-primary hover:bg-primaryHover transition-all rounded-lg h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
                 Playground
               </button>

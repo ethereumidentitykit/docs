@@ -1,0 +1,36 @@
+name: 'Lint/Build/Test'
+description: 'lint, format, typecheck, build, and test'
+
+inputs:
+  skip-steps:
+    description: "Format is comma-seperated steps to skip. Example: 'build,typecheck'"
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: '🧹 Lint'
+      shell: bash
+      if: ${{ !contains(inputs.skip-steps, 'lint') }}
+      run: bun run lint
+
+    - name: '🧹 Format'
+      shell: bash
+      if: ${{ !contains(inputs.skip-steps, 'format') }}
+      run: bun run format
+
+    - name: '🧪 Typecheck'
+      shell: bash
+      if: ${{ !contains(inputs.skip-steps, 'typecheck') }}
+      run: bun run typecheck
+
+    - name: '🔧 Build'
+      shell: bash
+      if: ${{ !contains(inputs.skip-steps, 'build') }}
+      run: bun run build
+
+    - name: '🧪 Test'
+      shell: bash
+      if: ${{ !contains(inputs.skip-steps, 'test') }}
+      run: bun test

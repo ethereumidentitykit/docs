@@ -6,7 +6,6 @@ import { sharedMetadata } from '../lib/metadata'
 
 import './global.css'
 import 'ethereum-identity-kit/css'
-import '@rainbow-me/rainbowkit/styles.css'
 
 export const metadata: Metadata = sharedMetadata
 

@@ -5,4 +5,5 @@ export default {
   avatar: 'Avatar',
   'follower-tag': 'Follower Tag',
   'follow-button': 'Follow Button - (Coming Soon)',
+  'siwe-button': 'SIWE Button - (Coming Soon)',
 }

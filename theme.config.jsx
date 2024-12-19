@@ -43,6 +43,9 @@ export default {
   navbar: {
     extraContent: <ConnectWalletButton />,
   },
+  search: {
+    placeholder: 'Search',
+  },
   // navbar: {
   //   component: <Navigation />,
   // },

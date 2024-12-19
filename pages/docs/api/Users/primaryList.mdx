@@ -1,0 +1,25 @@
+---
+    title: Primary List
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/primary-list
+
+Get the primary list of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/users/encrypteddegen.eth/primary-list
+```
+
+```jsonc
+// sample response
+{
+  "primary_list": "1",
+}
+```

@@ -1,0 +1,46 @@
+---
+    title: List Records
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/list-records
+
+Get the list records of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/users/encrypteddegen.eth/list-records
+```
+
+```jsonc
+// sample response
+{
+  "records": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x0116acf39cf70fefc3c23c88a37e59474e8e17be",
+      "tags": null
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x021021ccee934b346160342f8d7f59f514c08c56",
+      "tags": null
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x025376e7e7f161a198fb5fc90a220a553836d11a",
+      "tags": null
+    },
+
+    ...
+  ]
+}
+```

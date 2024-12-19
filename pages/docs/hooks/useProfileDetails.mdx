@@ -11,7 +11,7 @@ import { useProfileDetails } from 'ethereum-identity-kit'
 
 export default function ProfileComponent() {
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
-    addressOrName: 'brantly.eth',
+    addressOrName: 'vitalik.eth',
   })
 
   if (detailsLoading) return <div>Loading...</div> // Create your own loading states

@@ -1,0 +1,39 @@
+---
+    title: Mutes
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /leaderboard/mutes
+
+Get leaderboard of users ranked according to count of users that they muted.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/leaderboard/mutes
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 2,
+    "address": "0xfa35730094b7e0fc1b97f55663aad15e2d2e3e29",
+    "mutes_count": "3",
+  },
+  {
+    "rank": 3,
+    "address": "0x983110309620d911731ac0932219af06091b6744",
+    "mutes_count": "2",
+  },
+  {
+    "rank": 4,
+    "address": "0x2933387ec4c9bbc4a8200cfd77db53d7bc8ebc11",
+    "mutes_count": "1",
+  },
+]
+```

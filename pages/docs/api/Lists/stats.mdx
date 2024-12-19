@@ -1,0 +1,31 @@
+---
+    title: Stats
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/stats
+
+Get stats of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `live` (bool, optional): Specifies whether to calculate stats or return cached values
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/lists/3/stats?live=true
+```
+
+```jsonc
+// sample response
+{
+  "followers_count": "115",
+  "following_count": "569",
+}
+```

@@ -1,0 +1,61 @@
+---
+    title: Search Following
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/searchFollowing
+
+Search for following of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a following address or ENS name
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/searchFollowing?term=degen
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x96053204967c30079529adddc56f6a37380205af",
+      "tags": [],
+      "ens": {
+        "name": "alphadegen.eth",
+        "avatar": "https://bafybeiaqof5u4bj57t36pt2t7egerky6epvutg7yb4suljnnjuqboymhvi.ipfs.dweb.link/af1f0c19f22c6ee0ea9a9e5f89d585df1ab8c677ef0ef7f0a448cce0fef21a71.png"
+      }
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x69207d197063c6b207ff206fdba916e1700d60fa",
+      "tags": [],
+      "ens": {
+        "name": "degenfam.eth",
+        "avatar": "https://codemakes.art/image/quasars/2631"
+      }
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x70bb434ea7b7f14709ed0dd17cc54056812cf4ad",
+      "tags": [],
+      "ens": {
+        "name": "teradegen.eth",
+        "avatar": "https://metadata.ens.domains/mainnet/avatar/teradegen.eth"
+      }
+    },
+}
+```

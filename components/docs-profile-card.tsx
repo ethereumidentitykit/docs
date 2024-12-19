@@ -9,7 +9,7 @@ const DocsProfileCard = () => {
 
   return (
     <ProfileCard
-      addressOrName={connectedAddress || 'brantly.eth'}
+      addressOrName={connectedAddress || 'vitalik.eth'}
       darkMode={true}
       connectedAddress={connectedAddress}
     />

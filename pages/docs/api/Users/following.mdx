@@ -1,0 +1,52 @@
+---
+title: Following
+description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/following
+
+Get following by Address or ENS Name
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/users/dr3a.eth/following
+```
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+- `sort` (string, optional): Specifies how the results should be sorted, possible values 'latest', 'earliest', 'followers'. If not specified, default sort is 'latest'
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x983110309620d911731ac0932219af06091b6744",
+      "tags": ["efp", "ens"],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xbdb41bff7e828e2dc2d15eb67257455db818f1dc",
+      "tags": ["efp", "ens"],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xf4212614c7fe0b3feef75057e88b2e77a7e23e83",
+      "tags": ["efp"],
+    },
+  ],
+}
+```

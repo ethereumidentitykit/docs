@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import logo from '/public/logo.svg'
-import ConnectWalletButton from './components/connect-wallet-button'
+import logo from '/public/assets/logo-no-bg.svg'
 
 export default {
   head: (
@@ -36,13 +35,10 @@ export default {
     },
   },
   sidebar: {
-    defaultMenuCollapseLevel: Infinity,
+    defaultMenuCollapseLevel: 2,
   },
   footer: {
     component: <div />,
-  },
-  navbar: {
-    extraContent: <ConnectWalletButton />,
   },
   search: {
     placeholder: 'Search',

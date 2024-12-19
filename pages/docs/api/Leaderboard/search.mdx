@@ -1,0 +1,70 @@
+---
+    title: Search
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /leaderboard/search
+
+Search for leaderboard addresses and ENS names by a specified search term.
+
+#### Query Parameters
+
+- `term` (string, optional): Specifies the string to search for in a leaderboard address or ENS name.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/leaderboard/search?term=eth
+```
+
+```jsonc
+// sample response
+{
+  "last_updated": "2024-09-18T19:11:43.210Z",
+  "results": [
+    {
+      "address": "0x983110309620d911731ac0932219af06091b6744",
+      "name": "brantly.eth",
+      "avatar": "https://euc.li/brantly.eth",
+      "mutuals_rank": "1",
+      "followers_rank": "1",
+      "following_rank": "6",
+      "blocks_rank": "7",
+      "mutuals": "293",
+      "following": "1079",
+      "followers": "366",
+      "blocks": "1",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    {
+      "address": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+      "name": "designer.eth",
+      "avatar": "https://euc.li/designer.eth",
+      "mutuals_rank": "2",
+      "followers_rank": "6",
+      "following_rank": "4",
+      "blocks_rank": "7",
+      "mutuals": "147",
+      "following": "1556",
+      "followers": "182",
+      "blocks": "1",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    {
+      "address": "0x2a59071ff48936c6838dcac425fa0df6ea5979bf",
+      "name": "mely.eth",
+      "avatar": "https://euc.li/mely.eth",
+      "mutuals_rank": "3",
+      "followers_rank": "12",
+      "following_rank": "28",
+      "blocks_rank": "7",
+      "mutuals": "124",
+      "following": "354",
+      "followers": "138",
+      "blocks": "1",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    ...
+  ]
+}
+```

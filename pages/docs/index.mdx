@@ -1,16 +1,19 @@
 import { Steps } from 'nextra/components'
 
-# Welcome to Ethereum Indetity Kit
+# Welcome to Ethereum Identity Kit
 
-Ethereum Ideintity Kit allows you to easily implement the Ethereum identity stack into your application.
+Ethereum Identity Kit allows you to easily implement the Ethereum identity stack into your application.
+
+**Ethereum Identity Kit is a React component library.** <br />
+**supprt for other frameworks coming soon.**
 
 <Steps>
 ### Install
 
 Install the library using your package manager.
 
-```sh npm2yarn
-npm install ethereum-identity-kit
+```sh npm2yarn copy
+npm install ethereum-identity-kit @tanstack/react-query
 ```
 
 ### Setup Query Client
@@ -47,16 +50,9 @@ Library is typed with TypeScript, which allows for autocompletion and type safet
 import { ProfileCard } from 'ethereum-identity-kit'
 
 export default function Home() {
-  return <ProfileCard addressOrName="brantly.eth" />
+  return <ProfileCard addressOrName="vitalik.eth" />
   // or 0x983110309620d911731ac0932219af06091b6744
 }
 ```
 
 </Steps>
-
-## Discover More
-
-Discover the hooks and components available inside the Ethereum Identity Kit.
-
-- [Hooks](/docs/hooks)
-- [Components](/docs/components)

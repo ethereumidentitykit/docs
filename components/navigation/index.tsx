@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '/public/logo.svg'
-import ConnectWalletButton from '../connect-wallet-button'
 
 const Navigation = () => {
   return (
@@ -17,7 +16,7 @@ const Navigation = () => {
           <Link href="/docs" className="text-white/70 hover:text-white cursor-pointer transition-all text-lg font-bold">
             Docs
           </Link>
-          <ConnectWalletButton />
+          {/* <ConnectWalletButton /> */}
         </div>
       </div>
     </div>

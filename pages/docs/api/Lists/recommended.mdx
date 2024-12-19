@@ -1,0 +1,53 @@
+---
+    title: Recommended
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/recommended
+
+Get recommended users for a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/lists/1/recommended
+```
+
+```jsonc
+// sample response
+{
+  "recommended": [
+    {
+      "name": "usersteen.eth",
+      "address": "0x575c8a992ec082f3650432de77c1cbbccf568200",
+      "avatar": "https://euc.li/usersteen.eth",
+      "class": "B",
+      "created_at": "2024-09-18T17:10:24.406Z"
+    },
+    {
+      "name": "furyan.eth",
+      "address": "0x02a2295d86e530045844e25582185c65925b2eb8",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/furyan.eth",
+      "class": "B",
+      "created_at": "2024-09-18T17:10:24.406Z"
+    },
+    {
+      "name": "shea.eth",
+      "address": "0x1b60a111d39b525cdd2c1669b0257cb00857b33b",
+      "avatar": "https://euc.li/shea.eth",
+      "class": "B",
+      "created_at": "2024-09-18T17:10:24.406Z"
+    },
+    ...
+  ]
+}
+```

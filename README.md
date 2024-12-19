@@ -9,7 +9,7 @@
   <a href="https://discord.com/invite/ZUyG3mSXFD"><img src="https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord" alt="discord chat" /></a>
   <a href="https://x.com/ethidkit"><img src="https://img.shields.io/twitter/follow/ethidkit?label=%40ethidkit&style=social&link=https%3A%2F%2Fx.com%2Fethidkit" alt="x account" /></a>
   <a href="https://github.com/ethereumidentitykit/identity-kit"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier" /></a>
-  <a href="https://docs.ethid.org"><img src="https://img.shields.io/badge/docs-ethid.org-blue?style=flat-square" alt="docs" /></a>
+  <a href="https://docs.ethidentitykit.com"><img src="https://img.shields.io/badge/docs-ethidentitykit.com-blue?style=flat-square" alt="docs" /></a>
 </p>
 
 <h1 align="center" style="font-size: 2.75rem; font-weight: 900;">Ethereum Identity Kit Documentation</h1>

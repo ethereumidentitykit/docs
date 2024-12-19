@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-export const metadataBaseUrl = new URL('https://ethid.org')
+export const metadataBaseUrl = new URL('https://ethidentitykit.com')
 
 export const metadataTitle = 'Ethereum Identity Kit'
 export const metadataSiteName = 'Ethereum Identity Kit'
@@ -9,7 +9,7 @@ export const metadataDescription = 'Complete your dapp with the Ethereum identit
 export const sharedMetadataIcons: Metadata['icons'] = [
   {
     rel: 'icon',
-    url: 'https://ethid.org/favicon.ico',
+    url: 'https://ethidentitykit.com/favicon.ico',
   },
 ]
 
@@ -19,8 +19,8 @@ export const sharedMetadataOpenGraph: Metadata['openGraph'] = {
   description: metadataDescription,
   locale: 'en_US',
   siteName: metadataSiteName,
-  url: 'https://ethid.org',
-  emails: ['contact@ethid.org'],
+  url: 'https://ethidentitykit.com',
+  emails: ['contact@ethidentitykit.com'],
   // images: [
   //   {
   //     url: 'https://ethfollow.xyz/assets/banner.png'
@@ -44,7 +44,7 @@ export const sharedMetadata: Metadata = {
   openGraph: sharedMetadataOpenGraph,
   authors: {
     name: 'Ethereum Identity Kit',
-    url: 'https://ethid.org',
+    url: 'https://ethidentitykit.com',
   },
   robots: {
     index: true,

@@ -11,7 +11,7 @@ export default withNextra({
     return [
       {
         source: '/playground',
-        destination: 'https://playground.ethid.org',
+        destination: 'https://playground.ethidentitykit.com',
         permanent: true,
       },
     ]

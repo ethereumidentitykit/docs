@@ -20,6 +20,7 @@ export default {
   project: {
     link: 'https://github.com/ethereumidentitykit/docs',
   },
+  docsRepositoryBase: 'https://github.com/ethereumidentitykit/docs/blob/main',
   darkMode: false,
   nextThemes: {
     themes: ['dark'],
@@ -42,17 +43,6 @@ export default {
   },
   search: {
     placeholder: 'Search',
-  },
-  toc: {
-    extraContent: (
-      <Link
-        href="https://playground.ethid.org"
-        target="_blank"
-        className="text-primary hover:text-primaryHover text-xs transition-all hover:underline"
-      >
-        Go to Playground →
-      </Link>
-    ),
   },
   // navbar: {
   //   component: <Navigation />,

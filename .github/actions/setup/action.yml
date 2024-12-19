@@ -22,4 +22,4 @@ runs:
     - name: '📦 Install Dependencies'
       shell: bash
       if: ${{ inputs.install-dependencies == 'true' }}
-      run: bun install --frozen-lockfile
+      run: bun install

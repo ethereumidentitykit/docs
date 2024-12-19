@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import logo from '/public/logo.svg'
 import ConnectWalletButton from './components/connect-wallet-button'
@@ -45,6 +46,17 @@ export default {
   },
   search: {
     placeholder: 'Search',
+  },
+  toc: {
+    extraContent: (
+      <Link
+        href="https://playground.ethid.org"
+        target="_blank"
+        className="text-primary hover:text-primaryHover text-xs transition-all hover:underline"
+      >
+        Go to Playground →
+      </Link>
+    ),
   },
   // navbar: {
   //   component: <Navigation />,

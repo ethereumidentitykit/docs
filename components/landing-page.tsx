@@ -136,9 +136,9 @@ const Home = () => {
             />
           </div>
           <div className="flex items-center flex-wrap xl:flex-nowrap justify-center xl:justify-between w-full gap-10 sm:gap-14 md:gap-20">
-            <Image src={ens} alt="ENS" width={156} height={42} className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0" />
-            <Image src={efp} alt="EFP" width={156} height={42} className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0" />
-            <Image src={siwe} alt="SIWE" width={156} height={42} className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0" />
+            <Link href="https://app.ens.domains" target="_blank"><Image src={ens} alt="ENS" width={156} height={42} className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0 transition-all duration-300 brightness-200 hover:brightness-100" /></Link>
+            <Link href="https://ethfollow.xyz" target="_blank"><Image src={efp} alt="EFP" width={156} height={42} className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0 transition-all duration-300" /></Link>
+            <Link href="https://login.xyz" target="_blank"><Image src={siwe} alt="SIWE" width={156} height={42} className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0 transition-all duration-300" /></Link>
           </div>
         </div>
       </div>

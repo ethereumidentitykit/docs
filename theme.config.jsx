@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import Image from 'next/image'
 import logo from '/public/assets/logo-no-bg.svg'
 

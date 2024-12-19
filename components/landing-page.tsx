@@ -20,13 +20,13 @@ const Home = () => {
     <main className="landing-page px-4 md:px-12 2xl:px-16 overflow-x-hidden w-full min-h-screen h-full bg-[#111111] text-white bg-repeat bg-grid-white/[0.1] relative">
       {/* Radial gradient for the container to give a faded look */}
       <div className="absolute pointer-events-none h-full inset-0 bg-[#111111] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,#111111cc_80%)]" />
-      <div className="max-w-[1440px] mx-auto items-center flex xl:flex-row flex-col justify-between z-50 gap-0 xl:gap-2 pt-4 sm:pt-8 xl:pt-28 pb-12 xl:pb-0">
+      <div className="max-w-[1440px] mx-auto items-center flex xl:flex-row flex-col justify-between z-50 gap-14 xl:gap-2 pt-14 xl:pt-28 pb-12 xl:pb-0">
         <div className="flex flex-col items-center xl:items-start xl:text-left text-center gap-4 sm:gap-8 z-50 mt-10">
           <h1 className="text-5xl xs:text-6xl sm:text-7xl xl:text-[86px] font-bold max-w-[700px] relative z-20">
             Ethereum Identity Kit
           </h1>
           <p className="text-xl xs:text-2xl sm:text-3xl md:text-3xl font-bold max-w-[700px] relative z-20">
-            Complete your dapp <br />
+            Complete your dapp <br className="hidden sm:block" />
             with the <span className="text-primary">Ethereum identity stack</span>.
           </p>
           <div
@@ -67,7 +67,7 @@ const Home = () => {
         </div>
         <div className="z-50 flex flex-col items-center xl:items-end w-full xl:w-1/2 gap-24 sm:gap-32 xl:gap-36">
           <div className="flex items-start">
-            <div className="flex flex-col items-end translate-x-6 sm:translate-x-8 translate-y-14 z-50">
+            <div className="flex flex-col items-end translate-x-0 sm:translate-x-8 translate-y-14 z-50">
               {/* <div className="px-8 py-4 translate-x-10 translate-y-2 w-fit relative rounded-xl border-[3px] text-white bg-[#333] border-[#444] font-sans">
                 <Image src={EFPLogo} alt="EFP Logo" width={42} height={42} className="absolute -left-5 -top-4" />
                 <ProfileStats addressOrName={'vitalik.eth'} />
@@ -120,10 +120,6 @@ const Home = () => {
                     <p>1</p>
                   </div>
                   <div className="flex items-center justify-between w-full">
-                    <p className="font-bold">Chain ID</p>
-                    <p>1</p>
-                  </div>
-                  <div className="flex items-center justify-between w-full">
                     <p className="font-bold">Nonce</p>
                     <p>10c534ea1f3b5</p>
                   </div>
@@ -133,10 +129,10 @@ const Home = () => {
                 </button>
               </div>
             </div>
-            <ProfileCard addressOrName="vitalik.eth" darkMode={true} style={{ border: '3px solid #444' }} />
+            <ProfileCard addressOrName="vitalik.eth" darkMode={true} style={{ border: '3px solid #444' }} className="-translate-x-12 sm:translate-x-0" />
           </div>
           <div className="flex items-center flex-wrap xl:flex-nowrap justify-center xl:justify-between w-full gap-10 sm:gap-14 md:gap-20">
-            <Link href="https://app.ens.domains" target="_blank">
+            <Link href="https://ens.domains" target="_blank">
               <Image
                 src={ens}
                 alt="ENS"

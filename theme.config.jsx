@@ -43,6 +43,12 @@ export default {
   search: {
     placeholder: 'Search',
   },
+  editLink: {
+    content: 'Edit this page on GitHub',
+  },
+  feedback: {
+    content: 'Report an issue →',
+  },
   // navbar: {
   //   component: <Navigation />,
   // },

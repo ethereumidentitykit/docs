@@ -4,8 +4,7 @@ import { Steps } from 'nextra/components'
 
 Ethereum Identity Kit allows you to easily implement the Ethereum identity stack into your application.
 
-**Ethereum Identity Kit is a React component library.** <br />
-**supprt for other frameworks coming soon.**
+> [!NOTE] **Ethereum Identity Kit is a React component library.** > **Supprt for other frameworks coming soon.**
 
 ## Getting Started
 
@@ -61,13 +60,13 @@ export default function Home() {
 
 ## Troubleshooting
 
-If you are getting the following error:
+If you are hitting the following error trying to run your project:
 
 ```
 Error: cannot use import statement outside a module
 ```
 
-Add the following to your `next.config.mjs` file:
+Make sure to transpile `ethereum-identity-kit` in your `next.config.mjs`:
 
 ```js copy
 transpilePackages: ['ethereum-identity-kit'],

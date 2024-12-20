@@ -74,10 +74,7 @@ const Home = () => {
               </div> */}
               <div className="bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-lg font-sans">
                 <button
-                  className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-lg p-4"
-                  style={{
-                    boxShadow: '3px 3px 1px 0px rgba(255, 255, 255, 0.8)',
-                  }}
+                  className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-lg p-4 [box-shadow:3px_3px_1px_0px_rgba(255,255,255,0.8)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
                 >
                   <Image
                     src={Ethereum}
@@ -124,7 +121,7 @@ const Home = () => {
                     <p>10c534ea1f3b5</p>
                   </div>
                 </div>
-                <button className="text-[#111111] bg-primary hover:bg-primaryHover transition-all rounded-lg h-[54px] font-bold text-lg w-44">
+                <button className="text-[#111111] bg-primary active:scale-95 hover:bg-primaryHover transition-all rounded-lg h-[54px] font-bold text-lg w-44">
                   Sign Message
                 </button>
               </div>

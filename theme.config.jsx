@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import XIcon from '/public/assets/icons/x.svg'
 import logo from '/public/assets/logo-no-bg.svg'
+import packageJson from './package.json'
 
 export default {
   head: (
@@ -56,13 +57,12 @@ export default {
   },
   navbar: {
     extraContent: (
-      <Link href="https://x.com/ethidkit" target="_blank">
-        <Image src={XIcon} alt="X" width={20} height={20} />
-      </Link>
+      <div className="flex items-center gap-4">
+        <Link href="https://x.com/ethidkit" target="_blank">
+          <Image src={XIcon} alt="X" width={20} height={20} />
+        </Link>
+        <p>v{packageJson.dependencies['ethereum-identity-kit']}</p>
+      </div>
     ),
   },
-  // navbar: {
-  //   component: <Navigation />,
-  // },
-  // ... other theme options
 }

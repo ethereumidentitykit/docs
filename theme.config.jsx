@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import Image from 'next/image'
+import XIcon from '/public/assets/icons/x.svg'
 import logo from '/public/assets/logo-no-bg.svg'
 
 export default {
@@ -18,6 +20,9 @@ export default {
   logo: <Image src={logo} alt="Ethereum Identity Kit" width={48} height={48} />,
   project: {
     link: 'https://github.com/ethereumidentitykit/docs',
+  },
+  chat: {
+    link: 'https://discord.com/invite/ZUyG3mSXFD',
   },
   docsRepositoryBase: 'https://github.com/ethereumidentitykit/docs/blob/main',
   darkMode: false,
@@ -48,6 +53,13 @@ export default {
   },
   feedback: {
     content: 'Report an issue →',
+  },
+  navbar: {
+    extraContent: (
+      <Link href="https://x.com/ethidkit" target="_blank">
+        <Image src={XIcon} alt="X" width={20} height={20} />
+      </Link>
+    ),
   },
   // navbar: {
   //   component: <Navigation />,

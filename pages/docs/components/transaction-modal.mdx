@@ -1,0 +1,95 @@
+import { Steps } from 'nextra/components'
+
+# Transaction Modal
+
+The Transaction Modal component allows users to initiate and manage on-chain transactions, providing a user-friendly interface for interacting with blockchain operations. Transactions are stored in local storage until they are completed.
+
+## Add to your project
+
+<Steps>
+  Before using the Transaction Modal component, ensure you have setup the [Wagmi](https://wagmi.sh/) library, Viem, [Tanstack Query](https://tanstack.com/query) client, and have wrapped your application with the TransactionProvider
+  
+  ### Install Wagmi and Viem
+  
+  ```sh npm2yarn copy
+  npm install wagmi viem@2.x @tanstack/react-query
+  ```
+  
+  ### Setup Wagmi Config
+  
+  EFP currently supports
+  
+  ```tsx copy
+  import { http, createConfig } from 'wagmi'
+  import { chains as EIK_SUPPORTED_CHAINS, transports as EIK_SUPPORTED_TRANSPORTS } from 'ethereum-identity-kit'
+  
+  export const config = createConfig({
+    chains: [
+      ...EIK_SUPPORTED_CHAINS,
+      /* add more chains here */
+    ],
+    transports: [
+      ...EIK_SUPPORTED_TRANSPORTS,
+      /* add more transports here */
+    ],
+  })
+  ```
+  
+  ### Setup Providers
+  
+  Wrap your application with the WagmiProvider and TransactionProvider
+  
+  ```tsx copy
+  /* your imports */
+  import { WagmiProvider } from 'wagmi'
+  import { config } from './wagmi-config'
+  import { TransactionProvider } from 'ethereum-identity-kit'
+  import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+  
+  const queryClient = new QueryClient()
+  
+  export default function App() {
+    return (
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <TransactionProvider>{/* other providers & components */}</TransactionProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
+    )
+  }
+  ```
+  
+  ### Add Component
+
+Modal can be added anywhere in your application, but it is recommended to add it to the root (or as close to the root as possible) of your application.
+
+```tsx copy
+import { TransactionModal } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <TransactionModal className="custom-transaction-modal" />
+}
+```
+
+</Steps>
+<a
+  className="w-full block border-[3px] rounded-md border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-transaction-modal--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-transaction-modal--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  {/* <TransactionModal className="custom-transaction-modal" /> */}
+</div>
+
+## Parameters
+
+| Parameter   | Description                                                    | Required | Default Value |
+| ----------- | -------------------------------------------------------------- | -------- | ------------- |
+| `className` | Additional CSS class names to apply to the modal.              | No       | -             |
+| `props`     | Additional props for the `<div>` element containing the modal. | No       | -             |

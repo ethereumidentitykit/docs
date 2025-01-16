@@ -1,0 +1,151 @@
+---
+title: Interpreting EFP Data
+---
+
+A valid EFP list operation has four primary components that must exist in order for it to be considered `active`.  
+
+- a valid [list storage location](/design/list-storage-location) (denoting chainId, listRecords contract address, and slot)
+
+- an [account metadata record](/design/account-metadata) specifying a tokenId as a user's primary list
+
+- a [list metadata record](/design/list-metadata) in the listRecords contract for 'user' role for the slot
+
+- a [list record](/design/list-records) with a specified slot that matches the list metadata record and the list storage location.  This list record must have been created on the list records contract and chain specified in the list storage location
+
+The user and manager roles of a list can be different, this means that the sender of a transaction that applies list operations to a list is not necessarily the same address that is displayed as the user.  
+
+![Active List Operation](/active-list-op.png)
+
+### Connecting the dots
+
+In order to validate a list operation, the data in each one of these components must match the others where specified.  
+
+#### If User Address is known:
+If the only known information is a user address, then the following steps can be take to determine the user's list, list storage location and slot
+1. Retrieve the user's primary list by querying the account metadata contract using the user address.  
+2. From the primary list, obtain the list storage location from the registry contract which includes the chainId, listRecords contract address, and slot using function getListStorageLocation(tokenId).
+3. Query the list metadata record in the listRecords contract using the slot to verify the 'user' role.
+4. Retrieve the list record from the listRecords contract using the slot and ensure it matches the list metadata record and list storage location in the registry.
+
+#### If List Id is known:
+If the only known information is a list number, then the following steps can be taken to determine the list user 
+1. Obtain the list storage location from the registry contract which includes the chainId, listRecords contract address, and slot using function getListStorageLocation(tokenId).
+2. Query the list metadata record in the listRecords contract using the slot to verify the 'user' role. While at this step we will know the user address, we do not yet know if the user role is valid without checking for the existance of a 'primary-list' record that matches this list id and the user's address.
+3. Retrieve the user's primary list by querying the account metadata contract using the user address.
+4. Retrieve the list record from the listRecords contract using the slot and ensure it matches the list metadata record and list storage location in the registry.
+
+#### If Slot is known:
+If the only known information is the slot (i.e. you're looking at a raw list operation and want to determine the list to which it applies)
+1. Query the list metadata record in the listRecords contract using the slot to find the 'user' role. While at this step we will know the user address, we do not yet know if the user role is valid without checking for the existance of a 'primary-list' record that matches this list id and the user's address.  
+2. Retrieve the user's primary list by querying the account metadata contract using the user address.
+
+
+### Interpreting an example List Operation
+A List Record specifies a slot (which is specific to a list's list storage location) and an operation which describes the action being taken and the address it relates to.  For instance the record below is a follow record for address `0x983110309620d911731ac0932219af06091b6744`
+```solidity
+{
+    slot: 38587947120907837207653958898632315929230182373855930657826753963097023554830,
+    op: 0x01010101983110309620d911731ac0932219af06091b6744
+}
+```
+
+The `op` data of this list record can be further broken down and abstracted into its constituant parts
+
+```solidity
+{
+    slot: 38587947120907837207653958898632315929230182373855930657826753963097023554830,
+    op: {
+        OpVersion: 0x01,
+        OpCode: 0x01,  // 0x01: Follow, 0x02: Unfollow, 0x03: Tag, 0x04: Untag
+        RecordVersion: 0x01,
+        RecordType: 0x01,  // 0x01: Address Record
+        RecordData: 0x983110309620d911731ac0932219af06091b6744
+    }
+}
+```
+This record only tells us the `slot` of the list that's doing the following but it tells us nothing about which account or list is doing the following.  To determine the list doing the following we need to join the slot, chain id and the address of the list records contract and construct a list storage location.  
+
+### Interpreting an example List Storage Location
+```solidity
+0x010100000000000000000000000000000000000000000000000000000000000000015289fe5dabc021d02fddf23d4a4df96f4e0f17ef5550010c08608cc567bf432829280f99b40f7717290d6313134992e4971fa50e
+```
+This list storage location can be interpreted as follows
+```solidity
+{
+    Version: 0x01,
+    Type: 0x01,  
+    Chain: 0x0000000000000000000000000000000000000000000000000000000000000001,
+    ListRecordsContract: 0x5289fe5dabc021d02fddf23d4a4df96f4e0f17ef,
+    Slot: 0x5550010c08608cc567bf432829280f99b40f7717290d6313134992e4971fa50e // 38587947120907837207653958898632315929230182373855930657826753963097023554830
+}
+```
+
+
+## Constructing State History
+
+A repository demonstrating practical application of this page that can be found here:
+
+[https://github.com/ethereumfollowprotocol/onchain](https://github.com/ethereumfollowprotocol/onchain)
+
+
+### Interacting with Contracts directly
+
+Calling the Account Metadata contract to fetch a user's primary list:
+```ts
+    import { evmClients } from '#/clients/viem/index'
+    import { efpAccountMetadataAbi } from '#/abi/generated/index'
+    import { env } from '#/env.ts'
+
+    const tokenId = await evmClients['8453']().readContract({
+        address: env.ACCOUNT_METADATA,
+        abi: efpAccountMetadataAbi,
+        functionName: 'getValue',
+        args: [ env.USER_ADDRESS as `0x${string}`, 'primary-list' ]
+    })
+```
+
+Calling the List Registry contract to fetch a list's list storage location:
+```ts
+    import { evmClients } from '#/clients/viem/index'
+    import { efpListRegistryAbi } from '#/abi/generated/index'
+    import { env } from '#/env.ts'
+
+    const listStorageLocation = await evmClients['8453']().readContract({
+        address: env.REGISTRY,
+        abi: efpListRegistryAbi,
+        functionName: 'getListStorageLocation',
+        args: [ BigInt(tokenId) ]
+    })
+```
+
+Calling the List Records contract to fetch a list slot's 'user' role:
+```ts
+    import { evmClients } from '#/clients/viem/index'
+    import { efpListRecordsAbi } from '#/abi/generated/index'
+    import { env } from '#/env.ts'
+
+    const listUser = await evmClients[parsedLsl.chainId.toString() as keyof typeof evmClients]().readContract({
+        address: parsedLsl.listRecordsContract as `0x${string}`,
+        abi: efpListRecordsAbi,
+        functionName: 'getListUser',
+        args: [ parsedLsl.slot ]
+    })
+```
+
+### Relevant Contract Events
+
+Basic EFP state for any user's followers and followings can also be constructed by 'listening' for specific events emitted by the EFP contracts and then interpreting them according to the protocol rules as stated above
+
+EFPListRecords (Base, Optimism and Ethereum Mainnet)
+
+`ListOp(uint256 indexed slot, bytes op)`
+
+`UpdateListMetadata(uint256 indexed slot, string key, bytes value)`
+
+EFPAccountMetadata (Base)
+
+`UpdateAccountMetadata(address indexed addr, string key, bytes value)`
+
+EFPListRegistry (Base)
+
+`UpdateListStorageLocation(uint256 indexed tokenId, bytes listStorageLocation)`

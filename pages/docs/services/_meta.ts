@@ -1,4 +1,5 @@
 export default {
-  'efp-silo': 'EFP Silo',
-  'interpreting-state': 'Interpreting EFP Data'
+    'interpreting-state': 'Interpreting EFP Data',
+    'infra': 'EFP Infrastructure',
+    'efp-silo': 'EFP Railway Template'
 }

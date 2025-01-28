@@ -1,1 +1,46 @@
-# Follow Button (Coming Soon)
+# Follow Button
+
+The Follow Button component allows users to follow, unfollow, mute, or block another Ethereum address or ENS name.
+
+## Prerequisites
+
+Before using the Follow Button component, ensure you have setup the [Transaction Modal](./transaction-modal.mdx) component.
+
+## Add to your project
+
+```tsx copy
+import { FollowButton } from '@encrypteddegen/identity-kit'
+
+export default function Home() {
+  return <FollowButton lookupAddress="0x1234...abcd" connectedAddress="0xabcd...1234" />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-md border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-follow-button-transaction-modal--follow-button-by-address"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {
+      ' - https://playground.ethidentitykit.com/?path=/docs/molecules-follow-button-transaction-modal--follow-button-by-address'
+    }
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+  {/* <FollowButton lookupAddress="0x1234...abcd" connectedAddress="0xabcd...1234" /> */}
+</div>
+
+## Parameters
+
+| Parameter             | Description                                                     | Required | Default Value |
+| --------------------- | --------------------------------------------------------------- | -------- | ------------- |
+| `lookupAddress`       | The Ethereum address or ENS name to follow or unfollow.         | Yes      | -             |
+| `connectedAddress`    | The Ethereum address of the currently connected user.           | No       | -             |
+| `disabled`            | Whether the button is disabled.                                 | No       | false         |
+| `onDisconnectedClick` | Function to call when the button is clicked while disconnected. | No       | -             |
+| `className`           | Additional CSS class names to apply to the button.              | No       | -             |
+| `customLoader`        | Custom loader component to display while loading.               | No       | -             |
+| `props`               | Additional props for the `<button>` element.                    | No       | -             |

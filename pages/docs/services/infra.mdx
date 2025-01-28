@@ -1,0 +1,62 @@
+---
+title: EFP Infrastructure
+---
+
+## EFP Infrastructure
+
+![EFP Backend Design](/backend-design.png)
+
+The backend architecture for EFP is comprised of the following components
+
+- [Database](https://hub.docker.com/_/postgres) (Postgres)
+- [PGBouncer](https://hub.docker.com/r/pgbouncer/pgbouncer) (a connection pooler for Postgres)
+- [EFP Indexers](https://github.com/ethereumfollowprotocol/indexer) for Base, Optimism and Ethereum Mainnet
+- [EFP Services](https://github.com/ethereumfollowprotocol/services) (updates ens data, leaderboard, cache, mutuals counts)
+- [EFP API](https://github.com/ethereumfollowprotocol/api) (Can be deployed as a cloudflare worker)
+- [Ens Worker](https://github.com/v3xlabs/enstate) (Can be deployed as a cloudflare worker)
+- [Redis](https://hub.docker.com/_/redis) Cache for the API and ENS Worker
+
+All of these components can be set up separately, whether locally or using external hosts.  The quickest way to stand up all of the backend infrastructure is to use the [EFP-Silo Railway template](https://railway.app/template/pDGEZm?referralCode=AavWEU)
+
+### Indexers
+
+EFP has Registry and AccountMetadata contracts deployed on Base and ListRecords contracts deployed on three chains: Base, Optimism And Ethereum Mainnet. To capture and store all EFP data we run three separate instances of our indexer service, one for each chain.
+
+### Database
+
+EFP Data is stored in a Postgres Database, queries and schema can be found in the [EFP Indexer Repo](https://github.com/ethereumfollowprotocol/indexer/tree/develop/db)
+
+### Connection Pooling
+
+PgBouncer is used to handle connection pooling for the database.  This improves availability for the database over the api by sharing client connections, saving overhead on connection/reconnection.
+
+### Data Services
+
+The services module handles several jobs that run on intervals:
+- Building the list of all addresses in the EFP database
+- Building the Leaderboard Ranking
+- Tracking Mutual follows
+- Shuffling the recommended accounts list 
+- Refreshing ENS metadata
+- Building a list of accounts with recent activity
+
+
+### API
+EFP core team provides a public API endpoint at [`https://api.ethfollow.xyz/api/v1`](https://api.ethfollow.xyz/api/v1).
+
+If you are a developer, you are free to use this endpoint to retrieve EFP data.
+
+#### Commonly used endpoints
+
+- [User Stats](https://docs.ethfollow.xyz/api/users/stats/): the follower and following counts of a particular user
+- [User Following](https://docs.ethfollow.xyz/api/users/following/): list of the accounts a particular user follows
+- [User Followers](https://docs.ethfollow.xyz/api/users/followers/): list of the accounts that follow a particular user
+- [User ENS data](https://docs.ethfollow.xyz/api/users/ens/): the ENS data for a particular user
+
+### ENS Worker
+The API uses V3X Labs' [enstate](https://github.com/v3xlabs/enstate) to provide ENS data.  This service is available at https://ens.ethfollow.xyz. EFP is happy to provide use of this endpoint to the community but please do not abuse it.  
+
+Anyone can deploy this ENS worker repository to cloudflare or host their own instance locally. Read more about deploying [here](https://github.com/v3xlabs/enstate?tab=readme-ov-file#-cloudflare-workers).  
+
+### Redis Cache
+The Redis cache is used by both the API and the ENS Worker to cache responses for faster future retrieval.

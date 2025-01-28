@@ -1,0 +1,109 @@
+---
+title: EFP Railway Template
+---
+
+## EFP Railway Template
+
+Deploying the EFP-Silo template on Railway will set up all of the aforementioned components with default parameters set. 
+
+[EFP-Silo](https://railway.app/template/pDGEZm?referralCode=AavWEU) Click the link or the button below.
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.app/template/pDGEZm?referralCode=AavWEU)
+
+### Configuration
+
+The template will run with default values for most of the components but you will need to set primary and secondary rpc urls for all three chains that EFP is using (Base, Optimism and Ethereum Mainnet).  Find the section for 'Indexer-8453', click the 'configure' button and set the rpc endpoint for all six fields accordingly. These can be Alchemy or Infura urls or local ethereum nodes if you're testing at home.
+
+![Indexer Params](/set-rpc.png)
+
+Once all sections display 'Ready to be deployed' the 'Deploy' button at the bottom will be unlocked and you can click it to proceed.
+
+![Deployed Environment](/deployed-environment.png)
+
+### Syncing
+It should take under an hour to sync all EFP data, you can still call the api but the data will not be up to date.
+
+
+### Setup API URL
+Enable public networking for the API by clicking on the API section, then the 'Settings' tab and scrolling down to 'Networking'.  Click 'Generate Domain' to have Railway create a random public link for you.  Or click 'Custom Domain' to use an already existing domain name.
+
+![Setup API URL](/setup-api-url.png)
+
+Once your link is generated, you can use it to call your API the same way you would call the official EFP API. Just swap in your new link in the place of 'api.ethfollow.xyz' 
+
+`api.ethfollow.xyz/api/v1/stats` -> `my-generated-api-link.railway.app/api/v1/stats`
+
+![Generate Link](/api-link-generated.png)
+
+![Call Endpoint](/api-link-call.png)
+
+### Setup ENS Worker
+The API uses V3X Labs' [enstate](https://github.com/v3xlabs/enstate) to provide ENS data.  This service is available at https://ens.ethfollow.xyz. EFP is happy to provide use of this endpoint to the community but please do not abuse it.  
+
+Enable public networking for the ENS Worker by clicking on the 'enstate' section, then the 'Settings' tab and scrolling down to 'Networking'.  Click 'Generate Domain' to have Railway create a random public link for you.  Or click 'Custom Domain' to use an already existing domain name.
+
+Once public networking is enabled for the API and ENS Worker, they should be redeployed as well as the service manager. Do this by clicking into each of the services, and clicking the three dot menu on the right hand side of your currently deployed instance. Click 'Redeploy' on the menu.
+
+![Three dot menu](/redeploy.png)
+
+
+
+### Service Manager
+The services module handles several jobs that run on intervals:
+- Building the list of all addresses in the EFP database
+- Building the Leaderboard Ranking
+- Tracking Mutual follows
+- Shuffling the recommended accounts list 
+- Refreshing ENS metadata
+- Building a list of accounts with recent activity
+
+The intervals for running these jobs can be adjusted to suit your needs.  Additionally the accounts that appear in the recommended follows can be customized by forking the services repo and editing '/src/services/recommended/lists.ts'.  Once you've edited the file, go to the 'Settings' tab on the services module and update the 'Source Repo' to point to your forked github repository.
+
+![Services Settings](/services-settings-repo.png)
+
+
+### ENV variables
+Most of the Environment variables are set appropriately and should not be changed unless you know exactly what you're doing.  However there are a few settings than can be customized to fit your needs.  As a general rule, if they're not listed below then you probably should leave them as is.
+
+#### Indexers (Indexer-base, Indexer-op, Indexer-eth)
+| Variable Name                   | Description                                                             |
+|---------------------------------|-------------------------------------------------------------------------|
+| `PRIMARY_RPC_BASE`              | Primary RPC URL for Base chain                                          |
+| `PRIMARY_RPC_OP`                | Primary RPC URL for Optimism chain                                      |
+| `PRIMARY_RPC_ETH`               | Primary RPC URL for Ethereum mainnet                                    |
+| `SECONDARY_RPC_BASE`            | Fallback RPC URL for Base chain                                         |
+| `SECONDARY_RPC_OP`              | Fallback RPC URL for Optimism chain                                     |
+| `SECONDARY_RPC_ETH`             | Fallback RPC URL for Ethereum mainnet                                   |
+| `RECOVER_HISTORY`               | Boolean Flag to start the indexer in recovery mode                      |
+| `START_BLOCK`                   | Block number to start recovering history from, if in recovery mode      |
+| `BATCH_SIZE`                    | Number of events to batch before uploading                              |
+| `CHAIN_ID`                      | Chain id (8453, 10 or 1)                                                |
+| `RECORDS_ONLY`                  | Boolean flag that specifies whether the indexer should listen for just ListOps |
+
+#### Service Manager
+| Variable Name                   | Description                                              |
+|---------------------------------|----------------------------------------------------------|
+| `ENS_API_URL`                   | URL for the ENS worker to use for lookups                |
+| `EFP_CACHE_INTERVAL`            | Interval (in milliseconds) to update address cache       |
+| `EFP_MUTUALS_INTERVAL`          | Interval (in milliseconds) to update mutual follows      |
+| `LEADERBOARD_RANKING_INTERVAL`  | Interval (in milliseconds) to update leaderboard         |
+| `RECENT_FOLLOWS_INTERVAL`       | Interval (in milliseconds) to update recent activity     |
+| `RECOMMENDED_INTERVAL`          | Interval (in milliseconds) to update recommended accts   |
+| `ENSMETADATA_INTERVAL`          | Interval (in milliseconds) to update ENS metadata cache  |
+| `HEARTBEAT_INTERVAL`            | Interval (in milliseconds) to call heartbeat URL         |
+
+#### API
+| Variable Name                   | Description                                             |
+|---------------------------------|---------------------------------------------------------|
+| `CACHE_TTL`                     | Amount of seconds to wait before expiring cache record  |
+| `POAP_API_TOKEN`                | Auth token for POAP.xyz api                             |
+| `ENS_API_URL`                   | URL for the ENS worker to use for lookups                                      |
+
+#### PgBouncer
+(see [PgBouncer Docs](https://www.pgbouncer.org/config.html) for more information)
+| Variable Name                     | Description                                         |
+|-----------------------------------|-----------------------------------------------------|
+| `PGBOUNCER_DEFAULT_POOL_SIZE`     | Amount of connections per pool                      |
+| `PGBOUNCER_MAX_CLIENT_CONN`       | Maximum number of client connections                |
+| `PGBOUNCER_POOL_MODE`             | 'Session' or 'Transaction'                          |
+| `PGBOUNCER_QUERY_TIMEOUT`         | Amount of seconds to wait before dropping query     |

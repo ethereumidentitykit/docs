@@ -23,7 +23,7 @@ export default {
     link: 'https://github.com/ethereumidentitykit/docs',
   },
   chat: {
-    link: 'https://discord.gg/bY39vkKk',
+    link: 'https://discord.com/invite/ZUyG3mSXFD',
   },
   docsRepositoryBase: 'https://github.com/ethereumidentitykit/docs/blob/main',
   darkMode: false,

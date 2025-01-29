@@ -4,6 +4,8 @@ import { CommonFollowers } from 'ethereum-identity-kit'
 
 The Common Followers component displays a list of common followers between two Ethereum addresses or ENS names, showing their avatars and names.
 
+Common followers is a relation of addresses that `connectedAddress` follows and `lookupAddress` is being followed by.
+
 ### Add to your project
 
 ```tsx copy
@@ -36,7 +38,8 @@ export default function Home() {
 
 | Parameter          | Description                                                               | Required | Default Value |
 | ------------------ | ------------------------------------------------------------------------- | -------- | ------------- |
-| `connectedAddress` | The Ethereum address of the currently connected user.                     | Yes      | -             |
 | `lookupAddress`    | The Ethereum address or ENS name to find common followers with.           | Yes      | -             |
+| `connectedAddress` | The Ethereum address of the currently connected user.                     | No       | -             |
+| `displayEmpty`     | Whether to display the component when there are no common followers.      | No       | true          |
 | `className`        | Additional CSS class names to apply to the component.                     | No       | -             |
 | `props`            | Additional props for the `<div>` element containing the common followers. | No       | -             |

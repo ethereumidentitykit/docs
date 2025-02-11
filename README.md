@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://ethfollow.xyz" target="_blank" rel="noopener noreferrer">
+  <a href="https://efp.app" target="_blank" rel="noopener noreferrer">
     <img width="275" src="./public/logo.png" alt="Ethereum Identity Kit logo" />
   </a>
 </p>

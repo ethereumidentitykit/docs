@@ -21,11 +21,6 @@ export const sharedMetadataOpenGraph: Metadata['openGraph'] = {
   siteName: metadataSiteName,
   url: 'https://ethidentitykit.com',
   emails: ['contact@ethidentitykit.com'],
-  // images: [
-  //   {
-  //     url: 'https://ethfollow.xyz/assets/banner.png'
-  //   }
-  // ]
 }
 
 export const sharedMetadataTwitter: Metadata['twitter'] = {

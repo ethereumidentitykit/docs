@@ -138,7 +138,7 @@ const Home = () => {
                 className="sm:w-[156px] w-[120px] grayscale hover:grayscale-0 transition-all duration-300 brightness-200 hover:brightness-100"
               />
             </Link>
-            <Link href="https://ethfollow.xyz" target="_blank">
+            <Link href="https://efp.app" target="_blank">
               <Image
                 src={efp}
                 alt="EFP"

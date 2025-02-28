@@ -1,0 +1,38 @@
+---
+    title: All
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /leaderboard/all
+Get addresses and ens names of all leaderboard records. 
+
+
+#### Sample Query
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/all
+```
+
+```jsonc
+// sample response
+{
+  "results": [
+    {
+      "address": "0x0ad4bb5ceabfdb5020b01e6dc5e32526eb10e5d1",
+      "name": "0xsailormoon.eth"
+    },
+    {
+      "address": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+      "name": "designer.eth"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "name": "garypalmerjr.eth"
+    },
+    {
+      "address": "0x14546125429faac7f3aa78da1807069692ec7464",
+      "name": "grado.eth"
+    },
+    ...
+  ]
+}
+```

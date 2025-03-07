@@ -3,4 +3,6 @@ export default {
   useProfileStats: 'useProfileStats',
   useFollowingState: 'useFollowingState',
   useFollowerState: 'useFollowerState',
+  useFollowButton: 'useFollowButton',
+  useTransactions: 'useTransactions',
 }

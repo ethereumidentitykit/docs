@@ -1,0 +1,52 @@
+# Transaction Modal
+
+The Transaction Modal component allows users to initiate and manage on-chain transactions. It provides a user interface for viewing transaction details, selecting chains, and managing transaction batches.
+
+### Add to your project
+
+```tsx copy
+import TransactionModal from 'identity-kit/src/components/transaction-modal/TransactionModal'
+
+export default function App() {
+  return <TransactionModal darkMode={true} className="custom-transaction-modal" />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/organisms-follow-button-transaction-modal--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-follow-button-transaction-modal--component-docs'}
+  </span>
+</a>
+
+## Parameters
+
+| Parameter   | Description                                                   | Required | Default Value |
+| ----------- | ------------------------------------------------------------- | -------- | ------------- |
+| `darkMode`  | Enables dark mode styling for the transaction modal.          | No       | false         |
+| `className` | Additional CSS class names to apply to the transaction modal. | No       | -             |
+| `props`     | Additional HTML div element props.                            | No       | -             |
+
+### Features
+
+- **Batch Transactions**: Allows users to manage multiple transactions at once.
+- **Chain Selector**: Provides an interface for selecting the blockchain network.
+- **Transaction Summary**: Displays a summary of all pending transactions.
+- **Transaction Flow**: Nice transaction flow with good visual feedback and animations.
+
+### Styling
+
+The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.
+
+### Notes
+
+- The modal is controlled by the `txModalOpen` state from the [`useTransactions`](https://ethidentitykit.com/docs/hooks/useTransactions) context, which determines its visibility.
+- Ensure that the `TransactionModal` is wrapped within a [TransactionProvider](https://ethidentitykit.com/docs/components/transaction-provider) that supplies the necessary transaction context.
+
+Transaction Provider parameters:
+
+- batchTransactions (boolean) - Whether to batch transactions or not (default: false). This will allow yout to either execute transactions one by one or batch them together and have a cart-like experience.

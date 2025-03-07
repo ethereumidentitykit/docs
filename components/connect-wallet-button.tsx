@@ -13,14 +13,14 @@
 //   return isConnected ? (
 //     <button
 //       onClick={() => openAccountModal?.()}
-//       className="text-white border-white hover:bg-white hover:text-[#222222] transition-all border-2 rounded-lg h-[48px] font-bold w-44"
+//       className="text-white border-white hover:bg-white hover:text-[#222222] transition-all border-2 rounded-sm h-[48px] font-bold w-44"
 //     >
 //       {truncateAddress(address)}
 //     </button>
 //   ) : (
 //     <button
 //       onClick={() => openConnectModal?.()}
-//       className="text-white border-white hover:bg-white hover:text-[#222222] transition-all border-2 rounded-lg h-[48px] font-bold w-44"
+//       className="text-white border-white hover:bg-white hover:text-[#222222] transition-all border-2 rounded-sm h-[48px] font-bold w-44"
 //     >
 //       Connect Wallet
 //     </button>

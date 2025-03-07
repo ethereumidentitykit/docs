@@ -1,0 +1,84 @@
+# Transaction Provider
+
+The Transaction Provider component supplies the necessary context for managing on-chain transactions within the application. It provides state management and utility functions for handling transaction modals, batching, and more.
+
+## Add to your project
+
+```tsx copy
+import { TransactionProvider } from 'identity-kit/src/context/transactionContext'
+
+export default function App() {
+  return <TransactionProvider>{/* Your application components */}</TransactionProvider>
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/organisms-follow-button-transaction-modal--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-follow-button-transaction-modal--component-docs'}
+  </span>
+</a>
+
+## Parameters
+
+| Parameter           | Description                                                            | Required | Default Value |
+| ------------------- | ---------------------------------------------------------------------- | -------- | ------------- |
+| `batchTransactions` | Enables batching of transactions if set to true.                       | No       | false         |
+| `children`          | The child components that will have access to the transaction context. | Yes      | -             |
+
+## Usage
+
+The `TransactionProvider` component is used to wrap parts of your application that require access to transaction-related state and functions. It manages the state of transaction modals, pending transactions, and provides utility functions for transaction operations.
+
+### Features
+
+- **Transaction Modal Management**: Controls the visibility and state of transaction modals.
+- **Batch Transactions**: Supports batching of multiple transactions for a streamlined user experience.
+- **Transaction State Management**: Provides state and functions for managing pending transactions, current transaction index, and more.
+
+### Batching Transactions
+
+If you set `batchTransactions` to `true`, the `TransactionProvider` will manage a batch of transactions. This will allow you to either execute transactions one by one or batch them together and have a cart-like experience.
+
+```tsx
+<TransactionProvider batchTransactions={true}>
+  <YourComponent />
+</TransactionProvider>
+```
+
+You will have to provide a button in your application that will open the transaction modal.
+
+```tsx
+import { useTransactions } from 'ethereum-identity-kit'
+
+/* ... your code ... */
+const { setTxModalOpen } = useTransactions()
+
+<button onClick={() => setTxModalOpen(true)}>Open Transaction Modal</button>
+/* ... your code ... */
+```
+
+### Context Values
+
+The `TransactionProvider` supplies the following context values:
+
+- `txModalOpen`: Boolean indicating if the transaction modal is open.
+- `batchTransactions`: Boolean indicating if transactions are batched.
+- `pendingTxs`: Array of pending transactions.
+- `currentTxIndex`: Index of the current transaction being processed.
+- `selectedChainId`: ID of the selected blockchain network.
+- `addTransactions`: Function to add new transactions.
+- `resetTransactions`: Function to reset all transactions.
+- `goToNextTransaction`: Function to proceed to the next transaction.
+- `lists`: The EFP lists of the connected user.
+- `listsLoading`: Boolean indicating if the EFP lists of the connected user are loading.
+
+### Notes
+
+- Ensure that the `TransactionProvider` wraps components that need access to transaction context.
+- The `batchTransactions` parameter determines if transactions should be batched.
+- Use the `useTransactions` hook to access the context values and functions within your components.

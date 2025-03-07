@@ -30,7 +30,7 @@ const Home = () => {
             with the <span className="text-primary">Ethereum identity stack</span>.
           </p>
           <div
-            className="flex items-center gap-2 sm:gap-6 px-4 sm:px-8 py-3 sm:py-5 w-fit rounded-md sm:rounded-lg group bg-[#444444]/80 cursor-pointer"
+            className="flex items-center gap-2 sm:gap-6 px-4 sm:px-8 py-3 sm:py-5 w-fit rounded-sm sm:rounded-sm group bg-[#444444]/80 cursor-pointer"
             onClick={() => {
               setCopied(true)
               navigator.clipboard.writeText('npm install ethereum-identity-kit')
@@ -54,12 +54,12 @@ const Home = () => {
           </div>
           <div className="flex items-center gap-4">
             <Link href="/docs">
-              <button className="text-white border-white hover:bg-white hover:text-[#111111] transition-all border-2 rounded-lg h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
+              <button className="text-white border-white hover:bg-white hover:text-[#111111] transition-all border-2 rounded-sm h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
                 Get started
               </button>
             </Link>
             <Link href="https://playground.ethidentitykit.com" target="_blank">
-              <button className="text-[#111111] bg-primary hover:bg-primaryHover transition-all rounded-lg h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
+              <button className="text-[#111111] bg-primary hover:bg-primaryHover transition-all rounded-sm h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
                 Playground
               </button>
             </Link>
@@ -72,9 +72,9 @@ const Home = () => {
                 <Image src={EFPLogo} alt="EFP Logo" width={42} height={42} className="absolute -left-5 -top-4" />
                 <ProfileStats addressOrName={'vitalik.eth'} />
               </div> */}
-              <div className="bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-lg font-sans">
+              <div className="bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
                 <button
-                  className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-lg p-4 [box-shadow:3px_3px_1px_0px_rgba(255,255,255,0.8)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
+                  className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-sm p-4 [box-shadow:3px_3px_1px_0px_rgba(255,255,255,0.8)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
                 >
                   <Image
                     src={Ethereum}
@@ -85,7 +85,7 @@ const Home = () => {
                   />
                   <p className=" font-bold text-xl">Sign in with Ethereum</p>
                 </button>
-                {/* <div className="bg-[#222] p-4 w-full flex text-sm font-medium rounded-lg flex-col gap-4">
+                {/* <div className="bg-[#222] p-4 w-full flex text-sm font-medium rounded-sm flex-col gap-4">
                   <div className="flex items-center justify-between w-full">
                     <p className="font-bold">Request From</p>
                     <p>https://example.com</p>
@@ -95,7 +95,7 @@ const Home = () => {
                     <p>vitalik.eth</p>
                   </div>
                 </div> */}
-                <div className="bg-[#222] p-4 w-full flex text-sm font-medium rounded-lg flex-col gap-4">
+                <div className="bg-[#222] p-4 w-full flex text-sm font-medium rounded-sm flex-col gap-4">
                   <div className="flex items-center justify-between w-full">
                     <p className="font-bold">Message</p>
                     <Image src={ArrowDown} alt="Arrow Down" width={12} height={12} className="-translate-y-0.5" />
@@ -121,7 +121,7 @@ const Home = () => {
                     <p>10c534ea1f3b5</p>
                   </div>
                 </div>
-                <button className="text-[#111111] bg-primary active:scale-95 hover:bg-primaryHover transition-all rounded-lg h-[54px] font-bold text-lg w-44">
+                <button className="text-[#111111] bg-primary active:scale-95 hover:bg-primaryHover transition-all rounded-sm h-[54px] font-bold text-lg w-44">
                   Sign Message
                 </button>
               </div>

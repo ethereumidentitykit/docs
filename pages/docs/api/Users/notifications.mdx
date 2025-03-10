@@ -1,0 +1,193 @@
+---
+title: Notifications
+description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/notifications
+
+Get incoming actions received from other users by Address or ENS Name
+
+
+#### Path Parameters
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+- `opcode` (number, optional): Specifies the type of operation to return [1 for follow, 2 for un-follow, 3 for tag, 4 for un-tag, 0 for any]  
+- `interval` (string, optional): Specifies the time range of notifications to return [hour, day, week, month, all].
+- `start` (number, optional): Specifies the starting timestamp to begin the interval, default value is now. [unix timestamp ex. 1741159543] 
+
+- `tag` (string, optional): Specifies a single tag string, of which each account in the response should have at least one.
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Default Values
+
+A request to this endpoint with no query parameters specified will default to:
+- opcode = all 
+- interval = week
+- start = (current timestamp of now)
+- tag = ""
+- limit = 10
+- offset = 0
+
+Take care not to request tags joined with incorrect opcodes i.e. requests with a tag specified but opcode = 2 will not return data
+
+
+#### Sample Query: No params set
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications
+```
+
+```jsonc
+// sample response 
+{
+  "summary": {
+    "interval": "168:00:00(hrs)",
+    "opcode": "all",
+    "total": 10,
+    "total_follows": 9,
+    "total_unfollows": 0,
+    "total_tags": 1,
+    "total_untags": 0
+  },
+  "notifications": [
+    {
+      "address": "0x8004f955c7ed19b465f1f30ad7d04c6d2edc4e81",
+      "name": "jackflash.eth",
+      "avatar": "https://euc.li/jackflash.eth",
+      "token_id": "25556",
+      "action": "tag",
+      "opcode": 3,
+      "op": "0x01030101c9c3a4337a1bba75d0860a1a81f7b990dc607334646576",
+      "tag": "dev",
+      "updated_at": "2024-12-04T04:07:55.948Z"
+    },
+    {
+      "address": "0xce89b39a2c5d66040093df8013f02d1f0a124200",
+      "name": "nomamkin.eth",
+      "avatar": "https://ens.xyz/nomamkin.eth",
+      "token_id": "28502",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T12:15:42.656Z"
+    },
+    {
+      "address": "0x69a00fafe7e935fde9ecb5c53f23e0e409a33e12",
+      "name": "myavocado.eth",
+      "avatar": "https://euc.li/myavocado.eth",
+      "token_id": "28491",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T11:28:45.493Z"
+    },
+    ...
+  ]
+}
+```
+#### Sample Query: Follows in last week
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications?opcode=1&interval=week
+```
+```jsonc
+// sample response 
+{
+  "summary": {
+    "interval": "168:00:00(hrs)",
+    "opcode": "1",
+    "total": 10,
+    "total_follows": 10,
+    "total_unfollows": 0,
+    "total_tags": 0,
+    "total_untags": 0
+  },
+  "notifications": [
+    {
+      "address": "0xce89b39a2c5d66040093df8013f02d1f0a124200",
+      "name": "nomamkin.eth",
+      "avatar": "https://ens.xyz/nomamkin.eth",
+      "token_id": "28502",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T12:15:42.656Z"
+    },
+    {
+      "address": "0x69a00fafe7e935fde9ecb5c53f23e0e409a33e12",
+      "name": "myavocado.eth",
+      "avatar": "https://euc.li/myavocado.eth",
+      "token_id": "28491",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T11:28:45.493Z"
+    },
+    {
+      "address": "0x11a0cbe3548636d02506e945c77b17c5d3fd5fd5",
+      "name": "senior01.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/senior01.eth",
+      "token_id": "31911",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T11:22:00.378Z"
+    },
+    ...
+  ]
+}
+```
+
+#### Sample Query: All cases where tag is 'top8'
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications?interval=all&tag=top8
+```
+
+```jsonc
+// sample response 
+{
+  "summary": {
+    "interval": "999:00:00(hrs)",
+    "opcode": "all",
+    "total": 4,
+    "total_follows": 0,
+    "total_unfollows": 0,
+    "total_tags": 4,
+    "total_untags": 0
+  },
+  "notifications": [
+    {
+      "address": "0x2e711004fef4751b62aeb3608d722d22ce536d84",
+      "name": "10bitcoin.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/10bitcoin.eth",
+      "token_id": "30340",
+      "action": "tag",
+      "opcode": 3,
+      "op": "0x01030101c9c3a4337a1bba75d0860a1a81f7b990dc607334746f7038",
+      "tag": "top8",
+      "updated_at": "2024-11-22T07:30:15.626Z"
+    },
+    {
+      "address": "0x9a4c6ec8af626ae0c214c3bdd14ac56be15aaefd",
+      "name": "lagovskiiigor.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/lagovskiiigor.eth",
+      "token_id": "30054",
+      "action": "tag",
+      "opcode": 3,
+      "op": "0x01030101c9c3a4337a1bba75d0860a1a81f7b990dc607334746f7038",
+      "tag": "top8",
+      "updated_at": "2024-11-21T06:01:02.407Z"
+    },
+    ...
+  ]
+}
+```

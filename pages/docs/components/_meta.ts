@@ -5,6 +5,8 @@ export default {
   avatar: 'Avatar',
   'follower-tag': 'Follower Tag',
   'common-followers': 'Common Followers',
-  'follow-button': 'Follow Button - (Coming Soon)',
+  'follow-button': 'Follow Button',
+  'transaction-modal': 'Transaction Modal',
+  'transaction-provider': 'Transaction Provider',
   'siwe-button': 'SIWE Button - (Coming Soon)',
 }

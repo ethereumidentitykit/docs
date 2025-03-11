@@ -1,0 +1,55 @@
+# useFollowButton
+
+The `useFollowButton` hook manages the state and actions for a follow button component. It determines the current follow state between a `lookupAddress` and a `connectedAddress`, and provides functions to handle follow, unfollow, block, and mute actions.
+
+### Add to your project
+
+```tsx copy
+import { useFollowButton } from 'ethereum-identity-kit'
+
+export default function FollowButtonComponent() {
+  const { buttonText, buttonState, handleAction, isLoading, disableHover, setDisableHover } = useFollowButton({
+    lookupAddress: '0x1234...abcd',
+    connectedAddress: '0xabcd...1234',
+  })
+
+  // Create your own loading states
+  if (isLoading) return <div>Loading...</div>
+
+  return (
+    <button
+      className={`follow-button ${disableHover ? 'no-hover' : ''}`}
+      onClick={handleAction}
+      onMouseEnter={() => setDisableHover(false)}
+    >
+      {buttonText}
+    </button>
+  )
+}
+```
+
+## Parameters
+
+| Parameter          | Description                                                               | Required | Default Value |
+| ------------------ | ------------------------------------------------------------------------- | -------- | ------------- |
+| `lookupAddress`    | Ethereum address to manage the follow state for.                          | Yes      | -             |
+| `connectedAddress` | Ethereum address of the currently connected user.                         | No       | -             |
+| `selectedList`     | List number to manage the follow state for; defaults to the primary list. | No       | -             |
+
+## Return Values
+
+| Return Value      | Description                                                                                  |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| `buttonText`      | The text to display on the follow button, indicating the current or pending follow state.    |
+| `buttonState`     | The current state of the button, such as 'Follow', 'Following', 'Blocked', etc.              |
+| `handleAction`    | Function to handle the button click action, updating the follow state accordingly.           |
+| `isLoading`       | Boolean indicating if the follow state is currently loading.                                 |
+| `pendingState`    | The pending state of the follow action, if any (e.g., 'Pending Following', 'Pending Block'). |
+| `disableHover`    | Boolean indicating if hover effects should be disabled. (it is disabled after a click)       |
+| `setDisableHover` | Function to set the `disableHover` state.                                                    |
+
+### Notes
+
+- Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.
+- The `handleAction` function manages the follow, unfollow, block, and mute actions based on the current state.
+- The `disableHover` state can be used to control hover effects on the button during certain actions as the state is set to true every time the button is clicked.

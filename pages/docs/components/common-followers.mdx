@@ -9,7 +9,7 @@ Common followers is a relation of addresses that `connectedAddress` follows and 
 ### Add to your project
 
 ```tsx copy
-import { CommonFollowers } from '@encrypteddegen/identity-kit'
+import { CommonFollowers } from 'ethereum-identity-kit'
 
 export default function Home() {
   return <CommonFollowers connectedAddress="0x1234...abcd" lookupAddress="0xabcd...1234" />
@@ -17,7 +17,7 @@ export default function Home() {
 ```
 
 <a
-  className="w-full block border-[3px] rounded-md border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
   href="https://playground.ethidentitykit.com/?path=/docs/molecules-common-followers--component-docs"
   target="_blank"
 >
@@ -27,7 +27,7 @@ export default function Home() {
   </span>
 </a>
 
-<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-8 flex justify-center items-center">
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex justify-center items-center">
   <CommonFollowers
     connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3"
     lookupAddress="0x983110309620d911731ac0932219af06091b6744"

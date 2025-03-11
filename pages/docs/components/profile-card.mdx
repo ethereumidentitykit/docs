@@ -27,7 +27,7 @@ export default function Home() {
 ```
 
 <a
-  className="w-full block border-[3px] rounded-md border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
   href="https://playground.ethidentitykit.com/?path=/docs/organisms-profile-card--component-docs"
   target="_blank"
 >
@@ -37,8 +37,12 @@ export default function Home() {
   </span>
 </a>
 
-<div className="w-full bg-[#222] border-[3px] rounded-md border-[#444] p-8 mt-6 flex justify-center items-center">
-  <ProfileCard addressOrName="vitalik.eth" darkMode={true} />
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-6 flex justify-center items-center">
+  <ProfileCard
+    addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50"
+    darkMode={true}
+    style={{ paddingBottom: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }}
+  />
 </div>
 
 ## Parameters

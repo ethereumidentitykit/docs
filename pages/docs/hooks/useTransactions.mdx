@@ -1,0 +1,327 @@
+# useTransactions
+
+The `useTransactions` hook provides access to the transaction context, allowing components to manage and interact with on-chain transactions. It offers state management and utility functions for handling transaction modals, batching, and more.
+
+### Add to your project
+
+```tsx copy
+import { useTransactions } from 'ethereum-identity-kit'
+
+export default function TransactionComponent() {
+  const {
+    txModalOpen,
+    setTxModalOpen,
+    pendingTxs,
+    addTransactions,
+    goToNextTransaction,
+    resetTransactions,
+    isCheckoutFinished,
+  } = useTransactions()
+
+  // Example usage
+  if (txModalOpen) {
+    return <div>Transaction Modal is Open</div>
+  }
+
+  return <button onClick={() => setTxModalOpen(true)}>Open Transaction Modal</button>
+}
+```
+
+## Return Values
+
+| Return Value               | Description                                                    |
+| -------------------------- | -------------------------------------------------------------- |
+| `txModalOpen`              | Boolean indicating if the transaction modal is open.           |
+| `setTxModalOpen`           | Function to set the `txModalOpen` state.                       |
+| `pendingTxs`               | Array of pending transactions.                                 |
+| `addTransactions`          | Function to add new transactions (any transaction).            |
+| `goToNextTransaction`      | Function to proceed to the next transaction.                   |
+| `resetTransactions`        | Function to reset all transactions.                            |
+| `isCheckoutFinished`       | Boolean indicating if the checkout process is finished.        |
+| `selectedChainId`          | ID of the selected chain for EFP list transactions.            |
+| `setSelectedChainId`       | Function to set the `selectedChainId`.                         |
+| `currentTxIndex`           | Index of the current transaction being processed.              |
+| `setCurrentTxIndex`        | Function to set the `currentTxIndex`.                          |
+| `lists`                    | EFP lists of the connected user.                               |
+| `listsLoading`             | Boolean indicating if the lists are loading.                   |
+| `addListOpsTransaction`    | Function to add a list operations transaction.                 |
+| `removeTransactions`       | Function to remove transactions by their IDs.                  |
+| `removeListOpsTransaction` | Function to remove list operations transactions by their data. |
+| `selectedList`             | Currently selected list.                                       |
+| `setSelectedList`          | Function to set the `selectedList`.                            |
+| `nonce`                    | Nonce for the current transaction.                             |
+| `setIsCheckoutFinished`    | Function to set the `isCheckoutFinished` state.                |
+
+### `txModalOpen`
+
+**Description**:  
+A boolean indicating whether the transaction modal is currently open.
+
+**Example**:
+
+```tsx
+const { txModalOpen, setTxModalOpen } = useTransactions()
+
+// Open the transaction modal
+setTxModalOpen(true)
+```
+
+### `setTxModalOpen`
+
+**Description**:  
+A function to set the `txModalOpen` state, controlling the visibility of the transaction modal.
+
+**Example**:
+
+```tsx
+setTxModalOpen(false) // Closes the transaction modal
+```
+
+### `pendingTxs`
+
+**Description**:  
+An array of pending transactions that are queued for processing.
+
+**Example**:
+
+```tsx
+const { pendingTxs } = useTransactions()
+console.log(pendingTxs) // Logs the list of pending transactions
+```
+
+### `addTransactions`
+
+**Description**:  
+A function to add new transactions to the pending transactions list. You can add any transaction in the following format.
+
+**Example**:
+
+```tsx
+const txs = [
+  {
+    id: 'tx1',
+    title: 'Transaction', // Title of the transaction to be displayed in the modal
+    description: 'This transaction will do something', // Description of the transaction to be displayed in the modal
+    address: '0x123', // Contract address
+    abi: contractAbi, // ABI of the contract
+    chainId: 1, // Chain ID
+    functionName: 'function', // Function name
+    args: [arg1, arg2], // Arguments to be passed to the function
+  },
+  // ...
+]
+
+addTransactions(txs)
+```
+
+### `goToNextTransaction`
+
+**Description**:  
+A function to proceed to the next transaction in the queue.
+
+**Example**:
+
+```tsx
+goToNextTransaction() // Moves to the next transaction
+```
+
+### `resetTransactions`
+
+**Description**:  
+A function to reset all transactions, optionally keeping the modal open.
+
+**Example**:
+
+```tsx
+resetTransactions() // Resets all transactions and closes the modal
+resetTransactions(true) // Resets all transactions but keeps the modal open
+```
+
+### `isCheckoutFinished`
+
+**Description**:  
+A boolean indicating if the checkout process is complete.
+
+**Example**:
+
+```tsx
+const { isCheckoutFinished } = useTransactions()
+if (isCheckoutFinished) {
+  console.log('Checkout is complete')
+}
+```
+
+### `selectedChainId`
+
+**Description**:  
+The ID of the selected blockchain network for transactions.
+
+**Example**:
+
+```tsx
+const { selectedChainId, setSelectedChainId } = useTransactions()
+setSelectedChainId(1) // Sets the selected chain to Ethereum Mainnet
+```
+
+### `setSelectedChainId`
+
+**Description**:  
+A function to set the `selectedChainId`.
+
+**Example**:
+
+```tsx
+setSelectedChainId(137) // Sets the selected chain to Polygon
+```
+
+### `currentTxIndex`
+
+**Description**:  
+The index of the current transaction being processed.
+
+**Example**:
+
+```tsx
+const { currentTxIndex } = useTransactions()
+console.log(`Current transaction index: ${currentTxIndex}`)
+```
+
+### `setCurrentTxIndex`
+
+**Description**:  
+A function to set the `currentTxIndex`.
+
+**Example**:
+
+```tsx
+setCurrentTxIndex(2) // Sets the current transaction index to 2
+```
+
+### `lists`
+
+**Description**:  
+The EFP lists associated with the connected user.
+
+**Example**:
+
+```tsx
+const { lists } = useTransactions()
+console.log(lists) // Logs the user's EFP lists
+```
+
+### `listsLoading`
+
+**Description**:  
+A boolean indicating if the lists are currently loading.
+
+**Example**:
+
+```tsx
+const { listsLoading } = useTransactions()
+if (listsLoading) {
+  console.log('Lists are loading...')
+}
+```
+
+### `addListOpsTransaction`
+
+**Description**:  
+A function to add a list operations transaction. This is handled by the Follow Button component, however you can use it to add a list operations transaction manually.
+
+**Example**:
+
+```tsx
+import { useTransactions } from 'ethereum-identity-kit'
+
+const { addListOpsTransaction } = useTransactions()
+
+addListOpsTransaction({ id: 'listOp1', ... });
+```
+
+### `removeTransactions`
+
+**Description**:  
+A function to remove transactions by their IDs.
+
+**Example**:
+
+```tsx
+removeTransactions(['tx1', 'tx2'])
+```
+
+### `removeListOpsTransaction`
+
+**Description**:  
+A function to remove list operations transactions by their data.
+
+**Example**:
+
+```tsx
+removeListOpsTransaction(['0x123', '0x456'])
+```
+
+### `selectedList`
+
+**Description**:  
+The currently selected list for operations.
+
+**Example**:
+
+```tsx
+const { selectedList, setSelectedList } = useTransactions()
+setSelectedList('myList')
+```
+
+### `setSelectedList`
+
+**Description**:  
+A function to set the `selectedList`.
+
+**Example**:
+
+```tsx
+setSelectedList('newList')
+```
+
+### `nonce`
+
+**Description**:  
+The nonce for the current transaction.
+
+**Example**:
+
+```tsx
+const { nonce } = useTransactions()
+console.log(`Current nonce: ${nonce}`)
+```
+
+### `setIsCheckoutFinished`
+
+**Description**:  
+A function to set the `isCheckoutFinished` state.
+
+**Example**:
+
+```tsx
+setIsCheckoutFinished(true) // Marks the checkout as finished
+```
+
+### `followingAddressesToFetchFresh`
+
+**Description**:  
+An array of addresses that need fresh data fetching.
+
+**Example**:
+
+```tsx
+const { followingAddressesToFetchFresh } = useTransactions()
+console.log(followingAddressesToFetchFresh) // Logs addresses to fetch fresh data for
+```
+
+### Notes
+
+You can use all of the returned values to create your own custom transaction modal, however the hook is mostly used to manage the Ethereum Identity Kit [transaction modal](https://ethidentitykit.com/docs/components/transaction-modal) and the transaction state.
+
+- Ensure that the `useTransactions` hook is used within a `TransactionProvider` to access the transaction context.
+- The `txModalOpen` state controls the visibility of the transaction modal.
+- Use the provided functions to manage transactions, such as adding, removing, and resetting them.

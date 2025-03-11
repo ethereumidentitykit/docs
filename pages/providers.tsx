@@ -35,7 +35,7 @@ const connectors = connectorsForWallets(
   ],
   {
     appName: 'Ethereum Identity Kit - Docs',
-    projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
+    projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || 'e726b061ac854a69790d01fa66c76401',
     appDescription: 'Ethereum Identity Kit - Docs',
     appUrl: 'https://docs.ethidentitykit.com',
     appIcon: 'https://ethidentitykit.com/logo.png',

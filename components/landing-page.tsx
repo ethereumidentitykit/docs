@@ -12,6 +12,7 @@ import Copy from '/public/assets/icons/copy.svg'
 import Check from '/public/assets/icons/check.svg'
 import Ethereum from '/public/assets/icons/ethereum.svg'
 import ArrowDown from '/public/assets/icons/arrow-down.svg'
+import FollowButton from './follow-button'
 
 const Home = () => {
   const [copied, setCopied] = useState(false)
@@ -126,7 +127,9 @@ const Home = () => {
                 </button>
               </div>
             </div>
-            <ProfileCard addressOrName="vitalik.eth" darkMode={true} style={{ border: '3px solid #444' }} className="-translate-x-12 sm:translate-x-0" />
+            <ProfileCard addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50" darkMode={true} style={{ paddingBottom: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }} className="-translate-x-12 sm:translate-x-0 z-50" options={{
+              followButton: <FollowButton lookupAddress='0xd63c2582b071f41090e89d975f738e87e7b8da50' />
+            }} />
           </div>
           <div className="flex items-center flex-wrap xl:flex-nowrap justify-center xl:justify-between w-full gap-10 sm:gap-14 md:gap-20">
             <Link href="https://ens.domains" target="_blank">

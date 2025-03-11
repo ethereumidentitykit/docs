@@ -1,3 +1,6 @@
+import FollowButton from '../../../components/follow-button'
+import ConnectWalletButton from '../../../components/connect-wallet-button'
+
 # Follow Button
 
 The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
@@ -20,14 +23,24 @@ export default function App() {
 
 <a
   className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
-  href="https://playground.ethidentitykit.com/?path=/docs/organisms-follow-button-transaction-modal--component-docs"
+  href="https://playground.ethidentitykit.com/?path=/story/organisms-follow-button-transaction-modal--follow-button-single-tx"
   target="_blank"
 >
   <span className="text-primary">Try it out!</span>
   <span className="text-gray-400">
-    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-follow-button-transaction-modal--component-docs'}
+    {
+      ' - https://playground.ethidentitykit.com/?path=/story/organisms-follow-button-transaction-modal--follow-button-single-tx'
+    }
   </span>
 </a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ConnectWalletButton />
+  <div className="text-sm text-gray-400 mb-4">
+    Follow button for vitalik.eth - 0xd8da6bf26964af9d7eed9e03e53415d37aa96045
+  </div>
+  <FollowButton lookupAddress="0xd8da6bf26964af9d7eed9e03e53415d37aa96045" />
+</div>
 
 ## Parameters
 

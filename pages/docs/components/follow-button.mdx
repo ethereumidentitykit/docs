@@ -1,3 +1,4 @@
+import { Steps } from 'nextra/components'
 import FollowButton from '../../../components/follow-button'
 import ConnectWalletButton from '../../../components/connect-wallet-button'
 
@@ -7,10 +8,34 @@ The Follow Button component allows users to manage their social connection with 
 
 ### Add to your project
 
+<Steps>
+### Add Transaction Modal component
+
+Follow button will work with the Transaction Modal component to handle the transaction flow, therefore you need to add the Transaction Modal component to your project.
+Make sure to add the Transaction Provider to your project as well.
+For all the other providers take a look at the [setup](https://ethidentitykit.com/docs#setup) documentation.
+
+```tsx copy
+import { TransactionProvider, TransactionModal } from 'ethereum-identity-kit'
+
+export default function App() {
+  return (
+    // Other Providers
+    <TransactionProvider>
+      <TransactionModal />
+    </TransactionProvider>
+  )
+}
+```
+
+### Add Follow Button component
+
+Add the follow button wherever you wish, give it the `lookupAddress` and `connectedAddress` props, and you are good to go.
+
 ```tsx copy
 import FollowButton from 'ethereum-identity-kit'
 
-export default function App() {
+export default function YourComponent() {
   return (
     <FollowButton
       lookupAddress="0x123..."
@@ -20,6 +45,8 @@ export default function App() {
   )
 }
 ```
+
+</Steps>
 
 <a
   className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"

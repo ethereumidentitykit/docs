@@ -59,7 +59,7 @@ const Home = () => {
                 Get started
               </button>
             </Link>
-            <Link href="https://playground.ethidentitykit.com" target="_blank">
+            <Link href="https://playground.ethidentitykit.com/?path=/docs/organisms-profile-card--component-docs" target="_blank">
               <button className="text-[#111111] bg-primary hover:bg-primaryHover transition-all rounded-sm h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
                 Playground
               </button>

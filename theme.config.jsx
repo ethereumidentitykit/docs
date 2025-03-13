@@ -41,7 +41,7 @@ export default {
     },
   },
   sidebar: {
-    defaultMenuCollapseLevel: 2,
+    defaultMenuCollapseLevel: 1,
   },
   footer: {
     component: <div />,

@@ -3,5 +3,6 @@ export default {
   components: 'Components',
   hooks: 'React Hooks',
   api: 'API',
-  services: 'Services'
+  services: 'Services',
+  'media-kit': 'Media Kit',
 }

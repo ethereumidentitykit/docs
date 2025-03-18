@@ -114,6 +114,71 @@ const txs = [
 addTransactions(txs)
 ```
 
+### `addListOpsTransaction`
+
+**Description**:  
+A function to add a list operations to pending transactions. This is handled by the Follow Button component, however you can use it to add a list operations transaction manually.
+
+**Example**:
+
+```tsx
+import { 
+  useTransactions,
+  listOpAddListRecord,
+  listOpRemoveListRecord,
+  listOpAddTag,
+  listOpRemoveTag,
+} from 'ethereum-identity-kit'
+
+const { addListOpsTransaction } = useTransactions()
+
+const listOps = []
+listOps.push(listOpAddListRecord('0x1234...')) // Add a list record - follow
+listOps.push(listOpRemoveListRecord('0x1234...')) // Remove a list record - unfollow
+listOps.push(listOpAddTag('0x1234...', 'myTag')) // Add a tag 
+listOps.push(listOpRemoveTag('0x1234...', 'myTag')) // Remove a tag 
+
+addListOpsTransaction(listOps);
+```
+
+### `removeTransactions`
+
+**Description**:  
+A function to remove transactions by their IDs.
+
+**Example**:
+
+```tsx
+removeTransactions(['tx1', 'tx2'])
+```
+
+### `removeListOpsTransaction`
+
+**Description**:  
+A function to remove list operations transactions by their data.
+
+**Example**:
+
+```tsx
+import { 
+  useTransactions,
+  listOpAddListRecord,
+  listOpRemoveListRecord,
+  listOpAddTag,
+  listOpRemoveTag,
+} from 'ethereum-identity-kit'
+
+const { removeListOpsTransaction } = useTransactions()
+
+const listOpsData = []
+listOpsData.push(listOpAddListRecord('0x1234...').data) // Add a list record - follow
+listOpsData.push(listOpRemoveListRecord('0x1234...').data) // Remove a list record - unfollow
+listOpsData.push(listOpAddTag('0x1234...', 'myTag').data) // Add a tag 
+listOpsData.push(listOpRemoveTag('0x1234...', 'myTag').data) // Remove a tag 
+
+removeListOpsTransaction(listOpsData)
+```
+
 ### `goToNextTransaction`
 
 **Description**:  
@@ -221,43 +286,6 @@ const { listsLoading } = useTransactions()
 if (listsLoading) {
   console.log('Lists are loading...')
 }
-```
-
-### `addListOpsTransaction`
-
-**Description**:  
-A function to add a list operations transaction. This is handled by the Follow Button component, however you can use it to add a list operations transaction manually.
-
-**Example**:
-
-```tsx
-import { useTransactions } from 'ethereum-identity-kit'
-
-const { addListOpsTransaction } = useTransactions()
-
-addListOpsTransaction({ id: 'listOp1', ... });
-```
-
-### `removeTransactions`
-
-**Description**:  
-A function to remove transactions by their IDs.
-
-**Example**:
-
-```tsx
-removeTransactions(['tx1', 'tx2'])
-```
-
-### `removeListOpsTransaction`
-
-**Description**:  
-A function to remove list operations transactions by their data.
-
-**Example**:
-
-```tsx
-removeListOpsTransaction(['0x123', '0x456'])
 ```
 
 ### `selectedList`

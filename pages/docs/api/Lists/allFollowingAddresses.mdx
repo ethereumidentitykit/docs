@@ -4,20 +4,16 @@
 ---
 
 #### /lists/\:token_id/allFollowingAddresses
-
-Get all accounts in list format, that are being followed (including blocked and muted) by a user by their EFP list id.
+Get all accounts in list format, that are being followed (including blocked and muted) by a user by their EFP list id. 
 
 #### Path Parameters
-
 - `token_id` (string): The EFP List of the account
 
 #### Query Parameters
-
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
 
 #### Sample Query
-
-```sh copy
+```sh
 curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowingAddresses
 ```
 

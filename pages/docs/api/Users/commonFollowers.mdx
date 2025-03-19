@@ -5,19 +5,16 @@ description: Ethereum Follow Protocol API v1
 
 ### /users/\:addressOrENS/commonFollowers
 
-Get common followers that are shared by two accounts
+Get common followers that are shared by two accounts 
 
 #### Path Parameters
-
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
-
-- `leader` (address, required): Specifies the account whose followers should be compared
+- `leader` (address, required): Specifies the account whose followers should be compared 
 
 #### Sample Query
-
-```sh copy
+```sh
 curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/commonFollowers?leader=0x0312567d78ff0c9ce0bd62a250df5c6474c71334
 ```
 

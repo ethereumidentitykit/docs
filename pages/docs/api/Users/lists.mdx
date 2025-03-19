@@ -4,20 +4,16 @@
 ---
 
 ### /users/\:addressOrENS/lists
-
-Get the lists of a user by their address or ENS name.
+Get the lists of a user by their address or ENS name. 
 
 #### Path Parameters
-
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
-
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
 
 #### Sample Query
-
-```sh copy
+```sh
 curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/lists
 ```
 
@@ -25,6 +21,9 @@ curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/lists
 // sample response
 {
   "primary_list": "4",
-  "lists": ["4", "107"],
+  "lists": [
+    "4",
+    "107"
+  ]
 }
 ```

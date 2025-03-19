@@ -1,0 +1,59 @@
+---
+    title: Poap Badges
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/badges
+Get EFP POAPs of a user by their address or ENS name. 
+
+#### Path Parameters
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/badges
+```
+
+```jsonc
+// sample response
+{
+  "poaps": [
+    {
+      "eventId": "177709",
+      "participated": true,
+      "collection": {
+        "event": {
+          "id": 177709,
+          "fancy_id": "efp-beta-tester-2024",
+          "name": "EFP Beta Tester",
+          "event_url": "https://ethfollow.xyz",
+          "image_url": "https://assets.poap.xyz/335d8e5a-920f-4c62-aa41-d8745f350a26.png",
+          "country": "",
+          "city": "",
+          "description": "Thank you for helping us test EFP on testnet before our mainnet launch! You are truly an OG. 🤝",
+          "year": 2024,
+          "start_date": "06-Sep-2024",
+          "end_date": "21-Sep-2024",
+          "expiry_date": "21-Sep-2025"
+        },
+        "tokenId": "7189762",
+        "owner": "0xC9C3A4337a1bba75D0860A1A81f7B990dc607334"
+      }
+    },
+    {
+      "eventId": "178064",
+      "participated": false,
+      "collection": null
+    },
+    {
+      "eventId": "178065",
+      "participated": false,
+      "collection": null
+    }
+    ...
+  ]
+}
+```

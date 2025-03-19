@@ -1,0 +1,50 @@
+---
+title: Latest Followers
+description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/latestFollowers
+
+Get a user's latest followers by Address or ENS Name
+
+#### Path Parameters
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+```sh
+curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/latestFollowers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "address": "0x9bfd90ab010c63e85453f3e40be4e3106ccf895c",
+      "efp_list_nft_token_id": "3413",
+      "updated_at": "2024-10-29T16:13:15.040Z"
+    },
+    {
+      "address": "0x2e11e3b40ca0c4aba93a2cd7c9046394b8dd7501",
+      "efp_list_nft_token_id": "26124",
+      "updated_at": "2024-10-28T15:26:19.215Z"
+    },
+    {
+      "address": "0xfdacb11c3b6703bc5525b650bd231046b3f878cd",
+      "efp_list_nft_token_id": "26123",
+      "updated_at": "2024-10-28T15:24:07.275Z"
+    },
+    {
+      "address": "0x22d10dd07ad572f6d53a70a4093e2d8761a3e650",
+      "efp_list_nft_token_id": "26110",
+      "updated_at": "2024-10-28T12:53:02.481Z"
+    },
+    ...
+  ]
+}
+```

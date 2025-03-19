@@ -4,21 +4,17 @@
 ---
 
 #### /lists/\:token_id/\:addressOrENS/followerState
-
-Get the follower state between a given list and a given user.
+Get the follower state between a given list and a given user. 
 
 #### Path Parameters
-
 - `token_id` (string): The EFP List of the account
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
-
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
 
 #### Sample Query
-
-```sh copy
+```sh
 curl https://api.ethfollow.xyz/api/v1/lists/3/encrypteddegen.eth/followerState
 ```
 
@@ -30,7 +26,7 @@ curl https://api.ethfollow.xyz/api/v1/lists/3/encrypteddegen.eth/followerState
   "state": {
     "follow": true,
     "block": false,
-    "mute": false,
-  },
+    "mute": false
+  }
 }
 ```

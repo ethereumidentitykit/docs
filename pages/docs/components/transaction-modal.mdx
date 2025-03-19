@@ -5,7 +5,7 @@ import ConnectWalletButton from '../../../components/connect-wallet-button'
 
 The Transaction Modal component allows users to initiate and manage on-chain transactions. It provides a user interface for viewing transaction details, selecting chains, and managing transaction batches.
 
-### Add to your project
+## Add to your project
 
 ```tsx copy
 import TransactionModal from 'identity-kit/src/components/transaction-modal/TransactionModal'
@@ -35,6 +35,17 @@ export default function App() {
     only if you submit a transaction. Pressing the follow button will open the transaction modal.
   </div>
   <FollowButton lookupAddress="0xd8da6bf26964af9d7eed9e03e53415d37aa96045" />
+</div>
+
+### First time user flow
+
+<div className="flex flex-row flex-wrap gap-4">
+  <img src="/assets/transaction/select-chain.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/listops-initiate.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/listops-done.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/mint-in-progress.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/indexing.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/finished.png" className="dark h-auto" width="400" height="auto" />
 </div>
 
 ## Parameters

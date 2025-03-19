@@ -4,21 +4,18 @@
 ---
 
 #### /lists/\:token_id/recommended
-
-Get recommended users for a user by their EFP list id.
+Get recommended users for a user by their EFP list id. 
 
 #### Path Parameters
-
 - `token_id` (string): The EFP List of the account
 
 #### Query Parameters
-
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
 - `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
 
-#### Sample Query
 
-```sh copy
+#### Sample Query
+```sh
 curl https://api.ethfollow.xyz/api/v1/lists/1/recommended
 ```
 

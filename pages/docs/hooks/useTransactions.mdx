@@ -122,7 +122,7 @@ A function to add a list operations to pending transactions. This is handled by 
 **Example**:
 
 ```tsx
-import { 
+import {
   useTransactions,
   listOpAddListRecord,
   listOpRemoveListRecord,
@@ -135,10 +135,10 @@ const { addListOpsTransaction } = useTransactions()
 const listOps = []
 listOps.push(listOpAddListRecord('0x1234...')) // Add a list record - follow
 listOps.push(listOpRemoveListRecord('0x1234...')) // Remove a list record - unfollow
-listOps.push(listOpAddTag('0x1234...', 'myTag')) // Add a tag 
-listOps.push(listOpRemoveTag('0x1234...', 'myTag')) // Remove a tag 
+listOps.push(listOpAddTag('0x1234...', 'myTag')) // Add a tag
+listOps.push(listOpRemoveTag('0x1234...', 'myTag')) // Remove a tag
 
-addListOpsTransaction(listOps);
+addListOpsTransaction(listOps)
 ```
 
 ### `removeTransactions`
@@ -160,7 +160,7 @@ A function to remove list operations transactions by their data.
 **Example**:
 
 ```tsx
-import { 
+import {
   useTransactions,
   listOpAddListRecord,
   listOpRemoveListRecord,
@@ -173,8 +173,8 @@ const { removeListOpsTransaction } = useTransactions()
 const listOpsData = []
 listOpsData.push(listOpAddListRecord('0x1234...').data) // Add a list record - follow
 listOpsData.push(listOpRemoveListRecord('0x1234...').data) // Remove a list record - unfollow
-listOpsData.push(listOpAddTag('0x1234...', 'myTag').data) // Add a tag 
-listOpsData.push(listOpRemoveTag('0x1234...', 'myTag').data) // Remove a tag 
+listOpsData.push(listOpAddTag('0x1234...', 'myTag').data) // Add a tag
+listOpsData.push(listOpRemoveTag('0x1234...', 'myTag').data) // Remove a tag
 
 removeListOpsTransaction(listOpsData)
 ```

@@ -4,18 +4,21 @@
 ---
 
 ### /users/\:addressOrENS/searchFollowers
-Search for followers of a user by their address or ENS name. 
+
+Search for followers of a user by their address or ENS name.
 
 #### Path Parameters
+
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
+
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
 - `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
 - `term` (string, optional): Specifies the string to search for in a followers address or ENS name
 
-
 #### Sample Query
+
 ```sh
 curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/searchFollowers?term=brant
 ```
@@ -29,13 +32,13 @@ curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/searchFollowers?term=bra
       "address": "0x983110309620d911731ac0932219af06091b6744",
       "ens": {
         "name": "brantly.eth",
-        "avatar": "https://euc.li/brantly.eth"
+        "avatar": "https://euc.li/brantly.eth",
       },
       "tags": [],
       "is_following": true,
       "is_blocked": false,
-      "is_muted": false
-    }
-  ]
+      "is_muted": false,
+    },
+  ],
 }
 ```

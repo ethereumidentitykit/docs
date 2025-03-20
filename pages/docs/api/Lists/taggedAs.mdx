@@ -4,12 +4,15 @@
 ---
 
 #### /lists/\:token_id/taggedAs
-Get the tags that are applied to a user by their EFP list id. 
+
+Get the tags that are applied to a user by their EFP list id.
 
 #### Path Parameters
+
 - `token_id` (string): The EFP List of the account
 
 #### Sample Query
+
 ```sh
 curl https://api.ethfollow.xyz/api/v1/lists/41/taggedAs
 ```
@@ -18,53 +21,50 @@ curl https://api.ethfollow.xyz/api/v1/lists/41/taggedAs
 // sample response
 {
   "token_id": "41",
-  "tags": [
-    "top8",
-    "block"
-  ],
+  "tags": ["top8", "block"],
   "tagCounts": [
     {
       "tag": "top8",
-      "count": 7
+      "count": 7,
     },
     {
       "tag": "block",
-      "count": 1
-    }
+      "count": 1,
+    },
   ],
   "taggedAddresses": [
     {
       "address": "0xf9a24785cab3ed0921c41fb84dedfea935a4ad1b",
-      "tag": "top8"
+      "tag": "top8",
     },
     {
       "address": "0x8eddf5431f5b31933bfbd8111d54fc6e9456e6c1",
-      "tag": "top8"
+      "tag": "top8",
     },
     {
       "address": "0x8b24b1686832757e2f6d640e11e88e7f0064594a",
-      "tag": "top8"
+      "tag": "top8",
     },
     {
       "address": "0x60377ec355857c2d06d1ce28555f624257344b0d",
-      "tag": "top8"
+      "tag": "top8",
     },
     {
       "address": "0xfa1afc4534fc9f80a552e61dd04cd8a172c821a6",
-      "tag": "top8"
+      "tag": "top8",
     },
     {
       "address": "0xc808ffa16d6773d6a9109b1ab92e839157eb0954",
-      "tag": "block"
+      "tag": "block",
     },
     {
       "address": "0x983110309620d911731ac0932219af06091b6744",
-      "tag": "top8"
+      "tag": "top8",
     },
     {
       "address": "0x2a59071ff48936c6838dcac425fa0df6ea5979bf",
-      "tag": "top8"
-    }
-  ]
+      "tag": "top8",
+    },
+  ],
 }
 ```

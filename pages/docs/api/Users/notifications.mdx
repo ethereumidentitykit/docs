@@ -7,14 +7,15 @@ description: Ethereum Follow Protocol API v1
 
 Get incoming actions received from other users by Address or ENS Name
 
-
 #### Path Parameters
+
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
-- `opcode` (number, optional): Specifies the type of operation to return [1 for follow, 2 for un-follow, 3 for tag, 4 for un-tag, 0 for any]  
+
+- `opcode` (number, optional): Specifies the type of operation to return [1 for follow, 2 for un-follow, 3 for tag, 4 for un-tag, 0 for any]
 - `interval` (string, optional): Specifies the time range of notifications to return [hour, day, week, month, all].
-- `start` (number, optional): Specifies the starting timestamp to begin the interval, default value is now. [unix timestamp ex. 1741159543] 
+- `start` (number, optional): Specifies the starting timestamp to begin the interval, default value is now. [unix timestamp ex. 1741159543]
 
 - `tag` (string, optional): Specifies a single tag string, of which each account in the response should have at least one.
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
@@ -24,7 +25,8 @@ Get incoming actions received from other users by Address or ENS Name
 #### Default Values
 
 A request to this endpoint with no query parameters specified will default to:
-- opcode = all 
+
+- opcode = all
 - interval = week
 - start = (current timestamp of now)
 - tag = ""
@@ -33,7 +35,6 @@ A request to this endpoint with no query parameters specified will default to:
 
 Take care not to request tags joined with incorrect opcodes i.e. requests with a tag specified but opcode = 2 will not return data
 
-
 #### Sample Query: No params set
 
 ```sh
@@ -41,7 +42,7 @@ curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications
 ```
 
 ```jsonc
-// sample response 
+// sample response
 {
   "summary": {
     "interval": "168:00:00(hrs)",
@@ -90,13 +91,15 @@ curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications
   ]
 }
 ```
+
 #### Sample Query: Follows in last week
 
 ```sh
 curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications?opcode=1&interval=week
 ```
+
 ```jsonc
-// sample response 
+// sample response
 {
   "summary": {
     "interval": "168:00:00(hrs)",
@@ -153,7 +156,7 @@ curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications?interval=a
 ```
 
 ```jsonc
-// sample response 
+// sample response
 {
   "summary": {
     "interval": "999:00:00(hrs)",

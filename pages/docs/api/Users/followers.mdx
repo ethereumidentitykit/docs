@@ -8,9 +8,11 @@ description: Ethereum Follow Protocol API v1
 Get followers by Address or ENS Name
 
 #### Path Parameters
+
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
+
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
 - `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
 - `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
@@ -18,6 +20,7 @@ Get followers by Address or ENS Name
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
 
 #### Sample Query
+
 ```sh
 curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/followers
 ```
@@ -26,14 +29,14 @@ curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/followers
 // sample response
 {
   "followers": [
-{
+    {
       "efp_list_nft_token_id": "5895",
       "address": "0xd56c76b3f924e8f84a02654ff072a363a84b91d9",
       "tags": [],
       "is_following": false,
       "is_blocked": false,
       "is_muted": false,
-      "updated_at": "2024-10-14T19:45:38.617Z"
+      "updated_at": "2024-10-14T19:45:38.617Z",
     },
     {
       "efp_list_nft_token_id": "6337",
@@ -42,7 +45,7 @@ curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/followers
       "is_following": false,
       "is_blocked": false,
       "is_muted": false,
-      "updated_at": "2024-10-14T17:47:20.727Z"
+      "updated_at": "2024-10-14T17:47:20.727Z",
     },
     {
       "efp_list_nft_token_id": "13986",
@@ -51,7 +54,7 @@ curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/followers
       "is_following": false,
       "is_blocked": false,
       "is_muted": false,
-      "updated_at": "2024-10-14T17:12:28.718Z"
+      "updated_at": "2024-10-14T17:12:28.718Z",
     },
     {
       "efp_list_nft_token_id": "6323",
@@ -60,8 +63,8 @@ curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/followers
       "is_following": false,
       "is_blocked": false,
       "is_muted": false,
-      "updated_at": "2024-10-14T15:06:03.633Z"
-    }
-  ]
+      "updated_at": "2024-10-14T15:06:03.633Z",
+    },
+  ],
 }
 ```

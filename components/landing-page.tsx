@@ -61,7 +61,10 @@ const Home = () => {
                 Get started
               </button>
             </Link>
-            <Link href="https://playground.ethidentitykit.com/?path=/docs/organisms-profile-card--component-docs" target="_blank">
+            <Link
+              href="https://playground.ethidentitykit.com/?path=/docs/organisms-profile-card--component-docs"
+              target="_blank"
+            >
               <button className="text-[#111111] bg-primary hover:bg-primaryHover transition-all rounded-sm h-12 sm:h-[54px] font-bold text-base sm:text-lg w-[156px] sm:w-44">
                 Playground
               </button>
@@ -72,9 +75,7 @@ const Home = () => {
           <div className="flex items-start">
             <div className="flex flex-col items-end translate-x-0 sm:translate-x-8 translate-y-14 z-50">
               <div className="bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
-                <button
-                  className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-sm p-4 [box-shadow:3px_3px_1px_0px_rgba(255,255,255,0.8)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
-                >
+                <button className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-sm p-4 [box-shadow:3px_3px_1px_0px_rgba(255,255,255,0.8)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5">
                   <Image
                     src={Ethereum}
                     alt="EFP Logo"
@@ -116,9 +117,17 @@ const Home = () => {
                 </button>
               </div>
             </div>
-            <ProfileCard addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50" connectedAddress={connectedAddress} darkMode={true} onProfileClick={() => window.open('https://efp.app/0xd63c2582b071f41090e89d975f738e87e7b8da50', '_blank')} style={{ paddingBottom: '12px', gap: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }} className="-translate-x-12 sm:translate-x-0 z-50" options={{
-              followButton: <FollowButton lookupAddress='0xd63c2582b071f41090e89d975f738e87e7b8da50' />
-            }} />
+            <ProfileCard
+              addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50"
+              connectedAddress={connectedAddress}
+              darkMode={true}
+              onProfileClick={() => window.open('https://efp.app/0xd63c2582b071f41090e89d975f738e87e7b8da50', '_blank')}
+              style={{ paddingBottom: '12px', gap: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }}
+              className="-translate-x-12 sm:translate-x-0 z-50"
+              options={{
+                followButton: <FollowButton lookupAddress="0xd63c2582b071f41090e89d975f738e87e7b8da50" />,
+              }}
+            />
           </div>
           <div className="flex items-center flex-wrap xl:flex-nowrap justify-center xl:justify-between w-full gap-10 sm:gap-14 md:gap-20">
             <Link href="https://ens.domains" target="_blank">

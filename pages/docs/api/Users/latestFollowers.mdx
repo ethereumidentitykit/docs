@@ -8,14 +8,17 @@ description: Ethereum Follow Protocol API v1
 Get a user's latest followers by Address or ENS Name
 
 #### Path Parameters
+
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
+
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
 - `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
 
 #### Sample Query
+
 ```sh
 curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/latestFollowers
 ```

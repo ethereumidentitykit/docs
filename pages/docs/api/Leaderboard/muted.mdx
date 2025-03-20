@@ -4,15 +4,15 @@
 ---
 
 #### /leaderboard/muted
-Get leaderboard of users ranked according to count of users that muted them. 
 
-
+Get leaderboard of users ranked according to count of users that muted them.
 
 #### Query Parameters
+
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
 
-
 #### Sample Query
+
 ```sh
 curl https://api.ethfollow.xyz/api/v1/leaderboard/muted
 ```
@@ -23,7 +23,7 @@ curl https://api.ethfollow.xyz/api/v1/leaderboard/muted
   {
     "rank": 1,
     "address": "0x949e2988b857af2a3c9429e763d13202b7b25c88",
-    "muted_by_count": "1"
-  }
+    "muted_by_count": "1",
+  },
 ]
 ```

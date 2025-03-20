@@ -4,20 +4,25 @@
 ---
 
 ### /users/\:addressOrENS/qr
-Get a QR code that links to a user's profile page. 
+
+Get a QR code that links to a user's profile page.
 
 #### Path Parameters
+
 - `addressOrENS` (string): The address or ENS name of the account.
 
 #### Query Parameters
+
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
 
 #### Sample Query
+
 ```sh
 curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/qr
 ```
 
 #### Response
+
 This endpoint responds with a formatted svg of content-type `image/svg+xml;charset=utf-8`
 
-![Example QR code response](/qrcode.png)
+![Example QR code response](/assets/qrcode.png)

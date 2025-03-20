@@ -4,12 +4,15 @@
 ---
 
 #### /lists/\:token_id/following
-Get accounts being followed (excluding blocked and muted) by a user by their EFP list id. 
+
+Get accounts being followed (excluding blocked and muted) by a user by their EFP list id.
 
 #### Path Parameters
+
 - `token_id` (string): The EFP List of the account
 
 #### Query Parameters
+
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
 - `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
 - `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.

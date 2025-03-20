@@ -4,17 +4,19 @@
 ---
 
 #### /leaderboard/ranked
-Get leaderboard of users ranked according to count of mutual follows. Includes rankings for mutuals, followers, following, blocked and tagged as 'top8'. 
 
-
+Get leaderboard of users ranked according to count of mutual follows. Includes rankings for mutuals, followers, following, blocked and tagged as 'top8'.
 
 #### Query Parameters
+
 - `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 50.
 - `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
 - `sort` (string, optional): Specifies ranking to sort on, possible values are 'mutuals', 'followers', 'following', 'blocked' and 'top8', default value is 'mutuals'.
 - `direction` (string, optional): Specifies direction to sort results, possible values are 'ASC' or 'DESC' default value is 'DESC'.
 - `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
 #### Sample Query
+
 ```sh
 curl https://api.ethfollow.xyz/api/v1/leaderboard/ranked?sort=mutuals&direction=desc
 ```

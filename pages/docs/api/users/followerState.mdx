@@ -1,0 +1,36 @@
+---
+    title: Follower State
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/\:addressOrENS2/followerState
+
+Get the follower state between two users.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+- `addressOrENS2` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/brantly.eth/followerState
+```
+
+```jsonc
+// sample response
+{
+  "addressUser": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "addressFollower": "0x983110309620d911731ac0932219af06091b6744",
+  "state": {
+    "follow": true,
+    "block": false,
+    "mute": false,
+  },
+}
+```

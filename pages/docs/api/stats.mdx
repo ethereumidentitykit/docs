@@ -1,0 +1,29 @@
+---
+    title: Stats
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /stats
+
+Get global EFP statistics.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/stats
+```
+
+```jsonc
+// sample response
+{
+  "stats": {
+    "address_count": "8999",
+    "list_count": "733",
+    "list_op_count": "50284",
+  },
+}
+```

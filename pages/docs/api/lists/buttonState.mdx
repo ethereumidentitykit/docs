@@ -1,0 +1,36 @@
+---
+    title: Button State
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/\:addressOrENS/buttonState
+
+Get the following state between a given list and a given user.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/brantly.eth/buttonState
+```
+
+```jsonc
+// sample response
+{
+  "token_id": "3",
+  "address": "0x983110309620d911731ac0932219af06091b6744",
+  "state": {
+    "follow": true,
+    "block": false,
+    "mute": false,
+  },
+}
+```

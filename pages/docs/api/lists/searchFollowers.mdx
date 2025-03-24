@@ -1,0 +1,71 @@
+---
+    title: Search Followers
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/searchFollowers
+
+Search for followers of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a followers address or ENS name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/searchFollowers?term=crypt
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "99",
+      "address": "0x19cf388796c31fa7a583270d82659ecd2b4fd490",
+      "ens": {
+        "name": "cryptomandias.eth",
+        "avatar": "https://metadata.ens.domains/mainnet/avatar/cryptomandias.eth"
+      },
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false
+    },
+    {
+      "efp_list_nft_token_id": "553",
+      "address": "0x3b30d44df9afffc07a51457e18410c4ca0f90896",
+      "ens": {
+        "name": "cryptodeadbeat.eth",
+        "avatar": "https://euc.li/cryptodeadbeat.eth"
+      },
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false
+    },
+    {
+      "efp_list_nft_token_id": "88",
+      "address": "0x5b0f3dbdd49614476e4f5ff5db6fe13d41fcb516",
+      "ens": {
+        "name": "efp.encrypteddegen.eth",
+        "avatar": "https://euc.li/efp.encrypteddegen.eth"
+      },
+      "tags": [
+        "top8"
+      ],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false
+    },
+    ...
+  ]
+}
+```

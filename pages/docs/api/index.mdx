@@ -1,0 +1,52 @@
+---
+title: Introduction
+slug: api
+---
+
+EFP provides an open source indexer and API for indexing and retrieving EFP data.
+
+### Public API
+
+EFP core team provides a public API endpoint at [`https://api.ethfollow.xyz/api/v1`](https://api.ethfollow.xyz/api/v1).
+
+If you are a developer, you are free to use this endpoint to retrieve EFP data.
+
+### Commonly used endpoints
+
+- [User Stats](https://ethidentitykit.com/docs/api/users/stats/): the follower and following counts of a particular user
+- [User Following](https://ethidentitykit.com/docs/api/users/following/): list of the accounts a particular user follows
+- [User Followers](https://ethidentitykit.com/docs/api/users/followers/): list of the accounts that follow a particular user
+- [User ENS data](https://ethidentitykit.com/docs/api/users/ens/): the ENS data for a particular user
+
+### Self-hosting
+
+You may also fork EFP's Indexer/API source code and deploy yourself.
+
+- [`ethereumfollowprotocol/api`](https://github.com/ethereumfollowprotocol/api)
+- [`ethereumfollowprotocol/indexer`](https://github.com/ethereumfollowprotocol/indexer)
+
+### KV cache
+
+The API uses Cloudflare KV storage to cache some endpoint's responses. When one of these
+endpoints is called the cache is checked and if there is no record the data is fetched from
+the database. If a cached record is found it is returned immediately. All cache records
+are set to expire 5 minutes after they are created.
+
+The cached record for each of these endpoints can be refreshed by adding `cache=fresh` to the
+query params. For example:
+
+Get the cached record
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/lists/1/details
+```
+
+Get latest data and reset the cached record
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/lists/1/details?cache=fresh
+```
+
+### Questions
+
+If you come across any issues, please reach out to us in our [Discord](https://discord.com/invite/ZUyG3mSXFD).

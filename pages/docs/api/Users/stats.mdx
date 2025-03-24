@@ -1,0 +1,31 @@
+---
+    title: Stats
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/stats
+
+Get stats of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `live` (bool, optional): Specifies whether to calculate stats or return cached values
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/limes.eth/stats
+```
+
+```jsonc
+// sample response
+{
+  "followers_count": "104",
+  "following_count": "26",
+}
+```

@@ -1,0 +1,62 @@
+---
+    title: Search Following
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/searchFollowing
+
+Search for following of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a following address or ENS name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/searchFollowing?term=bran
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x0ae93a80ef639c07ecf969735c9b3cc90ef6d803",
+      "tags": [],
+      "ens": {
+        "name": "ens.brantly.eth",
+        "avatar": "https://metadata.ens.domains/mainnet/avatar/ens.brantly.eth",
+      },
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xe0308a8a9095e4fc554fefdfafc819ff7b0f7103",
+      "tags": [],
+      "ens": {
+        "name": "libran.eth",
+        "avatar": "https://euc.li/libran.eth",
+      },
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x983110309620d911731ac0932219af06091b6744",
+      "tags": ["top8"],
+      "ens": {
+        "name": "brantly.eth",
+        "avatar": "https://euc.li/brantly.eth",
+      },
+    },
+  ],
+}
+```

@@ -1,0 +1,58 @@
+---
+title: Common Followers
+description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/commonFollowers
+
+Get common followers that are shared by two accounts
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `leader` (address, required): Specifies the account whose followers should be compared
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/commonFollowers?leader=0x0312567d78ff0c9ce0bd62a250df5c6474c71334
+```
+
+```jsonc
+// sample response
+{
+  "results": [
+    {
+      "address": "0x0312567d78ff0c9ce0bd62a250df5c6474c71334",
+      "name": "pepe.eth",
+      "avatar": "https://preview.redd.it/23tzr9qimgf51.png?auto=webp&s=d5475b2c247d3f3b4c8d9d3d3cae2521e15437ef",
+      "mutuals_rank": "10"
+    },
+    {
+      "address": "0x038b716928a41ea42253ac043af4f8fdcd940098",
+      "name": "aaron.box",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/aaron.box",
+      "mutuals_rank": "108"
+    },
+    {
+      "address": "0x074470b9a32f68de86fac393a10d5cea01c54269",
+      "name": "pawswap.eth",
+      "avatar": "https://euc.li/pawswap.eth",
+      "mutuals_rank": "18"
+    },
+    {
+      "address": "0x074631095645e426e50b478d40301dd35e74f24c",
+      "name": "pasqui.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/pasqui.eth",
+      "mutuals_rank": "201"
+    },
+
+    ...
+
+  ],
+  "length": 76
+}
+```

@@ -1,0 +1,51 @@
+---
+    title: All Following
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/allFollowing
+
+Get all accounts being followed (including blocked and muted) by a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowing
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xad73eafcac4f4c6755dfc61770875fb8b6bc8a25",
+      "tags": []
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xfee41e0f01112d9bdaa73a5a368f4afb4d9baa08",
+      "tags": []
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xf972bf8592c3171b378e97bb869a980c3f476583",
+      "tags": []
+    },
+    ...
+  ]
+}
+```

@@ -1,0 +1,68 @@
+---
+    title: Discover
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /discover
+
+Get recently active accounts to follow.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/discover
+```
+
+```jsonc
+// sample response
+{
+  "latestFollows": [
+    {
+      "address": "0xa8b4756959e1192042fc2a8a103dfe2bddf128e8",
+      "name": "caveman.eth",
+      "avatar": "https://euc.li/caveman.eth",
+      "header": "https://i.imgur.com/KYD6snF.jpeg",
+      "followers": "162",
+      "following": "482"
+    },
+    {
+      "address": "0x8513eef11bba6a57845d10780e7e889e3be289e8",
+      "name": "oandrade.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/oandrade.eth",
+      "header": null,
+      "followers": "5",
+      "following": "15"
+    },
+    {
+      "address": "0xb6518c8304992da58de9055f1db80a37609f00a2",
+      "name": "silvr.eth",
+      "avatar": "https://euc.li/silvr.eth",
+      "header": null,
+      "followers": "1",
+      "following": "0"
+    },
+    {
+      "address": "0x8eddf5431f5b31933bfbd8111d54fc6e9456e6c1",
+      "name": "slowsort.eth",
+      "avatar": "https://euc.li/slowsort.eth",
+      "header": null,
+      "followers": "49",
+      "following": "565"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "name": "garypalmerjr.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/garypalmerjr.eth",
+      "header": null,
+      "followers": "152",
+      "following": "3403"
+    },
+    ...
+  ]
+}
+```

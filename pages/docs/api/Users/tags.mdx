@@ -1,0 +1,64 @@
+---
+    title: Tags
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/tags
+
+Get the tags of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/tags
+```
+
+```jsonc
+// sample response
+{
+  "address": "0x983110309620d911731ac0932219af06091b6744",
+  "tags": [
+    "top8",
+    "block",
+    "degen"
+  ],
+  "tagCounts": [
+    {
+      "tag": "top8",
+      "count": 8
+    },
+    {
+      "tag": "block",
+      "count": 2
+    },
+    {
+      "tag": "degen",
+      "count": 4
+    }
+  ],
+  "taggedAddresses": [
+    {
+      "address": "0x44a3a18df15ae79bbc6c660db59428fe9a181864",
+      "tag": "top8"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "tag": "block"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "tag": "degen"
+    },
+    {
+      "address": "0x60377ec355857c2d06d1ce28555f624257344b0d",
+      "tag": "top8"
+    },
+
+    ...
+  ]
+}
+```

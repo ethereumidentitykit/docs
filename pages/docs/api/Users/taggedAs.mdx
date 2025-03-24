@@ -1,0 +1,54 @@
+---
+    title: Tagged As
+    description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/taggedAs
+
+Get the tags that are applied to a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/taggedAs
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "tags": ["top8"],
+  "tagCounts": [
+    {
+      "tag": "top8",
+      "count": 5,
+    },
+  ],
+  "taggedAddresses": [
+    {
+      "address": "0x5a3bf42028901447434d12c5459954e667e5c518",
+      "tag": "top8",
+    },
+    {
+      "address": "0x71adb34117c9408e74ed112b327a0ec97cef8fa1",
+      "tag": "top8",
+    },
+    {
+      "address": "0x8eddf5431f5b31933bfbd8111d54fc6e9456e6c1",
+      "tag": "top8",
+    },
+    {
+      "address": "0xfa1afc4534fc9f80a552e61dd04cd8a172c821a6",
+      "tag": "top8",
+    },
+    {
+      "address": "0xc983ebc9db969782d994627bdffec0ae6efee1b3",
+      "tag": "top8",
+    },
+  ],
+}
+```

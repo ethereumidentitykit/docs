@@ -1,0 +1,65 @@
+---
+    title: All Followers
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/allFollowers
+
+Get all followers (including blocked and muted) of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "15",
+      "address": "0x849151d7d0bf1f34b70d5cad5149d28cc2308bf1",
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-09-24T14:45:33.882Z"
+    },
+    {
+      "efp_list_nft_token_id": "294",
+      "address": "0xa7860e99e3ce0752d1ac53b974e309fff80277c6",
+      "tags": [
+        "top8"
+      ],
+      "is_following": false,
+      "is_blocked": true,
+      "is_muted": false,
+      "updated_at": "2024-09-24T14:45:33.882Z"
+    },
+    {
+      "efp_list_nft_token_id": "55",
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "tags": [
+        "bff",
+        "top8"
+      ],
+      "is_following": false,
+      "is_blocked": true,
+      "is_muted": false,
+      "updated_at": "2024-09-24T16:45:26.088Z"
+    },
+    ...
+  ]
+}
+```

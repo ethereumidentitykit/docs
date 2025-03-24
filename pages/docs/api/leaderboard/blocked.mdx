@@ -1,0 +1,45 @@
+---
+    title: Blocked
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /leaderboard/blocked
+
+Get leaderboard of users ranked according to count of users that blocked them.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/blocked
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 1,
+    "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+    "blocked_by_count": "8"
+  },
+  {
+    "rank": 2,
+    "address": "0xa7860e99e3ce0752d1ac53b974e309fff80277c6",
+    "blocked_by_count": "4"
+  },
+  {
+    "rank": 3,
+    "address": "0x3276e82ebb1b4b9f01ab9286ed6bcc6603e368e2",
+    "blocked_by_count": "2"
+  },
+  {
+    "rank": 4,
+    "address": "0x7265a60acaeaf3a5e18e10bc1128e72f27b2e176",
+    "blocked_by_count": "2"
+  },
+  ...
+]
+```

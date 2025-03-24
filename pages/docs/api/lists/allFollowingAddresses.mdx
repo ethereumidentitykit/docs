@@ -1,0 +1,40 @@
+---
+    title: All Following Addresses
+    description: Ethereum Follow Protocol API v1
+---
+
+#### /lists/\:token_id/allFollowingAddresses
+
+Get all accounts in list format, that are being followed (including blocked and muted) by a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowingAddresses
+```
+
+```jsonc
+// sample response
+[
+  "0xc6ed8696c4885dcafdc73c5ef28511e02568b472",
+  "0x1cbf9983e0d59276a58db8e8529706004fcb1837",
+  "0x27d311b8958ca479615522304b442e530c8073fe",
+  "0x47c0224f6c298c4b03f2fbbb986815859a0abd20",
+  "0x50e97e480661533b5382e33705e4ce1eb182222e",
+  "0x8480d20583a3138fef7c23eed8f17bf3c01e73b7",
+  "0x97b5c5ac8813bf5aaf689bbb697b56f8d897baef",
+  "0xa6bcb89f21e0bf71e08ded426c142757791e17cf",
+  "0xdc27cb447d713a8320db054a39ab6a42e0af49cb",
+  "0x02ca10c62f160cdd126d1e44ef42224cac745ac8",
+  "0x0433062f9f466c4a184b2ba0e4da38efea5e2f87",
+  ...
+]
+```

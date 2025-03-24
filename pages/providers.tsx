@@ -49,7 +49,7 @@ const config = createConfig({
     [mainnet.id]: http(
       process.env.NEXT_PUBLIC_MAINNET_ALCHEMY_ID
         ? `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_MAINNET_ALCHEMY_ID}`
-        : 'https://mainnet.infura.io/v3/'
+        : 'https://eth.llamarpc.com'
     ),
     [base.id]: http(
       process.env.NEXT_PUBLIC_BASE_ALCHEMY_ID

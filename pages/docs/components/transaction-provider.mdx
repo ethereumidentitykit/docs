@@ -17,6 +17,8 @@ export default function App() {
 | Parameter           | Description                                                            | Required | Default Value |
 | ------------------- | ---------------------------------------------------------------------- | -------- | ------------- |
 | `batchTransactions` | Enables batching of transactions if set to true.                       | No       | false         |
+| `paymasterService`  | The paymaster service to use for sponsored transactions. (string)      | No       | -             |
+| `defaultChainId`    | The default chain ID to use for the transaction provider. (number)     | No       | -             |
 | `children`          | The child components that will have access to the transaction context. | Yes      | -             |
 
 ## Usage
@@ -27,6 +29,8 @@ The `TransactionProvider` component is used to wrap parts of your application th
 
 - **Transaction Modal Management**: Controls the visibility and state of transaction modals.
 - **Batch Transactions**: Supports batching of multiple transactions for a streamlined user experience.
+- **Paymaster Service**: Supports paymaster services for sponsored transactions. [(https://docs.cdp.coinbase.com/paymaster/docs/welcome)](https://docs.cdp.coinbase.com/paymaster/docs/welcome)
+- **Default Chain ID**: The default chain ID to use if the user does not have an EFP list yet (Has to mint the new list).
 - **Transaction State Management**: Provides state and functions for managing pending transactions, current transaction index, and more.
 
 ### Batching Transactions

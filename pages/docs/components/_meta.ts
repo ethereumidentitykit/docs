@@ -1,4 +1,5 @@
 export default {
+  'user-profile': 'User Profile',
   'profile-card': 'Profile Card',
   'profile-stats': 'Profile Stats',
   'profile-socials': 'Profile Socials',

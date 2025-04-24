@@ -40,6 +40,7 @@ export default function Home() {
 <div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-6 flex justify-center items-center">
   <ProfileCard
     addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50"
+    connectedAddress="0x5B0f3DBdD49614476e4f5fF5Db6fe13d41fCB516"
     darkMode={true}
     style={{ paddingBottom: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }}
   />
@@ -47,26 +48,27 @@ export default function Home() {
 
 ## Parameters
 
-| Parameter           | Description                                                                                         | Required | Default Value        |
-| ------------------- | --------------------------------------------------------------------------------------------------- | -------- | -------------------- |
-| `addressOrName`     | Ethereum Address or ENS name to fetch profile data for.                                             | Yes      | -                    |
-| `list`              | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -                    |
-| `connectedAddress`  | Address of the user connected to the app.                                                           | No       | -                    |
-| `darkMode`          | Enables dark mode styling for the profile card.                                                     | No       | false                |
-| `showFollowerState` | Shows follower state tag (e.g., follows you, blocks you, mutes you).                                | No       | -                    |
-| `onStatClick`       | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
-| `options`           | Additional options for profile data and stats. See `ProfileCardOption` type for details:            | No       | -                    |
-|                     | - `followButton`: React node for a follow button.                                                   |          |                      |
-|                     | - `nameMenu`: React node for a name menu.                                                           |          |                      |
-|                     | - `profileData`: Prefetched profile data.                                                           |          |                      |
-|                     | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |                      |
-|                     | - `refetchProfileData`: Function to refetch profile data.                                           |          |                      |
-|                     | - `statsData`: Prefetched stats data.                                                               |          |                      |
-|                     | - `prefetchedStatsLoading`: Loading state for prefetched stats data.                                |          |                      |
-|                     | - `refetchStatsData`: Function to refetch stats data.                                               |          |                      |
-| `className`         | Additional CSS class names to apply to the component.                                               | No       | -                    |
-| `style`             | Inline CSS styles to apply to the component.                                                        | No       | -                    |
-| `props`             | Additional props for the `<div>` element.                                                           | No       | -                    |
+| Parameter                 | Description                                                                                         | Required | Default Value        |
+| ------------------------- | --------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| `addressOrName`           | Ethereum Address or ENS name to fetch profile data for.                                             | Yes      | -                    |
+| `list`                    | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -                    |
+| `connectedAddress`        | Address of the user connected to the app.                                                           | No       | -                    |
+| `darkMode`                | Enables dark mode styling for the profile card.                                                     | No       | false                |
+| `showFollowerState`       | Shows follower state tag (e.g., follows you, blocks you, mutes you).                                | No       | -                    |
+| `onStatClick`             | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
+| `hasCommonFollowersModal` | Whether to show the [common followers modal](./common-followers.mdx).                               | No       | true                 |
+| `options`                 | Additional options for profile data and stats. See `ProfileCardOption` type for details:            | No       | -                    |
+|                           | - `followButton`: React node for a follow button.                                                   |          |                      |
+|                           | - `nameMenu`: React node for a name menu.                                                           |          |                      |
+|                           | - `profileData`: Prefetched profile data.                                                           |          |                      |
+|                           | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |                      |
+|                           | - `refetchProfileData`: Function to refetch profile data.                                           |          |                      |
+|                           | - `statsData`: Prefetched stats data.                                                               |          |                      |
+|                           | - `prefetchedStatsLoading`: Loading state for prefetched stats data.                                |          |                      |
+|                           | - `refetchStatsData`: Function to refetch stats data.                                               |          |                      |
+| `className`               | Additional CSS class names to apply to the component.                                               | No       | -                    |
+| `style`                   | Inline CSS styles to apply to the component.                                                        | No       | -                    |
+| `props`                   | Additional props for the `<div>` element.                                                           | No       | -                    |
 
 ### Styling
 

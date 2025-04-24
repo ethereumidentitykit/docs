@@ -5,7 +5,7 @@ export default {
   'profile-socials': 'Profile Socials',
   avatar: 'Avatar',
   'follower-tag': 'Follower Tag',
-  'common-followers': 'Common Followers',
+  'followers-you-know': 'Followers you know',
   'follow-button': 'Follow Button',
   'transaction-modal': 'Transaction Modal',
   'transaction-provider': 'Transaction Provider',

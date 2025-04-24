@@ -124,6 +124,7 @@ const Home = () => {
               onProfileClick={() => window.open('https://efp.app/0xd63c2582b071f41090e89d975f738e87e7b8da50', '_blank')}
               style={{ paddingBottom: '12px', gap: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }}
               className="-translate-x-12 sm:translate-x-0 z-50"
+              hasCommonFollowersModal={false}
               options={{
                 followButton: <FollowButton lookupAddress="0xd63c2582b071f41090e89d975f738e87e7b8da50" />,
               }}

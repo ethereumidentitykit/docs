@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { UserProfile } from 'ethereum-identity-kit'
+import { FullWidthProfile } from 'ethereum-identity-kit'
 
-# User Profile
+# Full Width Profile
 
-The User Profile component displays a comprehensive Ethereum Profile with ENS and EFP details like:
+The Full Width Profile component displays a comprehensive Ethereum Profile with ENS and EFP details like:
 
 - Avatar and Header Image
 - Name and Status
@@ -18,27 +18,27 @@ The User Profile component displays a comprehensive Ethereum Profile with ENS an
 ### Add to your project
 
 ```tsx copy
-import { UserProfile } from 'ethereum-identity-kit'
+import { FullWidthProfile } from 'ethereum-identity-kit'
 
 export default function Home() {
-  return <UserProfile addressOrName="cottons.eth" />
+  return <FullWidthProfile addressOrName="cottons.eth" />
 }
 ```
 
 <a
   className="w-full block mb-8 border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
-  href="https://playground.ethidentitykit.com/?path=/story/organisms-full-width-profile-card--full-width-profile-card-by-address"
+  href="https://playground.ethidentitykit.com/?path=/story/organisms-full-width-profile--full-width-profile-by-address"
   target="_blank"
 >
   <span className="text-primary">Try it out!</span>
   <span className="text-gray-400">
     {
-      ' - https://playground.ethidentitykit.com/?path=/story/organisms-full-width-profile-card--full-width-profile-card-by-address'
+      ' - https://playground.ethidentitykit.com/?path=/story/organisms-full-width-profile--full-width-profile-by-address'
     }
   </span>
 </a>
 
-<UserProfile
+<FullWidthProfile
   addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50"
   darkMode={true}
   style={{ paddingBottom: '12px' }}

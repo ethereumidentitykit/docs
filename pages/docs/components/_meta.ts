@@ -1,5 +1,5 @@
 export default {
-  'user-profile': 'User Profile',
+  'full-width-profile': 'Full Width Profile',
   'profile-card': 'Profile Card',
   'profile-stats': 'Profile Stats',
   'profile-socials': 'Profile Socials',

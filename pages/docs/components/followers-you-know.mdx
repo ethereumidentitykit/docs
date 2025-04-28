@@ -1,4 +1,4 @@
-import { CommonFollowers } from 'ethereum-identity-kit'
+import { FollowersYouKnow } from 'ethereum-identity-kit'
 
 # Followers you know
 
@@ -9,10 +9,10 @@ Followers you know is a relation of addresses that `connectedAddress` follows an
 ### Add to your project
 
 ```tsx copy
-import { CommonFollowers } from 'ethereum-identity-kit'
+import { FollowersYouKnow } from 'ethereum-identity-kit'
 
 export default function Home() {
-  return <CommonFollowers connectedAddress="0x1234...abcd" lookupAddress="0xabcd...1234" />
+  return <FollowersYouKnow connectedAddress="0x1234...abcd" lookupAddress="0xabcd...1234" />
 }
 ```
 
@@ -28,7 +28,7 @@ export default function Home() {
 </a>
 
 <div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex justify-center items-center">
-  <CommonFollowers
+  <FollowersYouKnow
     connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3"
     lookupAddress="0x983110309620d911731ac0932219af06091b6744"
     onProfileClick={(address) => {

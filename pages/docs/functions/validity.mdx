@@ -1,0 +1,52 @@
+import { isLinkValid, isValidEnsName } from 'ethereum-identity-kit'
+
+# Validity
+
+The validity module provides utility functions for validating various types of data in the application.
+
+## Functions
+
+### isLinkValid
+
+Checks if a given link is a valid http or https link, or is pulling from public or assets folders. This is used to filter out ipfs or invalid links and fall back to the [ENS Metadata Service](https://support.ens.domains/en/articles/8228750-the-ens-metadata-service) (if there is an ENS name).
+
+```tsx
+const isValid = isLinkValid('https://example.com') // true
+const isValid = isLinkValid('invalid-link') // false
+```
+
+#### Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| `link`    | string | The link to validate |
+
+#### Return Value
+
+Returns `true` if the link contains one of the following prefixes:
+
+- `https://`
+- `http://`
+- `public/`
+- `/assets`
+
+Returns `false` if the link is undefined or doesn't contain any of the valid prefixes.
+
+### isValidEnsName
+
+Validates if a given string is a valid [ENS (Ethereum Name Service)](https://ens.domains/) name.
+
+```tsx
+const isValid = isValidEnsName('vitalik.eth') // true
+const isValid = isValidEnsName('invalid-ens') // false
+```
+
+#### Parameters
+
+| Parameter | Type   | Description              |
+| --------- | ------ | ------------------------ |
+| `name`    | string | The ENS name to validate |
+
+#### Return Value
+
+Returns `true` if the name is a valid ENS name, `false` otherwise. Uses the `normalize` function from `viem/ens` for validation.

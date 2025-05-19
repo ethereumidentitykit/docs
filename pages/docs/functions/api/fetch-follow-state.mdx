@@ -1,0 +1,64 @@
+import { fetchFollowState } from 'ethereum-identity-kit'
+
+# fetchFollowState
+
+Fetches the follow state between two addresses or a list and an address.
+
+## Usage
+
+```tsx
+const followState = await fetchFollowState({
+  lookupAddressOrName: 'vitalik.eth',
+  connectedAddress: '0x...',
+  type: 'following',
+})
+
+// or for a list
+const listFollowState = await fetchFollowState({
+  lookupAddressOrName: 'vitalik.eth',
+  list: 1,
+  type: 'following',
+})
+
+// or with fresh data
+const freshState = await fetchFollowState({
+  lookupAddressOrName: 'vitalik.eth',
+  connectedAddress: '0x...',
+  type: 'following',
+  fresh: true,
+})
+```
+
+## Parameters
+
+| Parameter             | Type                      | Description                                            |
+| --------------------- | ------------------------- | ------------------------------------------------------ |
+| `lookupAddressOrName` | string                    | Ethereum address or ENS name to check follow state for |
+| `connectedAddress`    | string                    | Optional connected wallet address                      |
+| `list`                | number                    | Optional list number to check follow state for         |
+| `type`                | 'following' \| 'follower' | Type of follow state to check                          |
+| `fresh`               | boolean                   | Optional flag to fetch fresh data bypassing cache      |
+
+## Return Value
+
+Returns a `FollowStatusResponse` object containing the follow state, or `null` if:
+
+- The request fails
+- `type` is 'following' and no `list` is provided
+- Neither `connectedAddress` nor `list` is provided
+
+## Example Response
+
+The following response is the connected address following the lookup address.
+
+```tsx
+{
+  token_id: '123',
+  address: '0x...',
+  state: {
+    follow: true,
+    block: false,
+    mute: false,
+  };
+}
+```

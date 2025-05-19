@@ -1,0 +1,51 @@
+import { fetchProfileDetails } from 'ethereum-identity-kit'
+
+# fetchProfileDetails
+
+Fetches profile details for a given Ethereum address, ENS name, or list number.
+
+## Usage
+
+```tsx
+const profileDetails = await fetchProfileDetails('vitalik.eth')
+// or
+const listDetails = await fetchProfileDetails('0x...', 1)
+// or with fresh data
+const freshDetails = await fetchProfileDetails('vitalik.eth', undefined, true)
+```
+
+## Parameters
+
+| Parameter       | Type            | Description                                       |
+| --------------- | --------------- | ------------------------------------------------- |
+| `addressOrName` | string          | Ethereum address or ENS name to fetch details for |
+| `list`          | ProfileListType | Optional list number to fetch details for         |
+| `fresh`         | boolean         | Optional flag to fetch fresh data bypassing cache |
+
+## Return Value
+
+Returns a `ProfileDetailsResponse` object containing the profile details, or `null` if the request fails.
+
+## Example Response
+
+```tsx
+{
+    address: '0x...',
+    ens: {
+        name: 'user.eth',
+        avatar: 'https://example.com/avatar.png',
+        header: 'https://example.com/header.png',
+        records: {
+            // ... other ENS records
+        },
+    },
+    primary_list: '123',
+    ranks: {
+        mutuals_rank: 1,
+        followers_rank: 1,
+        following_rank: 1,
+        blocks_rank: 1,
+        top8_rank: 1,
+    },
+}
+```

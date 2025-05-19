@@ -1,0 +1,48 @@
+import { fetchRecommended } from 'ethereum-identity-kit'
+
+# fetchRecommended
+
+Fetches recommended profiles or recent activity from the EFP API, with optional pagination.
+
+## Usage
+
+```tsx
+// Fetch recommended profiles for a user
+const recommended = await fetchRecommended('recommended', 'vitalik.eth')
+
+// Fetch recommended profiles for a list
+const listRecommended = await fetchRecommended('recommended', '0x...', '1')
+
+// Fetch recent activity
+const recentActivity = await fetchRecommended('discover')
+
+// With pagination
+const paginatedResults = await fetchRecommended('recommended', 'vitalik.eth', undefined, 20, 2)
+```
+
+## Parameters
+
+| Parameter       | Type                        | Description                                             |
+| --------------- | --------------------------- | ------------------------------------------------------- |
+| `endpoint`      | 'discover' \| 'recommended' | The type of recommendations to fetch                    |
+| `addressOrName` | string \| Address           | Optional address or ENS name to get recommendations for |
+| `list`          | string \| null              | Optional list number to get recommendations for         |
+| `limit`         | number                      | Optional number of results per page (default: 10)       |
+| `pageParam`     | number                      | Optional page number for pagination (default: 1)        |
+
+## Return Value
+
+Returns an array of recommended profiles or latest follows, or an empty array if the request fails.
+
+## Example Response
+
+```tsx
+;[
+  {
+    address: '0x...',
+    name: 'user.eth',
+    avatar: 'https://example.com/avatar.png',
+    header: 'https://example.com/header.png',
+  },
+]
+```

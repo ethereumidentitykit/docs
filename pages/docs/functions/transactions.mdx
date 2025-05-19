@@ -1,0 +1,158 @@
+import {
+  formatListOpsTransaction,
+  getListOpData,
+  getListOpsFromTransaction,
+  getMintTxNonce,
+  getMintTxChainId,
+  getMintTxRecordsAddress,
+  getPendingTxAddresses,
+  extractAddressAndTag,
+  getPendingTxListOps,
+  getPendingTxAddressesAndTags,
+  prepareMintTransaction,
+  transformTxsForLocalStorage,
+} from 'ethereum-identity-kit'
+
+# Transactions
+
+The transactions module provides utility functions for handling EFP (Ethereum Follow Protocol) list operations and transactions.
+
+## Functions
+
+### formatListOpsTransaction
+
+Formats a list operations transaction with the provided parameters. Use this only if you are trying to execute EFP transactions yourself. If you are using [TransactionProvider](/docs/components/transaction-provider) with [useTransaction](/docs/hooks/use-transaction), and are using the [addlistopstransaction](/docs/hooks/useTransactions#addlistopstransaction) function, you don't need to use it.
+
+```tsx
+const transaction = formatListOpsTransaction({
+  nonce: 1n,
+  chainId: 1,
+  listOps: [{ opcode: 1, data: '0x...' }],
+  connectedAddress: '0x...',
+  isMintingNewList: false,
+})
+```
+
+#### Parameters
+
+| Parameter          | Type         | Description                            |
+| ------------------ | ------------ | -------------------------------------- |
+| `nonce`            | bigint       | The nonce for the transaction          |
+| `chainId`          | number       | The chain ID to use                    |
+| `listOps`          | ListOpType[] | Array of list operations to perform    |
+| `connectedAddress` | Address      | The connected wallet address           |
+| `isMintingNewList` | boolean      | Whether this is for minting a new list |
+
+### getListOpData
+
+Generates list operation data from an address and optional tag.
+
+```tsx
+const data = getListOpData('0x...', 'tag')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description             |
+| --------- | ------- | ----------------------- |
+| `address` | Address | The Ethereum address    |
+| `tag`     | string  | Optional tag to include |
+
+### getListOpsFromTransaction
+
+Extracts list operations from a transaction.
+
+```tsx
+const listOps = getListOpsFromTransaction(transaction)
+```
+
+#### Parameters
+
+| Parameter     | Type            | Description                                |
+| ------------- | --------------- | ------------------------------------------ |
+| `transaction` | TransactionType | The transaction to extract operations from |
+
+### getMintTxNonce
+
+Extracts the nonce from a mint transaction.
+
+```tsx
+const nonce = getMintTxNonce(transaction)
+```
+
+### getMintTxChainId
+
+Extracts the chain ID from a mint transaction.
+
+```tsx
+const chainId = getMintTxChainId(transaction)
+```
+
+### getMintTxRecordsAddress
+
+Extracts the records address from a mint transaction.
+
+```tsx
+const recordsAddress = getMintTxRecordsAddress(transaction)
+```
+
+### getPendingTxAddresses
+
+Gets all addresses from pending list update transactions.
+
+```tsx
+const addresses = getPendingTxAddresses(transactions)
+```
+
+### extractAddressAndTag
+
+Extracts address and tag from list operation data.
+
+```tsx
+const { address, tag } = extractAddressAndTag(data)
+```
+
+### getPendingTxListOps
+
+Gets all list operations from pending transactions.
+
+```tsx
+const listOps = getPendingTxListOps(transactions)
+```
+
+### getPendingTxAddressesAndTags
+
+Gets all addresses and tags from pending transactions.
+
+```tsx
+const addressesAndTags = getPendingTxAddressesAndTags(transactions)
+```
+
+### prepareMintTransaction
+
+Prepares a mint transaction with the given parameters.
+
+```tsx
+const mintTx = prepareMintTransaction(mintNonce, chainId)
+```
+
+#### Parameters
+
+| Parameter   | Type   | Description                        |
+| ----------- | ------ | ---------------------------------- |
+| `mintNonce` | bigint | The nonce for the mint transaction |
+| `chainId`   | number | Optional chain ID to use           |
+
+### transformTxsForLocalStorage
+
+Transforms transactions for local storage by converting bigint values to strings.
+
+```tsx
+const transformedTxs = transformTxsForLocalStorage(transactions)
+```
+
+#### Parameters
+
+| Parameter | Type              | Description                        |
+| --------- | ----------------- | ---------------------------------- |
+| `txs`     | TransactionType[] | Array of transactions to transform |

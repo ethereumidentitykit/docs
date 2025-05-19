@@ -1,0 +1,42 @@
+import { defaultOnStatClick } from 'ethereum-identity-kit'
+
+# Profile
+
+The profile module provides utility functions for handling profile-related operations.
+
+## Functions
+
+### defaultOnStatClick
+
+Opens a new tab with the EFP profile page for a given address or ENS name, focusing on a specific stat tab.
+
+```tsx
+defaultOnStatClick({
+  addressOrName: 'vitalik.eth',
+  stat: 'followers',
+})
+```
+
+#### Parameters
+
+| Parameter       | Type   | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `addressOrName` | string | Ethereum address or ENS name to open the profile for |
+| `stat`          | string | The stat tab to focus on in the profile page         |
+
+#### Behavior
+
+The function:
+
+1. Opens a new tab with the URL `https://efp.app/{addressOrName}?tab={stat}`
+2. Uses `noopener,noreferrer` for security when opening the new tab
+
+#### Example
+
+```tsx
+// Opens https://efp.app/vitalik.eth?tab=followers in a new tab
+defaultOnStatClick({
+  addressOrName: 'vitalik.eth',
+  stat: 'followers',
+})
+```

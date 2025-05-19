@@ -1,0 +1,51 @@
+import { fetchAllFollowersYouKnow } from 'ethereum-identity-kit'
+
+# fetchAllFollowersYouKnow
+
+Fetches a paginated list of followers that you (connected address) follow, who also follow another address, with optional search functionality.
+
+## Usage
+
+```tsx
+const { followersYouKnow, nextPageParam } = await fetchAllFollowersYouKnow({
+  connectedAddress: '0x...',
+  lookupAddressOrName: 'vitalik.eth',
+  limit: 20,
+  search: 'search term',
+  pageParam: 0,
+})
+```
+
+## Parameters
+
+| Parameter             | Type              | Description                                                     |
+| --------------------- | ----------------- | --------------------------------------------------------------- |
+| `connectedAddress`    | Address           | Your connected wallet address                                   |
+| `lookupAddressOrName` | Address \| string | Ethereum address or ENS name to find common followers with      |
+| `limit`               | number            | Optional number of results per page (defaults to `FETCH_LIMIT`) |
+| `search`              | string            | Optional search term to filter followers                        |
+| `pageParam`           | number            | Page number for pagination (0-based)                            |
+
+## Return Value
+
+Returns an object containing:
+
+- `followersYouKnow`: Array of `FollowerYouKnow` objects
+- `nextPageParam`: Next page number for pagination
+
+## Example Response
+
+```tsx
+{
+  followersYouKnow: [
+    {
+      address: '0x...',
+      name: 'vitalik.eth',
+      avatar: 'https://example.com/avatar.png',
+      mutuals_rank: '1',
+      header: 'https://example.com/header.png',
+    },
+  ],
+  nextPageParam: 1
+}
+```

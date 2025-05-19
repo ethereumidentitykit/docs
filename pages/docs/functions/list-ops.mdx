@@ -1,0 +1,117 @@
+# List Operations
+
+The list operations module provides utility functions for creating list operations in the EFP (Ethereum Follow Protocol) system.
+
+## Functions
+
+### listOpAddListRecord
+
+Creates a list operation to add a new record to a list.
+
+```tsx
+const op = listOpAddListRecord('0x...')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                             |
+| --------- | ------- | --------------------------------------- |
+| `address` | Address | The Ethereum address to add to the list |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.FOLLOW,
+  data: address
+}
+```
+
+### listOpRemoveListRecord
+
+Creates a list operation to remove a record from a list.
+
+```tsx
+const op = listOpRemoveListRecord('0x...')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                                  |
+| --------- | ------- | -------------------------------------------- |
+| `address` | Address | The Ethereum address to remove from the list |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.UNFOLLOW,
+  data: address
+}
+```
+
+### listOpAddTag
+
+Creates a list operation to add a tag to a list record.
+
+```tsx
+const op = listOpAddTag('0x...', 'friend')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                 |
+| --------- | ------- | --------------------------- |
+| `address` | Address | The Ethereum address to tag |
+| `tag`     | string  | The tag to add              |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.TAG,
+  data: `${address}${toHex(tag).slice(2)}`
+}
+```
+
+### listOpRemoveTag
+
+Creates a list operation to remove a tag from a list record.
+
+```tsx
+const op = listOpRemoveTag('0x...', 'friend')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                                 |
+| --------- | ------- | ------------------------------------------- |
+| `address` | Address | The Ethereum address to remove the tag from |
+| `tag`     | string  | The tag to remove                           |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.UNTAG,
+  data: `${address}${toHex(tag).slice(2)}`
+}
+```
+
+## What are list operations?
+
+List operations are a way to manage lists on the EFP (Ethereum Follow Protocol). They are used to add, remove, and tag records in a list.
+
+- [EFP Docs - List Operations](https://docs.efp.app/design/list-ops/)

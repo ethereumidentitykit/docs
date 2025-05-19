@@ -1,0 +1,36 @@
+import { fetchProfileStats } from 'ethereum-identity-kit'
+
+# fetchProfileStats
+
+Fetches profile statistics (followers and following counts) for a given address, ENS name, or list.
+
+## Usage
+
+```tsx
+const stats = await fetchProfileStats('vitalik.eth')
+// or for a list
+const listStats = await fetchProfileStats('0x...', 1)
+// or with live data
+const liveStats = await fetchProfileStats('vitalik.eth', undefined, true)
+```
+
+## Parameters
+
+| Parameter       | Type            | Description                                      |
+| --------------- | --------------- | ------------------------------------------------ |
+| `addressOrName` | string          | Ethereum address or ENS name to fetch stats for  |
+| `list`          | ProfileListType | Optional list number to fetch stats for          |
+| `isLive`        | boolean         | Optional flag to fetch live data bypassing cache |
+
+## Return Value
+
+Returns a `StatsResponse` object containing follower and following counts, or default values if the request fails.
+
+## Example Response
+
+```tsx
+{
+  followers_count: 1234,
+  following_count: 567
+}
+```

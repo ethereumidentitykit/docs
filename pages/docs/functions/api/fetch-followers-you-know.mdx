@@ -1,0 +1,38 @@
+import { fetchFollowersYouKnow } from 'ethereum-identity-kit'
+
+# fetchFollowersYouKnow
+
+Fetches the list of followers that you (connected address) follow, who also follow another address.
+
+## Usage
+
+```tsx
+const followersYouKnow = await fetchFollowersYouKnow('0x...', 'vitalik.eth')
+```
+
+## Parameters
+
+| Parameter             | Type    | Description                                                |
+| --------------------- | ------- | ---------------------------------------------------------- |
+| `connectedAddress`    | Address | Your connected wallet address                              |
+| `lookupAddressOrName` | string  | Ethereum address or ENS name to find common followers with |
+
+## Return Value
+
+Returns a `FollowersYouKnowResponse` object containing the list of common followers, or `noFollowersYouKnow` if the request fails.
+
+## Example Response
+
+```tsx
+{
+  followers: [
+    {
+      address: '0x...',
+      name: 'vitalik.eth',
+      avatar: 'https://example.com/avatar.png',
+      mutuals_rank: '1',
+      header: 'https://example.com/header.png',
+    },
+  ]
+}
+```

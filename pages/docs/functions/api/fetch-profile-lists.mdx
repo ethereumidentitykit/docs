@@ -1,0 +1,39 @@
+import { fetchProfileLists } from 'ethereum-identity-kit'
+
+# fetchProfileLists
+
+Fetches all lists associated with a given address or ENS name.
+
+## Usage
+
+```tsx
+const lists = await fetchProfileLists('vitalik.eth')
+// or with fresh data
+const freshLists = await fetchProfileLists('vitalik.eth', true)
+```
+
+## Parameters
+
+| Parameter       | Type    | Description                                       |
+| --------------- | ------- | ------------------------------------------------- |
+| `addressOrName` | string  | Ethereum address or ENS name to fetch lists for   |
+| `fresh`         | boolean | Optional flag to fetch fresh data bypassing cache |
+
+## Return Value
+
+Returns a `ProfileListsResponse` object containing:
+
+- `primary_list`: The primary list number (or null if none)
+- `lists`: Array of all lists associated with the address
+
+## Example Response
+
+```tsx
+{
+  primary_list: "123",
+  lists: [
+    "123",
+    "456",
+  ]
+}
+```

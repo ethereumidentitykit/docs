@@ -1,0 +1,29 @@
+# Generate Slot
+
+The generateSlot utility generates a random storage slot value using keccak256 and the current timestamp.
+
+## Functions
+
+### generateSlot
+
+Generates a random storage slot value for use in EFP list storage or other unique slot requirements.
+
+```tsx
+const slot = generateSlot()
+```
+
+#### Return Value
+
+Returns a `bigint` representing a random storage slot value.
+
+#### Example
+
+```tsx
+const slot = generateSlot()
+console.log(slot) // e.g., 12345678901234567890n
+```
+
+#### Technical Details
+
+- Uses `keccak256` hash of the current timestamp multiplied by a random number.
+- Ensures the result fits within 255 bits.

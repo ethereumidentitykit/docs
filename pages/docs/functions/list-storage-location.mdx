@@ -1,0 +1,57 @@
+import { getListStorageLocation } from 'ethereum-identity-kit'
+
+# List Storage Location
+
+The list storage location module provides functionality to retrieve the storage location of an EFP list from the list registry contract.
+
+## Functions
+
+### getListStorageLocation
+
+Retrieves the chain ID and storage slot for a given list number from the EFP List Registry contract.
+
+```tsx
+const { chainId, slot } = await getListStorageLocation('1')
+```
+
+#### Parameters
+
+| Parameter | Type   | Description                                     |
+| --------- | ------ | ----------------------------------------------- |
+| `list`    | string | The list number to get the storage location for |
+
+#### Return Value
+
+Returns an object containing:
+
+- `chainId`: number - The chain ID where the list is stored
+- `slot`: bigint - The storage slot where the list data is stored
+
+#### Example
+
+```tsx
+const location = await getListStorageLocation('1')
+console.log(location)
+// {
+//   chainId: 1,
+//   slot: 123456789n
+// }
+```
+
+#### Technical Details
+
+The function:
+
+1. Creates a public client for the default chain
+2. Gets the list registry contract instance
+3. Calls `getListStorageLocation` on the contract with the list number
+4. Extracts the chain ID and slot from the returned storage location
+5. Returns the parsed data
+
+For more information about list storage locations, see the [EFP documentation](https://docs.efp.app/design/list-storage-location/).
+
+## What is a list storage location?
+
+A list storage location is a unique identifier for a list on a specific chain. It is a combination of a chain ID and a storage slot. The chain ID is the ID of the chain where the list is stored, and the storage slot is the slot where the list data is stored.
+
+- [EFP Docs - List Storage Location](https://docs.efp.app/design/list-storage-location/)

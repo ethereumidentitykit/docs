@@ -1,0 +1,37 @@
+import { fetchAccount } from 'ethereum-identity-kit'
+
+# fetchAccount
+
+Fetches condensed account information for a given address, ENS name, or list.
+
+## Usage
+
+```tsx
+const account = await fetchAccount('vitalik.eth')
+// or for a list
+const listAccount = await fetchAccount('0x...', 1)
+```
+
+## Parameters
+
+| Parameter       | Type            | Description                                       |
+| --------------- | --------------- | ------------------------------------------------- |
+| `addressOrName` | string          | Ethereum address or ENS name to fetch account for |
+| `list`          | ProfileListType | Optional list number to fetch account for         |
+
+## Return Value
+
+Returns an `AccountResponseType` object containing account information, or `null` if the request fails.
+
+## Example Response
+
+```tsx
+{
+    address: '0x...',
+    ens: {
+        name: 'user.eth',
+        avatar: 'https://example.com/avatar.png',
+    },
+    primary_list: '1',
+}
+```

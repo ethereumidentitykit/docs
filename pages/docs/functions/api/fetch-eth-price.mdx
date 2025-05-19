@@ -1,0 +1,21 @@
+import { fetchEthPrice } from 'ethereum-identity-kit'
+
+# fetchEthPrice
+
+Fetches the current ETH price in USD from the CoinGecko API.
+
+## Usage
+
+```tsx
+const ethPrice = await fetchEthPrice()
+```
+
+## Return Value
+
+Returns the current ETH price in USD as a number, or `null` if the request fails.
+
+## Example Response
+
+```tsx
+2500.42 // Current ETH price in USD
+```

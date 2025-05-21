@@ -1,0 +1,93 @@
+# ethidentitykit.com llms.txt
+
+> Ethereum Identity Kit facilitates the integration of Ethereum identity features into applications via a React component library, providing developers with tools and documentation for user profile management and on-chain transactions.
+
+- [followers-you-know](https://docs.efp.app/followers-you-know): The Followers you know component displays a list of common followers between two Ethereum addresses or ENS names, showing their avatars and names.
+- [profile-socials](https://docs.efp.app/profile-socials): The Profile Socials component displays the social links of a user, including URLs and decentralized web links.
+- [transaction-modal](https://docs.efp.app/transaction-modal): The Transaction Modal component allows users to initiate and manage on-chain transactions. It provides a user interface for viewing transaction details, selecting chains, and managing transaction batches.
+- [avatar](https://docs.efp.app/avatar): The Avatar component displays an avatar image for a given Ethereum address or ENS name, with support for fallback images.
+- [profile-stats](https://docs.efp.app/profile-stats): The Profile Stats component displays follower and following statistics for a given Ethereum address or ENS name.
+- [follower-tag](https://docs.efp.app/follower-tag): The Follower Tag component displays the relationship status between a given Ethereum address and the connected user, such as whether the user follows, blocks, or mutes the address.
+- [full-width-profile](https://docs.efp.app/full-width-profile): The Full Width Profile component displays a comprehensive Ethereum Profile with ENS and EFP details.
+- [follow-button](https://docs.efp.app/follow-button): The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
+- [transaction-provider](https://docs.efp.app/transaction-provider): The Transaction Provider component supplies the necessary context for managing on-chain transactions within the application.
+- [profile-card](https://docs.efp.app/profile-card): The Profile Card component displays a user's ENS and EFP details.
+- [list-ops](https://docs.efp.app/list-ops): The list operations module provides utility functions for creating list operations in the EFP (Ethereum Follow Protocol) system.
+- [transactions](https://docs.efp.app/transactions): The transactions module provides utility functions for handling EFP (Ethereum Follow Protocol) list operations and transactions.
+- [validity](https://docs.efp.app/validity): The validity module provides utility functions for validating various types of data in the application.
+- [list-storage-location](https://docs.efp.app/list-storage-location): Location The list storage location module provides functionality to retrieve the storage location of an EFP list from the list registry contract.
+- [formatters](https://docs.efp.app/formatters): The formatters module provides utility functions for formatting various types of data in the application.
+- [profile](https://docs.efp.app/profile): The profile module provides utility functions for handling profile-related operations.
+- [generate-slot](https://docs.efp.app/generate-slot): The generateSlot utility generates a random storage slot value using keccak256 and the current timestamp.
+- [fetch-followers-you-know](https://docs.efp.app/api/fetch-followers-you-know): Fetches the list of followers that you (connected address) follow, who also follow another address.
+- [fetch-follow-state](https://docs.efp.app/api/fetch-follow-state): Fetches the follow state between two addresses or a list and an address.
+- [fetch-profile-efp-poaps](https://docs.efp.app/api/fetch-profile-efp-poaps): Fetches EFP [POAPs (Proof of Attendance Protocol)](https://poap.
+- [fetch-eth-price](https://docs.efp.app/api/fetch-eth-price): Fetches the current ETH price in USD from the CoinGecko API.
+- [fetch-profile-details](https://docs.efp.app/api/fetch-profile-details): Fetches profile details for a given Ethereum address, ENS name, or list number.
+- [fetch-profile-lists](https://docs.efp.app/api/fetch-profile-lists): Fetches all lists associated with a given address or ENS name.
+- [fetch-profile-stats](https://docs.efp.app/api/fetch-profile-stats): Fetches profile statistics (followers and following counts) for a given address, ENS name, or list.
+- [fetch-account](https://docs.efp.app/api/fetch-account): Fetches condensed account information for a given address, ENS name, or list.
+- [fetch-recommended](https://docs.efp.app/api/fetch-recommended): Fetches recommended profiles or recent activity from the EFP API, with optional pagination.
+- [fetch-all-followers-you-know](https://docs.efp.app/api/fetch-all-followers-you-know): Fetches a paginated list of followers that you (connected address) follow, who also follow another address, with optional search functionality.
+- [useFollowButton](https://docs.efp.app/useFollowButton): The `useFollowButton` hook manages the state and actions for a follow button component.
+- [useProfileDetails](https://docs.efp.app/useProfileDetails): The `useProfileDetails` hook fetches and manages the profile details for a given Ethereum address or ENS name, including ENS data and primary list information.
+- [useFollowingState](https://docs.efp.app/useFollowingState): The `useFollowingState` hook fetches and manages the following state between a given Ethereum address or ENS name and the connected user, indicating if the user follows, blocks, or mutes the address.
+- [useFollowerState](https://docs.efp.app/useFollowerState): The `useFollowerState` hook fetches and manages the follower state between a given Ethereum address or ENS name and the connected user, indicating if the user is followed, blocked, or muted by the address.
+- [useProfileStats](https://docs.efp.app/useProfileStats): The `useProfileStats` hook fetches and manages the follower and following statistics for a given Ethereum address or ENS name.
+- [useTransactions](https://docs.efp.app/useTransactions): The `useTransactions` hook provides access to the transaction context, allowing components to manage and interact with on-chain transactions.
+- [Interpreting EFP Data](https://docs.efp.app/interpreting-state): Interpreting EFP Data 
+- [EFP Railway Template](https://docs.efp.app/efp-silo): Deploying the EFP Railway Template  
+- [EFP Infrastructure](https://docs.efp.app/infra): EFP Infrastructure 
+- [Discover](https://docs.efp.app/discover): Get recently active accounts to follow.
+- [Metadata](https://docs.efp.app/token/metadata): Get NFT metadata for a specified token id 
+- [Image](https://docs.efp.app/token/image): Get NFT image for a specified token id
+- [Stats](https://docs.efp.app/stats): Get global EFP statistics.
+- [Export State](https://docs.efp.app/export-state): Get all accounts that are being followed by EFP list id, excludes blocks and mutes 
+- [Recommended](https://docs.efp.app/lists/recommended): Get recommended users for a user by their EFP list id.
+- [Latest Followers](https://docs.efp.app/lists/latestFollowers): Get the latest followers (excluding blocked and muted) of a user by their EFP list id.
+- [Stats](https://docs.efp.app/lists/stats): Get stats of a user by their EFP list id.
+- [Details](https://docs.efp.app/lists/details): Get details of a user by their EFP list id.
+- [Account](https://docs.efp.app/lists/account): Get account information by their EFP list id 
+- [All Following Addresses](https://docs.efp.app/lists/allFollowingAddresses): Get all accounts in list format, that are being followed (including blocked and muted) by a user by their EFP list id.
+- [Search Followers](https://docs.efp.app/lists/searchFollowers): Search for followers of a user by their EFP list id.
+- [Poap Badges](https://docs.efp.app/lists/badges): Get EFP POAPs of a user by their EFP list id.
+- [Search Following](https://docs.efp.app/lists/searchFollowing): Search for following of a user by their EFP list id.
+- [All Followers](https://docs.efp.app/lists/allFollowers): Get all followers (including blocked and muted) of a user by their EFP list id.
+- [Tagged As](https://docs.efp.app/lists/taggedAs): Get the tags that are applied to a user by their EFP list id.
+- [Tags](https://docs.efp.app/lists/tags): Get the tags of a user by their EFP list id.
+- [Button State](https://docs.efp.app/lists/buttonState): Get the following state between a given list and a given user.
+- [Following](https://docs.efp.app/lists/following): Get accounts being followed (excluding blocked and muted) by a user by their EFP list id.
+- [All Following](https://docs.efp.app/lists/allFollowing): Get all accounts being followed (including blocked and muted) by a user by their EFP list id.
+- [Follower State](https://docs.efp.app/lists/followerState): Get the follower state between a given list and a given user.
+- [Followers](https://docs.efp.app/lists/followers): Get followers (excluding blocked and muted) of a user by their EFP list id.
+- [List Records](https://docs.efp.app/users/listRecords): Get the list records of a user by their address or ENS name.
+- [Recommended](https://docs.efp.app/users/recommended): Get recommended users for a user by their address or ENS name.
+- [Lists](https://docs.efp.app/users/lists): Get the lists of a user by their address or ENS name.
+- [Latest Followers](https://docs.efp.app/users/latestFollowers): Get a user's latest followers by Address or ENS Name  
+- [Notifications](https://docs.efp.app/users/notifications): Get incoming actions received from other users by Address or ENS Name  
+- [Stats](https://docs.efp.app/users/stats): Get stats of a user by their address or ENS name.
+- [Details](https://docs.efp.app/users/details): Get account details, populates most of the data on a profile card  
+- [Common Followers](https://docs.efp.app/users/commonFollowers): Get common followers that are shared by two accounts  
+- [QR Code](https://docs.efp.app/users/qr): Get a QR code that links to a user's profile page.
+- [Account](https://docs.efp.app/users/account): Get account information by Address or ENS Name  
+- [Search Followers](https://docs.efp.app/users/searchFollowers): Search for followers of a user by their address or ENS name.
+- [Poap Badges](https://docs.efp.app/users/badges): Get EFP POAPs of a user by their address or ENS name.
+- [Primary List](https://docs.efp.app/users/primaryList): Get the primary list of a user by their address or ENS name.
+- [Search Following](https://docs.efp.app/users/searchFollowing): Search for following of a user by their address or ENS name.
+- [ENS](https://docs.efp.app/users/ens): Get the ENS data of a user by their address or ENS name.
+- [Tagged As](https://docs.efp.app/users/taggedAs): Get the tags that are applied to a user by their address or ENS name.
+- [Tags](https://docs.efp.app/users/tags): Get the tags of a user by their address or ENS name.
+- [Following](https://docs.efp.app/users/following): Get following by Address or ENS Name 
+- [Follower State](https://docs.efp.app/users/followerState): Get the follower state between two users.
+- [Followers](https://docs.efp.app/users/followers): Get followers by Address or ENS Name  
+- [Introduction](https://docs.efp.app/index): EFP provides an open source indexer and API for indexing and retrieving EFP data.
+- [Blocked](https://docs.efp.app/leaderboard/blocked): Get leaderboard of users ranked according to count of users that blocked them.
+- [All](https://docs.efp.app/leaderboard/all): Get addresses and ens names of all leaderboard records.
+- [Ranked](https://docs.efp.app/leaderboard/ranked): Get leaderboard of users ranked according to count of mutual follows.
+- [Search](https://docs.efp.app/leaderboard/search): Search for leaderboard addresses and ENS names by a specified search term.
+- [Muted](https://docs.efp.app/leaderboard/muted): Get leaderboard of users ranked according to count of users that muted them.
+- [Count](https://docs.efp.app/leaderboard/count): Get count of all accounts in the leaderboard.
+- [Mutes](https://docs.efp.app/leaderboard/mutes): Get leaderboard of users ranked according to count of users that they muted.
+- [Following](https://docs.efp.app/leaderboard/following): Get leaderboard of users ranked according to following counts.
+- [Blocks](https://docs.efp.app/leaderboard/blocks): Get leaderboard of users ranked according to count of users that they blocked.
+- [Followers](https://docs.efp.app/leaderboard/followers): Get leaderboard of users ranked according to follower counts.

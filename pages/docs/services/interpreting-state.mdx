@@ -6,13 +6,13 @@ title: Interpreting EFP Data
 
 A valid EFP list operation has four primary components that must exist in order for it to be considered `active`.
 
-- a valid [list storage location](/design/list-storage-location) (denoting chainId, listRecords contract address, and slot)
+- a valid [list storage location](https://docs.efp.app/design/list-storage-location) (denoting chainId, listRecords contract address, and slot)
 
-- an [account metadata record](/design/account-metadata) specifying a tokenId as a user's primary list
+- an [account metadata record](https://docs.efp.app/design/account-metadata) specifying a tokenId as a user's primary list
 
-- a [list metadata record](/design/list-metadata) in the listRecords contract for 'user' role for the slot
+- a [list metadata record](https://docs.efp.app/design/list-metadata) in the listRecords contract for 'user' role for the slot
 
-- a [list record](/design/list-records) with a specified slot that matches the list metadata record and the list storage location. This list record must have been created on the list records contract and chain specified in the list storage location
+- a [list record](https://docs.efp.app/design/list-records) with a specified slot that matches the list metadata record and the list storage location. This list record must have been created on the list records contract and chain specified in the list storage location
 
 The user and manager roles of a list can be different, this means that the sender of a transaction that applies list operations to a list is not necessarily the same address that is displayed as the user.
 

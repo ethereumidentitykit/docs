@@ -2,6 +2,8 @@
 
 > Ethereum Identity Kit facilitates the integration of Ethereum identity features into applications via a React component library, providing developers with tools and documentation for user profile management and on-chain transactions.
 
+## Components
+
 - [followers-you-know](https://docs.efp.app/followers-you-know): The Followers you know component displays a list of common followers between two Ethereum addresses or ENS names, showing their avatars and names.
 - [profile-socials](https://docs.efp.app/profile-socials): The Profile Socials component displays the social links of a user, including URLs and decentralized web links.
 - [transaction-modal](https://docs.efp.app/transaction-modal): The Transaction Modal component allows users to initiate and manage on-chain transactions. It provides a user interface for viewing transaction details, selecting chains, and managing transaction batches.
@@ -12,16 +14,19 @@
 - [follow-button](https://docs.efp.app/follow-button): The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
 - [transaction-provider](https://docs.efp.app/transaction-provider): The Transaction Provider component supplies the necessary context for managing on-chain transactions within the application.
 - [profile-card](https://docs.efp.app/profile-card): The Profile Card component displays a user's ENS and EFP details.
+
+## Functions
+
 - [list-ops](https://docs.efp.app/list-ops): The list operations module provides utility functions for creating list operations in the EFP (Ethereum Follow Protocol) system.
 - [transactions](https://docs.efp.app/transactions): The transactions module provides utility functions for handling EFP (Ethereum Follow Protocol) list operations and transactions.
 - [validity](https://docs.efp.app/validity): The validity module provides utility functions for validating various types of data in the application.
-- [list-storage-location](https://docs.efp.app/list-storage-location): Location The list storage location module provides functionality to retrieve the storage location of an EFP list from the list registry contract.
+- [list-storage-location](https://docs.efp.app/list-storage-location): The list storage location module provides functionality to retrieve the storage location of an EFP list from the list registry contract.
 - [formatters](https://docs.efp.app/formatters): The formatters module provides utility functions for formatting various types of data in the application.
 - [profile](https://docs.efp.app/profile): The profile module provides utility functions for handling profile-related operations.
 - [generate-slot](https://docs.efp.app/generate-slot): The generateSlot utility generates a random storage slot value using keccak256 and the current timestamp.
 - [fetch-followers-you-know](https://docs.efp.app/api/fetch-followers-you-know): Fetches the list of followers that you (connected address) follow, who also follow another address.
 - [fetch-follow-state](https://docs.efp.app/api/fetch-follow-state): Fetches the follow state between two addresses or a list and an address.
-- [fetch-profile-efp-poaps](https://docs.efp.app/api/fetch-profile-efp-poaps): Fetches EFP [POAPs (Proof of Attendance Protocol)](https://poap.
+- [fetch-profile-efp-poaps](https://docs.efp.app/api/fetch-profile-efp-poaps): Fetches EFP [POAPs (Proof of Attendance Protocol)](https://poap.xyz).
 - [fetch-eth-price](https://docs.efp.app/api/fetch-eth-price): Fetches the current ETH price in USD from the CoinGecko API.
 - [fetch-profile-details](https://docs.efp.app/api/fetch-profile-details): Fetches profile details for a given Ethereum address, ENS name, or list number.
 - [fetch-profile-lists](https://docs.efp.app/api/fetch-profile-lists): Fetches all lists associated with a given address or ENS name.
@@ -29,6 +34,9 @@
 - [fetch-account](https://docs.efp.app/api/fetch-account): Fetches condensed account information for a given address, ENS name, or list.
 - [fetch-recommended](https://docs.efp.app/api/fetch-recommended): Fetches recommended profiles or recent activity from the EFP API, with optional pagination.
 - [fetch-all-followers-you-know](https://docs.efp.app/api/fetch-all-followers-you-know): Fetches a paginated list of followers that you (connected address) follow, who also follow another address, with optional search functionality.
+
+## Hooks
+
 - [useFollowButton](https://docs.efp.app/useFollowButton): The `useFollowButton` hook manages the state and actions for a follow button component.
 - [useProfileDetails](https://docs.efp.app/useProfileDetails): The `useProfileDetails` hook fetches and manages the profile details for a given Ethereum address or ENS name, including ENS data and primary list information.
 - [useFollowingState](https://docs.efp.app/useFollowingState): The `useFollowingState` hook fetches and manages the following state between a given Ethereum address or ENS name and the connected user, indicating if the user follows, blocks, or mutes the address.
@@ -38,6 +46,9 @@
 - [Interpreting EFP Data](https://docs.efp.app/interpreting-state): Interpreting EFP Data 
 - [EFP Railway Template](https://docs.efp.app/efp-silo): Deploying the EFP Railway Template  
 - [EFP Infrastructure](https://docs.efp.app/infra): EFP Infrastructure 
+
+## API
+
 - [Discover](https://docs.efp.app/discover): Get recently active accounts to follow.
 - [Metadata](https://docs.efp.app/token/metadata): Get NFT metadata for a specified token id 
 - [Image](https://docs.efp.app/token/image): Get NFT image for a specified token id

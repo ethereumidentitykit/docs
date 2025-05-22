@@ -11,4 +11,5 @@ export default {
     href: 'https://ethid.org',
     newWindow: true,
   },
+  'llms-txt': 'LLMs.txt',
 }

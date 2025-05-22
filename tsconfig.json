@@ -29,7 +29,8 @@
     "**/*.tsx",
     "theme.jsx",
     "tailwind.config.mjs",
-    "theme.config.jsx"
+    "theme.config.jsx",
+    "pages/docs/theme.mdx"
   ],
   "files": ["environment.d.ts"],
   "exclude": ["node_modules"]

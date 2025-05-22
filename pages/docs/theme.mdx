@@ -1,0 +1,57 @@
+# Theme
+
+Ethereum Identity Kit uses native CSS for styling. You can customize the theme of Ethereum identity kit by overriding the default root values.
+
+## Colors
+
+| Category              | Variable Name                                     | Color Value                                                                                                                                                          |
+| --------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Text Colors**       |
+|                       | `--ethereum-identity-kit-text-primary`            | <p style={{ backgroundColor: '#000000', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#000000</p>                                              |
+|                       | `--ethereum-identity-kit-text-primary-dark`       | <p style={{ backgroundColor: '#ffffff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ffffff</p>                                              |
+|                       | `--ethereum-identity-kit-text-neutral`            | <p style={{ backgroundColor: '#555555', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#555555</p>                                              |
+|                       | `--ethereum-identity-kit-text-neutral-dark`       | <p style={{ backgroundColor: '#aaaaaa', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#aaaaaa</p>                                              |
+|                       | `--ethereum-identity-kit-text-light`              | <p style={{ backgroundColor: '#ffffff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ffffff</p>                                              |
+|                       | `--ethereum-identity-kit-text-light-dark`         | <p style={{ backgroundColor: '#ffffff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ffffff</p>                                              |
+| **Primary Colors**    |
+|                       | `--ethereum-identity-kit-primary`                 | <p style={{ backgroundColor: '#ffe066', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ffe066</p>                                              |
+|                       | `--ethereum-identity-kit-primary-hover`           | <p style={{ backgroundColor: '#fde583', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#fde583</p>                                              |
+| **Link Colors**       |
+|                       | `--ethereum-identity-kit-link`                    | <p style={{ backgroundColor: '#0059ff', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#0059ff</p>                                              |
+|                       | `--ethereum-identity-kit-link-dark`               | <p style={{ backgroundColor: '#4dabff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#4dabff</p>                                              |
+|                       | `--ethereum-identity-kit-link-selected`           | <p style={{ backgroundColor: '#0056b3', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#0056b3</p>                                              |
+|                       | `--ethereum-identity-kit-link-selected-dark`      | <p style={{ backgroundColor: '#66b3ff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#66b3ff</p>                                              |
+|                       | `--ethereum-identity-kit-link-hover`              | <p style={{ backgroundColor: '#0047cc', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#0047cc</p>                                              |
+|                       | `--ethereum-identity-kit-link-hover-dark`         | <p style={{ backgroundColor: '#3399ff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#3399ff</p>                                              |
+| **Neutral Colors**    |
+|                       | `--ethereum-identity-kit-neutral`                 | <p style={{ backgroundColor: '#ffffff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ffffff</p>                                              |
+|                       | `--ethereum-identity-kit-neutral-dark`            | <p style={{ backgroundColor: '#2d2d2d', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#2d2d2d</p>                                              |
+|                       | `--ethereum-identity-kit-neutral-hover`           | <p style={{ backgroundColor: '#d0d0d0', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#d0d0d0</p>                                              |
+|                       | `--ethereum-identity-kit-neutral-hover-dark`      | <p style={{ backgroundColor: '#3d3d3d', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#3d3d3d</p>                                              |
+|                       | `--ethereum-identity-kit-neutral-light`           | <p style={{ backgroundColor: '#f4f4f4', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#f4f4f4</p>                                              |
+|                       | `--ethereum-identity-kit-neutral-light-dark`      | <p style={{ backgroundColor: '#444444', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#444444</p>                                              |
+| **Background Colors** |
+|                       | `--ethereum-identity-kit-background`              | <p style={{ backgroundColor: '#ffffff', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ffffff</p>                                              |
+|                       | `--ethereum-identity-kit-background-dark`         | <p style={{ backgroundColor: '#333333', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#333333</p>                                              |
+|                       | `--ethereum-identity-kit-background-overlay`      | <p style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>rgba(0, 0, 0, 0.5)</p>                        |
+|                       | `--ethereum-identity-kit-background-overlay-dark` | <p style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>rgba(0, 0, 0, 0.7)</p>                        |
+| **Status Colors**     |
+|                       | `--ethereum-identity-kit-deletion`                | <p style={{ backgroundColor: '#ff7c7c', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ff7c7c</p>                                              |
+|                       | `--ethereum-identity-kit-restriction`             | <p style={{ backgroundColor: '#ef4444', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#ef4444</p>                                              |
+|                       | `--ethereum-identity-kit-restriction-hover`       | <p style={{ backgroundColor: '#ef444433', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#ef444433</p>                                          |
+|                       | `--ethereum-identity-kit-success`                 | <p style={{ backgroundColor: '#49de80', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>#49de80</p>                                              |
+|                       | `--ethereum-identity-kit-indexing-bar`            | <p style={{ backgroundColor: '#24ad57', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#24ad57</p>                                              |
+| **Shadow Colors**     |
+|                       | `--ethereum-identity-kit-shadow-small`            | <p style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>0 2px 4px rgba(0, 0, 0, 0.1)</p>              |
+|                       | `--ethereum-identity-kit-shadow-small-dark`       | <p style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>0 2px 4px rgba(255, 255, 255, 0.2)</p>  |
+|                       | `--ethereum-identity-kit-shadow-medium`           | <p style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>0 2px 6px rgba(0, 0, 0, 0.1)</p>              |
+|                       | `--ethereum-identity-kit-shadow-medium-dark`      | <p style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>0 2px 6px rgba(255, 255, 255, 0.2)</p>  |
+|                       | `--ethereum-identity-kit-shadow-large`            | <p style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>0 2px 12px rgba(0, 0, 0, 0.1)</p>             |
+|                       | `--ethereum-identity-kit-shadow-large-dark`       | <p style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>0 2px 12px rgba(255, 255, 255, 0.2)</p> |
+| **Social Colors**     |
+|                       | `--ethereum-identity-kit-social-twitter`          | <p style={{ backgroundColor: 'rgb(0, 89, 255)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>rgb(0, 89, 255)</p>                              |
+|                       | `--ethereum-identity-kit-social-twitter-dark`     | <p style={{ backgroundColor: 'rgb(96, 165, 250)', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>rgb(96, 165, 250)</p>                          |
+|                       | `--ethereum-identity-kit-social-github`           | <p style={{ backgroundColor: '#333333', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#333333</p>                                              |
+|                       | `--ethereum-identity-kit-social-github-dark`      | <p style={{ backgroundColor: '#666666', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>#666666</p>                                              |
+|                       | `--ethereum-identity-kit-social-discord`          | <p style={{ backgroundColor: 'rgb(37, 99, 235)', color: '#ffffff', padding: '4px', borderRadius: '4px', margin: 0 }}>rgb(37, 99, 235)</p>                            |
+|                       | `--ethereum-identity-kit-social-discord-dark`     | <p style={{ backgroundColor: 'rgb(147, 197, 253)', color: '#000000', padding: '4px', borderRadius: '4px', margin: 0 }}>rgb(147, 197, 253)</p>                        |

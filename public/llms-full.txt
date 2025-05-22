@@ -1,0 +1,5368 @@
+# ethidentitykit.com llms-full.txt
+
+> Ethereum Identity Kit facilitates the integration of Ethereum identity features into applications via a React component library, providing developers with tools and documentation for user profile management and on-chain transactions.
+
+# useFollowButton
+
+The `useFollowButton` hook manages the state and actions for a follow button component. It determines the current follow state between a `lookupAddress` and a `connectedAddress`, and provides functions to handle follow, unfollow, block, and mute actions.
+
+### Add to your project
+
+```tsx copy
+import { useFollowButton } from 'ethereum-identity-kit'
+
+export default function FollowButtonComponent() {
+  const { buttonText, buttonState, handleAction, isLoading, disableHover, setDisableHover } = useFollowButton({
+    lookupAddress: '0x1234...abcd',
+    connectedAddress: '0xabcd...1234',
+  })
+
+  // Create your own loading states
+  if (isLoading) return <div>Loading...</div>
+
+  return (
+    <button
+      className={`follow-button ${disableHover ? 'no-hover' : ''}`}
+      onClick={handleAction}
+      onMouseEnter={() => setDisableHover(false)}
+    >
+      {buttonText}
+    </button>
+  )
+}
+```
+
+## Parameters
+
+| Parameter          | Description                                                               | Required | Default Value |
+| ------------------ | ------------------------------------------------------------------------- | -------- | ------------- |
+| `lookupAddress`    | Ethereum address to manage the follow state for.                          | Yes      | -             |
+| `connectedAddress` | Ethereum address of the currently connected user.                         | No       | -             |
+| `selectedList`     | List number to manage the follow state for; defaults to the primary list. | No       | -             |
+
+## Return Values
+
+| Return Value      | Description                                                                                  |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| `buttonText`      | The text to display on the follow button, indicating the current or pending follow state.    |
+| `buttonState`     | The current state of the button, such as 'Follow', 'Following', 'Blocked', etc.              |
+| `handleAction`    | Function to handle the button click action, updating the follow state accordingly.           |
+| `isLoading`       | Boolean indicating if the follow state is currently loading.                                 |
+| `pendingState`    | The pending state of the follow action, if any (e.g., 'Pending Following', 'Pending Block'). |
+| `disableHover`    | Boolean indicating if hover effects should be disabled. (it is disabled after a click)       |
+| `setDisableHover` | Function to set the `disableHover` state.                                                    |
+
+### Notes
+
+- Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.
+- The `handleAction` function manages the follow, unfollow, block, and mute actions based on the current state.
+- The `disableHover` state can be used to control hover effects on the button during certain actions as the state is set to true every time the button is clicked.
+
+---
+
+# useProfileDetails
+
+The `useProfileDetails` hook fetches and manages the profile details for a given Ethereum address or ENS name, including ENS data and primary list information.
+
+### Add to your project
+
+```tsx copy
+import { useProfileDetails } from 'ethereum-identity-kit'
+
+export default function ProfileComponent() {
+  const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
+    addressOrName: 'vitalik.eth',
+  })
+
+  if (detailsLoading) return <div>Loading...</div> // Create your own loading states
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter               | Description                                                                      | Required | Default Value |
+| ----------------------- | -------------------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`         | Ethereum Address or ENS name to fetch profile details for.                       | Yes      | -             |
+| `list`                  | List number to fetch profile details for; overrides `addressOrName` if provided. | No       | -             |
+| `prefetchedData`        | Prefetched profile data to use initially.                                        | No       | -             |
+| `refetchPrefetchedData` | Function to refetch prefetched profile data.                                     | No       | -             |
+
+## Return Values
+
+| Return Value            | Description                                                      |
+| ----------------------- | ---------------------------------------------------------------- |
+| `ens`                   | ENS data for the profile, including name and records.            |
+| `address`               | Ethereum address associated with the profile.                    |
+| `primaryList`           | Primary list number associated with the profile.                 |
+| `detailsLoading`        | Boolean indicating if the profile details are currently loading. |
+| `refreshProfileDetails` | Function to manually refresh the profile details.                |
+
+---
+
+# useFollowingState
+
+The `useFollowingState` hook fetches and manages the following state between a given Ethereum address or ENS name and the connected user, indicating if the user follows, blocks, or mutes the address.
+
+### Add to your project
+
+```tsx copy
+import { useFollowingState } from 'ethereum-identity-kit'
+
+export default function FollowingStateComponent() {
+  const { state, isLoading } = useFollowingState({
+    lookupAddressOrName: 'vitalik.eth',
+    connectedAddress: '0x1234...abcd',
+  })
+
+  // Create your own loading states
+  if (isLoading) return <div>Loading...</div>
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter             | Description                                                                                | Required | Default Value |
+| --------------------- | ------------------------------------------------------------------------------------------ | -------- | ------------- |
+| `lookupAddressOrName` | Ethereum Address or ENS name to check the following state for.                             | Yes      | -             |
+| `connectedAddress`    | Ethereum address of the currently connected user.                                          | Yes      | -             |
+| `list`                | List number to check the following state for; overrides `lookupAddressOrName` if provided. | No       | -             |
+
+## Return Values
+
+| Return Value | Description                                                                        |
+| ------------ | ---------------------------------------------------------------------------------- |
+| `state`      | The following state, indicating if the user follows, blocks, or mutes the address. |
+| `isLoading`  | Boolean indicating if the following state is currently loading.                    |
+
+---
+
+# useFollowerState
+
+The `useFollowerState` hook fetches and manages the follower state between a given Ethereum address or ENS name and the connected user, indicating if the user is followed, blocked, or muted by the address.
+
+### Add to your project
+
+```tsx copy
+import { useFollowerState } from 'ethereum-identity-kit'
+
+export default function FollowerStateComponent() {
+  const { followState, followerTag, isFollowerStateLoading } = useFollowerState({
+    addressOrName: 'vitalik.eth',
+    connectedAddress: '0x1234...abcd',
+  })
+
+  // Create your own loading states
+  if (isFollowerStateLoading) return <div>Loading...</div>
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter          | Description                                                                         | Required | Default Value |
+| ------------------ | ----------------------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`    | Ethereum Address or ENS name to check the follower state for.                       | Yes      | -             |
+| `connectedAddress` | Ethereum address of the currently connected user.                                   | Yes      | -             |
+| `list`             | List number to check the follower state for; overrides `addressOrName` if provided. | No       | -             |
+
+## Return Values
+
+| Return Value             | Description                                                                               |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| `followState`            | The follower state, indicating if the user is followed, blocked, or muted by the address. |
+| `followerTag`            | Object containing text and className for displaying the follower state.                   |
+| `isFollowerStateLoading` | Boolean indicating if the follower state is currently loading.                            |
+
+---
+
+# useProfileStats
+
+The `useProfileStats` hook fetches and manages the follower and following statistics for a given Ethereum address or ENS name.
+
+### Add to your project
+
+```tsx copy
+import { useProfileStats } from 'ethereum-identity-kit'
+
+export default function StatsComponent() {
+  const { followers, following, statsLoading, refreshProfileStats } = useProfileStats({
+    addressOrName: 'vitalik.eth',
+  })
+
+  // Create your own loading states
+  if (statsLoading) return <div>Loading...</div>
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter               | Description                                                                    | Required | Default Value |
+| ----------------------- | ------------------------------------------------------------------------------ | -------- | ------------- |
+| `addressOrName`         | Ethereum Address or ENS name to fetch profile stats for.                       | Yes      | -             |
+| `list`                  | List number to fetch profile stats for; overrides `addressOrName` if provided. | No       | -             |
+| `prefetchedData`        | Prefetched stats data to use initially.                                        | No       | -             |
+| `refetchPrefetchedData` | Function to refetch prefetched stats data.                                     | No       | -             |
+
+## Return Values
+
+| Return Value          | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| `followers`           | Number of followers for the profile.                           |
+| `following`           | Number of accounts the profile is following.                   |
+| `statsLoading`        | Boolean indicating if the profile stats are currently loading. |
+| `refreshProfileStats` | Function to manually refresh the profile stats.                |
+
+---
+
+# useTransactions
+
+The `useTransactions` hook provides access to the transaction context, allowing components to manage and interact with on-chain transactions. It offers state management and utility functions for handling transaction modals, batching, and more.
+
+### Add to your project
+
+```tsx copy
+import { useTransactions } from 'ethereum-identity-kit'
+
+export default function TransactionComponent() {
+  const {
+    txModalOpen,
+    setTxModalOpen,
+    pendingTxs,
+    addTransactions,
+    goToNextTransaction,
+    resetTransactions,
+    isCheckoutFinished,
+  } = useTransactions()
+
+  // Example usage
+  if (txModalOpen) {
+    return <div>Transaction Modal is Open</div>
+  }
+
+  return <button onClick={() => setTxModalOpen(true)}>Open Transaction Modal</button>
+}
+```
+
+## Return Values
+
+| Return Value               | Description                                                    |
+| -------------------------- | -------------------------------------------------------------- |
+| `txModalOpen`              | Boolean indicating if the transaction modal is open.           |
+| `setTxModalOpen`           | Function to set the `txModalOpen` state.                       |
+| `pendingTxs`               | Array of pending transactions.                                 |
+| `addTransactions`          | Function to add new transactions (any transaction).            |
+| `goToNextTransaction`      | Function to proceed to the next transaction.                   |
+| `resetTransactions`        | Function to reset all transactions.                            |
+| `isCheckoutFinished`       | Boolean indicating if the checkout process is finished.        |
+| `selectedChainId`          | ID of the selected chain for EFP list transactions.            |
+| `setSelectedChainId`       | Function to set the `selectedChainId`.                         |
+| `currentTxIndex`           | Index of the current transaction being processed.              |
+| `setCurrentTxIndex`        | Function to set the `currentTxIndex`.                          |
+| `lists`                    | EFP lists of the connected user.                               |
+| `listsLoading`             | Boolean indicating if the lists are loading.                   |
+| `addListOpsTransaction`    | Function to add a list operations transaction.                 |
+| `removeTransactions`       | Function to remove transactions by their IDs.                  |
+| `removeListOpsTransaction` | Function to remove list operations transactions by their data. |
+| `selectedList`             | Currently selected list.                                       |
+| `setSelectedList`          | Function to set the `selectedList`.                            |
+| `nonce`                    | Nonce for the current transaction.                             |
+| `setIsCheckoutFinished`    | Function to set the `isCheckoutFinished` state.                |
+
+### `txModalOpen`
+
+**Description**:  
+A boolean indicating whether the transaction modal is currently open.
+
+**Example**:
+
+```tsx
+const { txModalOpen, setTxModalOpen } = useTransactions()
+
+// Open the transaction modal
+setTxModalOpen(true)
+```
+
+### `setTxModalOpen`
+
+**Description**:  
+A function to set the `txModalOpen` state, controlling the visibility of the transaction modal.
+
+**Example**:
+
+```tsx
+setTxModalOpen(false) // Closes the transaction modal
+```
+
+### `pendingTxs`
+
+**Description**:  
+An array of pending transactions that are queued for processing.
+
+**Example**:
+
+```tsx
+const { pendingTxs } = useTransactions()
+console.log(pendingTxs) // Logs the list of pending transactions
+```
+
+### `addTransactions`
+
+**Description**:  
+A function to add new transactions to the pending transactions list. You can add any transaction in the following format.
+
+**Example**:
+
+```tsx
+const txs = [
+  {
+    id: 'tx1',
+    title: 'Transaction', // Title of the transaction to be displayed in the modal
+    description: 'This transaction will do something', // Description of the transaction to be displayed in the modal
+    address: '0x123', // Contract address
+    abi: contractAbi, // ABI of the contract
+    chainId: 1, // Chain ID
+    functionName: 'function', // Function name
+    args: [arg1, arg2], // Arguments to be passed to the function
+  },
+  // ...
+]
+
+addTransactions(txs)
+```
+
+### `addListOpsTransaction`
+
+**Description**:  
+A function to add a list operations to pending transactions. This is handled by the Follow Button component, however you can use it to add a list operations transaction manually.
+
+**Example**:
+
+```tsx
+import {
+  useTransactions,
+  listOpAddListRecord,
+  listOpRemoveListRecord,
+  listOpAddTag,
+  listOpRemoveTag,
+} from 'ethereum-identity-kit'
+
+const { addListOpsTransaction } = useTransactions()
+
+const listOps = []
+listOps.push(listOpAddListRecord('0x1234...')) // Add a list record - follow
+listOps.push(listOpRemoveListRecord('0x1234...')) // Remove a list record - unfollow
+listOps.push(listOpAddTag('0x1234...', 'myTag')) // Add a tag
+listOps.push(listOpRemoveTag('0x1234...', 'myTag')) // Remove a tag
+
+addListOpsTransaction(listOps)
+```
+
+### `removeTransactions`
+
+**Description**:  
+A function to remove transactions by their IDs.
+
+**Example**:
+
+```tsx
+removeTransactions(['tx1', 'tx2'])
+```
+
+### `removeListOpsTransaction`
+
+**Description**:  
+A function to remove list operations transactions by their data.
+
+**Example**:
+
+```tsx
+import {
+  useTransactions,
+  listOpAddListRecord,
+  listOpRemoveListRecord,
+  listOpAddTag,
+  listOpRemoveTag,
+} from 'ethereum-identity-kit'
+
+const { removeListOpsTransaction } = useTransactions()
+
+const listOpsData = []
+listOpsData.push(listOpAddListRecord('0x1234...').data) // Add a list record - follow
+listOpsData.push(listOpRemoveListRecord('0x1234...').data) // Remove a list record - unfollow
+listOpsData.push(listOpAddTag('0x1234...', 'myTag').data) // Add a tag
+listOpsData.push(listOpRemoveTag('0x1234...', 'myTag').data) // Remove a tag
+
+removeListOpsTransaction(listOpsData)
+```
+
+### `goToNextTransaction`
+
+**Description**:  
+A function to proceed to the next transaction in the queue.
+
+**Example**:
+
+```tsx
+goToNextTransaction() // Moves to the next transaction
+```
+
+### `resetTransactions`
+
+**Description**:  
+A function to reset all transactions, optionally keeping the modal open.
+
+**Example**:
+
+```tsx
+resetTransactions() // Resets all transactions and closes the modal
+resetTransactions(true) // Resets all transactions but keeps the modal open
+```
+
+### `isCheckoutFinished`
+
+**Description**:  
+A boolean indicating if the checkout process is complete.
+
+**Example**:
+
+```tsx
+const { isCheckoutFinished } = useTransactions()
+if (isCheckoutFinished) {
+  console.log('Checkout is complete')
+}
+```
+
+### `selectedChainId`
+
+**Description**:  
+The ID of the selected blockchain network for transactions.
+
+**Example**:
+
+```tsx
+const { selectedChainId, setSelectedChainId } = useTransactions()
+setSelectedChainId(1) // Sets the selected chain to Ethereum Mainnet
+```
+
+### `setSelectedChainId`
+
+**Description**:  
+A function to set the `selectedChainId`.
+
+**Example**:
+
+```tsx
+setSelectedChainId(137) // Sets the selected chain to Polygon
+```
+
+### `currentTxIndex`
+
+**Description**:  
+The index of the current transaction being processed.
+
+**Example**:
+
+```tsx
+const { currentTxIndex } = useTransactions()
+console.log(`Current transaction index: ${currentTxIndex}`)
+```
+
+### `setCurrentTxIndex`
+
+**Description**:  
+A function to set the `currentTxIndex`.
+
+**Example**:
+
+```tsx
+setCurrentTxIndex(2) // Sets the current transaction index to 2
+```
+
+### `lists`
+
+**Description**:  
+The EFP lists associated with the connected user.
+
+**Example**:
+
+```tsx
+const { lists } = useTransactions()
+console.log(lists) // Logs the user's EFP lists
+```
+
+### `listsLoading`
+
+**Description**:  
+A boolean indicating if the lists are currently loading.
+
+**Example**:
+
+```tsx
+const { listsLoading } = useTransactions()
+if (listsLoading) {
+  console.log('Lists are loading...')
+}
+```
+
+### `selectedList`
+
+**Description**:  
+The currently selected list for operations.
+
+**Example**:
+
+```tsx
+const { selectedList, setSelectedList } = useTransactions()
+setSelectedList('myList')
+```
+
+### `setSelectedList`
+
+**Description**:  
+A function to set the `selectedList`.
+
+**Example**:
+
+```tsx
+setSelectedList('newList')
+```
+
+### `nonce`
+
+**Description**:  
+The nonce for the current transaction.
+
+**Example**:
+
+```tsx
+const { nonce } = useTransactions()
+console.log(`Current nonce: ${nonce}`)
+```
+
+### `setIsCheckoutFinished`
+
+**Description**:  
+A function to set the `isCheckoutFinished` state.
+
+**Example**:
+
+```tsx
+setIsCheckoutFinished(true) // Marks the checkout as finished
+```
+
+### `followingAddressesToFetchFresh`
+
+**Description**:  
+An array of addresses that need fresh data fetching.
+
+**Example**:
+
+```tsx
+const { followingAddressesToFetchFresh } = useTransactions()
+console.log(followingAddressesToFetchFresh) // Logs addresses to fetch fresh data for
+```
+
+### Notes
+
+You can use all of the returned values to create your own custom transaction modal, however the hook is mostly used to manage the Ethereum Identity Kit [transaction modal](https://ethidentitykit.com/docs/components/transaction-modal) and the transaction state.
+
+- Ensure that the `useTransactions` hook is used within a `TransactionProvider` to access the transaction context.
+- The `txModalOpen` state controls the visibility of the transaction modal.
+- Use the provided functions to manage transactions, such as adding, removing, and resetting them.
+
+---
+
+## Interpreting EFP Data
+
+A valid EFP list operation has four primary components that must exist in order for it to be considered `active`.
+
+- a valid [list storage location](https://docs.efp.app/design/list-storage-location) (denoting chainId, listRecords contract address, and slot)
+
+- an [account metadata record](https://docs.efp.app/design/account-metadata) specifying a tokenId as a user's primary list
+
+- a [list metadata record](https://docs.efp.app/design/list-metadata) in the listRecords contract for 'user' role for the slot
+
+- a [list record](https://docs.efp.app/design/list-records) with a specified slot that matches the list metadata record and the list storage location. This list record must have been created on the list records contract and chain specified in the list storage location
+
+The user and manager roles of a list can be different, this means that the sender of a transaction that applies list operations to a list is not necessarily the same address that is displayed as the user.
+
+![Active List Operation](/active-list-op.png)
+
+### Connecting the dots
+
+In order to validate a list operation, the data in each one of these components must match the others where specified.
+
+#### If User Address is known:
+
+If the only known information is a user address, then the following steps can be take to determine the user's list, list storage location and slot
+
+1. Retrieve the user's primary list by querying the account metadata contract using the user address.
+2. From the primary list, obtain the list storage location from the registry contract which includes the chainId, listRecords contract address, and slot using function getListStorageLocation(tokenId).
+3. Query the list metadata record in the listRecords contract using the slot to verify the 'user' role.
+4. Retrieve the list record from the listRecords contract using the slot and ensure it matches the list metadata record and list storage location in the registry.
+
+#### If List Id is known:
+
+If the only known information is a list number, then the following steps can be taken to determine the list user
+
+1. Obtain the list storage location from the registry contract which includes the chainId, listRecords contract address, and slot using function getListStorageLocation(tokenId).
+2. Query the list metadata record in the listRecords contract using the slot to verify the 'user' role. While at this step we will know the user address, we do not yet know if the user role is valid without checking for the existance of a 'primary-list' record that matches this list id and the user's address.
+3. Retrieve the user's primary list by querying the account metadata contract using the user address.
+4. Retrieve the list record from the listRecords contract using the slot and ensure it matches the list metadata record and list storage location in the registry.
+
+#### If Slot is known:
+
+If the only known information is the slot (i.e. you're looking at a raw list operation and want to determine the list to which it applies)
+
+1. Query the list metadata record in the listRecords contract using the slot to find the 'user' role. While at this step we will know the user address, we do not yet know if the user role is valid without checking for the existance of a 'primary-list' record that matches this list id and the user's address.
+2. Retrieve the user's primary list by querying the account metadata contract using the user address.
+
+### Interpreting an example List Operation
+
+A List Record specifies a slot (which is specific to a list's list storage location) and an operation which describes the action being taken and the address it relates to. For instance the record below is a follow record for address `0x983110309620d911731ac0932219af06091b6744`
+
+```solidity
+{
+    slot: 38587947120907837207653958898632315929230182373855930657826753963097023554830,
+    op: 0x01010101983110309620d911731ac0932219af06091b6744
+}
+```
+
+The `op` data of this list record can be further broken down and abstracted into its constituant parts
+
+```solidity
+{
+    slot: 38587947120907837207653958898632315929230182373855930657826753963097023554830,
+    op: {
+        OpVersion: 0x01,
+        OpCode: 0x01,  // 0x01: Follow, 0x02: Unfollow, 0x03: Tag, 0x04: Untag
+        RecordVersion: 0x01,
+        RecordType: 0x01,  // 0x01: Address Record
+        RecordData: 0x983110309620d911731ac0932219af06091b6744
+    }
+}
+```
+
+This record only tells us the `slot` of the list that's doing the following but it tells us nothing about which account or list is doing the following. To determine the list doing the following we need to join the slot, chain id and the address of the list records contract and construct a list storage location.
+
+### Interpreting an example List Storage Location
+
+```solidity
+0x010100000000000000000000000000000000000000000000000000000000000000015289fe5dabc021d02fddf23d4a4df96f4e0f17ef5550010c08608cc567bf432829280f99b40f7717290d6313134992e4971fa50e
+```
+
+This list storage location can be interpreted as follows
+
+```solidity
+{
+    Version: 0x01,
+    Type: 0x01,
+    Chain: 0x0000000000000000000000000000000000000000000000000000000000000001,
+    ListRecordsContract: 0x5289fe5dabc021d02fddf23d4a4df96f4e0f17ef,
+    Slot: 0x5550010c08608cc567bf432829280f99b40f7717290d6313134992e4971fa50e // 38587947120907837207653958898632315929230182373855930657826753963097023554830
+}
+```
+
+## Constructing State History
+
+A repository demonstrating practical application of this page that can be found here:
+
+[https://github.com/ethereumfollowprotocol/onchain](https://github.com/ethereumfollowprotocol/onchain)
+
+### Interacting with Contracts directly
+
+Calling the Account Metadata contract to fetch a user's primary list:
+
+```ts
+import { evmClients } from '#/clients/viem/index'
+import { efpAccountMetadataAbi } from '#/abi/generated/index'
+import { env } from '#/env.ts'
+
+const tokenId = await evmClients['8453']().readContract({
+  address: env.ACCOUNT_METADATA,
+  abi: efpAccountMetadataAbi,
+  functionName: 'getValue',
+  args: [env.USER_ADDRESS as `0x${string}`, 'primary-list'],
+})
+```
+
+Calling the List Registry contract to fetch a list's list storage location:
+
+```ts
+import { evmClients } from '#/clients/viem/index'
+import { efpListRegistryAbi } from '#/abi/generated/index'
+import { env } from '#/env.ts'
+
+const listStorageLocation = await evmClients['8453']().readContract({
+  address: env.REGISTRY,
+  abi: efpListRegistryAbi,
+  functionName: 'getListStorageLocation',
+  args: [BigInt(tokenId)],
+})
+```
+
+Calling the List Records contract to fetch a list slot's 'user' role:
+
+```ts
+import { evmClients } from '#/clients/viem/index'
+import { efpListRecordsAbi } from '#/abi/generated/index'
+import { env } from '#/env.ts'
+
+const listUser = await evmClients[parsedLsl.chainId.toString() as keyof typeof evmClients]().readContract({
+  address: parsedLsl.listRecordsContract as `0x${string}`,
+  abi: efpListRecordsAbi,
+  functionName: 'getListUser',
+  args: [parsedLsl.slot],
+})
+```
+
+### Relevant Contract Events
+
+Basic EFP state for any user's followers and followings can also be constructed by 'listening' for specific events emitted by the EFP contracts and then interpreting them according to the protocol rules as stated above
+
+EFPListRecords (Base, Optimism and Ethereum Mainnet)
+
+`ListOp(uint256 indexed slot, bytes op)`
+
+`UpdateListMetadata(uint256 indexed slot, string key, bytes value)`
+
+EFPAccountMetadata (Base)
+
+`UpdateAccountMetadata(address indexed addr, string key, bytes value)`
+
+EFPListRegistry (Base)
+
+`UpdateListStorageLocation(uint256 indexed tokenId, bytes listStorageLocation)`
+
+---
+
+## EFP Railway Template
+
+Deploying the EFP-Silo template on Railway will set up all of the aforementioned components with default parameters set.
+
+[EFP-Silo](https://railway.app/template/pDGEZm?referralCode=AavWEU) Click the link or the button below.
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.app/template/pDGEZm?referralCode=AavWEU)
+
+### Configuration
+
+The template will run with default values for most of the components but you will need to set primary and secondary rpc urls for all three chains that EFP is using (Base, Optimism and Ethereum Mainnet). Find the section for 'Indexer-8453', click the 'configure' button and set the rpc endpoint for all six fields accordingly. These can be Alchemy or Infura urls or local ethereum nodes if you're testing at home.
+
+![Indexer Params](/set-rpc.png)
+
+Once all sections display 'Ready to be deployed' the 'Deploy' button at the bottom will be unlocked and you can click it to proceed.
+
+![Deployed Environment](/deployed-environment.png)
+
+### Syncing
+
+It should take under an hour to sync all EFP data, you can still call the api but the data will not be up to date.
+
+### Setup API URL
+
+Enable public networking for the API by clicking on the API section, then the 'Settings' tab and scrolling down to 'Networking'. Click 'Generate Domain' to have Railway create a random public link for you. Or click 'Custom Domain' to use an already existing domain name.
+
+![Setup API URL](/setup-api-url.png)
+
+Once your link is generated, you can use it to call your API the same way you would call the official EFP API. Just swap in your new link in the place of 'api.ethfollow.xyz'
+
+`api.ethfollow.xyz/api/v1/stats` -> `my-generated-api-link.railway.app/api/v1/stats`
+
+![Generate Link](/api-link-generated.png)
+
+![Call Endpoint](/api-link-call.png)
+
+### Setup ENS Worker
+
+The API uses V3X Labs' [enstate](https://github.com/v3xlabs/enstate) to provide ENS data. This service is available at https://ens.efp.app. EFP is happy to provide use of this endpoint to the community but please do not abuse it.
+
+Enable public networking for the ENS Worker by clicking on the 'enstate' section, then the 'Settings' tab and scrolling down to 'Networking'. Click 'Generate Domain' to have Railway create a random public link for you. Or click 'Custom Domain' to use an already existing domain name.
+
+Once public networking is enabled for the API and ENS Worker, they should be redeployed as well as the service manager. Do this by clicking into each of the services, and clicking the three dot menu on the right hand side of your currently deployed instance. Click 'Redeploy' on the menu.
+
+![Three dot menu](/redeploy.png)
+
+### Service Manager
+
+The services module handles several jobs that run on intervals:
+
+- Building the list of all addresses in the EFP database
+- Building the Leaderboard Ranking
+- Tracking Mutual follows
+- Shuffling the recommended accounts list
+- Refreshing ENS metadata
+- Building a list of accounts with recent activity
+
+The intervals for running these jobs can be adjusted to suit your needs. Additionally the accounts that appear in the recommended follows can be customized by forking the services repo and editing '/src/services/recommended/lists.ts'. Once you've edited the file, go to the 'Settings' tab on the services module and update the 'Source Repo' to point to your forked github repository.
+
+![Services Settings](/services-settings-repo.png)
+
+### ENV variables
+
+Most of the Environment variables are set appropriately and should not be changed unless you know exactly what you're doing. However there are a few settings than can be customized to fit your needs. As a general rule, if they're not listed below then you probably should leave them as is.
+
+#### Indexers (Indexer-base, Indexer-op, Indexer-eth)
+
+| Variable Name        | Description                                                                    |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `PRIMARY_RPC_BASE`   | Primary RPC URL for Base chain                                                 |
+| `PRIMARY_RPC_OP`     | Primary RPC URL for Optimism chain                                             |
+| `PRIMARY_RPC_ETH`    | Primary RPC URL for Ethereum mainnet                                           |
+| `SECONDARY_RPC_BASE` | Fallback RPC URL for Base chain                                                |
+| `SECONDARY_RPC_OP`   | Fallback RPC URL for Optimism chain                                            |
+| `SECONDARY_RPC_ETH`  | Fallback RPC URL for Ethereum mainnet                                          |
+| `RECOVER_HISTORY`    | Boolean Flag to start the indexer in recovery mode                             |
+| `START_BLOCK`        | Block number to start recovering history from, if in recovery mode             |
+| `BATCH_SIZE`         | Number of events to batch before uploading                                     |
+| `CHAIN_ID`           | Chain id (8453, 10 or 1)                                                       |
+| `RECORDS_ONLY`       | Boolean flag that specifies whether the indexer should listen for just ListOps |
+
+#### Service Manager
+
+| Variable Name                  | Description                                             |
+| ------------------------------ | ------------------------------------------------------- |
+| `ENS_API_URL`                  | URL for the ENS worker to use for lookups               |
+| `EFP_CACHE_INTERVAL`           | Interval (in milliseconds) to update address cache      |
+| `EFP_MUTUALS_INTERVAL`         | Interval (in milliseconds) to update mutual follows     |
+| `LEADERBOARD_RANKING_INTERVAL` | Interval (in milliseconds) to update leaderboard        |
+| `RECENT_FOLLOWS_INTERVAL`      | Interval (in milliseconds) to update recent activity    |
+| `RECOMMENDED_INTERVAL`         | Interval (in milliseconds) to update recommended accts  |
+| `ENSMETADATA_INTERVAL`         | Interval (in milliseconds) to update ENS metadata cache |
+| `HEARTBEAT_INTERVAL`           | Interval (in milliseconds) to call heartbeat URL        |
+
+#### API
+
+| Variable Name    | Description                                            |
+| ---------------- | ------------------------------------------------------ |
+| `CACHE_TTL`      | Amount of seconds to wait before expiring cache record |
+| `POAP_API_TOKEN` | Auth token for POAP.xyz api                            |
+| `ENS_API_URL`    | URL for the ENS worker to use for lookups              |
+
+#### PgBouncer
+
+(see [PgBouncer Docs](https://www.pgbouncer.org/config.html) for more information)
+| Variable Name | Description |
+|-----------------------------------|-----------------------------------------------------|
+| `PGBOUNCER_DEFAULT_POOL_SIZE` | Amount of connections per pool |
+| `PGBOUNCER_MAX_CLIENT_CONN` | Maximum number of client connections |
+| `PGBOUNCER_POOL_MODE` | 'Session' or 'Transaction' |
+| `PGBOUNCER_QUERY_TIMEOUT` | Amount of seconds to wait before dropping query |
+
+---
+
+## EFP Infrastructure
+
+![EFP Backend Design](/backend-design.png)
+
+The backend architecture for EFP is comprised of the following components
+
+- [Database](https://hub.docker.com/_/postgres) (Postgres)
+- [PGBouncer](https://hub.docker.com/r/pgbouncer/pgbouncer) (a connection pooler for Postgres)
+- [EFP Indexers](https://github.com/ethereumfollowprotocol/indexer) for Base, Optimism and Ethereum Mainnet
+- [EFP Services](https://github.com/ethereumfollowprotocol/services) (updates ens data, leaderboard, cache, mutuals counts)
+- [EFP API](https://github.com/ethereumfollowprotocol/api) (Can be deployed as a cloudflare worker)
+- [Ens Worker](https://github.com/v3xlabs/enstate) (Can be deployed as a cloudflare worker)
+- [Redis](https://hub.docker.com/_/redis) Cache for the API and ENS Worker
+
+All of these components can be set up separately, whether locally or using external hosts. The quickest way to stand up all of the backend infrastructure is to use the [EFP-Silo Railway template](https://railway.app/template/pDGEZm?referralCode=AavWEU)
+
+### Indexers
+
+EFP has Registry and AccountMetadata contracts deployed on Base and ListRecords contracts deployed on three chains: Base, Optimism And Ethereum Mainnet. To capture and store all EFP data we run three separate instances of our indexer service, one for each chain.
+
+### Database
+
+EFP Data is stored in a Postgres Database, queries and schema can be found in the [EFP Indexer Repo](https://github.com/ethereumfollowprotocol/indexer/tree/develop/db)
+
+### Connection Pooling
+
+PgBouncer is used to handle connection pooling for the database. This improves availability for the database over the api by sharing client connections, saving overhead on connection/reconnection.
+
+### Data Services
+
+The services module handles several jobs that run on intervals:
+
+- Building the list of all addresses in the EFP database
+- Building the Leaderboard Ranking
+- Tracking Mutual follows
+- Shuffling the recommended accounts list
+- Refreshing ENS metadata
+- Building a list of accounts with recent activity
+
+### API
+
+EFP core team provides a public API endpoint at [`https://api.ethfollow.xyz/api/v1`](https://api.ethfollow.xyz/api/v1).
+
+If you are a developer, you are free to use this endpoint to retrieve EFP data.
+
+#### Commonly used endpoints
+
+- [User Stats](https://ethidentitykit.com/docs/api/users/stats/): the follower and following counts of a particular user
+- [User Following](https://ethidentitykit.com/docs/api/users/following/): list of the accounts a particular user follows
+- [User Followers](https://ethidentitykit.com/docs/api/users/followers/): list of the accounts that follow a particular user
+- [User ENS data](https://ethidentitykit.com/docs/api/users/ens/): the ENS data for a particular user
+
+### ENS Worker
+
+The API uses V3X Labs' [enstate](https://github.com/v3xlabs/enstate) to provide ENS data. This service is available at https://ens.efp.app. EFP is happy to provide use of this endpoint to the community but please do not abuse it.
+
+Anyone can deploy this ENS worker repository to cloudflare or host their own instance locally. Read more about deploying [here](https://github.com/v3xlabs/enstate?tab=readme-ov-file#-cloudflare-workers).
+
+### Redis Cache
+
+The Redis cache is used by both the API and the ENS Worker to cache responses for faster future retrieval.
+
+---
+
+# Welcome to Ethereum Identity Kit
+
+Ethereum Identity Kit allows you to easily implement the Ethereum identity stack into your application.
+
+> [!NOTE] **Ethereum Identity Kit is a React component library. Supprt for other frameworks coming soon.**
+
+## Getting Started
+
+<Steps>
+### Install
+
+Install the library using your package manager.
+
+```sh npm2yarn copy
+npm install ethereum-identity-kit wagmi viem@2.x @tanstack/react-query
+```
+
+### Setup
+
+Library uses [Tanstack Query](https://tanstack.com/query) for data fetching, [Wagmi](https://wagmi.sh/) for wallet connection and handling onchain transactions, and a [Transaction provider](https://ethidentitykit.com/docs/transaction-provider) so you need to setup a query client and provider, [Wagmi provider](https://wagmi.sh/react/api/WagmiProvider) with your [Wagmi config](https://wagmi.sh/react/api/createConfig), and add Transaction Provider to your app.
+
+```tsx copy
+import { WagmiProvider } from 'wagmi'
+import { wagmiConfig } from '#/lib/wagmi'
+import { TransactionProvider } from 'ethereum-identity-kit'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={wagmiConfig}>
+        <TransactionProvider>
+          <Component {...pageProps} />
+        </TransactionProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
+  )
+}
+```
+
+### Apply Styles
+
+Add the following to your `layout.tsx` or `_app.tsx` file:
+
+```tsx copy
+import 'ethereum-identity-kit/css'
+```
+
+If you are using `dark` className prop to handle dark mode, componentss will automatically adapt to the color scheme of your application.
+
+### You're all set!
+
+Library is typed with TypeScript, which allows for autocompletion and type safety.
+
+```tsx copy
+import { ProfileCard } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <ProfileCard addressOrName="vitalik.eth" />
+  // or 0x983110309620d911731ac0932219af06091b6744
+}
+```
+
+</Steps>
+
+## Troubleshooting
+
+If you are hitting the following error trying to run your project:
+
+```
+Error: cannot use import statement outside a module
+```
+
+Make sure to transpile `ethereum-identity-kit` in your `next.config.mjs`:
+
+```js copy
+transpilePackages: ['ethereum-identity-kit'],
+```
+
+Are you experiencing issues with the library? [Report an issue](https://github.com/ethereumidentitykit/identity-kit/issues/new)
+
+---
+
+# Media Kit
+
+The Media Kit provides official Ethereum Identity Kit logos and branding assets. These assets are available in both light and dark mode variations to ensure optimal visibility across different themes and backgrounds.
+
+## Logos
+
+Our official logos are available in both standalone and text variants. Choose the appropriate version based on your needs and the background color of your application.
+
+| Mode  | Type           | Preview                                                              | Download                                                  |
+| ----- | -------------- | -------------------------------------------------------------------- | --------------------------------------------------------- |
+| Light | Logo with Text | <img src="/logo/dark/logo-full.png" width="200" />                   | <a href="/logo/dark/logo-full.png" download>Download</a>  |
+| Light | Logo           | <img src="/logo/dark/logo.png" width="64" />                         | <a href="/logo/dark/logo.png" download>Download</a>       |
+| Dark  | Logo           | <img src="/logo/light/logo.png" className="dark" width="64" />       | <a href="/logo/light/logo.png" download>Download</a>      |
+| Dark  | Logo with Text | <img src="/logo/light/logo-full.png" className="dark" width="200" /> | <a href="/logo/light/logo-full.png" download>Download</a> |
+
+## Powered By Badges
+
+If you're integrating Ethereum Identity Kit into your application, you can showcase this using our "Powered By" badges. These badges come in different styles to match your application's design.
+
+| Mode  | Type               | Preview                                                                     | Download                                                         |
+| ----- | ------------------ | --------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Light | Logo with Text     | <img src="/logo/dark/powered-by.png" width="200" />                         | <a href="/logo/dark/powered-by.png" download>Download</a>        |
+| Light | Rounded Inner Text | <img src="/logo/dark/powered-by-inner.png" width="200" />                   | <a href="/logo/dark/powered-by-inner.png" download>Download</a>  |
+| Light | Rounded Outer Text | <img src="/logo/dark/powered-by-outer.png" width="200" />                   | <a href="/logo/dark/powered-by-outer.png" download>Download</a>  |
+| Dark  | Logo with Text     | <img src="/logo/light/powered-by.png" className="dark" width="200" />       | <a href="/logo/light/powered-by.png" download>Download</a>       |
+| Dark  | Rounded Inner Text | <img src="/logo/light/powered-by-inner.png" className="dark" width="200" /> | <a href="/logo/light/powered-by-inner.png" download>Download</a> |
+| Dark  | Rounded Outer Text | <img src="/logo/light/powered-by-outer.png" className="dark" width="200" /> | <a href="/logo/light/powered-by-outer.png" download>Download</a> |
+
+<style>
+  {`
+  table img {
+    padding: 8px;
+    border-radius: 4px;
+  }
+  
+  .dark {
+    background: #fff;
+  }
+
+  table a {
+    color: #0ea5e9;
+    text-decoration: none;
+  }
+
+  table a:hover {
+    text-decoration: underline;
+  }
+`}
+</style>
+
+---
+
+# List Operations
+
+The list operations module provides utility functions for creating list operations in the EFP (Ethereum Follow Protocol) system.
+
+## Functions
+
+### listOpAddListRecord
+
+Creates a list operation to add a new record to a list.
+
+```tsx
+const op = listOpAddListRecord('0x...')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                             |
+| --------- | ------- | --------------------------------------- |
+| `address` | Address | The Ethereum address to add to the list |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.FOLLOW,
+  data: address
+}
+```
+
+### listOpRemoveListRecord
+
+Creates a list operation to remove a record from a list.
+
+```tsx
+const op = listOpRemoveListRecord('0x...')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                                  |
+| --------- | ------- | -------------------------------------------- |
+| `address` | Address | The Ethereum address to remove from the list |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.UNFOLLOW,
+  data: address
+}
+```
+
+### listOpAddTag
+
+Creates a list operation to add a tag to a list record.
+
+```tsx
+const op = listOpAddTag('0x...', 'friend')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                 |
+| --------- | ------- | --------------------------- |
+| `address` | Address | The Ethereum address to tag |
+| `tag`     | string  | The tag to add              |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.TAG,
+  data: `${address}${toHex(tag).slice(2)}`
+}
+```
+
+### listOpRemoveTag
+
+Creates a list operation to remove a tag from a list record.
+
+```tsx
+const op = listOpRemoveTag('0x...', 'friend')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description                                 |
+| --------- | ------- | ------------------------------------------- |
+| `address` | Address | The Ethereum address to remove the tag from |
+| `tag`     | string  | The tag to remove                           |
+
+#### Return Value
+
+Returns a `ListOpType` object:
+
+```tsx
+{
+  version: 1,
+  opcode: Opcode.UNTAG,
+  data: `${address}${toHex(tag).slice(2)}`
+}
+```
+
+## What are list operations?
+
+List operations are a way to manage lists on the EFP (Ethereum Follow Protocol). They are used to add, remove, and tag records in a list.
+
+- [EFP Docs - List Operations](https://docs.efp.app/design/list-ops/)
+
+---
+
+# Transactions
+
+The transactions module provides utility functions for handling EFP (Ethereum Follow Protocol) list operations and transactions.
+
+## Functions
+
+### formatListOpsTransaction
+
+Formats a list operations transaction with the provided parameters. Use this only if you are trying to execute EFP transactions yourself. If you are using [TransactionProvider](/docs/components/transaction-provider) with [useTransaction](/docs/hooks/use-transaction), and are using the [addlistopstransaction](/docs/hooks/useTransactions#addlistopstransaction) function, you don't need to use it.
+
+```tsx
+const transaction = formatListOpsTransaction({
+  nonce: 1n,
+  chainId: 1,
+  listOps: [{ opcode: 1, data: '0x...' }],
+  connectedAddress: '0x...',
+  isMintingNewList: false,
+})
+```
+
+#### Parameters
+
+| Parameter          | Type         | Description                            |
+| ------------------ | ------------ | -------------------------------------- |
+| `nonce`            | bigint       | The nonce for the transaction          |
+| `chainId`          | number       | The chain ID to use                    |
+| `listOps`          | ListOpType[] | Array of list operations to perform    |
+| `connectedAddress` | Address      | The connected wallet address           |
+| `isMintingNewList` | boolean      | Whether this is for minting a new list |
+
+### getListOpData
+
+Generates list operation data from an address and optional tag.
+
+```tsx
+const data = getListOpData('0x...', 'tag')
+```
+
+#### Parameters
+
+| Parameter | Type    | Description             |
+| --------- | ------- | ----------------------- |
+| `address` | Address | The Ethereum address    |
+| `tag`     | string  | Optional tag to include |
+
+### getListOpsFromTransaction
+
+Extracts list operations from a transaction.
+
+```tsx
+const listOps = getListOpsFromTransaction(transaction)
+```
+
+#### Parameters
+
+| Parameter     | Type            | Description                                |
+| ------------- | --------------- | ------------------------------------------ |
+| `transaction` | TransactionType | The transaction to extract operations from |
+
+### getMintTxNonce
+
+Extracts the nonce from a mint transaction.
+
+```tsx
+const nonce = getMintTxNonce(transaction)
+```
+
+### getMintTxChainId
+
+Extracts the chain ID from a mint transaction.
+
+```tsx
+const chainId = getMintTxChainId(transaction)
+```
+
+### getMintTxRecordsAddress
+
+Extracts the records address from a mint transaction.
+
+```tsx
+const recordsAddress = getMintTxRecordsAddress(transaction)
+```
+
+### getPendingTxAddresses
+
+Gets all addresses from pending list update transactions.
+
+```tsx
+const addresses = getPendingTxAddresses(transactions)
+```
+
+### extractAddressAndTag
+
+Extracts address and tag from list operation data.
+
+```tsx
+const { address, tag } = extractAddressAndTag(data)
+```
+
+### getPendingTxListOps
+
+Gets all list operations from pending transactions.
+
+```tsx
+const listOps = getPendingTxListOps(transactions)
+```
+
+### getPendingTxAddressesAndTags
+
+Gets all addresses and tags from pending transactions.
+
+```tsx
+const addressesAndTags = getPendingTxAddressesAndTags(transactions)
+```
+
+### prepareMintTransaction
+
+Prepares a mint transaction with the given parameters.
+
+```tsx
+const mintTx = prepareMintTransaction(mintNonce, chainId)
+```
+
+#### Parameters
+
+| Parameter   | Type   | Description                        |
+| ----------- | ------ | ---------------------------------- |
+| `mintNonce` | bigint | The nonce for the mint transaction |
+| `chainId`   | number | Optional chain ID to use           |
+
+### transformTxsForLocalStorage
+
+Transforms transactions for local storage by converting bigint values to strings.
+
+```tsx
+const transformedTxs = transformTxsForLocalStorage(transactions)
+```
+
+#### Parameters
+
+| Parameter | Type              | Description                        |
+| --------- | ----------------- | ---------------------------------- |
+| `txs`     | TransactionType[] | Array of transactions to transform |
+
+---
+
+# Validity
+
+The validity module provides utility functions for validating various types of data in the application.
+
+## Functions
+
+### isLinkValid
+
+Checks if a given link is a valid http or https link, or is pulling from public or assets folders. This is used to filter out ipfs or invalid links and fall back to the [ENS Metadata Service](https://support.ens.domains/en/articles/8228750-the-ens-metadata-service) (if there is an ENS name).
+
+```tsx
+const isValid = isLinkValid('https://example.com') // true
+const isValid = isLinkValid('invalid-link') // false
+```
+
+#### Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| `link`    | string | The link to validate |
+
+#### Return Value
+
+Returns `true` if the link contains one of the following prefixes:
+
+- `https://`
+- `http://`
+- `public/`
+- `/assets`
+
+Returns `false` if the link is undefined or doesn't contain any of the valid prefixes.
+
+### isValidEnsName
+
+Validates if a given string is a valid [ENS (Ethereum Name Service)](https://ens.domains/) name.
+
+```tsx
+const isValid = isValidEnsName('vitalik.eth') // true
+const isValid = isValidEnsName('invalid-ens') // false
+```
+
+#### Parameters
+
+| Parameter | Type   | Description              |
+| --------- | ------ | ------------------------ |
+| `name`    | string | The ENS name to validate |
+
+#### Return Value
+
+Returns `true` if the name is a valid ENS name, `false` otherwise. Uses the `normalize` function from `viem/ens` for validation.
+
+---
+
+# List Storage Location
+
+The list storage location module provides functionality to retrieve the storage location of an EFP list from the list registry contract.
+
+## Functions
+
+### getListStorageLocation
+
+Retrieves the chain ID and storage slot for a given list number from the EFP List Registry contract.
+
+```tsx
+const { chainId, slot } = await getListStorageLocation('1')
+```
+
+#### Parameters
+
+| Parameter | Type   | Description                                     |
+| --------- | ------ | ----------------------------------------------- |
+| `list`    | string | The list number to get the storage location for |
+
+#### Return Value
+
+Returns an object containing:
+
+- `chainId`: number - The chain ID where the list is stored
+- `slot`: bigint - The storage slot where the list data is stored
+
+#### Example
+
+```tsx
+const location = await getListStorageLocation('1')
+console.log(location)
+// {
+//   chainId: 1,
+//   slot: 123456789n
+// }
+```
+
+#### Technical Details
+
+The function:
+
+1. Creates a public client for the default chain
+2. Gets the list registry contract instance
+3. Calls `getListStorageLocation` on the contract with the list number
+4. Extracts the chain ID and slot from the returned storage location
+5. Returns the parsed data
+
+For more information about list storage locations, see the [EFP documentation](https://docs.efp.app/design/list-storage-location/).
+
+## What is a list storage location?
+
+A list storage location is a unique identifier for a list on a specific chain. It is a combination of a chain ID and a storage slot. The chain ID is the ID of the chain where the list is stored, and the storage slot is the slot where the list data is stored.
+
+- [EFP Docs - List Storage Location](https://docs.efp.app/design/list-storage-location/)
+
+---
+
+# Formatters
+
+The formatters module provides utility functions for formatting various types of data in the application.
+
+## Functions
+
+### formatNumber
+
+Formats a number to include separators ("," for thousands, "." for decimals)
+
+```tsx
+const formattedNumber = formatNumber(1234.56) // "1,234.56" (en-US)
+```
+
+#### Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| `number`  | number | The number to format |
+
+### formatFollowersYouKnowText
+
+Formats the text shown in the common followers component next to the avatars.
+
+```tsx
+const text = formatFollowersYouKnowText(3) // "1 other you know follows them"
+```
+
+#### Parameters
+
+| Parameter      | Type   | Description                    |
+| -------------- | ------ | ------------------------------ |
+| `resultLength` | number | The number of common followers |
+
+#### Return Values
+
+| Result Length | Return Value                      |
+| ------------- | --------------------------------- |
+| 0             | "No common followers"             |
+| 1             | " follows them"                   |
+| 2             | " follow them"                    |
+| 3             | "1 other you know follows them"   |
+| >3            | "{n} others you know follow them" |
+
+### formatQueryParams
+
+Formats query parameters for API calls.
+
+```tsx
+const queryString = formatQueryParams({
+  address: '0x...',
+  tags: ['tag1', 'tag2'],
+  limit: 10,
+}) // "address=0x...&tags=tag1,tag2&limit=10"
+```
+
+#### Parameters
+
+| Parameter | Type                                                              | Description                        |
+| --------- | ----------------------------------------------------------------- | ---------------------------------- |
+| `inputs`  | Record<string, string \| number \| string[] \| null \| undefined> | Object containing query parameters |
+
+#### Return Value
+
+Returns a URL-encoded query string with all non-null/undefined parameters.
+
+---
+
+# Profile
+
+The profile module provides utility functions for handling profile-related operations.
+
+## Functions
+
+### defaultOnStatClick
+
+Opens a new tab with the EFP profile page for a given address or ENS name, focusing on a specific stat tab.
+
+```tsx
+defaultOnStatClick({
+  addressOrName: 'vitalik.eth',
+  stat: 'followers',
+})
+```
+
+#### Parameters
+
+| Parameter       | Type   | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `addressOrName` | string | Ethereum address or ENS name to open the profile for |
+| `stat`          | string | The stat tab to focus on in the profile page         |
+
+#### Behavior
+
+The function:
+
+1. Opens a new tab with the URL `https://efp.app/{addressOrName}?tab={stat}`
+2. Uses `noopener,noreferrer` for security when opening the new tab
+
+#### Example
+
+```tsx
+// Opens https://efp.app/vitalik.eth?tab=followers in a new tab
+defaultOnStatClick({
+  addressOrName: 'vitalik.eth',
+  stat: 'followers',
+})
+```
+
+---
+
+# Generate Slot
+
+The generateSlot utility generates a random storage slot value using keccak256 and the current timestamp.
+
+## Functions
+
+### generateSlot
+
+Generates a random storage slot value for use in EFP list storage or other unique slot requirements.
+
+```tsx
+const slot = generateSlot()
+```
+
+#### Return Value
+
+Returns a `bigint` representing a random storage slot value.
+
+#### Example
+
+```tsx
+const slot = generateSlot()
+console.log(slot) // e.g., 12345678901234567890n
+```
+
+#### Technical Details
+
+- Uses `keccak256` hash of the current timestamp multiplied by a random number.
+- Ensures the result fits within 255 bits.
+
+---
+
+# fetchFollowersYouKnow
+
+Fetches the list of followers that you (connected address) follow, who also follow another address.
+
+## Usage
+
+```tsx
+const followersYouKnow = await fetchFollowersYouKnow('0x...', 'vitalik.eth')
+```
+
+## Parameters
+
+| Parameter             | Type    | Description                                                |
+| --------------------- | ------- | ---------------------------------------------------------- |
+| `connectedAddress`    | Address | Your connected wallet address                              |
+| `lookupAddressOrName` | string  | Ethereum address or ENS name to find common followers with |
+
+## Return Value
+
+Returns a `FollowersYouKnowResponse` object containing the list of common followers, or `noFollowersYouKnow` if the request fails.
+
+## Example Response
+
+```tsx
+{
+  followers: [
+    {
+      address: '0x...',
+      name: 'vitalik.eth',
+      avatar: 'https://example.com/avatar.png',
+      mutuals_rank: '1',
+      header: 'https://example.com/header.png',
+    },
+  ]
+}
+```
+
+---
+
+# fetchFollowState
+
+Fetches the follow state between two addresses or a list and an address.
+
+## Usage
+
+```tsx
+const followState = await fetchFollowState({
+  lookupAddressOrName: 'vitalik.eth',
+  connectedAddress: '0x...',
+  type: 'following',
+})
+
+// or for a list
+const listFollowState = await fetchFollowState({
+  lookupAddressOrName: 'vitalik.eth',
+  list: 1,
+  type: 'following',
+})
+
+// or with fresh data
+const freshState = await fetchFollowState({
+  lookupAddressOrName: 'vitalik.eth',
+  connectedAddress: '0x...',
+  type: 'following',
+  fresh: true,
+})
+```
+
+## Parameters
+
+| Parameter             | Type                      | Description                                            |
+| --------------------- | ------------------------- | ------------------------------------------------------ |
+| `lookupAddressOrName` | string                    | Ethereum address or ENS name to check follow state for |
+| `connectedAddress`    | string                    | Optional connected wallet address                      |
+| `list`                | number                    | Optional list number to check follow state for         |
+| `type`                | 'following' \| 'follower' | Type of follow state to check                          |
+| `fresh`               | boolean                   | Optional flag to fetch fresh data bypassing cache      |
+
+## Return Value
+
+Returns a `FollowStatusResponse` object containing the follow state, or `null` if:
+
+- The request fails
+- `type` is 'following' and no `list` is provided
+- Neither `connectedAddress` nor `list` is provided
+
+## Example Response
+
+The following response is the connected address following the lookup address.
+
+```tsx
+{
+  token_id: '123',
+  address: '0x...',
+  state: {
+    follow: true,
+    block: false,
+    mute: false,
+  };
+}
+```
+
+---
+
+# fetchProfileEFPPoaps
+
+Fetches EFP [POAPs (Proof of Attendance Protocol)](https://poap.xyz/) badges for a given address, ENS name, or list.
+
+## Usage
+
+```tsx
+const poaps = await fetchProfileEFPPoaps('vitalik.eth')
+// or for a list
+const listPoaps = await fetchProfileEFPPoaps('0x...', 1)
+// or with fresh data
+const freshPoaps = await fetchProfileEFPPoaps('vitalik.eth', undefined, true)
+```
+
+## Parameters
+
+| Parameter       | Type                      | Description                                       |
+| --------------- | ------------------------- | ------------------------------------------------- |
+| `addressOrName` | Address \| string \| null | Ethereum address or ENS name to fetch POAPs for   |
+| `list`          | number \| null            | Optional list number to fetch POAPs for           |
+| `fresh`         | boolean                   | Optional flag to fetch fresh data bypassing cache |
+
+## Return Value
+
+Returns an array of `ProfileEFPPoapResponse` objects containing POAP badges, or an empty array if the request fails.
+
+## Example Response
+
+```tsx
+;[
+  {
+    eventId: '123',
+    participated: 'EFP Early Adopter',
+    collection: {
+      event: {
+        id: 123,
+        fancy_id: 'EFP Early Adopter',
+        name: 'EFP Early Adopter',
+        event_url: 'https://example.com',
+        image_url: 'https://example.com/image.png',
+        country: 'United States',
+        city: 'San Francisco',
+        description: 'EFP Early Adopter',
+        year: 2021,
+        start_date: '2021-01-01',
+        end_date: '2021-01-01',
+        expiry_date: '2021-01-01',
+      };
+      tokenId: '123',
+      owner: '0x...',
+    }
+  },
+]
+```
+
+---
+
+# fetchEthPrice
+
+Fetches the current ETH price in USD from the CoinGecko API.
+
+## Usage
+
+```tsx
+const ethPrice = await fetchEthPrice()
+```
+
+## Return Value
+
+Returns the current ETH price in USD as a number, or `null` if the request fails.
+
+## Example Response
+
+```tsx
+2500.42 // Current ETH price in USD
+```
+
+---
+
+# fetchProfileDetails
+
+Fetches profile details for a given Ethereum address, ENS name, or list number.
+
+## Usage
+
+```tsx
+const profileDetails = await fetchProfileDetails('vitalik.eth')
+// or
+const listDetails = await fetchProfileDetails('0x...', 1)
+// or with fresh data
+const freshDetails = await fetchProfileDetails('vitalik.eth', undefined, true)
+```
+
+## Parameters
+
+| Parameter       | Type            | Description                                       |
+| --------------- | --------------- | ------------------------------------------------- |
+| `addressOrName` | string          | Ethereum address or ENS name to fetch details for |
+| `list`          | ProfileListType | Optional list number to fetch details for         |
+| `fresh`         | boolean         | Optional flag to fetch fresh data bypassing cache |
+
+## Return Value
+
+Returns a `ProfileDetailsResponse` object containing the profile details, or `null` if the request fails.
+
+## Example Response
+
+```tsx
+{
+    address: '0x...',
+    ens: {
+        name: 'user.eth',
+        avatar: 'https://example.com/avatar.png',
+        header: 'https://example.com/header.png',
+        records: {
+            // ... other ENS records
+        },
+    },
+    primary_list: '123',
+    ranks: {
+        mutuals_rank: 1,
+        followers_rank: 1,
+        following_rank: 1,
+        blocks_rank: 1,
+        top8_rank: 1,
+    },
+}
+```
+
+---
+
+# fetchProfileLists
+
+Fetches all lists associated with a given address or ENS name.
+
+## Usage
+
+```tsx
+const lists = await fetchProfileLists('vitalik.eth')
+// or with fresh data
+const freshLists = await fetchProfileLists('vitalik.eth', true)
+```
+
+## Parameters
+
+| Parameter       | Type    | Description                                       |
+| --------------- | ------- | ------------------------------------------------- |
+| `addressOrName` | string  | Ethereum address or ENS name to fetch lists for   |
+| `fresh`         | boolean | Optional flag to fetch fresh data bypassing cache |
+
+## Return Value
+
+Returns a `ProfileListsResponse` object containing:
+
+- `primary_list`: The primary list number (or null if none)
+- `lists`: Array of all lists associated with the address
+
+## Example Response
+
+```tsx
+{
+  primary_list: "123",
+  lists: [
+    "123",
+    "456",
+  ]
+}
+```
+
+---
+
+# fetchProfileStats
+
+Fetches profile statistics (followers and following counts) for a given address, ENS name, or list.
+
+## Usage
+
+```tsx
+const stats = await fetchProfileStats('vitalik.eth')
+// or for a list
+const listStats = await fetchProfileStats('0x...', 1)
+// or with live data
+const liveStats = await fetchProfileStats('vitalik.eth', undefined, true)
+```
+
+## Parameters
+
+| Parameter       | Type            | Description                                      |
+| --------------- | --------------- | ------------------------------------------------ |
+| `addressOrName` | string          | Ethereum address or ENS name to fetch stats for  |
+| `list`          | ProfileListType | Optional list number to fetch stats for          |
+| `isLive`        | boolean         | Optional flag to fetch live data bypassing cache |
+
+## Return Value
+
+Returns a `StatsResponse` object containing follower and following counts, or default values if the request fails.
+
+## Example Response
+
+```tsx
+{
+  followers_count: 1234,
+  following_count: 567
+}
+```
+
+---
+
+# fetchAccount
+
+Fetches condensed account information for a given address, ENS name, or list.
+
+## Usage
+
+```tsx
+const account = await fetchAccount('vitalik.eth')
+// or for a list
+const listAccount = await fetchAccount('0x...', 1)
+```
+
+## Parameters
+
+| Parameter       | Type            | Description                                       |
+| --------------- | --------------- | ------------------------------------------------- |
+| `addressOrName` | string          | Ethereum address or ENS name to fetch account for |
+| `list`          | ProfileListType | Optional list number to fetch account for         |
+
+## Return Value
+
+Returns an `AccountResponseType` object containing account information, or `null` if the request fails.
+
+## Example Response
+
+```tsx
+{
+    address: '0x...',
+    ens: {
+        name: 'user.eth',
+        avatar: 'https://example.com/avatar.png',
+    },
+    primary_list: '1',
+}
+```
+
+---
+
+# fetchRecommended
+
+Fetches recommended profiles or recent activity from the EFP API, with optional pagination.
+
+## Usage
+
+```tsx
+// Fetch recommended profiles for a user
+const recommended = await fetchRecommended('recommended', 'vitalik.eth')
+
+// Fetch recommended profiles for a list
+const listRecommended = await fetchRecommended('recommended', '0x...', '1')
+
+// Fetch recent activity
+const recentActivity = await fetchRecommended('discover')
+
+// With pagination
+const paginatedResults = await fetchRecommended('recommended', 'vitalik.eth', undefined, 20, 2)
+```
+
+## Parameters
+
+| Parameter       | Type                        | Description                                             |
+| --------------- | --------------------------- | ------------------------------------------------------- |
+| `endpoint`      | 'discover' \| 'recommended' | The type of recommendations to fetch                    |
+| `addressOrName` | string \| Address           | Optional address or ENS name to get recommendations for |
+| `list`          | string \| null              | Optional list number to get recommendations for         |
+| `limit`         | number                      | Optional number of results per page (default: 10)       |
+| `pageParam`     | number                      | Optional page number for pagination (default: 1)        |
+
+## Return Value
+
+Returns an array of recommended profiles or latest follows, or an empty array if the request fails.
+
+## Example Response
+
+```tsx
+;[
+  {
+    address: '0x...',
+    name: 'user.eth',
+    avatar: 'https://example.com/avatar.png',
+    header: 'https://example.com/header.png',
+  },
+]
+```
+
+---
+
+# fetchAllFollowersYouKnow
+
+Fetches a paginated list of followers that you (connected address) follow, who also follow another address, with optional search functionality.
+
+## Usage
+
+```tsx
+const { followersYouKnow, nextPageParam } = await fetchAllFollowersYouKnow({
+  connectedAddress: '0x...',
+  lookupAddressOrName: 'vitalik.eth',
+  limit: 20,
+  search: 'search term',
+  pageParam: 0,
+})
+```
+
+## Parameters
+
+| Parameter             | Type              | Description                                                     |
+| --------------------- | ----------------- | --------------------------------------------------------------- |
+| `connectedAddress`    | Address           | Your connected wallet address                                   |
+| `lookupAddressOrName` | Address \| string | Ethereum address or ENS name to find common followers with      |
+| `limit`               | number            | Optional number of results per page (defaults to `FETCH_LIMIT`) |
+| `search`              | string            | Optional search term to filter followers                        |
+| `pageParam`           | number            | Page number for pagination (0-based)                            |
+
+## Return Value
+
+Returns an object containing:
+
+- `followersYouKnow`: Array of `FollowerYouKnow` objects
+- `nextPageParam`: Next page number for pagination
+
+## Example Response
+
+```tsx
+{
+  followersYouKnow: [
+    {
+      address: '0x...',
+      name: 'vitalik.eth',
+      avatar: 'https://example.com/avatar.png',
+      mutuals_rank: '1',
+      header: 'https://example.com/header.png',
+    },
+  ],
+  nextPageParam: 1
+}
+```
+
+---
+
+#### /discover
+
+Get recently active accounts to follow.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/discover
+```
+
+```jsonc
+// sample response
+{
+  "latestFollows": [
+    {
+      "address": "0xa8b4756959e1192042fc2a8a103dfe2bddf128e8",
+      "name": "caveman.eth",
+      "avatar": "https://euc.li/caveman.eth",
+      "header": "https://i.imgur.com/KYD6snF.jpeg",
+      "followers": "162",
+      "following": "482"
+    },
+    {
+      "address": "0x8513eef11bba6a57845d10780e7e889e3be289e8",
+      "name": "oandrade.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/oandrade.eth",
+      "header": null,
+      "followers": "5",
+      "following": "15"
+    },
+    {
+      "address": "0xb6518c8304992da58de9055f1db80a37609f00a2",
+      "name": "silvr.eth",
+      "avatar": "https://euc.li/silvr.eth",
+      "header": null,
+      "followers": "1",
+      "following": "0"
+    },
+    {
+      "address": "0x8eddf5431f5b31933bfbd8111d54fc6e9456e6c1",
+      "name": "slowsort.eth",
+      "avatar": "https://euc.li/slowsort.eth",
+      "header": null,
+      "followers": "49",
+      "following": "565"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "name": "garypalmerjr.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/garypalmerjr.eth",
+      "header": null,
+      "followers": "152",
+      "following": "3403"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /token/metadata/\:token_id
+
+Get NFT metadata for a specified token id
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/token/metadata/4
+```
+
+```jsonc
+// sample response
+{
+  "name": "EFP List #4",
+  "description": "Ethereum Follow Protocol (EFP) is an onchain social graph protocol for Ethereum accounts.",
+  "image": "https://api.ethfollow.xyz/api/v1/token/image/3",
+  "external_url": "https://efp.app/3",
+  "attributes": [
+    {
+      "trait_type": "User",
+      "value": "brantly.eth",
+    },
+    {
+      "trait_type": "Primary List",
+      "value": true,
+    },
+    {
+      "trait_type": "Followers",
+      "value": 368,
+    },
+    {
+      "trait_type": "Following",
+      "value": 1079,
+    },
+    {
+      "trait_type": "Mutuals Rank",
+      "value": "1",
+    },
+    {
+      "trait_type": "Followers Rank",
+      "value": "1",
+    },
+    {
+      "trait_type": "Following Rank",
+      "value": "6",
+    },
+    {
+      "trait_type": "Blocked Rank",
+      "value": "7",
+    },
+  ],
+}
+```
+
+---
+
+#### /token/image/\:token_id
+
+Get NFT image for a specified token id
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/token/image/3
+```
+
+#### Response
+
+This endpoint responds with a formatted svg of content-type `image/svg+xml;charset=utf-8`
+
+---
+
+WIP
+
+---
+
+#### /stats
+
+Get global EFP statistics.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/stats
+```
+
+```jsonc
+// sample response
+{
+  "stats": {
+    "address_count": "8999",
+    "list_count": "733",
+    "list_op_count": "50284",
+  },
+}
+```
+
+---
+
+#### /exportState/\:token_id
+
+Get all accounts that are being followed by EFP list id, excludes blocks and mutes
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Sample Query
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/exportState/333
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x4c47ab777f1f64d1f3d6efbf1cc7ab5a5224af4a",
+      "tags": [],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x5b76f5b8fc9d700624f78208132f91ad4e61a1f0",
+      "tags": [],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x27cd3a463df1b3f6c95a222616d474be009c2cbb",
+      "tags": [],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+      "tags": [],
+    },
+  ],
+}
+```
+
+---
+
+#### /lists/\:token_id/recommended
+
+Get recommended users for a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/1/recommended
+```
+
+```jsonc
+// sample response
+{
+  "recommended": [
+    {
+      "name": "swindler.eth",
+      "address": "0xf972bf8592c3171b378e97bb869a980c3f476583",
+      "avatar": "https://rainbow.mypinata.cloud/ipfs/QmcSAHrGGdXJRPmxYUk1R86Wqpfgg4TPMAXC6MfQHPugvF",
+      "header": "https://rainbow.mypinata.cloud/ipfs/QmVDbkDutSk4phVohMs76jV4RgT3bpSdzHnesBHFxW6jRL",
+      "class": "B",
+      "created_at": "2025-03-07T15:53:58.797Z"
+    },
+    {
+      "name": "gratefulape.eth",
+      "address": "0x52a4c418576dc46e4116ececc6f68d1c9b9636ed",
+      "avatar": "https://euc.li/gratefulape.eth",
+      "header": null,
+      "class": "B",
+      "created_at": "2025-03-07T15:53:58.797Z"
+    },
+    {
+      "name": "treeskulltown.eth",
+      "address": "0x2dacc0b072146b40e60b8596b99756112d45c924",
+      "avatar": "https://euc.li/treeskulltown.eth",
+      "header": null,
+      "class": "B",
+      "created_at": "2025-03-07T15:53:58.797Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/latestFollowers
+
+Get the latest followers (excluding blocked and muted) of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/latestFollowers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "address": "0xc6fbb49a26ffdba6b7f2bd1a85219831b2a2a7aa",
+      "efp_list_nft_token_id": "26281",
+      "updated_at": "2024-10-29T21:44:59.600Z"
+    },
+    {
+      "address": "0x410169a13a34b3760dd258343853b8895fe74adb",
+      "efp_list_nft_token_id": "26267",
+      "updated_at": "2024-10-29T14:00:40.549Z"
+    },
+    {
+      "address": "0x5cacbc9de3c67a2b8de680913e2d844c5cc8b6cc",
+      "efp_list_nft_token_id": "26266",
+      "updated_at": "2024-10-29T14:00:40.549Z"
+    },
+    {
+      "address": "0x1248ebadcba3ff83720b5be154dc8b74bbfa11c3",
+      "efp_list_nft_token_id": "26265",
+      "updated_at": "2024-10-29T13:58:40.542Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/stats
+
+Get stats of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `live` (bool, optional): Specifies whether to calculate stats or return cached values
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/stats?live=true
+```
+
+```jsonc
+// sample response
+{
+  "followers_count": "115",
+  "following_count": "569",
+}
+```
+
+---
+
+#### /lists/\:token_id/details
+
+Get details of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/details
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "ens": {
+    "name": "0xthrpw.eth",
+    "avatar": "https://euc.li/0xthrpw.eth",
+    "header": "https://storage.googleapis.com/nftimagebucket/tokens/0xb7def63a9040ad5dc431aff79045617922f4023a/1897.svg",
+    "display": "0xthrpw.eth",
+    "records": {
+      "avatar": "https://euc.li/0xthrpw.eth",
+      "com.github": "0xthrpw",
+      "com.twitter": "0xthrpw",
+      "description": "Took the mirrors off my cadillac because I don't like looking like I look back.",
+      "header": "https://storage.googleapis.com/nftimagebucket/tokens/0xb7def63a9040ad5dc431aff79045617922f4023a/1897.svg",
+      "name": "throw;",
+    },
+    "chains": {
+      "eth": "0xC9C3A4337a1bba75D0860A1A81f7B990dc607334",
+    },
+    "fresh": 1726680254493,
+    "resolver": "0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63",
+    "errors": {},
+  },
+  "ranks": {
+    "mutuals_rank": "4",
+    "followers_rank": "17",
+    "following_rank": "18",
+    "top8_rank": "12",
+    "blocks_rank": "7",
+  },
+  "primary_list": "3",
+}
+```
+
+---
+
+#### /lists/\:token_id/account
+
+Get account information by their EFP list id
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/details
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "ens": {
+    "name": "0xthrpw.eth",
+    "avatar": "https://euc.li/0xthrpw.eth",
+    "header": "https://storage.googleapis.com/nftimagebucket/tokens/0xb7def63a9040ad5dc431aff79045617922f4023a/1897.svg",
+    "display": "0xthrpw.eth",
+    "records": {
+      "avatar": "https://euc.li/0xthrpw.eth",
+      "com.github": "0xthrpw",
+      "com.twitter": "0xthrpw",
+      "description": "Took the mirrors off my cadillac because I don't like looking like I look back.",
+      "header": "https://storage.googleapis.com/nftimagebucket/tokens/0xb7def63a9040ad5dc431aff79045617922f4023a/1897.svg",
+      "name": "throw;",
+    },
+    "chains": {
+      "eth": "0xC9C3A4337a1bba75D0860A1A81f7B990dc607334",
+    },
+    "fresh": 1726679594366,
+    "resolver": "0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63",
+    "errors": {},
+  },
+  "ranks": {
+    "mutuals_rank": "4",
+    "followers_rank": "17",
+    "following_rank": "18",
+    "top8_rank": "12",
+    "blocks_rank": "7",
+  },
+  "primary_list": "3",
+}
+```
+
+---
+
+#### /lists/\:token_id/allFollowingAddresses
+
+Get all accounts in list format, that are being followed (including blocked and muted) by a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowingAddresses
+```
+
+```jsonc
+// sample response
+[
+  "0xc6ed8696c4885dcafdc73c5ef28511e02568b472",
+  "0x1cbf9983e0d59276a58db8e8529706004fcb1837",
+  "0x27d311b8958ca479615522304b442e530c8073fe",
+  "0x47c0224f6c298c4b03f2fbbb986815859a0abd20",
+  "0x50e97e480661533b5382e33705e4ce1eb182222e",
+  "0x8480d20583a3138fef7c23eed8f17bf3c01e73b7",
+  "0x97b5c5ac8813bf5aaf689bbb697b56f8d897baef",
+  "0xa6bcb89f21e0bf71e08ded426c142757791e17cf",
+  "0xdc27cb447d713a8320db054a39ab6a42e0af49cb",
+  "0x02ca10c62f160cdd126d1e44ef42224cac745ac8",
+  "0x0433062f9f466c4a184b2ba0e4da38efea5e2f87",
+  ...
+]
+```
+
+---
+
+#### /lists/\:token_id/searchFollowers
+
+Search for followers of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a followers address or ENS name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/searchFollowers?term=crypt
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "99",
+      "address": "0x19cf388796c31fa7a583270d82659ecd2b4fd490",
+      "ens": {
+        "name": "cryptomandias.eth",
+        "avatar": "https://metadata.ens.domains/mainnet/avatar/cryptomandias.eth"
+      },
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false
+    },
+    {
+      "efp_list_nft_token_id": "553",
+      "address": "0x3b30d44df9afffc07a51457e18410c4ca0f90896",
+      "ens": {
+        "name": "cryptodeadbeat.eth",
+        "avatar": "https://euc.li/cryptodeadbeat.eth"
+      },
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false
+    },
+    {
+      "efp_list_nft_token_id": "88",
+      "address": "0x5b0f3dbdd49614476e4f5ff5db6fe13d41fcb516",
+      "ens": {
+        "name": "efp.encrypteddegen.eth",
+        "avatar": "https://euc.li/efp.encrypteddegen.eth"
+      },
+      "tags": [
+        "top8"
+      ],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/badges
+
+Get EFP POAPs of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/9/badges
+```
+
+```jsonc
+// sample response
+{
+  "poaps": [
+    {
+      "eventId": "177709",
+      "participated": true,
+      "collection": {
+        "event": {
+          "id": 177709,
+          "fancy_id": "efp-beta-tester-2024",
+          "name": "EFP Beta Tester",
+          "event_url": "https://ethfollow.xyz",
+          "image_url": "https://assets.poap.xyz/335d8e5a-920f-4c62-aa41-d8745f350a26.png",
+          "country": "",
+          "city": "",
+          "description": "Thank you for helping us test EFP on testnet before our mainnet launch! You are truly an OG. 🤝",
+          "year": 2024,
+          "start_date": "06-Sep-2024",
+          "end_date": "21-Sep-2024",
+          "expiry_date": "21-Sep-2025"
+        },
+        "tokenId": "7189762",
+        "owner": "0xC9C3A4337a1bba75D0860A1A81f7B990dc607334"
+      }
+    },
+    {
+      "eventId": "178064",
+      "participated": false,
+      "collection": null
+    },
+    {
+      "eventId": "178065",
+      "participated": false,
+      "collection": null
+    }
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/searchFollowing
+
+Search for following of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a following address or ENS name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/searchFollowing?term=bran
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x0ae93a80ef639c07ecf969735c9b3cc90ef6d803",
+      "tags": [],
+      "ens": {
+        "name": "ens.brantly.eth",
+        "avatar": "https://metadata.ens.domains/mainnet/avatar/ens.brantly.eth",
+      },
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xe0308a8a9095e4fc554fefdfafc819ff7b0f7103",
+      "tags": [],
+      "ens": {
+        "name": "libran.eth",
+        "avatar": "https://euc.li/libran.eth",
+      },
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x983110309620d911731ac0932219af06091b6744",
+      "tags": ["top8"],
+      "ens": {
+        "name": "brantly.eth",
+        "avatar": "https://euc.li/brantly.eth",
+      },
+    },
+  ],
+}
+```
+
+---
+
+#### /lists/\:token_id/allFollowers
+
+Get all followers (including blocked and muted) of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "15",
+      "address": "0x849151d7d0bf1f34b70d5cad5149d28cc2308bf1",
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-09-24T14:45:33.882Z"
+    },
+    {
+      "efp_list_nft_token_id": "294",
+      "address": "0xa7860e99e3ce0752d1ac53b974e309fff80277c6",
+      "tags": [
+        "top8"
+      ],
+      "is_following": false,
+      "is_blocked": true,
+      "is_muted": false,
+      "updated_at": "2024-09-24T14:45:33.882Z"
+    },
+    {
+      "efp_list_nft_token_id": "55",
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "tags": [
+        "bff",
+        "top8"
+      ],
+      "is_following": false,
+      "is_blocked": true,
+      "is_muted": false,
+      "updated_at": "2024-09-24T16:45:26.088Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/taggedAs
+
+Get the tags that are applied to a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/41/taggedAs
+```
+
+```jsonc
+// sample response
+{
+  "token_id": "41",
+  "tags": ["top8", "block"],
+  "tagCounts": [
+    {
+      "tag": "top8",
+      "count": 7,
+    },
+    {
+      "tag": "block",
+      "count": 1,
+    },
+  ],
+  "taggedAddresses": [
+    {
+      "address": "0xf9a24785cab3ed0921c41fb84dedfea935a4ad1b",
+      "tag": "top8",
+    },
+    {
+      "address": "0x8eddf5431f5b31933bfbd8111d54fc6e9456e6c1",
+      "tag": "top8",
+    },
+    {
+      "address": "0x8b24b1686832757e2f6d640e11e88e7f0064594a",
+      "tag": "top8",
+    },
+    {
+      "address": "0x60377ec355857c2d06d1ce28555f624257344b0d",
+      "tag": "top8",
+    },
+    {
+      "address": "0xfa1afc4534fc9f80a552e61dd04cd8a172c821a6",
+      "tag": "top8",
+    },
+    {
+      "address": "0xc808ffa16d6773d6a9109b1ab92e839157eb0954",
+      "tag": "block",
+    },
+    {
+      "address": "0x983110309620d911731ac0932219af06091b6744",
+      "tag": "top8",
+    },
+    {
+      "address": "0x2a59071ff48936c6838dcac425fa0df6ea5979bf",
+      "tag": "top8",
+    },
+  ],
+}
+```
+
+---
+
+#### /lists/\:token_id/tags
+
+Get the tags of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/tags
+```
+
+```jsonc
+// sample response
+{
+  "token_id": "3",
+  "tags": ["vogu", "top8"],
+  "tagCounts": [
+    {
+      "tag": "vogu",
+      "count": 1,
+    },
+    {
+      "tag": "top8",
+      "count": 8,
+    },
+  ],
+  "taggedAddresses": [
+    {
+      "address": "0x0f2e3e67cb000993d07e60261748963d3f4bd6d9",
+      "tag": "vogu",
+    },
+    {
+      "address": "0x71adb34117c9408e74ed112b327a0ec97cef8fa1",
+      "tag": "top8",
+    },
+    {
+      "address": "0x8f5906963ae276e1631efa8ff1a9cae6499ec5e3",
+      "tag": "top8",
+    },
+    {
+      "address": "0x983110309620d911731ac0932219af06091b6744",
+      "tag": "top8",
+    },
+    {
+      "address": "0xbe4f0cdf3834bd876813a1037137dcfad79acd99",
+      "tag": "top8",
+    },
+    {
+      "address": "0xc983ebc9db969782d994627bdffec0ae6efee1b3",
+      "tag": "top8",
+    },
+    {
+      "address": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+      "tag": "top8",
+    },
+    {
+      "address": "0xe2cded674643743ec1316858dfd4fd2116932e63",
+      "tag": "top8",
+    },
+    {
+      "address": "0xeb6b293e9bb1d71240953c8306ad2c8ac523516a",
+      "tag": "top8",
+    },
+  ],
+}
+```
+
+---
+
+#### /lists/\:token_id/\:addressOrENS/buttonState
+
+Get the following state between a given list and a given user.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/brantly.eth/buttonState
+```
+
+```jsonc
+// sample response
+{
+  "token_id": "3",
+  "address": "0x983110309620d911731ac0932219af06091b6744",
+  "state": {
+    "follow": true,
+    "block": false,
+    "mute": false,
+  },
+}
+```
+
+---
+
+#### /lists/\:token_id/following
+
+Get accounts being followed (excluding blocked and muted) by a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+- `sort` (string, optional): Specifies how the results should be sorted, possible values 'latest', 'earliest', 'followers'. If not specified, default sort is 'latest'
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/following
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xc6ed8696c4885dcafdc73c5ef28511e02568b472",
+      "tags": []
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x1cbf9983e0d59276a58db8e8529706004fcb1837",
+      "tags": []
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x27d311b8958ca479615522304b442e530c8073fe",
+      "tags": []
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/allFollowing
+
+Get all accounts being followed (including blocked and muted) by a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/allFollowing
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xad73eafcac4f4c6755dfc61770875fb8b6bc8a25",
+      "tags": []
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xfee41e0f01112d9bdaa73a5a368f4afb4d9baa08",
+      "tags": []
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xf972bf8592c3171b378e97bb869a980c3f476583",
+      "tags": []
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /lists/\:token_id/\:addressOrENS/followerState
+
+Get the follower state between a given list and a given user.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/3/encrypteddegen.eth/followerState
+```
+
+```jsonc
+// sample response
+{
+  "token_id": "3",
+  "address": "0xc983ebc9db969782d994627bdffec0ae6efee1b3",
+  "state": {
+    "follow": true,
+    "block": false,
+    "mute": false,
+  },
+}
+```
+
+---
+
+#### /lists/\:token_id/followers
+
+Get followers (excluding blocked and muted) of a user by their EFP list id.
+
+#### Path Parameters
+
+- `token_id` (string): The EFP List of the account
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+- `sort` (string, optional): Specifies how the results should be sorted, possible values 'latest', 'earliest', 'followers'. If not specified, default sort is 'latest'
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/lists/4/followers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "325",
+      "address": "0x9b2fb7a8d227cdaa8002f80e8c8a99a19bb1b969",
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-09-24T16:45:26.088Z"
+    },
+    {
+      "efp_list_nft_token_id": "728",
+      "address": "0xca034d4438719391b5e7589242a36ec535ed6836",
+      "tags": [],
+      "is_following": false,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-09-24T16:45:26.088Z"
+    },
+    {
+      "efp_list_nft_token_id": "723",
+      "address": "0x8901083bb577b335a5f6fddde705c00efe8c33d9",
+      "tags": [],
+      "is_following": false,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-09-24T16:45:26.088Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+### /users/\:addressOrENS/list-records
+
+Get the list records of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/encrypteddegen.eth/list-records
+```
+
+```jsonc
+// sample response
+{
+  "records": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x0116acf39cf70fefc3c23c88a37e59474e8e17be",
+      "tags": null
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x021021ccee934b346160342f8d7f59f514c08c56",
+      "tags": null
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x025376e7e7f161a198fb5fc90a220a553836d11a",
+      "tags": null
+    },
+
+    ...
+  ]
+}
+```
+
+---
+
+### /users/\:addressOrENS/recommended
+
+Get recommended users for a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/recommended
+```
+
+```jsonc
+// sample response
+{
+  "recommended": [
+    {
+      "name": "swindler.eth",
+      "address": "0xf972bf8592c3171b378e97bb869a980c3f476583",
+      "avatar": "https://rainbow.mypinata.cloud/ipfs/QmcSAHrGGdXJRPmxYUk1R86Wqpfgg4TPMAXC6MfQHPugvF",
+      "header": "https://rainbow.mypinata.cloud/ipfs/QmVDbkDutSk4phVohMs76jV4RgT3bpSdzHnesBHFxW6jRL",
+      "class": "B",
+      "created_at": "2025-03-07T15:53:58.797Z"
+    },
+    {
+      "name": "gratefulape.eth",
+      "address": "0x52a4c418576dc46e4116ececc6f68d1c9b9636ed",
+      "avatar": "https://euc.li/gratefulape.eth",
+      "header": null,
+      "class": "B",
+      "created_at": "2025-03-07T15:53:58.797Z"
+    },
+    {
+      "name": "treeskulltown.eth",
+      "address": "0x2dacc0b072146b40e60b8596b99756112d45c924",
+      "avatar": "https://euc.li/treeskulltown.eth",
+      "header": null,
+      "class": "B",
+      "created_at": "2025-03-07T15:53:58.797Z"
+    },
+
+    ...
+}
+```
+
+---
+
+### /users/\:addressOrENS/lists
+
+Get the lists of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/lists
+```
+
+```jsonc
+// sample response
+{
+  "primary_list": "4",
+  "lists": ["4", "107"],
+}
+```
+
+---
+
+### /users/\:addressOrENS/latestFollowers
+
+Get a user's latest followers by Address or ENS Name
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/latestFollowers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "address": "0x9bfd90ab010c63e85453f3e40be4e3106ccf895c",
+      "efp_list_nft_token_id": "3413",
+      "updated_at": "2024-10-29T16:13:15.040Z"
+    },
+    {
+      "address": "0x2e11e3b40ca0c4aba93a2cd7c9046394b8dd7501",
+      "efp_list_nft_token_id": "26124",
+      "updated_at": "2024-10-28T15:26:19.215Z"
+    },
+    {
+      "address": "0xfdacb11c3b6703bc5525b650bd231046b3f878cd",
+      "efp_list_nft_token_id": "26123",
+      "updated_at": "2024-10-28T15:24:07.275Z"
+    },
+    {
+      "address": "0x22d10dd07ad572f6d53a70a4093e2d8761a3e650",
+      "efp_list_nft_token_id": "26110",
+      "updated_at": "2024-10-28T12:53:02.481Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+### /users/\:addressOrENS/notifications
+
+Get incoming actions received from other users by Address or ENS Name
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `opcode` (number, optional): Specifies the type of operation to return [1 for follow, 2 for un-follow, 3 for tag, 4 for un-tag, 0 for any]
+- `interval` (string, optional): Specifies the time range of notifications to return [hour, day, week, month, all].
+- `start` (number, optional): Specifies the starting timestamp to begin the interval, default value is now. [unix timestamp ex. 1741159543]
+
+- `tag` (string, optional): Specifies a single tag string, of which each account in the response should have at least one.
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Default Values
+
+A request to this endpoint with no query parameters specified will default to:
+
+- opcode = all
+- interval = week
+- start = (current timestamp of now)
+- tag = ""
+- limit = 10
+- offset = 0
+
+Take care not to request tags joined with incorrect opcodes i.e. requests with a tag specified but opcode = 2 will not return data
+
+#### Sample Query: No params set
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications
+```
+
+```jsonc
+// sample response
+{
+  "summary": {
+    "interval": "168:00:00(hrs)",
+    "opcode": "all",
+    "total": 10,
+    "total_follows": 9,
+    "total_unfollows": 0,
+    "total_tags": 1,
+    "total_untags": 0
+  },
+  "notifications": [
+    {
+      "address": "0x8004f955c7ed19b465f1f30ad7d04c6d2edc4e81",
+      "name": "jackflash.eth",
+      "avatar": "https://euc.li/jackflash.eth",
+      "token_id": "25556",
+      "action": "tag",
+      "opcode": 3,
+      "op": "0x01030101c9c3a4337a1bba75d0860a1a81f7b990dc607334646576",
+      "tag": "dev",
+      "updated_at": "2024-12-04T04:07:55.948Z"
+    },
+    {
+      "address": "0xce89b39a2c5d66040093df8013f02d1f0a124200",
+      "name": "nomamkin.eth",
+      "avatar": "https://ens.xyz/nomamkin.eth",
+      "token_id": "28502",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T12:15:42.656Z"
+    },
+    {
+      "address": "0x69a00fafe7e935fde9ecb5c53f23e0e409a33e12",
+      "name": "myavocado.eth",
+      "avatar": "https://euc.li/myavocado.eth",
+      "token_id": "28491",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T11:28:45.493Z"
+    },
+    ...
+  ]
+}
+```
+
+#### Sample Query: Follows in last week
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications?opcode=1&interval=week
+```
+
+```jsonc
+// sample response
+{
+  "summary": {
+    "interval": "168:00:00(hrs)",
+    "opcode": "1",
+    "total": 10,
+    "total_follows": 10,
+    "total_unfollows": 0,
+    "total_tags": 0,
+    "total_untags": 0
+  },
+  "notifications": [
+    {
+      "address": "0xce89b39a2c5d66040093df8013f02d1f0a124200",
+      "name": "nomamkin.eth",
+      "avatar": "https://ens.xyz/nomamkin.eth",
+      "token_id": "28502",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T12:15:42.656Z"
+    },
+    {
+      "address": "0x69a00fafe7e935fde9ecb5c53f23e0e409a33e12",
+      "name": "myavocado.eth",
+      "avatar": "https://euc.li/myavocado.eth",
+      "token_id": "28491",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T11:28:45.493Z"
+    },
+    {
+      "address": "0x11a0cbe3548636d02506e945c77b17c5d3fd5fd5",
+      "name": "senior01.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/senior01.eth",
+      "token_id": "31911",
+      "action": "follow",
+      "opcode": 1,
+      "op": "0x01010101c9c3a4337a1bba75d0860a1a81f7b990dc607334",
+      "tag": "",
+      "updated_at": "2024-12-03T11:22:00.378Z"
+    },
+    ...
+  ]
+}
+```
+
+#### Sample Query: All cases where tag is 'top8'
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/notifications?interval=all&tag=top8
+```
+
+```jsonc
+// sample response
+{
+  "summary": {
+    "interval": "999:00:00(hrs)",
+    "opcode": "all",
+    "total": 4,
+    "total_follows": 0,
+    "total_unfollows": 0,
+    "total_tags": 4,
+    "total_untags": 0
+  },
+  "notifications": [
+    {
+      "address": "0x2e711004fef4751b62aeb3608d722d22ce536d84",
+      "name": "10bitcoin.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/10bitcoin.eth",
+      "token_id": "30340",
+      "action": "tag",
+      "opcode": 3,
+      "op": "0x01030101c9c3a4337a1bba75d0860a1a81f7b990dc607334746f7038",
+      "tag": "top8",
+      "updated_at": "2024-11-22T07:30:15.626Z"
+    },
+    {
+      "address": "0x9a4c6ec8af626ae0c214c3bdd14ac56be15aaefd",
+      "name": "lagovskiiigor.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/lagovskiiigor.eth",
+      "token_id": "30054",
+      "action": "tag",
+      "opcode": 3,
+      "op": "0x01030101c9c3a4337a1bba75d0860a1a81f7b990dc607334746f7038",
+      "tag": "top8",
+      "updated_at": "2024-11-21T06:01:02.407Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+### /users/\:addressOrENS/stats
+
+Get stats of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `live` (bool, optional): Specifies whether to calculate stats or return cached values
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/limes.eth/stats
+```
+
+```jsonc
+// sample response
+{
+  "followers_count": "104",
+  "following_count": "26",
+}
+```
+
+---
+
+### /users/\:addressOrENS/details
+
+Get account details, populates most of the data on a profile card
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/details
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "ens": {
+    "name": "0xthrpw.eth",
+    "avatar": "https://euc.li/0xthrpw.eth",
+    "records": {
+      "avatar": "https://euc.li/0xthrpw.eth",
+      "com.github": "0xthrpw",
+      "com.twitter": "0xthrpw",
+      "description": "Took the mirrors off my cadillac because I don't like looking like I look back.",
+      "header": "https://storage.googleapis.com/nftimagebucket/tokens/0xb7def63a9040ad5dc431aff79045617922f4023a/1897.svg",
+      "name": "throw;",
+    },
+    "updated_at": "2024-09-18T02:12:57.934Z",
+  },
+  "ranks": {
+    "mutuals_rank": "6",
+    "followers_rank": "19",
+    "following_rank": "18",
+    "top8_rank": "12",
+    "blocks_rank": "7",
+  },
+  "primary_list": "3",
+}
+```
+
+---
+
+### /users/\:addressOrENS/commonFollowers
+
+Get common followers that are shared by two accounts
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `leader` (address, required): Specifies the account whose followers should be compared
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/commonFollowers?leader=0x0312567d78ff0c9ce0bd62a250df5c6474c71334
+```
+
+```jsonc
+// sample response
+{
+  "results": [
+    {
+      "address": "0x0312567d78ff0c9ce0bd62a250df5c6474c71334",
+      "name": "pepe.eth",
+      "avatar": "https://preview.redd.it/23tzr9qimgf51.png?auto=webp&s=d5475b2c247d3f3b4c8d9d3d3cae2521e15437ef",
+      "mutuals_rank": "10"
+    },
+    {
+      "address": "0x038b716928a41ea42253ac043af4f8fdcd940098",
+      "name": "aaron.box",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/aaron.box",
+      "mutuals_rank": "108"
+    },
+    {
+      "address": "0x074470b9a32f68de86fac393a10d5cea01c54269",
+      "name": "pawswap.eth",
+      "avatar": "https://euc.li/pawswap.eth",
+      "mutuals_rank": "18"
+    },
+    {
+      "address": "0x074631095645e426e50b478d40301dd35e74f24c",
+      "name": "pasqui.eth",
+      "avatar": "https://metadata.ens.domains/mainnet/avatar/pasqui.eth",
+      "mutuals_rank": "201"
+    },
+
+    ...
+
+  ],
+  "length": 76
+}
+```
+
+---
+
+### /users/\:addressOrENS/qr
+
+Get a QR code that links to a user's profile page.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/qr
+```
+
+#### Response
+
+This endpoint responds with a formatted svg of content-type `image/svg+xml;charset=utf-8`
+
+![Example QR code response](/assets/qrcode.png)
+
+---
+
+### /users/\:addressOrENS/account
+
+Get account information by Address or ENS Name
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/account
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xeb6b293e9bb1d71240953c8306ad2c8ac523516a",
+  "ens": {
+    "name": "dr3a.eth",
+    "avatar": "https://avatar-upload.ens-cf.workers.dev/mainnet/dr3a.eth?timestamp=1681787731836",
+    "records": {
+      "avatar": "https://avatar-upload.ens-cf.workers.dev/mainnet/dr3a.eth?timestamp=1681787731836",
+      "com.discord": "dr3a.eth",
+      "com.twitter": "dr3a_eth",
+      "description": "dr3a.eth 💙",
+      "email": "dr3a.eth@skiff.com",
+      "name": "drea",
+      "org.telegram": "dr3adoteth",
+      "url": "https://dr3a.eth.limo",
+    },
+    "updated_at": "2024-09-18T01:54:52.959Z",
+  },
+}
+```
+
+---
+
+### /users/\:addressOrENS/searchFollowers
+
+Search for followers of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a followers address or ENS name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/searchFollowers?term=brant
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "4",
+      "address": "0x983110309620d911731ac0932219af06091b6744",
+      "ens": {
+        "name": "brantly.eth",
+        "avatar": "https://euc.li/brantly.eth",
+      },
+      "tags": [],
+      "is_following": true,
+      "is_blocked": false,
+      "is_muted": false,
+    },
+  ],
+}
+```
+
+---
+
+### /users/\:addressOrENS/badges
+
+Get EFP POAPs of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/badges
+```
+
+```jsonc
+// sample response
+{
+  "poaps": [
+    {
+      "eventId": "177709",
+      "participated": true,
+      "collection": {
+        "event": {
+          "id": 177709,
+          "fancy_id": "efp-beta-tester-2024",
+          "name": "EFP Beta Tester",
+          "event_url": "https://ethfollow.xyz",
+          "image_url": "https://assets.poap.xyz/335d8e5a-920f-4c62-aa41-d8745f350a26.png",
+          "country": "",
+          "city": "",
+          "description": "Thank you for helping us test EFP on testnet before our mainnet launch! You are truly an OG. 🤝",
+          "year": 2024,
+          "start_date": "06-Sep-2024",
+          "end_date": "21-Sep-2024",
+          "expiry_date": "21-Sep-2025"
+        },
+        "tokenId": "7189762",
+        "owner": "0xC9C3A4337a1bba75D0860A1A81f7B990dc607334"
+      }
+    },
+    {
+      "eventId": "178064",
+      "participated": false,
+      "collection": null
+    },
+    {
+      "eventId": "178065",
+      "participated": false,
+      "collection": null
+    }
+    ...
+  ]
+}
+```
+
+---
+
+### /users/\:addressOrENS/primary-list
+
+Get the primary list of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/encrypteddegen.eth/primary-list
+```
+
+```jsonc
+// sample response
+{
+  "primary_list": "1",
+}
+```
+
+---
+
+### /users/\:addressOrENS/searchFollowing
+
+Search for following of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `term` (string, optional): Specifies the string to search for in a following address or ENS name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/searchFollowing?term=degen
+```
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x96053204967c30079529adddc56f6a37380205af",
+      "tags": [],
+      "ens": {
+        "name": "alphadegen.eth",
+        "avatar": "https://bafybeiaqof5u4bj57t36pt2t7egerky6epvutg7yb4suljnnjuqboymhvi.ipfs.dweb.link/af1f0c19f22c6ee0ea9a9e5f89d585df1ab8c677ef0ef7f0a448cce0fef21a71.png"
+      }
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x69207d197063c6b207ff206fdba916e1700d60fa",
+      "tags": [],
+      "ens": {
+        "name": "degenfam.eth",
+        "avatar": "https://codemakes.art/image/quasars/2631"
+      }
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x70bb434ea7b7f14709ed0dd17cc54056812cf4ad",
+      "tags": [],
+      "ens": {
+        "name": "teradegen.eth",
+        "avatar": "https://metadata.ens.domains/mainnet/avatar/teradegen.eth"
+      }
+    },
+}
+```
+
+---
+
+### /users/\:addressOrENS/ens
+
+Get the ENS data of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/ens
+```
+
+```jsonc
+// sample response
+{
+  "ens": {
+    "name": "brantly.eth",
+    "address": "0x983110309620d911731ac0932219af06091b6744",
+    "avatar": "https://euc.li/brantly.eth",
+    "records": {
+      "avatar": "https://euc.li/brantly.eth",
+      "com.discord": "brantly.eth",
+      "com.github": "brantlymillegan",
+      "com.twitter": "brantlymillegan",
+      "description": "Catholic, husband, father | building @efp.eth | ENS (DAO delegate, former core team) | Sign-in with Ethereum (creator)",
+      "email": "me@brantly.xyz",
+      "header": "https://i.imgur.com/Quo06x2.png",
+      "location": "USA",
+      "name": "Brantly Millegan",
+      "org.telegram": "brantlymillegan",
+      "url": "https://efp.app/",
+    },
+    "updated_at": "2024-09-18T03:40:58.807Z",
+  },
+}
+```
+
+---
+
+### /users/\:addressOrENS/taggedAs
+
+Get the tags that are applied to a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/taggedAs
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "tags": ["top8"],
+  "tagCounts": [
+    {
+      "tag": "top8",
+      "count": 5,
+    },
+  ],
+  "taggedAddresses": [
+    {
+      "address": "0x5a3bf42028901447434d12c5459954e667e5c518",
+      "tag": "top8",
+    },
+    {
+      "address": "0x71adb34117c9408e74ed112b327a0ec97cef8fa1",
+      "tag": "top8",
+    },
+    {
+      "address": "0x8eddf5431f5b31933bfbd8111d54fc6e9456e6c1",
+      "tag": "top8",
+    },
+    {
+      "address": "0xfa1afc4534fc9f80a552e61dd04cd8a172c821a6",
+      "tag": "top8",
+    },
+    {
+      "address": "0xc983ebc9db969782d994627bdffec0ae6efee1b3",
+      "tag": "top8",
+    },
+  ],
+}
+```
+
+---
+
+### /users/\:addressOrENS/tags
+
+Get the tags of a user by their address or ENS name.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/brantly.eth/tags
+```
+
+```jsonc
+// sample response
+{
+  "address": "0x983110309620d911731ac0932219af06091b6744",
+  "tags": [
+    "top8",
+    "block",
+    "degen"
+  ],
+  "tagCounts": [
+    {
+      "tag": "top8",
+      "count": 8
+    },
+    {
+      "tag": "block",
+      "count": 2
+    },
+    {
+      "tag": "degen",
+      "count": 4
+    }
+  ],
+  "taggedAddresses": [
+    {
+      "address": "0x44a3a18df15ae79bbc6c660db59428fe9a181864",
+      "tag": "top8"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "tag": "block"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "tag": "degen"
+    },
+    {
+      "address": "0x60377ec355857c2d06d1ce28555f624257344b0d",
+      "tag": "top8"
+    },
+
+    ...
+  ]
+}
+```
+
+---
+
+### /users/\:addressOrENS/following
+
+Get following by Address or ENS Name
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/dr3a.eth/following
+```
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+- `sort` (string, optional): Specifies how the results should be sorted, possible values 'latest', 'earliest', 'followers'. If not specified, default sort is 'latest'
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+```jsonc
+// sample response
+{
+  "following": [
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0x983110309620d911731ac0932219af06091b6744",
+      "tags": ["efp", "ens"],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xbdb41bff7e828e2dc2d15eb67257455db818f1dc",
+      "tags": ["efp", "ens"],
+    },
+    {
+      "version": 1,
+      "record_type": "address",
+      "data": "0xf4212614c7fe0b3feef75057e88b2e77a7e23e83",
+      "tags": ["efp"],
+    },
+  ],
+}
+```
+
+---
+
+### /users/\:addressOrENS/\:addressOrENS2/followerState
+
+Get the follower state between two users.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+- `addressOrENS2` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/0xthrpw.eth/brantly.eth/followerState
+```
+
+```jsonc
+// sample response
+{
+  "addressUser": "0xc9c3a4337a1bba75d0860a1a81f7b990dc607334",
+  "addressFollower": "0x983110309620d911731ac0932219af06091b6744",
+  "state": {
+    "follow": true,
+    "block": false,
+    "mute": false,
+  },
+}
+```
+
+---
+
+### /users/\:addressOrENS/followers
+
+Get followers by Address or ENS Name
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `tags` (string, optional): Specifies an array of comma separated tags, of which each account in the response should have at least one.
+- `sort` (string, optional): Specifies how the results should be sorted, possible values 'latest', 'earliest', 'followers'. If not specified, default sort is 'latest'
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl http://api.ethfollow.xyz/api/v1/users/dr3a.eth/followers
+```
+
+```jsonc
+// sample response
+{
+  "followers": [
+    {
+      "efp_list_nft_token_id": "5895",
+      "address": "0xd56c76b3f924e8f84a02654ff072a363a84b91d9",
+      "tags": [],
+      "is_following": false,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-10-14T19:45:38.617Z",
+    },
+    {
+      "efp_list_nft_token_id": "6337",
+      "address": "0x907ed289f363dbdb2ab1230dfbd2f77a05cda82d",
+      "tags": [],
+      "is_following": false,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-10-14T17:47:20.727Z",
+    },
+    {
+      "efp_list_nft_token_id": "13986",
+      "address": "0x7766ef005ec1b38a8472831e2f0631b12c811a5f",
+      "tags": [],
+      "is_following": false,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-10-14T17:12:28.718Z",
+    },
+    {
+      "efp_list_nft_token_id": "6323",
+      "address": "0x4e203e4f4bbf119f4e83763d5b143316b3b3c6cc",
+      "tags": [],
+      "is_following": false,
+      "is_blocked": false,
+      "is_muted": false,
+      "updated_at": "2024-10-14T15:06:03.633Z",
+    },
+  ],
+}
+```
+
+---
+
+EFP provides an open source indexer and API for indexing and retrieving EFP data.
+
+### Public API
+
+EFP core team provides a public API endpoint at [`https://api.ethfollow.xyz/api/v1`](https://api.ethfollow.xyz/api/v1).
+
+If you are a developer, you are free to use this endpoint to retrieve EFP data.
+
+### Commonly used endpoints
+
+- [User Stats](https://ethidentitykit.com/docs/api/users/stats/): the follower and following counts of a particular user
+- [User Following](https://ethidentitykit.com/docs/api/users/following/): list of the accounts a particular user follows
+- [User Followers](https://ethidentitykit.com/docs/api/users/followers/): list of the accounts that follow a particular user
+- [User ENS data](https://ethidentitykit.com/docs/api/users/ens/): the ENS data for a particular user
+
+### Self-hosting
+
+You may also fork EFP's Indexer/API source code and deploy yourself.
+
+- [`ethereumfollowprotocol/api`](https://github.com/ethereumfollowprotocol/api)
+- [`ethereumfollowprotocol/indexer`](https://github.com/ethereumfollowprotocol/indexer)
+
+### KV cache
+
+The API uses Cloudflare KV storage to cache some endpoint's responses. When one of these
+endpoints is called the cache is checked and if there is no record the data is fetched from
+the database. If a cached record is found it is returned immediately. All cache records
+are set to expire 5 minutes after they are created.
+
+The cached record for each of these endpoints can be refreshed by adding `cache=fresh` to the
+query params. For example:
+
+Get the cached record
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/lists/1/details
+```
+
+Get latest data and reset the cached record
+
+```sh copy
+curl https://api.ethfollow.xyz/api/v1/lists/1/details?cache=fresh
+```
+
+### Questions
+
+If you come across any issues, please reach out to us in our [Discord](https://discord.com/invite/ZUyG3mSXFD).
+
+---
+
+#### /leaderboard/blocked
+
+Get leaderboard of users ranked according to count of users that blocked them.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/blocked
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 1,
+    "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+    "blocked_by_count": "8"
+  },
+  {
+    "rank": 2,
+    "address": "0xa7860e99e3ce0752d1ac53b974e309fff80277c6",
+    "blocked_by_count": "4"
+  },
+  {
+    "rank": 3,
+    "address": "0x3276e82ebb1b4b9f01ab9286ed6bcc6603e368e2",
+    "blocked_by_count": "2"
+  },
+  {
+    "rank": 4,
+    "address": "0x7265a60acaeaf3a5e18e10bc1128e72f27b2e176",
+    "blocked_by_count": "2"
+  },
+  ...
+]
+```
+
+---
+
+#### /leaderboard/all
+
+Get addresses and ens names of all leaderboard records.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/all
+```
+
+```jsonc
+// sample response
+{
+  "results": [
+    {
+      "address": "0x0ad4bb5ceabfdb5020b01e6dc5e32526eb10e5d1",
+      "name": "0xsailormoon.eth"
+    },
+    {
+      "address": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+      "name": "designer.eth"
+    },
+    {
+      "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+      "name": "garypalmerjr.eth"
+    },
+    {
+      "address": "0x14546125429faac7f3aa78da1807069692ec7464",
+      "name": "grado.eth"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /leaderboard/ranked
+
+Get leaderboard of users ranked according to count of mutual follows. Includes rankings for mutuals, followers, following, blocked and tagged as 'top8'.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 50.
+- `offset` (number, optional): Specifies the starting index of the records to return in the response. If not specifed, default value is 0.
+- `sort` (string, optional): Specifies ranking to sort on, possible values are 'mutuals', 'followers', 'following', 'blocked' and 'top8', default value is 'mutuals'.
+- `direction` (string, optional): Specifies direction to sort results, possible values are 'ASC' or 'DESC' default value is 'DESC'.
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/ranked?sort=mutuals&direction=desc
+```
+
+```jsonc
+// sample response
+{
+  "last_updated": "2024-09-18T19:11:43.210Z",
+  "results": [
+    {
+      "address": "0x983110309620d911731ac0932219af06091b6744",
+      "name": "brantly.eth",
+      "avatar": "https://euc.li/brantly.eth",
+      "header": "https://i.imgur.com/Quo06x2.png",
+      "mutuals_rank": "1",
+      "followers_rank": "1",
+      "following_rank": "6",
+      "blocks_rank": "7",
+      "top8_rank": "1",
+      "mutuals": "293",
+      "following": "1079",
+      "followers": "366",
+      "blocks": "1",
+      "top8": "45",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    {
+      "address": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+      "name": "designer.eth",
+      "avatar": "https://euc.li/designer.eth",
+      "header": null,
+      "mutuals_rank": "2",
+      "followers_rank": "6",
+      "following_rank": "4",
+      "blocks_rank": "7",
+      "top8_rank": "7",
+      "mutuals": "147",
+      "following": "1556",
+      "followers": "182",
+      "blocks": "1",
+      "top8": "7",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    {
+      "address": "0x2a59071ff48936c6838dcac425fa0df6ea5979bf",
+      "name": "mely.eth",
+      "avatar": "https://euc.li/mely.eth",
+      "header": "https://i.imgur.com/T2H8N2H.jpeg",
+      "mutuals_rank": "3",
+      "followers_rank": "12",
+      "following_rank": "28",
+      "blocks_rank": "7",
+      "top8_rank": "5",
+      "mutuals": "124",
+      "following": "354",
+      "followers": "138",
+      "blocks": "1",
+      "top8": "11",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /leaderboard/search
+
+Search for leaderboard addresses and ENS names by a specified search term.
+
+#### Query Parameters
+
+- `term` (string, optional): Specifies the string to search for in a leaderboard address or ENS name.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/search?term=eth
+```
+
+```jsonc
+// sample response
+{
+  "last_updated": "2024-09-18T19:11:43.210Z",
+  "results": [
+    {
+      "address": "0x983110309620d911731ac0932219af06091b6744",
+      "name": "brantly.eth",
+      "avatar": "https://euc.li/brantly.eth",
+      "header": "https://i.imgur.com/Quo06x2.png",
+      "mutuals_rank": "1",
+      "followers_rank": "1",
+      "following_rank": "6",
+      "blocks_rank": "7",
+      "mutuals": "293",
+      "following": "1079",
+      "followers": "366",
+      "blocks": "1",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    {
+      "address": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+      "name": "designer.eth",
+      "avatar": "https://euc.li/designer.eth",
+      "header": null,
+      "mutuals_rank": "2",
+      "followers_rank": "6",
+      "following_rank": "4",
+      "blocks_rank": "7",
+      "mutuals": "147",
+      "following": "1556",
+      "followers": "182",
+      "blocks": "1",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    {
+      "address": "0x2a59071ff48936c6838dcac425fa0df6ea5979bf",
+      "name": "mely.eth",
+      "avatar": "https://euc.li/mely.eth",
+      "header": "https://i.imgur.com/T2H8N2H.jpeg",
+      "mutuals_rank": "3",
+      "followers_rank": "12",
+      "following_rank": "28",
+      "blocks_rank": "7",
+      "mutuals": "124",
+      "following": "354",
+      "followers": "138",
+      "blocks": "1",
+      "updated_at": "2024-09-18T19:11:43.210Z"
+    },
+    ...
+  ]
+}
+```
+
+---
+
+#### /leaderboard/muted
+
+Get leaderboard of users ranked according to count of users that muted them.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/muted
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 1,
+    "address": "0x949e2988b857af2a3c9429e763d13202b7b25c88",
+    "muted_by_count": "1",
+  },
+]
+```
+
+---
+
+#### /leaderboard/count
+
+Get count of all accounts in the leaderboard.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/count
+```
+
+```jsonc
+// sample response
+{
+  "leaderboardCount": "8788",
+}
+```
+
+---
+
+#### /leaderboard/mutes
+
+Get leaderboard of users ranked according to count of users that they muted.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/mutes
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 2,
+    "address": "0xfa35730094b7e0fc1b97f55663aad15e2d2e3e29",
+    "mutes_count": "3",
+  },
+  {
+    "rank": 3,
+    "address": "0x983110309620d911731ac0932219af06091b6744",
+    "mutes_count": "2",
+  },
+  {
+    "rank": 4,
+    "address": "0x2933387ec4c9bbc4a8200cfd77db53d7bc8ebc11",
+    "mutes_count": "1",
+  },
+]
+```
+
+---
+
+#### /leaderboard/following
+
+Get leaderboard of users ranked according to following counts.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/following
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 1,
+    "address": "0x44a3a18df15ae79bbc6c660db59428fe9a181864",
+    "following_count": "5639"
+  },
+  {
+    "rank": 2,
+    "address": "0x4d982788c01402c4e0f657e1192d7736084ae5a8",
+    "following_count": "3403"
+  },
+  {
+    "rank": 3,
+    "address": "0xd4713cca4068700cf722f8c2b6c05f948b75321b",
+    "following_count": "2782"
+  },
+  {
+    "rank": 4,
+    "address": "0xd1efdd037566b0c75cebace9150d26ea0153faa9",
+    "following_count": "1556"
+  },
+  ...
+]
+```
+
+---
+
+#### /leaderboard/blocks
+
+Get leaderboard of users ranked according to count of users that they blocked.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/blocks
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 1,
+    "address": "0xc808ffa16d6773d6a9109b1ab92e839157eb0954",
+    "blocks_count": "119"
+  },
+  {
+    "rank": 2,
+    "address": "0xfa35730094b7e0fc1b97f55663aad15e2d2e3e29",
+    "blocks_count": "3"
+  },
+  {
+    "rank": 3,
+    "address": "0x983110309620d911731ac0932219af06091b6744",
+    "blocks_count": "2"
+  },
+  {
+    "rank": 4,
+    "address": "0x2933387ec4c9bbc4a8200cfd77db53d7bc8ebc11",
+    "blocks_count": "1"
+  },
+  ...
+]
+```
+
+---
+
+#### /leaderboard/followers
+
+Get leaderboard of users ranked according to follower counts.
+
+#### Query Parameters
+
+- `limit` (number, optional): Specifies the amount of records to return in the response. If not specifed, default value is 10.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/leaderboard/followers
+```
+
+```jsonc
+// sample response
+[
+  {
+    "rank": 1,
+    "address": "0x983110309620d911731ac0932219af06091b6744",
+    "followers_count": 365
+  },
+  {
+    "rank": 2,
+    "address": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+    "followers_count": 285
+  },
+  {
+    "rank": 3,
+    "address": "0x849151d7d0bf1f34b70d5cad5149d28cc2308bf1",
+    "followers_count": 270
+  },
+  {
+    "rank": 4,
+    "address": "0x5b76f5b8fc9d700624f78208132f91ad4e61a1f0",
+    "followers_count": 228
+  },
+  ...
+]
+```
+
+---
+
+# Followers you know
+
+The Followers you know component displays a list of common followers between two Ethereum addresses or ENS names, showing their avatars and names.
+
+Followers you know is a relation of addresses that `connectedAddress` follows and `lookupAddress` is being followed by.
+
+### Add to your project
+
+```tsx copy
+import { FollowersYouKnow } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <FollowersYouKnow connectedAddress="0x1234...abcd" lookupAddress="0xabcd...1234" />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/story/molecules-followers-you-know--followers-you-know"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/story/molecules-followers-you-know--followers-you-know'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex justify-center items-center">
+  <FollowersYouKnow
+    connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3"
+    lookupAddress="0x983110309620d911731ac0932219af06091b6744"
+    onProfileClick={(address) => {
+      window.open(`https://efp.app/${address}`, '_blank')
+    }}
+  />
+</div>
+
+## Parameters
+
+| Parameter          | Description                                                               | Required | Default Value |
+| ------------------ | ------------------------------------------------------------------------- | -------- | ------------- |
+| `lookupAddress`    | The Ethereum address or ENS name to find common followers with.           | Yes      | -             |
+| `connectedAddress` | The Ethereum address of the currently connected user.                     | No       | -             |
+| `displayEmpty`     | Whether to display the component when there are no common followers.      | No       | true          |
+| `hasModal`         | Whether to display the modal with all common followers.                   | No       | false         |
+| `onProfileClick`   | The function to call when a profile is clicked.                           | No       | -             |
+| `className`        | Additional CSS class names to apply to the component.                     | No       | -             |
+| `props`            | Additional props for the `<div>` element containing the common followers. | No       | -             |
+
+---
+
+# Profile Socials
+
+The Profile Socials component displays the social links of a user, including URLs and decentralized web links.
+
+### Add to your project
+
+```tsx copy
+import { ProfileSocials } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <ProfileSocials userAddress="0x1234...abcd" name="vitalik.eth" records={{ url: 'example.com' }} />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-profile-socials--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-profile-socials--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ProfileSocials
+    userAddress="0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+    name="vitalik.eth"
+    records={{
+      'com.github': 'vbuterin',
+      'com.twitter': 'VitalikButerin',
+      url: 'https://vitalik.ca',
+      cointenthash: 'ipfs://bafybeifvusbh4iunpvwjlowu47sxnt4hjlebx46kxi4yz5zdsoecfpkkei',
+    }}
+    includeUrls={true}
+    darkMode={true}
+  />
+</div>
+
+## Parameters
+
+| Parameter     | Description                                                                  | Required | Default Value |
+| ------------- | ---------------------------------------------------------------------------- | -------- | ------------- |
+| `userAddress` | The Ethereum address of the user.                                            | Yes      | -             |
+| `name`        | The ENS name of the user.                                                    | No       | -             |
+| `records`     | The records of the user, including URLs and content hashes.                  | Yes      | -             |
+| `darkMode`    | Whether the profile is in dark mode.                                         | No       | false         |
+| `includeUrls` | Whether to include the URLs in the profile.                                  | No       | false         |
+| `iconSize`    | The size of the icons displayed.                                             | No       | 32            |
+| `isLoading`   | Whether the profile is loading, showing placeholders instead of actual data. | No       | false         |
+
+### Styling
+
+The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.
+
+---
+
+# Transaction Modal
+
+The Transaction Modal component allows users to initiate and manage on-chain transactions. It provides a user interface for viewing transaction details, selecting chains, and managing transaction batches.
+
+## Add to your project
+
+```tsx copy
+import TransactionModal from 'identity-kit/src/components/transaction-modal/TransactionModal'
+
+export default function App() {
+  return <TransactionModal darkMode={true} />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/story/organisms-follow-button-transaction-modal--follow-button-single-tx"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {
+      ' - https://playground.ethidentitykit.com/?path=/story/organisms-follow-button-transaction-modal--follow-button-single-tx'
+    }
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ConnectWalletButton />
+  <div className="text-sm text-gray-400 text-center mb-4">
+    The transaction modal displayed here has the &quot;batchTransactions&quot; prop set to false. Meaning it will open
+    only if you submit a transaction. Pressing the follow button will open the transaction modal.
+  </div>
+  <FollowButton lookupAddress="0xd8da6bf26964af9d7eed9e03e53415d37aa96045" />
+</div>
+
+### First time user flow
+
+<div className="flex flex-row flex-wrap gap-4">
+  <img src="/assets/transaction/select-chain.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/listops-initiate.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/listops-done.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/mint-in-progress.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/indexing.png" className="dark h-auto" width="400" height="auto" />
+  <img src="/assets/transaction/finished.png" className="dark h-auto" width="400" height="auto" />
+</div>
+
+## Parameters
+
+| Parameter             | Description                                                    | Required | Default Value |
+| --------------------- | -------------------------------------------------------------- | -------- | ------------- |
+| `darkMode`            | Enables dark mode styling for the transaction modal.           | No       | false         |
+| `showRecommendations` | Enables recommendations for the cart modal.                    | No       | true          |
+| `onCartProfileClick`  | The function to call when a profile is clicked.                | No       | -             |
+| `showPoapClaim`       | Whether to show the POAP claim modal after minting a new list. | No       | false         |
+| `className`           | Additional CSS class names to apply to the transaction modal.  | No       | -             |
+| `props`               | Additional HTML div element props.                             | No       | -             |
+
+### Features
+
+- **Batch Transactions**: Allows users to manage multiple transactions at once.
+- **Chain Selector**: Provides an interface for selecting the blockchain network.
+- **Transaction Summary**: Displays a summary of all pending transactions.
+- **Transaction Flow**: Nice transaction flow with good visual feedback and animations.
+
+### Styling
+
+The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.
+
+### Notes
+
+- The modal is controlled by the `txModalOpen` state from the [`useTransactions`](https://ethidentitykit.com/docs/hooks/useTransactions) context, which determines its visibility.
+- Ensure that the `TransactionModal` is wrapped within a [TransactionProvider](https://ethidentitykit.com/docs/components/transaction-provider) that supplies the necessary transaction context.
+
+Transaction Provider parameters:
+
+- batchTransactions (boolean) - Whether to batch transactions or not (default: false). This will allow yout to either execute transactions one by one or batch them together and have a cart-like experience.
+
+---
+
+# Avatar
+
+The Avatar component displays an avatar image for a given Ethereum address or ENS name, with support for fallback images.
+
+### Add to your project
+
+```tsx copy
+import { Avatar } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <Avatar address="0x1234...abcd" name="vitalik.eth" />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-avatar--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-avatar--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex justify-center items-center">
+  <Avatar address="0x1234...abcd" name="vitalik.eth" style={{ width: 100, height: 100 }} />
+</div>
+
+## Parameters
+
+| Parameter  | Description                                                         | Required | Default Value                                                                                  |
+| ---------- | ------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------- |
+| `address`  | The Ethereum address for the profile of the avatar.                 | Yes      | -                                                                                              |
+| `src`      | The source URL of the avatar image.                                 | No       | `https://metadata.ens.domains/mainnet/avatar/{name}`                                           |
+| `name`     | The ENS name of the avatar.                                         | No       | -                                                                                              |
+| `fallback` | The fallback image to display if the avatar image cannot be loaded. | No       | [https://efp.app/assets/art/default-avatar.svg](https://efp.app/assets/art/default-avatar.svg) |
+| `style`    | Inline styles to apply to the avatar.                               | No       | -                                                                                              |
+| `props`    | Additional props for the `<div>` element containing the avatar.     | No       | -                                                                                              |
+
+---
+
+# Profile Stats
+
+The Profile Stats component displays follower and following statistics for a given Ethereum address or ENS name.
+
+### Add to your project
+
+```tsx copy
+import { ProfileStats } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <ProfileStats addressOrName="vitalik.eth" />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-profile-stats--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-profile-stats--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ProfileStats addressOrName="vitalik.eth" />
+</div>
+
+## Parameters
+
+| Parameter            | Description                                                                                             | Required | Default Value        |
+| -------------------- | ------------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| `addressOrName`      | Address or ENS name to lookup stats for.                                                                | Yes      | -                    |
+| `list`               | List to lookup stats for; overrides `addressOrName` if provided.                                        | No       | -                    |
+| `containerDirection` | Direction of the container layout (e.g., 'row', 'column').                                              | No       | 'row'                |
+| `statsDirection`     | Direction of the stats layout (e.g., 'row', 'column').                                                  | No       | 'column'             |
+| `statsStyle`         | Inline styles for the stats section.                                                                    | No       | -                    |
+| `containerStyle`     | Inline styles for the container.                                                                        | No       | -                    |
+| `onStatClick`        | Function to be called when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
+| `props`              | Additional props for the `<div>` element.                                                               | No       | -                    |
+
+---
+
+# Follower Tag
+
+The Follower Tag component displays the relationship status between a given Ethereum address and the connected user, such as whether the user follows, blocks, or mutes the address.
+
+### Add to your project
+
+```tsx copy
+import { FollowerTag } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return (
+    <FollowerTag
+      addressOrName="0x983110309620d911731ac0932219af06091b6744" // replace with your address
+      connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3" // replace with a connected address
+      showLoading={true} // displays loading cell
+    />
+  )
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-follower-tag--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-follower-tag--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <FollowerTag
+    addressOrName="0x983110309620d911731ac0932219af06091b6744"
+    connectedAddress="0xc983ebc9db969782d994627bdffec0ae6efee1b3"
+    showLoading={true}
+  />
+</div>
+
+## Parameters
+
+| Parameter          | Description                                                           | Required | Default Value |
+| ------------------ | --------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`    | The Ethereum address or ENS name of the follower.                     | Yes      | -             |
+| `connectedAddress` | The Ethereum address of the currently connected user.                 | Yes      | -             |
+| `list`             | The list of the user (selected list in EFP app).                      | No       | -             |
+| `showLoading`      | Whether to show a loading state while fetching follower status.       | No       | false         |
+| `className`        | Additional CSS class names to apply to the component.                 | No       | -             |
+| `props`            | Additional props for the `<div>` element containing the follower tag. | No       | -             |
+
+---
+
+# Full Width Profile
+
+The Full Width Profile component displays a comprehensive Ethereum Profile with ENS and EFP details like:
+
+- Avatar and Header Image
+- Name and Status
+- Role (if provided)
+- Description (Bio)
+- Follower State (follows you, blocks you, mutes you)
+- Profile Statistics (Followers, Following)
+- Common Followers
+- Social Media Links
+- POAP Badges
+
+### Add to your project
+
+```tsx copy
+import { FullWidthProfile } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <FullWidthProfile addressOrName="cottons.eth" />
+}
+```
+
+<a
+  className="w-full block mb-8 border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/story/organisms-full-width-profile--full-width-profile-by-address"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {
+      ' - https://playground.ethidentitykit.com/?path=/story/organisms-full-width-profile--full-width-profile-by-address'
+    }
+  </span>
+</a>
+
+<FullWidthProfile
+  addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50"
+  darkMode={true}
+  style={{ paddingBottom: '12px' }}
+/>
+
+## Parameters
+
+| Parameter             | Description                                                                                         | Required | Default Value |
+| --------------------- | --------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`       | Ethereum Address or ENS name to fetch profile data for.                                             | Yes      | -             |
+| `list`                | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -             |
+| `connectedAddress`    | Address of the user connected to the app.                                                           | No       | -             |
+| `darkMode`            | Enables dark mode styling for the profile.                                                          | No       | false         |
+| `role`                | Additional information to display on the profile (used for roles on ethid.org).                     | No       | -             |
+| `showFollowerState`   | Shows follower state tag (follows you, blocks you, mutes you).                                      | No       | false         |
+| `onStatClick`         | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | -             |
+| `selectedList`        | List number selected in your application for the connected user.                                    | No       | -             |
+| `onProfileClick`      | Action to perform when the profile is clicked.                                                      | No       | -             |
+| `showPoaps`           | Shows EFP related POAPs on the profile.                                                             | No       | true          |
+| `alignProfileContent` | Aligns the profile content when max-width is surpassed (center, start, end).                        | No       | 'center'      |
+| `options`             | Additional options for profile data and functionality. See `ProfileCardOption` type for details:    | No       | -             |
+|                       | - `followButton`: React node for a follow button.                                                   |          |               |
+|                       | - `nameMenu`: React node for a name menu.                                                           |          |               |
+|                       | - `profileData`: Prefetched profile data.                                                           |          |               |
+|                       | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |               |
+|                       | - `refetchProfileData`: Function to refetch profile data.                                           |          |               |
+|                       | - `statsData`: Prefetched stats data.                                                               |          |               |
+|                       | - `openListSettings`: Function to open list settings modal.                                         |          |               |
+| `className`           | Additional CSS class names to apply to the component.                                               | No       | -             |
+| `style`               | Inline CSS styles to apply to the component.                                                        | No       | -             |
+
+### Styling
+
+The component uses predefined styles and can be customized using the `className` and `style` props. The appearance can be manually toggled between light and dark modes using the `darkMode` prop. The component also supports responsive design with different layouts for desktop and mobile views.
+
+---
+
+# Follow Button
+
+The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
+
+### Add to your project
+
+<Steps>
+### Add Transaction Modal component
+
+Follow button will work with the Transaction Modal component to handle the transaction flow, therefore you need to add the Transaction Modal component to your project.
+Make sure to add the Transaction Provider to your project as well.
+For all the other providers take a look at the [setup](https://ethidentitykit.com/docs#setup) documentation.
+
+```tsx copy
+import { TransactionProvider, TransactionModal } from 'ethereum-identity-kit'
+
+export default function App() {
+  return (
+    // Other Providers
+    <TransactionProvider>
+      <TransactionModal />
+    </TransactionProvider>
+  )
+}
+```
+
+### Add Follow Button component
+
+Add the follow button wherever you wish, give it the `lookupAddress` and `connectedAddress` props, and you are good to go.
+
+```tsx copy
+import FollowButton from 'ethereum-identity-kit'
+
+export default function YourComponent() {
+  return (
+    <FollowButton
+      lookupAddress="0x123..."
+      connectedAddress="0xabc..."
+      onDisconnectedClick={() => alert('Please connect your wallet')}
+    />
+  )
+}
+```
+
+</Steps>
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/story/organisms-follow-button-transaction-modal--follow-button-single-tx"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {
+      ' - https://playground.ethidentitykit.com/?path=/story/organisms-follow-button-transaction-modal--follow-button-single-tx'
+    }
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ConnectWalletButton />
+  <div className="text-sm text-gray-400 mb-4">
+    Follow button for vitalik.eth - 0xd8da6bf26964af9d7eed9e03e53415d37aa96045
+  </div>
+  <FollowButton lookupAddress="0xd8da6bf26964af9d7eed9e03e53415d37aa96045" />
+</div>
+
+## Parameters
+
+| Parameter             | Description                                                                    | Required | Default Value |
+| --------------------- | ------------------------------------------------------------------------------ | -------- | ------------- |
+| `lookupAddress`       | The address of the user to follow or unfollow.                                 | Yes      | -             |
+| `connectedAddress`    | The address of the currently connected user.                                   | No       | -             |
+| `selectedList`        | The EFP list number to manage follow state for. (defaults to connectedAddress) | No       | -             |
+| `disabled`            | Disables the button if set to true.                                            | No       | false         |
+| `onDisconnectedClick` | Function to call when the button is clicked and the user is not connected.     | No       | -             |
+| `sounds`              | Object containing sound files to play on button actions.                       | No       | -             |
+| `customClassName`     | Custom CSS class names to apply to the button. (overwrites the default styles) | No       | -             |
+| `customLoader`        | Custom loader component to display while loading.                              | No       | -             |
+| `props`               | Additional HTML button element props.                                          | No       | -             |
+
+### Styling
+
+The component uses predefined styles from `FOLLOW_BUTTON_STYLES` and can be further customized using the `className` prop. The button's appearance changes based on its state (e.g., pending, disabled).
+
+### Sound Effects
+
+You can provide sound effects for different button states by passing a `sounds` object. Each key in the object corresponds to a [button state](https://ethidentitykit.com/docs/hooks/useFollowButton), and the value is the path to the sound file.
+
+```tsx copy
+<FollowButton
+  lookupAddress="0x123..."
+  connectedAddress="0xabc..."
+  sounds={{
+    follow: '/sounds/follow.mp3',
+    unfollow: '/sounds/unfollow.mp3',
+    ...
+  }}
+/>
+```
+
+### Custom Loader
+
+If you want to use a custom loader while the button is in a loading state, pass a React component to the `customLoader` prop.
+
+### Notes
+
+- Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.
+- The `onDisconnectedClick` function is optional but recommended to handle cases where the user is not connected.
+- The `sounds` prop is optional and can enhance user experience with auditory feedback.
+
+---
+
+# Transaction Provider
+
+The Transaction Provider component supplies the necessary context for managing on-chain transactions within the application. It provides state management and utility functions for handling transaction modals, batching, and more.
+
+## Add to your project
+
+```tsx copy
+import { TransactionProvider } from 'identity-kit/src/context/transactionContext'
+
+export default function App() {
+  return <TransactionProvider>{/* Your application components */}</TransactionProvider>
+}
+```
+
+## Parameters
+
+| Parameter           | Description                                                            | Required | Default Value |
+| ------------------- | ---------------------------------------------------------------------- | -------- | ------------- |
+| `batchTransactions` | Enables batching of transactions if set to true.                       | No       | false         |
+| `paymasterService`  | The paymaster service to use for sponsored transactions. (string)      | No       | -             |
+| `defaultChainId`    | The default chain ID to use for the transaction provider. (number)     | No       | -             |
+| `children`          | The child components that will have access to the transaction context. | Yes      | -             |
+
+## Usage
+
+The `TransactionProvider` component is used to wrap parts of your application that require access to transaction-related state and functions. It manages the state of transaction modals, pending transactions, and provides utility functions for transaction operations.
+
+### Features
+
+- **Transaction Modal Management**: Controls the visibility and state of transaction modals.
+- **Batch Transactions**: Supports batching of multiple transactions for a streamlined user experience.
+- **Paymaster Service**: Supports paymaster services for sponsored transactions. [(https://docs.cdp.coinbase.com/paymaster/docs/welcome)](https://docs.cdp.coinbase.com/paymaster/docs/welcome)
+- **Default Chain ID**: The default chain ID to use if the user does not have an EFP list yet (Has to mint the new list).
+- **Transaction State Management**: Provides state and functions for managing pending transactions, current transaction index, and more.
+
+### Batching Transactions
+
+If you set `batchTransactions` to `true`, the `TransactionProvider` will manage a batch of transactions. This will allow you to either execute transactions one by one or batch them together and have a cart-like experience.
+
+```tsx
+<TransactionProvider batchTransactions={true}>
+  <YourComponent />
+</TransactionProvider>
+```
+
+You will have to provide a button in your application that will open the transaction modal.
+
+```tsx
+import { useTransactions } from 'ethereum-identity-kit'
+
+/* ... your code ... */
+const { setTxModalOpen } = useTransactions()
+
+<button onClick={() => setTxModalOpen(true)}>Open Transaction Modal</button>
+/* ... your code ... */
+```
+
+### Context Values
+
+The `TransactionProvider` supplies the following context values:
+
+- `txModalOpen`: Boolean indicating if the transaction modal is open.
+- `batchTransactions`: Boolean indicating if transactions are batched.
+- `pendingTxs`: Array of pending transactions.
+- `currentTxIndex`: Index of the current transaction being processed.
+- `selectedChainId`: ID of the selected blockchain network.
+- `addTransactions`: Function to add new transactions.
+- `resetTransactions`: Function to reset all transactions.
+- `goToNextTransaction`: Function to proceed to the next transaction.
+- `lists`: The EFP lists of the connected user.
+- `listsLoading`: Boolean indicating if the EFP lists of the connected user are loading.
+
+### Notes
+
+- Ensure that the `TransactionProvider` wraps components that need access to transaction context.
+- The `batchTransactions` parameter determines if transactions should be batched.
+- Use the `useTransactions` hook to access the context values and functions within your components.
+
+---
+
+# Profile Card
+
+The Profile Card component displays a user's ENS and EFP details like:
+
+- Primary List Number (EFP List)
+- Avatar
+- Header Image
+- Name
+- Description (Bio)
+- Links
+- Socials
+- Followers
+- Following
+- Common Followers
+
+### Add to your project
+
+```tsx copy
+import { ProfileCard } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <ProfileCard addressOrName="vitalik.eth" />
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/organisms-profile-card--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-profile-card--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-6 flex justify-center items-center">
+  <ProfileCard
+    addressOrName="0xd63c2582b071f41090e89d975f738e87e7b8da50"
+    connectedAddress="0x5B0f3DBdD49614476e4f5fF5Db6fe13d41fCB516"
+    darkMode={true}
+    style={{ paddingBottom: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }}
+  />
+</div>
+
+## Parameters
+
+| Parameter                 | Description                                                                                         | Required | Default Value        |
+| ------------------------- | --------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| `addressOrName`           | Ethereum Address or ENS name to fetch profile data for.                                             | Yes      | -                    |
+| `list`                    | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -                    |
+| `connectedAddress`        | Address of the user connected to the app.                                                           | No       | -                    |
+| `darkMode`                | Enables dark mode styling for the profile card.                                                     | No       | false                |
+| `showFollowerState`       | Shows follower state tag (e.g., follows you, blocks you, mutes you).                                | No       | -                    |
+| `onStatClick`             | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
+| `hasCommonFollowersModal` | Whether to show the [common followers modal](./common-followers.mdx).                               | No       | true                 |
+| `options`                 | Additional options for profile data and stats. See `ProfileCardOption` type for details:            | No       | -                    |
+|                           | - `followButton`: React node for a follow button.                                                   |          |                      |
+|                           | - `nameMenu`: React node for a name menu.                                                           |          |                      |
+|                           | - `profileData`: Prefetched profile data.                                                           |          |                      |
+|                           | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |                      |
+|                           | - `refetchProfileData`: Function to refetch profile data.                                           |          |                      |
+|                           | - `statsData`: Prefetched stats data.                                                               |          |                      |
+|                           | - `prefetchedStatsLoading`: Loading state for prefetched stats data.                                |          |                      |
+|                           | - `refetchStatsData`: Function to refetch stats data.                                               |          |                      |
+| `className`               | Additional CSS class names to apply to the component.                                               | No       | -                    |
+| `style`                   | Inline CSS styles to apply to the component.                                                        | No       | -                    |
+| `props`                   | Additional props for the `<div>` element.                                                           | No       | -                    |
+
+### Styling
+
+The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.

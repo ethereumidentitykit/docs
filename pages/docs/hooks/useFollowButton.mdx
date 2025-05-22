@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # useFollowButton
 
 The `useFollowButton` hook manages the state and actions for a follow button component. It determines the current follow state between a `lookupAddress` and a `connectedAddress`, and provides functions to handle follow, unfollow, block, and mute actions.
@@ -36,6 +38,11 @@ export default function FollowButtonComponent() {
 | `connectedAddress` | Ethereum address of the currently connected user.                         | No       | -             |
 | `selectedList`     | List number to manage the follow state for; defaults to the primary list. | No       | -             |
 
+<Callout type="warning">
+  Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses. Invalid addresses will cause the
+  hook to fail.
+</Callout>
+
 ## Return Values
 
 | Return Value      | Description                                                                                  |
@@ -50,6 +57,5 @@ export default function FollowButtonComponent() {
 
 ### Notes
 
-- Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.
 - The `handleAction` function manages the follow, unfollow, block, and mute actions based on the current state.
 - The `disableHover` state can be used to control hover effects on the button during certain actions as the state is set to true every time the button is clicked.

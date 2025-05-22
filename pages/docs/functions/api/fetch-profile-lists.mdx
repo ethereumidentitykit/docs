@@ -7,6 +7,10 @@ Fetches all lists associated with a given address or ENS name.
 ## Usage
 
 ```tsx
+import { fetchProfileLists } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchProfileLists } from 'ethereum-identity-kit/utils'
+
 const lists = await fetchProfileLists('vitalik.eth')
 // or with fresh data
 const freshLists = await fetchProfileLists('vitalik.eth', true)

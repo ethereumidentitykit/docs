@@ -1,10 +1,14 @@
 import { FollowersYouKnow } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
 
 # Followers you know
 
 The Followers you know component displays a list of common followers between two Ethereum addresses or ENS names, showing their avatars and names.
 
-Followers you know is a relation of addresses that `connectedAddress` follows and `lookupAddress` is being followed by.
+<Callout type="warning">
+  Both `connectedAddress` and `lookupAddress` must be valid Ethereum addresses or ENS names for the component to work
+  properly.
+</Callout>
 
 ### Add to your project
 
@@ -48,3 +52,8 @@ export default function Home() {
 | `onProfileClick`   | The function to call when a profile is clicked.                           | No       | -             |
 | `className`        | Additional CSS class names to apply to the component.                     | No       | -             |
 | `props`            | Additional props for the `<div>` element containing the common followers. | No       | -             |
+
+<Callout type="info">
+  The component supports both ENS names and Ethereum addresses. When using ENS names, they will be automatically
+  resolved to their corresponding addresses.
+</Callout>

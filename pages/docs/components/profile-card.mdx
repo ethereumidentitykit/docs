@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ProfileCard } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
 
 # Profile Card
 
@@ -70,6 +71,13 @@ export default function Home() {
 | `style`                   | Inline CSS styles to apply to the component.                                                        | No       | -                    |
 | `props`                   | Additional props for the `<div>` element.                                                           | No       | -                    |
 
-### Styling
+<Callout type="warning">
+  When using the `options` prop, ensure that all required data is provided if you're using prefetched data. Missing data
+  may cause the component to fail to render properly.
+</Callout>
 
-The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.
+<Callout type="info">
+  The component uses predefined styles and can be further customized using the `className` prop. The appearance can be
+  manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied
+  in your application, the component will automatically use that.
+</Callout>

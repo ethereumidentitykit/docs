@@ -9,4 +9,5 @@ export default {
   'fetch-eth-price': 'ETH Price',
   'fetch-profile-lists': 'Profile Lists',
   'fetch-profile-details': 'Profile Details',
+  'fetch-notifications': 'Notifications',
 }

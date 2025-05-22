@@ -1,6 +1,27 @@
+import { Callout } from 'nextra/components'
+
 # List Operations
 
 The list operations module provides utility functions for creating list operations in the EFP (Ethereum Follow Protocol) system.
+
+<Callout type="info">
+  List operations are a way to manage lists on the EFP (Ethereum Follow Protocol). They are used to add, remove, and tag
+  records in a list. For more detailed information, see the [EFP Docs - List
+  Operations](https://docs.efp.app/design/list-ops/).
+</Callout>
+
+<Callout type="warning">
+  When using these functions, ensure that the provided Ethereum addresses are valid and properly formatted.
+</Callout>
+
+## Import
+
+```tsx
+import { listOpAddListRecord, listOpRemoveListRecord, listOpAddTag, listOpRemoveTag } from 'ethereum-identity-kit'
+
+// For server side usage
+import { listOpAddListRecord, listOpRemoveListRecord, listOpAddTag, listOpRemoveTag } from 'ethereum-identity-kit/utils'
+```
 
 ## Functions
 
@@ -109,9 +130,3 @@ Returns a `ListOpType` object:
   data: `${address}${toHex(tag).slice(2)}`
 }
 ```
-
-## What are list operations?
-
-List operations are a way to manage lists on the EFP (Ethereum Follow Protocol). They are used to add, remove, and tag records in a list.
-
-- [EFP Docs - List Operations](https://docs.efp.app/design/list-ops/)

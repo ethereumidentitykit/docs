@@ -7,6 +7,10 @@ Fetches recommended profiles or recent activity from the EFP API, with optional 
 ## Usage
 
 ```tsx
+import { fetchRecommended } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchRecommended } from 'ethereum-identity-kit/utils'
+
 // Fetch recommended profiles for a user
 const recommended = await fetchRecommended('recommended', 'vitalik.eth')
 

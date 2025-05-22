@@ -1,0 +1,73 @@
+---
+title: Notifications
+description: A notification bell component that displays user notifications in a dropdown menu.
+---
+
+import { Callout } from 'nextra/components'
+
+# Notifications
+
+The `Notifications` component provides a notification bell interface that displays user notifications in a dropdown menu. It supports various positioning options and includes features like notification grouping and new notification indicators.
+
+## Import
+
+```tsx
+import { Notifications } from '@efp/identity-kit'
+```
+
+## Usage
+
+```tsx
+<Notifications
+  addressOrName="0x123..."
+  position="top"
+  align="right"
+  darkMode={false}
+  onProfileClick={(address) => console.log(address)}
+/>
+```
+
+## Props
+
+| Prop             | Type                                                 | Default   | Description                                  |
+| ---------------- | ---------------------------------------------------- | --------- | -------------------------------------------- |
+| `addressOrName`  | `Address \| string`                                  | Required  | The Ethereum address or ENS name of the user |
+| `position`       | `'top' \| 'bottom' \| 'left' \| 'right'`             | `'top'`   | Position of the notifications dropdown       |
+| `align`          | `'left' \| 'center' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Alignment of the notifications dropdown      |
+| `darkMode`       | `boolean`                                            | `false`   | Whether to use dark mode styling             |
+| `onProfileClick` | `(address: Address) => void`                         | -         | Callback function when a profile is clicked  |
+
+## Features
+
+- Displays notifications in a dropdown menu
+- Groups notifications by time periods (recent, 1h, 6h, 12h, 24h, etc.)
+- Shows new notification count badge
+- Supports different positioning and alignment options
+- Dark mode support
+- Click-away to close functionality
+
+## Example
+
+```tsx
+import { Notifications } from '@efp/identity-kit'
+
+function MyComponent() {
+  const handleProfileClick = (address) => {
+    // Handle profile click
+  }
+
+  return (
+    <Notifications
+      addressOrName="0x123..."
+      position="top"
+      align="right"
+      darkMode={true}
+      onProfileClick={handleProfileClick}
+    />
+  )
+}
+```
+
+<Callout type="info">
+  The component requires a connected wallet to function. It will not render if no wallet is connected.
+</Callout>{' '}

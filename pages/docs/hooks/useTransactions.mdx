@@ -1,6 +1,18 @@
+import { Callout } from 'nextra/components'
+
 # useTransactions
 
 The `useTransactions` hook provides access to the transaction context, allowing components to manage and interact with on-chain transactions. It offers state management and utility functions for handling transaction modals, batching, and more.
+
+<Callout type="warning">
+  This hook must be used within a TransactionProvider context. Make sure your component is wrapped with
+  TransactionProvider.
+</Callout>
+
+<Callout type="info">
+  The hook provides comprehensive transaction management capabilities including batching, chain selection, and
+  transaction state tracking.
+</Callout>
 
 ### Add to your project
 
@@ -114,6 +126,11 @@ const txs = [
 addTransactions(txs)
 ```
 
+<Callout type="warning">
+  When adding transactions, ensure all required fields (id, title, description, address, abi, chainId, functionName,
+  args) are provided.
+</Callout>
+
 ### `addListOpsTransaction`
 
 **Description**:  
@@ -140,6 +157,10 @@ listOps.push(listOpRemoveTag('0x1234...', 'myTag')) // Remove a tag
 
 addListOpsTransaction(listOps)
 ```
+
+<Callout type="info">
+  This function is primarily used by the Follow Button component, but can be used manually for custom list operations.
+</Callout>
 
 ### `removeTransactions`
 

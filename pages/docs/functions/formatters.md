@@ -2,6 +2,15 @@
 
 The formatters module provides utility functions for formatting various types of data in the application.
 
+## Import
+
+```tsx
+import { formatNumber, formatQueryParams, formatFollowersYouKnowText } from 'ethereum-identity-kit'
+
+// For server side usage
+import { formatNumber, formatQueryParams, formatFollowersYouKnowText } from 'ethereum-identity-kit/utils'
+```
+
 ## Functions
 
 ### formatNumber

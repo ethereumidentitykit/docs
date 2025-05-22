@@ -7,6 +7,10 @@ Fetches profile statistics (followers and following counts) for a given address,
 ## Usage
 
 ```tsx
+import { fetchProfileStats } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchProfileStats } from 'ethereum-identity-kit/utils'
+
 const stats = await fetchProfileStats('vitalik.eth')
 // or for a list
 const listStats = await fetchProfileStats('0x...', 1)

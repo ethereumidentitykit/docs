@@ -7,6 +7,10 @@ Fetches a paginated list of followers that you (connected address) follow, who a
 ## Usage
 
 ```tsx
+import { fetchAllFollowersYouKnow } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchAllFollowersYouKnow } from 'ethereum-identity-kit/utils'
+
 const { followersYouKnow, nextPageParam } = await fetchAllFollowersYouKnow({
   connectedAddress: '0x...',
   lookupAddressOrName: 'vitalik.eth',

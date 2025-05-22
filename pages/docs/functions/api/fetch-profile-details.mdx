@@ -1,12 +1,21 @@
 import { fetchProfileDetails } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
 
 # fetchProfileDetails
 
-Fetches profile details for a given Ethereum address, ENS name, or list number.
+Fetches profile details for a given Ethereum address, ENS name, or list number. The function supports both client-side and server-side usage.
+
+<Callout type="warning">
+  The function returns `null` if the request fails. Always handle the case where the response might be null.
+</Callout>
 
 ## Usage
 
 ```tsx
+import { fetchProfileDetails } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchProfileDetails } from 'ethereum-identity-kit/utils'
+
 const profileDetails = await fetchProfileDetails('vitalik.eth')
 // or
 const listDetails = await fetchProfileDetails('0x...', 1)

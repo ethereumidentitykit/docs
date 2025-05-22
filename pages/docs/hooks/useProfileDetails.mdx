@@ -1,4 +1,5 @@
 import { useProfileDetails } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
 
 # useProfileDetails
 
@@ -29,7 +30,16 @@ export default function ProfileComponent() {
 | `prefetchedData`        | Prefetched profile data to use initially.                                        | No       | -             |
 | `refetchPrefetchedData` | Function to refetch prefetched profile data.                                     | No       | -             |
 
+<Callout type="warning">
+  Either `addressOrName` or `list` must be provided. If both are provided, `list` will take precedence.
+</Callout>
+
 ## Return Values
+
+<Callout type="info">
+  The hook provides comprehensive profile data including ENS information, address, and primary list number. Use
+  `refreshProfileDetails` to manually update the data when needed.
+</Callout>
 
 | Return Value            | Description                                                      |
 | ----------------------- | ---------------------------------------------------------------- |

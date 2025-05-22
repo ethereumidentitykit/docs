@@ -7,6 +7,10 @@ Fetches the follow state between two addresses or a list and an address.
 ## Usage
 
 ```tsx
+import { fetchFollowState } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchFollowState } from 'ethereum-identity-kit/utils'
+
 const followState = await fetchFollowState({
   lookupAddressOrName: 'vitalik.eth',
   connectedAddress: '0x...',

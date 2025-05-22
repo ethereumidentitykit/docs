@@ -7,6 +7,10 @@ Fetches EFP [POAPs (Proof of Attendance Protocol)](https://poap.xyz/) badges for
 ## Usage
 
 ```tsx
+import { fetchProfileEFPPoaps } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchProfileEFPPoaps } from 'ethereum-identity-kit/utils'
+
 const poaps = await fetchProfileEFPPoaps('vitalik.eth')
 // or for a list
 const listPoaps = await fetchProfileEFPPoaps('0x...', 1)

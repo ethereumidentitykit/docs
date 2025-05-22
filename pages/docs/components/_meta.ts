@@ -9,5 +9,6 @@ export default {
   'follow-button': 'Follow Button',
   'transaction-modal': 'Transaction Modal',
   'transaction-provider': 'Transaction Provider',
+  notifications: 'Notifications',
   'siwe-button': 'SIWE Button - (Coming Soon)',
 }

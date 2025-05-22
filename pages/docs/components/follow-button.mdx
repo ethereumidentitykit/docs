@@ -1,6 +1,7 @@
 import { Steps } from 'nextra/components'
 import FollowButton from '../../../components/follow-button'
 import ConnectWalletButton from '../../../components/connect-wallet-button'
+import { Callout } from 'nextra/components'
 
 # Follow Button
 
@@ -83,6 +84,12 @@ export default function YourComponent() {
 | `customLoader`        | Custom loader component to display while loading.                              | No       | -             |
 | `props`               | Additional HTML button element props.                                          | No       | -             |
 
+<Callout type="warning">Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.</Callout>
+
+<Callout type="info">
+  The `onDisconnectedClick` function is optional but recommended to handle cases where the user is not connected.
+</Callout>
+
 ### Styling
 
 The component uses predefined styles from `FOLLOW_BUTTON_STYLES` and can be further customized using the `className` prop. The button's appearance changes based on its state (e.g., pending, disabled).
@@ -103,12 +110,8 @@ You can provide sound effects for different button states by passing a `sounds` 
 />
 ```
 
+<Callout type="info">The `sounds` prop is optional and can enhance user experience with auditory feedback.</Callout>
+
 ### Custom Loader
 
 If you want to use a custom loader while the button is in a loading state, pass a React component to the `customLoader` prop.
-
-### Notes
-
-- Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.
-- The `onDisconnectedClick` function is optional but recommended to handle cases where the user is not connected.
-- The `sounds` prop is optional and can enhance user experience with auditory feedback.

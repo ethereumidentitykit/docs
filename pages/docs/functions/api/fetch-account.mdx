@@ -7,6 +7,10 @@ Fetches condensed account information for a given address, ENS name, or list.
 ## Usage
 
 ```tsx
+import { fetchAccount } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchAccount } from 'ethereum-identity-kit/utils'
+
 const account = await fetchAccount('vitalik.eth')
 // or for a list
 const listAccount = await fetchAccount('0x...', 1)

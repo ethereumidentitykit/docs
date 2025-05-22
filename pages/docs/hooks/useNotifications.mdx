@@ -1,0 +1,92 @@
+---
+title: useNotifications
+description: A hook for managing and displaying user notifications with automatic grouping and refresh functionality.
+---
+
+import { Callout } from 'nextra/components'
+
+# useNotifications
+
+The `useNotifications` hook provides functionality to fetch, manage, and display user notifications. It includes features like automatic grouping by time periods, new notification tracking, and automatic refresh.
+
+## Usage
+
+```tsx
+const { notifications, isLoading, isOpen, setIsOpen, newNotifications, refetch } = useNotifications(addressOrName)
+```
+
+## Parameters
+
+| Parameter       | Type                | Description                                  |
+| --------------- | ------------------- | -------------------------------------------- |
+| `addressOrName` | `Address \| string` | The Ethereum address or ENS name of the user |
+
+## Returns
+
+| Property           | Type                        | Description                                         |
+| ------------------ | --------------------------- | --------------------------------------------------- |
+| `notifications`    | `Array<NotificationGroup>`  | Array of notification groups sorted by time periods |
+| `isLoading`        | `boolean`                   | Whether notifications are currently loading         |
+| `isOpen`           | `boolean`                   | Whether the notifications dropdown is open          |
+| `setIsOpen`        | `(isOpen: boolean) => void` | Function to control the dropdown open state         |
+| `newNotifications` | `number`                    | Count of new notifications                          |
+| `refetch`          | `() => void`                | Function to manually refetch notifications          |
+
+<Callout type="warning">
+  Make sure to handle the case when `addressOrName` is undefined or null, as the hook will not fetch notifications in
+  such cases.
+</Callout>
+
+## Features
+
+- Automatic grouping of notifications by time periods:
+  - Recent (last hour)
+  - 1h, 6h, 12h, 24h
+  - 1d, 2d, 3d
+  - 1w, 1m
+- Automatic refresh every minute
+- New notification tracking
+- Local storage integration for notification state
+- Support for different notification types:
+  - Follow/Unfollow
+  - Tag/Untag
+  - Block/Unblock
+  - Mute/Unmute
+
+## Example
+
+```tsx
+import { useNotifications } from 'ethereum-identity-kit'
+
+function NotificationsComponent({ address }) {
+  const { notifications, isLoading, isOpen, setIsOpen, newNotifications } = useNotifications(address)
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(!isOpen)}>
+        Notifications {newNotifications > 0 && `(${newNotifications})`}
+      </button>
+
+      {isOpen && (
+        <div>
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            notifications?.map((group) => (
+              <div key={group.label}>
+                <h3>{group.label}</h3>
+                {/* Render notifications */}
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+<Callout type="info">
+  The hook uses React Query under the hood for data fetching and caching. It automatically refetches notifications every
+  minute to keep the data fresh.
+</Callout>

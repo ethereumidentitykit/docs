@@ -17,6 +17,41 @@ import {
 
 The transactions module provides utility functions for handling EFP (Ethereum Follow Protocol) list operations and transactions.
 
+## Import
+
+```tsx
+import {
+  formatListOpsTransaction,
+  getListOpData,
+  getListOpsFromTransaction,
+  getMintTxNonce,
+  getMintTxChainId,
+  getMintTxRecordsAddress,
+  getPendingTxAddresses,
+  extractAddressAndTag,
+  getPendingTxListOps,
+  getPendingTxAddressesAndTags,
+  prepareMintTransaction,
+  transformTxsForLocalStorage,
+} from 'ethereum-identity-kit'
+
+// For server side usage
+import {
+  formatListOpsTransaction,
+  getListOpData,
+  getListOpsFromTransaction,
+  getMintTxNonce,
+  getMintTxChainId,
+  getMintTxRecordsAddress,
+  getPendingTxAddresses,
+  extractAddressAndTag,
+  getPendingTxListOps,
+  getPendingTxAddressesAndTags,
+  prepareMintTransaction,
+  transformTxsForLocalStorage,
+} from 'ethereum-identity-kit/utils'
+```
+
 ## Functions
 
 ### formatListOpsTransaction

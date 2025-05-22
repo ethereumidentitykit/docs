@@ -1,5 +1,6 @@
 import FollowButton from '../../../components/follow-button'
 import ConnectWalletButton from '../../../components/connect-wallet-button'
+import { Callout } from 'nextra/components'
 
 # Transaction Modal
 
@@ -70,10 +71,16 @@ export default function App() {
 
 The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.
 
-### Notes
+<Callout type="info">
+  The modal is controlled by the `txModalOpen` state from the
+  [`useTransactions`](https://ethidentitykit.com/docs/hooks/useTransactions) context, which determines its visibility.
+</Callout>
 
-- The modal is controlled by the `txModalOpen` state from the [`useTransactions`](https://ethidentitykit.com/docs/hooks/useTransactions) context, which determines its visibility.
-- Ensure that the `TransactionModal` is wrapped within a [TransactionProvider](https://ethidentitykit.com/docs/components/transaction-provider) that supplies the necessary transaction context.
+<Callout type="warning">
+  Ensure that the `TransactionModal` is wrapped within a
+  [TransactionProvider](https://ethidentitykit.com/docs/components/transaction-provider) that supplies the necessary
+  transaction context.
+</Callout>
 
 Transaction Provider parameters:
 

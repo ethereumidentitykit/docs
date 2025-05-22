@@ -1,6 +1,13 @@
+import { Callout } from 'nextra/components'
+
 # Transaction Provider
 
 The Transaction Provider component supplies the necessary context for managing on-chain transactions within the application. It provides state management and utility functions for handling transaction modals, batching, and more.
+
+<Callout type="warning">
+  The TransactionProvider must wrap any components that need access to transaction context, including the
+  TransactionModal component.
+</Callout>
 
 ## Add to your project
 
@@ -29,9 +36,14 @@ The `TransactionProvider` component is used to wrap parts of your application th
 
 - **Transaction Modal Management**: Controls the visibility and state of transaction modals.
 - **Batch Transactions**: Supports batching of multiple transactions for a streamlined user experience.
-- **Paymaster Service**: Supports paymaster services for sponsored transactions. [(https://docs.cdp.coinbase.com/paymaster/docs/welcome)](https://docs.cdp.coinbase.com/paymaster/docs/welcome)
 - **Default Chain ID**: The default chain ID to use if the user does not have an EFP list yet (Has to mint the new list).
 - **Transaction State Management**: Provides state and functions for managing pending transactions, current transaction index, and more.
+- **Paymaster Service**: Supports paymaster services for sponsored transactions.
+
+<Callout type="info">
+  The provider supports paymaster services for sponsored transactions. See the [Coinbase Paymaster
+  documentation](https://docs.cdp.coinbase.com/paymaster/docs/welcome) for more details.
+</Callout>
 
 ### Batching Transactions
 
@@ -72,6 +84,11 @@ The `TransactionProvider` supplies the following context values:
 
 ### Notes
 
-- Ensure that the `TransactionProvider` wraps components that need access to transaction context.
-- The `batchTransactions` parameter determines if transactions should be batched.
-- Use the `useTransactions` hook to access the context values and functions within your components.
+<Callout type="warning">
+  Ensure that the `TransactionProvider` wraps components that need access to transaction context.
+</Callout>
+
+<Callout type="info">
+  The `batchTransactions` parameter determines if transactions should be batched. When enabled, it provides a cart-like
+  experience for managing multiple transactions.
+</Callout>

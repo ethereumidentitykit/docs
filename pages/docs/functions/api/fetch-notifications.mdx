@@ -1,0 +1,76 @@
+---
+title: fetchNotifications
+description: A utility function to fetch user notifications from the EFP API with support for different time intervals.
+---
+
+import { Callout } from 'nextra/components'
+
+# fetchNotifications
+
+The `fetchNotifications` function is a utility that fetches user notifications from the EFP API. It supports different time intervals for filtering notifications and includes pagination support.
+
+## Usage
+
+```tsx
+const notifications = await fetchNotifications('0x123...', 'month')
+```
+
+## Parameters
+
+| Parameter     | Type                                            | Description                               |
+| ------------- | ----------------------------------------------- | ----------------------------------------- |
+| `userAddress` | `string`                                        | The Ethereum address of the user          |
+| `interval`    | `'hour' \| 'day' \| 'week' \| 'month' \| 'all'` | Time interval for filtering notifications |
+
+## Returns
+
+```tsx
+  notifications: [
+    {
+      action: "follow"
+      tag: null
+      updated_at: string
+      // ... other notification properties
+    }
+  ]
+```
+
+## Features
+
+- Fetches up to 1000 notifications per request
+- Supports different time intervals:
+  - `hour`: Last hour
+  - `day`: Last 24 hours
+  - `week`: Last 7 days
+  - `month`: Last 30 days
+  - `all`: All notifications
+- Returns notifications sorted by most recent first
+
+## Example
+
+```tsx
+import { fetchNotifications } from 'ethereum-identity-kit'
+
+async function getNotifications(address) {
+  try {
+    const response = await fetchNotifications(address, 'month')
+
+    if (!response) {
+      console.log('No notifications found')
+      return
+    }
+
+    console.log(`Found ${response.notifications.length} notifications`)
+    return response.notifications
+  } catch (error) {
+    console.error('Error fetching notifications:', error)
+  }
+}
+```
+
+<Callout type="info">The function returns `null` if no `userAddress` is provided or if the request fails.</Callout>
+
+<Callout type="warning">
+  Make sure to handle the case when the API request fails or returns no data. The function will return `null` in such
+  cases.
+</Callout>{' '}

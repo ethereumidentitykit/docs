@@ -7,6 +7,10 @@ Fetches the list of followers that you (connected address) follow, who also foll
 ## Usage
 
 ```tsx
+import { fetchFollowersYouKnow } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchFollowersYouKnow } from 'ethereum-identity-kit/utils'
+
 const followersYouKnow = await fetchFollowersYouKnow('0x...', 'vitalik.eth')
 ```
 

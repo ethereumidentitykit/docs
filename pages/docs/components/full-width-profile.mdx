@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Callout } from 'nextra/components'
 import { FullWidthProfile } from 'ethereum-identity-kit'
 
 # Full Width Profile
@@ -70,6 +71,8 @@ export default function Home() {
 | `className`           | Additional CSS class names to apply to the component.                                               | No       | -             |
 | `style`               | Inline CSS styles to apply to the component.                                                        | No       | -             |
 
-### Styling
-
-The component uses predefined styles and can be customized using the `className` and `style` props. The appearance can be manually toggled between light and dark modes using the `darkMode` prop. The component also supports responsive design with different layouts for desktop and mobile views.
+<Callout type="info">
+  The component uses predefined styles and can be further customized using the `className` prop. The appearance can be
+  manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied
+  in your application, the component will automatically use that.
+</Callout>

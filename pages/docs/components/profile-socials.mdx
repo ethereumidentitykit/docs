@@ -1,4 +1,5 @@
 import { ProfileSocials } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
 
 # Profile Socials
 
@@ -52,6 +53,8 @@ export default function Home() {
 | `iconSize`    | The size of the icons displayed.                                             | No       | 32            |
 | `isLoading`   | Whether the profile is loading, showing placeholders instead of actual data. | No       | false         |
 
-### Styling
-
-The component uses predefined styles and can be further customized using the `className` prop. The appearance of the modal can be manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your application, the modal will automatically use that.
+<Callout type="info">
+  The component uses predefined styles and can be further customized using the `className` prop. The appearance can be
+  manually toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied
+  in your application, the component will automatically use that.
+</Callout>

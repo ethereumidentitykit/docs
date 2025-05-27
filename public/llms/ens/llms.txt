@@ -1,0 +1,197 @@
+# docs.ens.domains llms.txt
+
+> The Ethereum Name Service (ENS) is a distributed, open, and extensible naming system based on the Ethereum blockchain. ENS maps human-readable names like 'alice.eth' to machine-readable identifiers such as Ethereum addresses, other cryptocurrency addresses, content hashes, metadata, and more. 
+
+## General
+
+- [faq](https://docs.ens.domains/faq): Frequently Asked Questions about the Ethereum Name Service
+- [dweb-intro](https://docs.ens.domains/dweb/intro): The ContentHash is a very popular component of an ENS name, first introduced in [ENSIP-7](/ensip/7).
+- [ensip-index](https://docs.ens.domains/ensip/index): This page contains a summary of all the ENS Improvement Proposals (ENSIPs) that have been proposed, and their current status.
+- [bugs](https://docs.ens.domains/bugs): The ENS bug bounty program rewards anyone who finds a bug in covered ENS smart contracts and ENS Labs assets.
+- [terminology](https://docs.ens.domains/terminology): A technical overview of all the terminology used in the ENS documentation.
+- [contracts-index](https://docs.ens.domains/contracts/index): The Ethereum Name Service Smart Contracts Overview
+- [dns-tlds](https://docs.ens.domains/dns/tlds): Alongside the `.eth` Top Level Domain, the ENS Protocol also supports most of your favourite DNS Top Level Domains (such as `.com`, `.cash` or `.domains`).
+- [changelog](https://docs.ens.domains/changelog): This page contains a list of changes and events that happened to the ENS protocol & ecosystem.
+
+## Registry
+
+- [registry-reverse](https://docs.ens.domains/registry/reverse): Reverse resolution in ENS - the process of mapping from an Ethereum address (eg, 0x1234.
+- [registry-dns](https://docs.ens.domains/registry/dns): Registrar responsible for all DNSSEC enabled names
+- [registry-eth](https://docs.ens.domains/registry/eth): The ETH Registrar is a special registrar.
+- [registry-ens](https://docs.ens.domains/registry/ens): The ENS registry is the core contract that lies at the heart of ENS resolution.
+
+## Wrapper
+
+- [wrapper-creating-subname-registrar](https://docs.ens.domains/wrapper/creating-subname-registrar): In the [Use Cases](/wrapper/usecases#sell-or-rent-subnames) section, we talked about the ability to stand up your own "registrar" to allow other people to register/claim subnames automatically.
+- [wrapper-fuses](https://docs.ens.domains/wrapper/fuses): A "fuse" is a permission or perk that can be granted/revoked on a name.
+- [wrapper-expiry](https://docs.ens.domains/wrapper/expiry): In order to burn any fuses on a name, you must also set an **expiry** on it.
+- [wrapper-usecases](https://docs.ens.domains/wrapper/usecases): By default, newly registered names will use the Public Resolver, which just allows the current manager/controller of the name to update any records.
+- [wrapper-contracts](https://docs.ens.domains/wrapper/contracts): The Name Wrapper contract is deployed on these chains:
+- [wrapper-states](https://docs.ens.domains/wrapper/states): Wrapper States
+- [wrapper-overview](https://docs.ens.domains/wrapper/overview): The **Name Wrapper** is a contract for ENS that allows you to "wrap" any ENS name into a ERC-1155 NFT.
+
+## Resolvers
+
+- [resolvers-quickstart](https://docs.ens.domains/resolvers/quickstart): A quickstart guide to everything about resolvers.
+- [resolvers-public](https://docs.ens.domains/resolvers/public): A general purpose resolver that suits most user needs.
+- [resolvers-writing](https://docs.ens.domains/resolvers/writing): Every ENS name has a resolver, which is responsible for resolving information about a name.
+- [resolvers-universal](https://docs.ens.domains/resolvers/universal): The Universal Resolver is a contract that handles the work of resolving a name entirely onchain, making it possible to make a single smart contract call to resolve an ENS name.
+- [resolvers-interfaces](https://docs.ens.domains/resolvers/interfaces): This page is a collection of methods that a resolver MAY implement.
+- [resolvers-ccip-read](https://docs.ens.domains/resolvers/ccip-read): Learn about how CCIP Read enables Offchain ENS Resolvers, how a gateway works, trust assumptions, and more.
+- [resolvers-interacting](https://docs.ens.domains/resolvers/interacting): Some apps may want to allow for users to edit, update, or modify their name and its behaviour at a more advanced level.
+
+## Dao
+
+- [dao-governance-moderator](https://docs.ens.domains/dao/governance/moderator): When the author of a Draft Proposal asks for it to be advanced to a vote, and you agree, follow the below steps:.
+- [dao-governance-process](https://docs.ens.domains/dao/governance/process): This document is a suggested process for developing and advancing ENS Governance Proposals.
+- [dao-stewards](https://docs.ens.domains/dao/stewards): The DAO is governed through a democratic process in which all major matters are decided through a vote open to all holders of governance tokens.
+- [dao-wg-rules](https://docs.ens.domains/dao/wg/rules): _This document represents the current state of the Working Group Rules as created by [EP0.
+- [dao-index](https://docs.ens.domains/dao/index): ENS Governance
+- [dao-constitution](https://docs.ens.domains/dao/constitution): The ENS constitution is a set of binding rules that determine what governance actions are legitimate for the DAO to take.
+- [dao-foundation](https://docs.ens.domains/dao/foundation): Having a legal entity that represents the DAO in the "real world" is valuable for a number of reasons:.
+- [dao-token](https://docs.ens.domains/dao/token): ENS Airdropped tokens to anyone who held an ENS name on _October 31st, 2021_.
+- [dao-security-council](https://docs.ens.domains/dao/security-council): The ENS DAO Security Council is a 4-of-8 multi-sig with a limited mandate: to cancel malicious proposals that threaten the DAO, particularly those that would compromise the treasury.
+- [dao-proposals-submit](https://docs.ens.domains/dao/proposals/submit): There are three main types of governance proposals you can make:
+
+## Dao Proposals
+
+- [dao-proposals-0.1](https://docs.ens.domains/dao/proposals/0.1): 'Transfer ENS treasury and contract ownership from the ENS Multisig to ENS DAO.'
+- [dao-proposals-0.2](https://docs.ens.domains/dao/proposals/0.2): 'Send 213,049 ENS tokens to a new airdrop contract for users who did not receive the 2x multiplier despite owning a name that was used as a primary ENS name. As amended by EP3.'
+- [dao-proposals-0.3](https://docs.ens.domains/dao/proposals/0.3): 'Amend EP2 to include funds accidentally sent back to the $ENS token contract.'
+- [dao-proposals-0.4](https://docs.ens.domains/dao/proposals/0.4): 'Creates four foundational working groups and establish rules related to the creation, management, and dissolution of working groups within the ENS DAO.'
+- [dao-proposals-1.1](https://docs.ens.domains/dao/proposals/1.1): 'Increases the start price for the temporary premium added when names expire from $2,000 to $100,000.'
+- [dao-proposals-1.2.1](https://docs.ens.domains/dao/proposals/1.2.1): 'The removal of Brantly Millegan as Director of The ENS Foundation (the "Foundation Company.").'
+- [dao-proposals-1.2.2](https://docs.ens.domains/dao/proposals/1.2.2): 'This proposal is for the election of a new Director of the ENS Foundation.'
+- [dao-proposals-1.3.1](https://docs.ens.domains/dao/proposals/1.3.1): 'Budget request for Meta-Governance Working Group'
+- [dao-proposals-1.3.2](https://docs.ens.domains/dao/proposals/1.3.2): 'Budget request for ENS Ecosystem Working Group'
+- [dao-proposals-1.3.3](https://docs.ens.domains/dao/proposals/1.3.3): 'Budget request for Community Working Group'
+- [dao-proposals-1.3.4](https://docs.ens.domains/dao/proposals/1.3.4): 'Budget request for Public Goods Working Group'
+- [dao-proposals-1.4](https://docs.ens.domains/dao/proposals/1.4): 'Proposes to reimburse True Names Limited for expenses incurred on behalf of ENS and the DAO.'
+- [dao-proposals-1.5](https://docs.ens.domains/dao/proposals/1.5): 'Proposes to deploy Exponential Price Oracle Contract to replace the current Linear Price Oracle Contract'
+- [dao-proposals-1.6](https://docs.ens.domains/dao/proposals/1.6): 'This proposal is for the funding and establishment of a community-run OIDC Identity Provider Server for Sign-In with Ethereum, maintained by Spruce.'
+- [dao-proposals-1.7](https://docs.ens.domains/dao/proposals/1.7): 'Ens the $ENS airdrop and EP2 airdrop by transferring tokens and revoking approvals.'
+- [dao-proposals-1.8](https://docs.ens.domains/dao/proposals/1.8): 'Proposes to repeal the working group rules passed in EP4 and replace those rules with the working group rules specified in this proposal.'
+- [dao-proposals-1.9](https://docs.ens.domains/dao/proposals/1.9): 'This is a proposal for the ENS DAO to support the Protocol Guild Pilot, a vested split contract which directs funding to 110 Ethereum core protocol contributors over one year.'
+- [dao-proposals-2.1](https://docs.ens.domains/dao/proposals/2.1): 'A proposal to fund TNL for continuing development and improvement of the ENS system.'
+- [dao-proposals-2.2.1](https://docs.ens.domains/dao/proposals/2.2.1): 'Budget request for Meta-Governance Working Group'
+- [dao-proposals-2.2.2](https://docs.ens.domains/dao/proposals/2.2.2): 'Budget request for Ecosystem Working Group'
+- [dao-proposals-2.2.3](https://docs.ens.domains/dao/proposals/2.2.3): 'Budget request for Public Goods Working Group'
+- [dao-proposals-2.2.4](https://docs.ens.domains/dao/proposals/2.2.4): 'RFP for an endowment fund manager'
+- [dao-proposals-2.2.5](https://docs.ens.domains/dao/proposals/2.2.5): 'Selection of an ENS endowment fund manager'
+- [dao-proposals-3.1.1](https://docs.ens.domains/dao/proposals/3.1.1): 'This is a proposal to request funding for the ENS Ecosystem Working Group for Q1/Q2 2023.'
+- [dao-proposals-3.1.2](https://docs.ens.domains/dao/proposals/3.1.2): 'This is a proposal to request funding for the Meta-Governance Working Group for Q1/Q2 2023.'
+- [dao-proposals-3.1.3](https://docs.ens.domains/dao/proposals/3.1.3): 'This is a proposal to request funding for the Public Goods Working Group for Q1/Q2 2023.'
+- [dao-proposals-3.2](https://docs.ens.domains/dao/proposals/3.2): 'This proposal executes the funding requests for the ENS DAO Working Groups for the April 2023 funding window.'
+- [dao-proposals-3.3](https://docs.ens.domains/dao/proposals/3.3): 'This proposal executes a swap of 10,000 ETH into USDC, to ensure ENS DAO has enough to cover operating expenses for 18 - 24 months.'
+- [dao-proposals-3.4](https://docs.ens.domains/dao/proposals/3.4): 'The first tranche of the Endowment'
+- [dao-proposals-3.5](https://docs.ens.domains/dao/proposals/3.5): 'This proposal will activate the new .eth controller and reverse registrar'
+- [dao-proposals-3.6](https://docs.ens.domains/dao/proposals/3.6): 'Elect a new ENS Foundation director'
+- [dao-proposals-3.7](https://docs.ens.domains/dao/proposals/3.7): 'ENS Normalization Standard'
+- [dao-proposals-4.1](https://docs.ens.domains/dao/proposals/4.1): 'Additional actions and strategies for the Endowment'
+- [dao-proposals-4.2](https://docs.ens.domains/dao/proposals/4.2): 'Fund the Endowment (second tranche)'
+- [dao-proposals-4.3](https://docs.ens.domains/dao/proposals/4.3): 'Refund Invalid .eth Names'
+- [dao-proposals-4.4.1](https://docs.ens.domains/dao/proposals/4.4.1): 'This proposal requests funding for the ENS Ecosystem Working Group.'
+- [dao-proposals-4.4.2](https://docs.ens.domains/dao/proposals/4.4.2): 'This proposal requests funding for the ENS Meta-Goverance Working Group.'
+- [dao-proposals-4.4.3](https://docs.ens.domains/dao/proposals/4.4.3): 'This proposal requests funding for the ENS Public Goods Working Group.'
+- [dao-proposals-4.5](https://docs.ens.domains/dao/proposals/4.5): 'This proposal introduces new actions and strategies to the Endowment with the aim of enhancing diversification and adapting to current market conditions. Notable additions include ETH-neutral strategy.'
+- [dao-proposals-4.6](https://docs.ens.domains/dao/proposals/4.6): 'This proposal executes all three Working Group funding requests for the October 2023 funding window.'
+- [dao-proposals-4.7](https://docs.ens.domains/dao/proposals/4.7): 'This proposal creates a structure for electing new service providers for the DAO'
+- [dao-proposals-4.8](https://docs.ens.domains/dao/proposals/4.8): 'This proposal amends the working group rules related to Steward term duration and compensation rules.'
+- [dao-proposals-4.9](https://docs.ens.domains/dao/proposals/4.9): 'This proposal aims to select service providers following the approval of EP4.7, with a budget of $3,600,000 USDC annually to support providers that can enhance the ENS system.'
+- [dao-proposals-4.10](https://docs.ens.domains/dao/proposals/4.10): 'This proposal transfers ownership of the ENS root key to the ENS DAO, aiming to further decentralize governance and enhance community trust and power in managing the ENS Protocol.'
+- [dao-proposals-5.1](https://docs.ens.domains/dao/proposals/5.1): "Deploy a new version of the DNSSEC oracle and DNS registrar that enables 'gasless DNSSEC' functionality."
+- [dao-proposals-5.2](https://docs.ens.domains/dao/proposals/5.2): 'This EP will initiate the Streams for Service Providers as selected on EP4.9'
+- [dao-proposals-5.3](https://docs.ens.domains/dao/proposals/5.3): "Decide ENS Labs' next steps in the eth.link litigation, and consider reimbursement for ENS Labs' legal expenses in this case."
+- [dao-proposals-5.4.1](https://docs.ens.domains/dao/proposals/5.4.1): 'This specification is the amount requested from the DAO treasury to the Metagov Multisig to fulfill anticipated budgetary needs through September 2024.'
+- [dao-proposals-5.4.2](https://docs.ens.domains/dao/proposals/5.4.2): 'This specification is the amount requested from the DAO treasury to the Public Goods  Multisig to fulfill anticipated budgetary needs through September 2024.'
+- [dao-proposals-5.5](https://docs.ens.domains/dao/proposals/5.5): 'This specification is the amount requested from the DAO treasury to the Public Goods Multisig to fulfill anticipated budgetary needs through September 2024.'
+- [dao-proposals-5.6](https://docs.ens.domains/dao/proposals/5.6): 'This EP authorises metagov to withdraw 30 ETH from the endowment each month for fees, and reimburses metagov for 43.54 ETH in fees already incurred.'
+- [dao-proposals-5.7](https://docs.ens.domains/dao/proposals/5.7): "This EP aims to safeguard the DAO by establishing a Security Council with a two-year, time-limited veto power to counter malicious proposals, ensuring the protocol's integrity and promoting decentralized governance."
+- [dao-proposals-5.8](https://docs.ens.domains/dao/proposals/5.8): "This EP aims to safeguard the DAO by establishing a Security Council with a two-year, time-limited veto power to counter malicious proposals, ensuring the protocol's integrity and promoting decentralized governance."
+- [dao-proposals-5.9](https://docs.ens.domains/dao/proposals/5.9): 'This proposal seeks to use the June 2024 funding window to request Q1/Q2 funding for the ENS Meta-Governance Working Group, following the failure of the March 2024 funding request, to cover operations until the next window in September 2024.'
+- [dao-proposals-5.10](https://docs.ens.domains/dao/proposals/5.10): 'This proposal confirms the 8 individuals for the Security Council, as defined in EP5.7, to protect against governance attacks by canceling malicious proposals using the SecurityCouncil smart contract.'
+- [dao-proposals-5.11](https://docs.ens.domains/dao/proposals/5.11): 'This proposal funds the Meta-Governance Working Group with 374k USDC and 150k ENS to support DAO-wide operations, including Working Groups, treasury management, and governance initiatives, as specified in EP 5.9 and amended by EP 5.8.'
+- [dao-proposals-5.12](https://docs.ens.domains/dao/proposals/5.12): 'This proposal aims to roll out an updated version of the Zodiac Roles Modifier module. The new version improves usability and transparency of treasury management operations. Upon approval, the Roles Modifier v2 module will be activated. Furthermore, this proposal requests authorization from the DAO to revise the permissions policy.'
+- [dao-proposals-5.13](https://docs.ens.domains/dao/proposals/5.13): 'This proposal aims to establish a Security Council for the ENS DAO with the authority to veto malicious proposals, with a built-in expiration mechanism to prevent centralized control and ensure greater delegation and governance distribution over time.'
+- [dao-proposals-5.14](https://docs.ens.domains/dao/proposals/5.14): 'This proposal aims to introduce new permissions for deploying Endowment funds, focusing on improved diversification and alignment with the evolving market landscape and liquidity.'
+- [dao-proposals-5.15](https://docs.ens.domains/dao/proposals/5.15): 'Agora proposes adding the functionality of the ProposalBond to the ENS DAO Governor that would allow a proposer to propose with a lower threshold.'
+- [dao-proposals-5.16](https://docs.ens.domains/dao/proposals/5.16): 'This executable proposal seeks to implement the reimbursement payment to ENS Labs for the legal fees incurred while pursuing litigation to protect the eth.link domain.'
+- [dao-proposals-5.17.1](https://docs.ens.domains/dao/proposals/5.17.1): 'This social proposal requests $254k USDC for operations through April 2025, covering compensation, tools, and resources for governance.'
+- [dao-proposals-5.17.2](https://docs.ens.domains/dao/proposals/5.17.2): 'This social proposal requests $836k USDC for ecosystem initiatives, including grants, hackathons, and partnerships.'
+- [dao-proposals-5.17.3](https://docs.ens.domains/dao/proposals/5.17.3): 'This social proposal requests $236k USDC for grants, events, hackathons, and bounties supporting Web3 infrastructure'
+- [dao-proposals-5.18](https://docs.ens.domains/dao/proposals/5.18): "This proposal outlines the ENS DAO's steward compensation structure for Term 6, detailing monthly USDC payments for various roles, a new $ENS token distribution tied to annual USDC compensation, and terms for DAO approval."
+- [dao-proposals-5.19](https://docs.ens.domains/dao/proposals/5.19): "This proposal outlines a pilot program to distribute ENS governance tokens to eligible contributors receiving grants, bounties, or payments from the DAO, aiming to engage them in governance by issuing tokens according to a quadratic distribution model, with the program's budget to be determined by a ranked choice vote."
+- [dao-proposals-5.20](https://docs.ens.domains/dao/proposals/5.20): 'This proposal introduces an Investment Policy Statement (IPS) for the ENS Endowment to clarify investment principles, roles, and performance standards, with adjustments based on community feedback to include a more conservative asset allocation and regular income transfers for sustainable growth.'
+- [dao-proposals-5.21](https://docs.ens.domains/dao/proposals/5.21): This proposal seeks to compensate the blockful team with 100k USDC and 15k vested ENS tokens for their extensive efforts in identifying and mitigating a critical vulnerability in ENS DAO's governance structure, which included developing the Security Council and enhancing long-term DAO security.
+- [dao-proposals-5.22](https://docs.ens.domains/dao/proposals/5.22): 'This proposal seeks to implement the revised budget stream to ENS Labs to develop, maintain and audit ENSv2.'
+- [dao-proposals-5.23](https://docs.ens.domains/dao/proposals/5.23): "This proposal aims to compensate the blockful team for their work in identifying, analyzing, reporting and mitigating a severe vulnerability in ENS DAO's governance structure."
+- [dao-proposals-5.24](https://docs.ens.domains/dao/proposals/5.24): 'This proposal executes all three Working Group funding requests for the October 2024 funding window.'
+- [dao-proposals-5.25](https://docs.ens.domains/dao/proposals/5.25): 'This is a resubmission of EP 5.24, with no changes to the funding amounts or technical specifications.'
+- [dao-proposals-5.26](https://docs.ens.domains/dao/proposals/5.26): 'This executable proposal implements the Governance Distribution Pilot Program approved in EP5.19.'
+- [dao-proposals-5.27](https://docs.ens.domains/dao/proposals/5.27): "Revokes the DAO's ability to upgrade the name wrapper"
+- [dao-proposals-5.28](https://docs.ens.domains/dao/proposals/5.28): 'Reimburse eth.limo for ongoing legal fees.'
+- [dao-proposals-5.29](https://docs.ens.domains/dao/proposals/5.29): 'Fund Unruggable to build and operate a network of gateways supporting the rollout of ENSIP 19.'
+- [dao-proposals-6.1](https://docs.ens.domains/dao/proposals/6.1): 'Convert 6,000 ETH to USDC for DAO Operating Expenses.'
+- [dao-proposals-6.2](https://docs.ens.domains/dao/proposals/6.2): 'Expand the Endowment by funding a third tranche of 5,000 ETH.'
+- [dao-proposals-6.3](https://docs.ens.domains/dao/proposals/6.3): 'This vote intends to be a DAO check on whether to renew the service provider program and if so, under what budget.'
+- [dao-proposals-6.4](https://docs.ens.domains/dao/proposals/6.4): 'This is a proposed amendment to EP 6.3.'
+- [dao-proposals-6.5](https://docs.ens.domains/dao/proposals/6.5): 'This is a counter-proposal to EP 6.4.'
+- [dao-proposals-6.6.1](https://docs.ens.domains/dao/proposals/6.6.1): 'This specification is the amount requested from the DAO treasury to the Metagov Multisig to fulfill anticipated budgetary needs through the next formal funding window in October 2025.'
+- [dao-proposals-6.6.2](https://docs.ens.domains/dao/proposals/6.6.2): 'This specification is the amount requested from the DAO treasury to the Public Goods Multisig to fulfill anticipated budgetary needs through the next formal funding window in October 2025.'
+- [dao-proposals-6.7](https://docs.ens.domains/dao/proposals/6.7): 'Transfer ownership of the .ceo top-level domain to the DNSSEC registrar'
+- [dao-proposals-6.8](https://docs.ens.domains/dao/proposals/6.8): 'Revoke root controller role from legacy ENS multisig'
+
+## ENSIP
+
+- [index](https://docs.ens.domains/ensip/index): This page contains a summary of all the ENS Improvement Proposals (ENSIPs) that have been proposed, and their current status.
+- [ensip-1](https://docs.ens.domains/ensip/1): Documentation of the basic ENS protocol (formerly EIP-137)
+- [ensip-2](https://docs.ens.domains/ensip/2): Describes the hash registrar initially used to register ENS .eth domains (formerly EIP-162).
+- [ensip-3](https://docs.ens.domains/ensip/3): Specifies a TLD, registrar, and resolver interface for reverse resolution of Ethereum addresses using ENS (formerly EIP-181).
+- [ensip-4](https://docs.ens.domains/ensip/4): A mechanism for storing ABI definitions in ENS, for easy lookup of contract interfaces by callers (formerly EIP-205).
+- [ensip-5](https://docs.ens.domains/ensip/5): A standard for storage of text records in ENS (formerly EIP-634).
+- [ensip-6](https://docs.ens.domains/ensip/6): Defines a resolver profile for ENS that provides features for storage and lookup of DNS records (formerly EIP-1185).
+- [ensip-7](https://docs.ens.domains/ensip/7): Introduces a field for storing content addresses and hashes in ENS (formerly EIP-1577).
+- [ensip-8](https://docs.ens.domains/ensip/8): Defines a method of associating contract interfaces with ENS names and addresses, and of discovering those interfaces (formerly EIP-1844).
+- [ensip-9](https://docs.ens.domains/ensip/9): Introduces new overloads for the addr field for ENS resolvers, which permit resolution of addresses for other blockchains via ENS (formerly EIP-2304).
+- [ensip-10](https://docs.ens.domains/ensip/10): Provides a mechanism to support wildcard resolution of ENS names (formerly EIP-2544).
+- [ensip-11](https://docs.ens.domains/ensip/11): Introduces coinType for EVM compatible chains (amending ENSIP9).
+- [ensip-12](https://docs.ens.domains/ensip/12): A standard for storage of the avatar text record in ENS.
+- [ensip-13](https://docs.ens.domains/ensip/13): Using ENS Text Records to facilitate safer and more convenient signing operations.
+- [ensip-14](https://docs.ens.domains/ensip/14): Using the reveal secret as a way to have on chain information about the source of the registration
+- [ensip-15](https://docs.ens.domains/ensip/15): A standard for storage of the avatar text record in ENS.
+- [ensip-16](https://docs.ens.domains/ensip/16): Allows metadata to be queried on EIP-3668 enabled names
+- [ensip-17](https://docs.ens.domains/ensip/17): A standard for gasless DNS resolution in ENS.
+- [ensip-18](https://docs.ens.domains/ensip/18): A standard for profile information as text records in ENS
+- [ensip-19](https://docs.ens.domains/ensip/19): Specifies reverse resolution in a cross-chain context
+- [ensip-20](https://docs.ens.domains/ensip/20): A standardized implementation for managing offchain domains using an External Resolver
+- [ensip-21](https://docs.ens.domains/ensip/21): Batch Gateway Protocol
+
+## Web
+
+- [web-quickstart](https://docs.ens.domains/web/quickstart): Hey there 👋, this is the quickstart guide.
+- [web-subdomains](https://docs.ens.domains/web/subdomains): Issue subdomains to your users, yourself, or your friends. Program your own resolver, or use one of the many existing ones.
+- [web-reverse](https://docs.ens.domains/web/reverse): To lookup the name of an address we use a reverse resolution. This allows users to indicate a primary name.
+- [web-avatars](https://docs.ens.domains/web/avatars): The Avatar record is a special record that allows for user profile pictures to be stored on ENS.
+- [web-enumerate](https://docs.ens.domains/web/enumerate): List all names a user has, owns, or might have access to.
+- [web-siwe](https://docs.ens.domains/web/siwe): The SIWE Specification is rather simple.
+- [web-naming-contracts](https://docs.ens.domains/web/naming-contracts): While it's commonly known that regular user accounts can have [primary names](/web/reverse), it's less known that smart contracts can also have names.
+- [web-index](https://docs.ens.domains/web/index): This section walks you through how to leverage the ENS open standards to improve the user experience of your app.
+- [web-design](https://docs.ens.domains/web/design): ENS is a tool to simplify the experience for your users by making blockchain addresses human-readable.
+- [web-resolution](https://docs.ens.domains/web/resolution): The ENS Protocol aims to make it easy to use Ethereum.
+- [web-subgraph](https://docs.ens.domains/web/subgraph): The ENS subgraph
+- [web-libraries](https://docs.ens.domains/web/libraries): There are a few plug-and-play kits that you can use to jumpstart your project.
+- [web-records](https://docs.ens.domains/web/records): Store & Retrieve information from Profiles
+- [web-multichain](https://docs.ens.domains/web/multichain): The ENS Labs team recently announced our plans and roadmap for scaling ENS to the entire internet and beyond.
+
+## Resolution
+
+- [resolution-index](https://docs.ens.domains/resolution/index): The process by which we load information about a name is called resolution.
+- [resolution-names](https://docs.ens.domains/resolution/names): When interacting with the ENS smart contracts directly, it is important to note that names are not stored as strings.
+
+## Learn
+
+- [learn-dns](https://docs.ens.domains/learn/dns): The Ethereum Name Service is so much more than just .eth names. It is a general-purpose naming system that can be used for any kind of name. This includes DNS names. 
+- [learn-protocol](https://docs.ens.domains/learn/protocol): Learn about the Ethereum Name Service (ENS) protocol and how it enables decentralized naming on the Ethereum blockchain.
+- [learn-resolution](https://docs.ens.domains/learn/resolution): This document aims to provide a brief overview of how resolution works.
+- [learn-deployments](https://docs.ens.domains/learn/deployments): ENS is multichain, but it all starts with Ethereum Mainnet. This page contains common addresses for ENS contracts.
+- [learn-ccip-read](https://docs.ens.domains/learn/ccip-read): Using CCIP Read to take ENS resolution cross-chain, off-chain, and more.

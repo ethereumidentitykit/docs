@@ -1,0 +1,43 @@
+# docs.efp.app llms.txt
+
+> Ethereum Follow Protocol (EFP) is an onchain social graph protocol for Ethereum accounts.
+
+## Documentation 
+
+- [EFP-Silo Deployment Guide](https://docs.efp.app/production/silo): Guide for deploying the EFP-Silo template on Railway with configuration instructions.
+- [EFP Frequently Asked Questions](https://docs.efp.app/faq): To provide frequently asked questions about the Ethereum Follow Protocol and its functionalities.
+- [EFP Logos Collection](https://docs.efp.app/design-components/logos): Downloadable EFP logos in multiple formats.
+- [Design Component Colors](https://docs.efp.app/design-components/colors): To provide a reference for color specifications used in design components.
+- [EFP List Roles](https://docs.efp.app/design/roles): Explains the roles associated with an EFP List in Ethereum including Owner, Manager, and User responsibilities.
+- [EFP List Registry Overview](https://docs.efp.app/design/list-registry): Explains the EFP List Registry as an ERC-721 contract for minting EFP List NFTs.
+- [Interpreting EFP Data](https://docs.efp.app/production/interpreting-state): This page explains how to interpret EFP data and validate list operations.
+- [List Ops Structure](https://docs.efp.app/design/list-ops): Explains List Ops structure for list operations including encoding and operation codes.
+- [List Storage Location](https://docs.efp.app/design/list-storage-location): This page outlines the specifications for defining list storage locations in the EFP system.
+- [Translation Bounty Program](https://docs.efp.app/translationbounty): Encourage users to contribute translations for the EFP app and earn rewards.
+- [EFP Glossary](https://docs.efp.app/design/glossary): Defines key terms related to the Ethereum Follow Protocol for users and developers.
+- [Tagging System Overview](https://docs.efp.app/design/tags): Explains the tagging system used in EFP lists and their functions.
+- [List Records Definition](https://docs.efp.app/design/list-records): Defines the structure and components of List Records in EFP, including versioning and record types.
+- [EFP Deployments Overview](https://docs.efp.app/production/deployments): Listing smart contracts and their addresses for EFP deployments on various blockchain networks.
+- [EFP Infrastructure Overview](https://docs.efp.app/production/infra): Overview of EFP's backend infrastructure components and setup.
+- [EFP Follow Bot](https://docs.efp.app/production/follow-bot): To provide functionality for users to track Ethereum addresses and ENS names via a Telegram bot.
+- [Bug Bounty Program](https://docs.efp.app/bugbounty): Encourages reporting vulnerabilities in specific smart contracts for monetary rewards.
+- [EFP List Metadata Overview](https://docs.efp.app/design/list-metadata): Explains List Metadata structure for EFP, including keys and roles assigned to Managers and Users.
+- [EFP Emergency Response](https://docs.efp.app/production/emergency-response): Outlines procedures for responding to bugs in EFP contracts and managing affected data.
+- [Ethereum Follow Protocol Overview](https://docs.efp.app/intro): Explains the Ethereum Follow Protocol, its roles, and functionality for managing social graphs on Ethereum.
+- [EFP Multisig Overview](https://docs.efp.app/production/multisig): This page provides information about the EFP multisig wallet, its addresses, signers, and contract privileges.
+- [API Documentation Redirect](https://docs.efp.app/api/): Redirects users to the API documentation for the Eth Identity Kit.
+- [Ethereum Follow Protocol Overview](https://docs.efp.app/): Explains the Ethereum Follow Protocol for creating and managing on-chain social graphs using NFTs.
+- [Account Metadata Overview](https://docs.efp.app/design/account-metadata): Explains how to use Account Metadata for Ethereum accounts in the EFP ecosystem.
+
+## Code Repositories
+
+- [EFP App](https://github.com/ethereumfollowprotocol/app): Ethereum Follow Protocol Web App
+- [EFP Docs](https://github.com/ethereumfollowprotocol/docs): Ethereum Follow Protocol Documentation
+- [EFP API](https://github.com/ethereumfollowprotocol/api): Ethereum Follow Protocol Public API
+- [EFP Services](https://github.com/ethereumfollowprotocol/services): Ethereum Follow Protocol Services
+- [EFP Indexer](https://github.com/ethereumfollowprotocol/indexer): Ethereum Follow Protocol Indexer
+- [EFP Notification Service](https://github.com/ethereumfollowprotocol/notification-service): EFP notifications served piping hot over websocket
+- [EFP Follow-bot](https://github.com/ethereumfollowprotocol/follow-bot): A telegram bot for subscribing to EFP account activity
+- [EFP Contracts](https://github.com/ethereumfollowprotocol/contracts): Core smart contracts of Ethereum Follow Protocol
+- [EFP Replay](https://github.com/ethereumfollowprotocol/replay): EFP Historical Event Recovery
+- [EFP Onchain](https://github.com/ethereumfollowprotocol/onchain): Tools and example scripts for recovering EFP data onchain

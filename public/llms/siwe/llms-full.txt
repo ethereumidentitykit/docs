@@ -2,6 +2,8 @@
 
 > Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
 
+> Updated at: 22:35 05/28/25
+
 Sign-In with EthereumYour Keys, Your IdentifierNextQuickstart GuideLast updated 3 years ago
 
 Your Keys, Your Identifier

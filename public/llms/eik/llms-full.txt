@@ -2,6 +2,8 @@
 
 > Ethereum Identity Kit facilitates the integration of Ethereum identity features into applications via a React component library, providing developers with tools and documentation for user profile management and on-chain transactions.
 
+> Updated at: 22:35 05/28/25
+
 # useFollowButton
 
 The `useFollowButton` hook manages the state and actions for a follow button component. It determines the current follow state between a `lookupAddress` and a `connectedAddress`, and provides functions to handle follow, unfollow, block, and mute actions.

@@ -2,6 +2,8 @@
 
 > Ethereum Follow Protocol (EFP) is an onchain social graph protocol for Ethereum accounts.
 
+> Updated at: 22:35 05/28/25
+
 ## Documentation 
 
 - [EFP-Silo Deployment Guide](https://docs.efp.app/production/silo): Guide for deploying the EFP-Silo template on Railway with configuration instructions.

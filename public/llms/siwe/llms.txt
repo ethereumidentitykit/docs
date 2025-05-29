@@ -2,6 +2,8 @@
 
 > Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
 
+> Updated at: 22:35 05/28/25
+
 - [Community Highlights](https://docs.login.xyz/additional-support/community-highlights): To showcase libraries, guides, and community projects related to Sign-In with Ethereum.
 - [Sign-In with Ethereum](https://docs.login.xyz/integrations/auth0): Guide to integrating Sign-In with Ethereum using Auth0 for authentication in web applications.
 - [Elixir Sign-In Guide](https://docs.login.xyz/libraries/elixir): Guide for implementing Sign-In with Ethereum using Elixir.

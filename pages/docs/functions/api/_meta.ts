@@ -1,6 +1,10 @@
 export default {
   'fetch-followers-you-know': 'Followers You Know',
   'fetch-all-followers-you-know': 'All Followers You Know',
+  'fetch-profile-followers': 'Profile Followers',
+  'fetch-profile-following': 'Profile Following',
+  'fetch-following-tags': 'Following Tags',
+  'fetch-follower-tags': 'Follower Tags',
   'fetch-profile-stats': 'Profile Stats',
   'fetch-profile-efp-poaps': 'Profile EFP POAPs',
   'fetch-follow-state': 'Follow State',

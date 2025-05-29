@@ -1,0 +1,236 @@
+import { fetchProfileFollowing } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# fetchProfileFollowing
+
+Fetches following data for a given Ethereum address, ENS name, or list number with support for pagination, search, sorting, tag filtering, and fresh data options.
+
+<Callout type="warning">
+  The function returns an empty following array if the request fails. Always handle the case where the response might
+  contain no data.
+</Callout>
+
+## Usage
+
+```tsx
+import { fetchProfileFollowing } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchProfileFollowing } from 'ethereum-identity-kit/utils'
+
+const followingData = await fetchProfileFollowing({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+})
+
+// With search and filtering
+const filteredFollowing = await fetchProfileFollowing({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+  search: 'john',
+  tags: ['friend', 'dev'],
+  sort: 'follower count',
+})
+
+// With fresh data (bypass cache)
+const freshFollowing = await fetchProfileFollowing({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+  fresh: true,
+})
+
+// For a specific list
+const listFollowing = await fetchProfileFollowing({
+  addressOrName: '0x...',
+  list: 123,
+  limit: 20,
+  pageParam: 0,
+})
+```
+
+## Parameters
+
+| Parameter       | Type             | Description                                                        | Required |
+| --------------- | ---------------- | ------------------------------------------------------------------ | -------- |
+| `addressOrName` | `string`         | Ethereum address or ENS name to fetch following for                | Yes      |
+| `list`          | `number`         | Optional list number; overrides `addressOrName` if provided        | No       |
+| `limit`         | `number`         | Number of following to fetch per page                              | Yes      |
+| `pageParam`     | `number`         | Page offset for pagination (0-based)                               | Yes      |
+| `sort`          | `FollowSortType` | Sort option: 'earliest first', 'latest first', or 'follower count' | No       |
+| `tags`          | `string[]`       | Array of tags to filter following by                               | No       |
+| `search`        | `string`         | Search term to filter following (minimum 2 characters)             | No       |
+| `allResults`    | `boolean`        | Flag to fetch all following instead of paginated results           | No       |
+| `fresh`         | `boolean`        | Flag to fetch fresh data bypassing cache                           | No       |
+
+<Callout type="info">
+  When `search` is provided with 2+ characters, the function automatically uses the search endpoint for better
+  performance.
+</Callout>
+
+## Return Value
+
+Returns an object containing the following data and pagination information:
+
+```tsx
+{
+  following: FollowingResponse[],
+  nextPageParam: number
+}
+```
+
+### FollowingResponse Structure
+
+```tsx
+{
+  address: string,
+  ens?: {
+    name?: string,
+    avatar?: string,
+    // ... other ENS data
+  },
+  tags?: string[],
+  // ... other following properties
+}
+```
+
+## Example Response
+
+```tsx
+{
+  following: [
+    {
+      address: '0x123...',
+      ens: {
+        name: 'following.eth',
+        avatar: 'https://example.com/avatar.png'
+      },
+      tags: ['friend', 'developer']
+    },
+    // ... more following
+  ],
+  nextPageParam: 1
+}
+```
+
+## Features
+
+### Pagination Support
+
+- Uses offset-based pagination with `pageParam` and `limit`
+- Returns `nextPageParam` for seamless infinite scrolling
+- Supports fetching all results at once with `allResults` flag
+
+### Advanced Filtering
+
+- **Search**: Filter following by name or address (requires 2+ characters)
+- **Tags**: Filter by multiple tags simultaneously
+- **Sorting**: Sort by earliest, latest, or follower count
+
+### Cache Control
+
+- **Fresh Data**: Use `fresh: true` to bypass cache and get real-time data
+- **Default Caching**: Uses default browser/server caching for better performance
+
+### Automatic Endpoint Selection
+
+The function intelligently selects the appropriate API endpoint:
+
+- `allFollowing` when `allResults` is true
+- `searchFollowing` when search term is provided (2+ chars)
+- `following` for standard paginated requests
+
+### Error Handling
+
+- Gracefully handles API failures
+- Returns empty array with incremented page parameter on errors
+- Logs errors to console for debugging
+
+<Callout type="warning">
+  Search functionality requires a minimum of 2 characters. Shorter search terms will be ignored and use the standard
+  following endpoint.
+</Callout>
+
+<Callout type="info">
+  The function supports both user-based and list-based queries. When `list` is provided, it takes precedence over
+  `addressOrName`.
+</Callout>
+
+## Example Implementation
+
+```tsx
+import { fetchProfileFollowing } from 'ethereum-identity-kit'
+
+async function loadFollowing(address, page = 0, useCache = true) {
+  try {
+    const response = await fetchProfileFollowing({
+      addressOrName: address,
+      limit: 50,
+      pageParam: page,
+      sort: 'follower count',
+      fresh: !useCache,
+    })
+
+    if (response.following.length === 0) {
+      console.log('No more following to load')
+      return null
+    }
+
+    console.log(`Loaded ${response.following.length} following`)
+    return response
+  } catch (error) {
+    console.error('Error loading following:', error)
+    return null
+  }
+}
+
+// Usage with search and filtering
+async function searchFollowing(address, searchTerm, tags = []) {
+  try {
+    const response = await fetchProfileFollowing({
+      addressOrName: address,
+      limit: 100,
+      pageParam: 0,
+      search: searchTerm,
+      tags: tags,
+      sort: 'latest first',
+    })
+
+    return response.following
+  } catch (error) {
+    console.error('Error searching following:', error)
+    return []
+  }
+}
+
+// Example usage
+const following = await searchFollowing('vitalik.eth', 'john', ['friend'])
+console.log(`Found ${following.length} matching profiles`)
+```
+
+## Cache vs Fresh Data
+
+The `fresh` parameter allows you to control caching behavior:
+
+```tsx
+// Use cached data for better performance (default)
+const cachedFollowing = await fetchProfileFollowing({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+})
+
+// Fetch fresh data for real-time updates
+const freshFollowing = await fetchProfileFollowing({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+  fresh: true,
+})
+```
+
+<Callout type="info">
+  Use `fresh: true` sparingly as it bypasses caching and may result in slower response times. It's best used when you
+  need the most up-to-date data, such as after a user performs a follow/unfollow action.
+</Callout>{' '}

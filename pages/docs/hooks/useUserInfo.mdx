@@ -1,0 +1,182 @@
+import { Callout } from 'nextra/components'
+
+# useUserInfo
+
+The `useUserInfo` hook provides comprehensive functionality for fetching and managing a user's followers and following data, including advanced features like tag filtering, search, sorting, and infinite pagination.
+
+### Add to your project
+
+```tsx copy
+import { useUserInfo } from 'ethereum-identity-kit'
+
+export default function UserProfile() {
+  const {
+    followers,
+    following,
+    followerTags,
+    followingTags,
+    followersIsLoading,
+    followingIsLoading,
+    fetchMoreFollowers,
+    fetchMoreFollowing,
+    followingSearch,
+    setFollowingSearch,
+    followingSort,
+    setFollowingSort,
+    toggleTag,
+  } = useUserInfo('vitalik.eth')
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter | Description                                                                       | Required | Type     |
+| --------- | --------------------------------------------------------------------------------- | -------- | -------- |
+| `user`    | Ethereum Address, ENS name, or list number to fetch followers/following data for. | Yes      | `string` |
+
+<Callout type="info">
+  The hook automatically detects whether the input is an address, ENS name, or list number and handles the API calls
+  accordingly.
+</Callout>
+
+## Return Values
+
+### Core Data
+
+| Return Value    | Description                                                    | Type                  |
+| --------------- | -------------------------------------------------------------- | --------------------- |
+| `followers`     | Array of follower profiles with address and tag information.   | `FollowerResponse[]`  |
+| `following`     | Array of following profiles with address and tag information.  | `FollowingResponse[]` |
+| `followerTags`  | Tag data for followers including counts and categories.        | `TagsResponse`        |
+| `followingTags` | Tag data for following including counts and categories.        | `TagsResponse`        |
+| `listNum`       | List number if the user input was a valid list.                | `number \| undefined` |
+| `userIsList`    | Boolean indicating if the user input represents a list number. | `boolean`             |
+
+### Loading States
+
+| Return Value           | Description                                             | Type      |
+| ---------------------- | ------------------------------------------------------- | --------- |
+| `followersIsLoading`   | Loading state for followers data (includes refetching). | `boolean` |
+| `followingIsLoading`   | Loading state for following data (includes refetching). | `boolean` |
+| `followerTagsLoading`  | Loading state for follower tags data.                   | `boolean` |
+| `followingTagsLoading` | Loading state for following tags data.                  | `boolean` |
+
+### Pagination
+
+| Return Value              | Description                                              | Type                                         |
+| ------------------------- | -------------------------------------------------------- | -------------------------------------------- |
+| `fetchMoreFollowers`      | Function to fetch next page of followers.                | `() => Promise<InfiniteQueryObserverResult>` |
+| `fetchMoreFollowing`      | Function to fetch next page of following.                | `() => Promise<InfiniteQueryObserverResult>` |
+| `isEndOfFollowers`        | Boolean indicating if all followers have been loaded.    | `boolean`                                    |
+| `isEndOfFollowing`        | Boolean indicating if all following have been loaded.    | `boolean`                                    |
+| `isFetchingMoreFollowers` | Boolean indicating if currently fetching more followers. | `boolean`                                    |
+| `isFetchingMoreFollowing` | Boolean indicating if currently fetching more following. | `boolean`                                    |
+
+### Search & Filtering
+
+| Return Value             | Description                                                       | Type                                         |
+| ------------------------ | ----------------------------------------------------------------- | -------------------------------------------- |
+| `followersSearch`        | Current search query for followers.                               | `string`                                     |
+| `followingSearch`        | Current search query for following.                               | `string`                                     |
+| `setFollowersSearch`     | Function to update followers search query.                        | `(search: string) => void`                   |
+| `setFollowingSearch`     | Function to update following search query.                        | `(search: string) => void`                   |
+| `followersTagsFilter`    | Array of selected tag filters for followers.                      | `string[]`                                   |
+| `followingTagsFilter`    | Array of selected tag filters for following.                      | `string[]`                                   |
+| `setFollowersTagsFilter` | Function to set follower tag filters.                             | `(tags: string[]) => void`                   |
+| `setFollowingTagsFilter` | Function to set following tag filters.                            | `(tags: string[]) => void`                   |
+| `toggleTag`              | Function to toggle a specific tag filter for followers/following. | `(tab: ProfileTabType, tag: string) => void` |
+
+### Sorting
+
+| Return Value       | Description                               | Type                             |
+| ------------------ | ----------------------------------------- | -------------------------------- |
+| `followersSort`    | Current sort option for followers.        | `FollowSortType`                 |
+| `followingSort`    | Current sort option for following.        | `FollowSortType`                 |
+| `setFollowersSort` | Function to update followers sort option. | `(sort: FollowSortType) => void` |
+| `setFollowingSort` | Function to update following sort option. | `(sort: FollowSortType) => void` |
+
+## Features
+
+### Automatic Data Validation
+
+The hook automatically validates the input and determines whether it's an Ethereum address, ENS name, or list number.
+
+### Infinite Pagination
+
+Built-in infinite scrolling support with pagination management and end-of-data detection.
+
+### Advanced Filtering
+
+- **Search**: Filter by profile name or address
+- **Tags**: Filter by custom tags with multi-select support
+- **Sorting**: Multiple sort options including follower count, alphabetical, and more
+
+### Performance Optimization
+
+- **Stale Time**: 30-second cache for reduced API calls
+- **Conditional Fetching**: Only fetches when valid user data is provided
+- **Refetch Control**: Disabled window focus refetching for better UX
+
+### Tag Management
+
+Comprehensive tag system with counting, filtering, and toggle functionality for both followers and following lists.
+
+<Callout type="warning">
+  The hook expects a valid Ethereum address, ENS name, or list number. Invalid inputs will result in empty data arrays
+  but won't cause errors.
+</Callout>
+
+<Callout type="info">
+  This hook uses React Query for data fetching and caching. It provides automatic background updates and error handling
+  while maintaining a responsive user experience.
+</Callout>
+
+## Example Usage
+
+```tsx
+import { useUserInfo } from 'ethereum-identity-kit'
+
+function UserFollowersPage({ userAddress }) {
+  const {
+    followers,
+    following,
+    followersIsLoading,
+    fetchMoreFollowers,
+    isEndOfFollowers,
+    followingSearch,
+    setFollowingSearch,
+    followingSort,
+    setFollowingSort,
+    toggleTag,
+  } = useUserInfo(userAddress)
+
+  return (
+    <div>
+      <input
+        value={followingSearch}
+        onChange={(e) => setFollowingSearch(e.target.value)}
+        placeholder="Search following..."
+      />
+
+      <select value={followingSort} onChange={(e) => setFollowingSort(e.target.value)}>
+        <option value="follower count">By Followers</option>
+        <option value="alphabetical">Alphabetical</option>
+      </select>
+
+      {followersIsLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          {followers.map((follower) => (
+            <div key={follower.address}>{/* Render follower */}</div>
+          ))}
+
+          {!isEndOfFollowers && <button onClick={() => fetchMoreFollowers()}>Load More</button>}
+        </div>
+      )}
+    </div>
+  )
+}
+```

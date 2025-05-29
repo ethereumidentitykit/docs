@@ -1,0 +1,220 @@
+import { Callout } from 'nextra/components'
+
+# useFollowersAndFollowing
+
+The `useFollowersAndFollowing` hook provides a higher-level interface for managing followers and following data with additional UI-specific functionality. It builds on top of `useUserInfo` and adds features like tab management, search debouncing, intersection observer for infinite scroll, and mobile-responsive behavior.
+
+### Add to your project
+
+```tsx copy
+import { useFollowersAndFollowing } from 'ethereum-identity-kit'
+
+export default function FollowersFollowingComponent() {
+  const {
+    activeTab,
+    showTags,
+    search,
+    profiles,
+    loadMoreRef,
+    showFollowsYouBadges,
+    profilesEmpty,
+    setActiveTab,
+    setSearch,
+    setShowTags,
+    params,
+  } = useFollowersAndFollowing({
+    user: 'vitalik.eth',
+    defaultTab: 'followers',
+    showTagsByDefault: false,
+    isConnectedUserProfile: false,
+  })
+
+  // --- Your component code here ---
+}
+```
+
+## Parameters
+
+| Parameter                | Description                                                          | Required | Type             | Default Value |
+| ------------------------ | -------------------------------------------------------------------- | -------- | ---------------- | ------------- |
+| `user`                   | Ethereum Address or ENS name to display followers and following for. | Yes      | `string`         | -             |
+| `defaultTab`             | The default tab to display ('followers' or 'following').             | Yes      | `ProfileTabType` | -             |
+| `showTagsByDefault`      | Whether to show tags by default when viewing the following list.     | No       | `boolean`        | `false`       |
+| `isConnectedUserProfile` | Whether the profile being viewed belongs to the connected user.      | No       | `boolean`        | `false`       |
+
+<Callout type="info">
+  This hook is specifically designed for UI components that need tab-based followers/following interfaces with
+  additional features like mobile responsiveness and infinite scroll.
+</Callout>
+
+## Return Values
+
+### Tab Management
+
+| Return Value   | Description                                        | Type                            |
+| -------------- | -------------------------------------------------- | ------------------------------- |
+| `activeTab`    | Currently active tab ('followers' or 'following'). | `ProfileTabType`                |
+| `setActiveTab` | Function to switch between tabs.                   | `(tab: ProfileTabType) => void` |
+
+### UI State
+
+| Return Value           | Description                                         | Type                       |
+| ---------------------- | --------------------------------------------------- | -------------------------- |
+| `showTags`             | Whether tags are currently visible.                 | `boolean`                  |
+| `setShowTags`          | Function to toggle tag visibility.                  | `(show: boolean) => void`  |
+| `search`               | Current search query (debounced).                   | `string`                   |
+| `setSearch`            | Function to update search query.                    | `(search: string) => void` |
+| `showFollowsYouBadges` | Whether to show "follows you" badges.               | `boolean`                  |
+| `profilesEmpty`        | Whether the current tab has no profiles to display. | `boolean`                  |
+| `displayHeaders`       | Whether to display headers (mobile responsive).     | `boolean`                  |
+| `isMobile`             | Whether the current viewport is mobile size.        | `boolean`                  |
+| `isFollowingTable`     | Whether the current active tab is 'following'.      | `boolean`                  |
+
+### Data & Infinite Scroll
+
+| Return Value  | Description                                                     | Type                                       |
+| ------------- | --------------------------------------------------------------- | ------------------------------------------ |
+| `profiles`    | Simplified profile data for the current tab (address and tags). | `Array<{address: string, tags: string[]}>` |
+| `loadMoreRef` | Ref for intersection observer to trigger infinite scroll.       | `RefObject<HTMLDivElement>`                |
+| `params`      | Dynamic parameters object for the current active tab.           | `TabParams`                                |
+
+### Utility Functions
+
+| Return Value | Description                                         | Type                                         |
+| ------------ | --------------------------------------------------- | -------------------------------------------- |
+| `toggleTag`  | Function to toggle tag filters for the current tab. | `(tab: ProfileTabType, tag: string) => void` |
+
+## Dynamic Params Object
+
+The `params` object contains tab-specific data and functions that automatically switch based on the `activeTab`:
+
+| Property          | Description                             | Type                                         |
+| ----------------- | --------------------------------------- | -------------------------------------------- |
+| `profile`         | Raw profile data for the current tab.   | `FollowerResponse[] \| FollowingResponse[]`  |
+| `tags`            | Tag data for the current tab.           | `TagsResponse`                               |
+| `isLoading`       | Loading state for the current tab.      | `boolean`                                    |
+| `results`         | Profile results for the current tab.    | `FollowerResponse[] \| FollowingResponse[]`  |
+| `tagsLoading`     | Loading state for tags data.            | `boolean`                                    |
+| `selectedTags`    | Currently selected tag filters.         | `string[]`                                   |
+| `setSelectedTags` | Function to update selected tags.       | `(tags: string[]) => void`                   |
+| `sort`            | Current sort option.                    | `FollowSortType`                             |
+| `setSort`         | Function to update sort option.         | `(sort: FollowSortType) => void`             |
+| `isEndOfResults`  | Whether all data has been loaded.       | `boolean`                                    |
+| `fetchMore`       | Function to fetch more data.            | `() => Promise<InfiniteQueryObserverResult>` |
+| `search`          | Current search query for this tab.      | `string`                                     |
+| `setSearch`       | Function to update search for this tab. | `(search: string) => void`                   |
+
+## Features
+
+### Tab-Based Interface
+
+Seamlessly switches between followers and following data with automatic state management.
+
+### Search Debouncing
+
+Implements 500ms debouncing for search queries to prevent excessive API calls while typing.
+
+### Mobile Responsiveness
+
+- Automatically detects mobile viewports
+- Manages header visibility based on scroll direction
+- Optimizes scroll behavior for mobile devices
+
+### Infinite Scroll
+
+- Uses intersection observer for performance-optimized infinite scrolling
+- Automatically loads more data when scrolling near the bottom
+- Handles end-of-data scenarios gracefully
+
+### Smart Scroll Management
+
+- Automatically adjusts scroll position when switching tabs
+- Maintains scroll state across tab changes
+- Responsive scroll thresholds for different screen sizes
+
+### Empty State Handling
+
+Provides boolean indicators for empty states to enable proper UI feedback.
+
+<Callout type="warning">
+  The hook performs automatic scroll adjustments that depend on a DOM element with id `user-page`. Ensure this element
+  exists in your component tree for optimal scroll behavior.
+</Callout>
+
+<Callout type="info">
+  This hook is designed to work seamlessly with the `FollowersAndFollowing` component but can be used independently for
+  custom implementations of followers/following interfaces.
+</Callout>
+
+## Example Usage
+
+```tsx
+import { useFollowersAndFollowing } from 'ethereum-identity-kit'
+
+function CustomFollowersInterface({ userAddress, isOwnProfile }) {
+  const {
+    activeTab,
+    showTags,
+    search,
+    profiles,
+    loadMoreRef,
+    profilesEmpty,
+    setActiveTab,
+    setSearch,
+    setShowTags,
+    params,
+    isMobile,
+    displayHeaders,
+  } = useFollowersAndFollowing({
+    user: userAddress,
+    defaultTab: 'followers',
+    showTagsByDefault: false,
+    isConnectedUserProfile: isOwnProfile,
+  })
+
+  return (
+    <div>
+      {/* Tab Navigation */}
+      <div>
+        <button onClick={() => setActiveTab('followers')} className={activeTab === 'followers' ? 'active' : ''}>
+          Followers
+        </button>
+        <button onClick={() => setActiveTab('following')} className={activeTab === 'following' ? 'active' : ''}>
+          Following
+        </button>
+      </div>
+
+      {/* Search */}
+      <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Search ${activeTab}...`} />
+
+      {/* Tag Toggle (only for following of own profile) */}
+      {activeTab === 'following' && isOwnProfile && (
+        <button onClick={() => setShowTags(!showTags)}>{showTags ? 'Hide' : 'Show'} Tags</button>
+      )}
+
+      {/* Content */}
+      {params.isLoading ? (
+        <div>Loading...</div>
+      ) : profilesEmpty ? (
+        <div>No {activeTab} found</div>
+      ) : (
+        <div>
+          {profiles.map((profile) => (
+            <div key={profile.address}>
+              {profile.address}
+              {showTags && profile.tags?.length > 0 && <div>Tags: {profile.tags.join(', ')}</div>}
+            </div>
+          ))}
+
+          {/* Infinite scroll trigger */}
+          <div ref={loadMoreRef} style={{ height: '1px' }} />
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+## Integration with useUserInfo
+
+This hook builds on top of `useUserInfo` and provides additional UI-specific functionality. If you need lower-level access to the data fetching logic, consider using `useUserInfo` directly.

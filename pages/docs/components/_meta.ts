@@ -6,6 +6,7 @@ export default {
   avatar: 'Avatar',
   'follower-tag': 'Follower Tag',
   'followers-you-know': 'Followers you know',
+  'followers-and-following': 'Followers and Following',
   'follow-button': 'Follow Button',
   'transaction-modal': 'Transaction Modal',
   'transaction-provider': 'Transaction Provider',

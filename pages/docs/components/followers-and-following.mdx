@@ -1,0 +1,107 @@
+import Link from 'next/link'
+import { Callout } from 'nextra/components'
+import { FollowersAndFollowing } from 'ethereum-identity-kit'
+
+# Followers and Following
+
+The Followers and Following component displays a comprehensive interface for viewing a user's followers and following lists with features like:
+
+- Tabbed interface (Followers/Following)
+- Search functionality
+- Tag management and filtering
+- Follower state indicators (follows you, blocks you, mutes you)
+- Virtual scrolling for performance
+- Mobile-responsive design
+- Empty state handling
+- Recommendations for new users
+
+### Add to your project
+
+```tsx copy
+import { FollowersAndFollowing } from 'ethereum-identity-kit'
+
+export default function Profile() {
+  return <FollowersAndFollowing user="vitalik.eth" defaultTab="followers" connectedAddress="0x..." />
+}
+```
+
+<a
+  className="w-full block mb-8 border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/story/organisms-followers-and-following-table--followers-and-following-by-address"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {
+      ' - https://playground.ethidentitykit.com/?path=/story/organisms-followers-and-following-table--followers-and-following-by-address'
+    }
+  </span>
+</a>
+
+## Parameters
+
+| Parameter                | Description                                                                                 | Required | Default Value |
+| ------------------------ | ------------------------------------------------------------------------------------------- | -------- | ------------- |
+| `user`                   | Ethereum Address or ENS name to display followers and following for.                        | Yes      | -             |
+| `defaultTab`             | The default tab to display ('followers' or 'following').                                    | Yes      | -             |
+| `canEditTags`            | Whether the user can edit tags for profiles in the following list.                          | No       | false         |
+| `showTagsByDefault`      | Whether to show tags by default when viewing the following list.                            | No       | false         |
+| `excludeBlocked`         | Whether to exclude blocked users from the lists.                                            | No       | false         |
+| `showRecommendations`    | Whether to show recommendations on the following tab for connected users with no following. | No       | false         |
+| `isConnectedUserProfile` | Whether the profile being viewed belongs to the connected user.                             | No       | false         |
+| `darkMode`               | Enables dark mode styling for the component.                                                | No       | false         |
+| `connectedAddress`       | Address of the user connected to the app.                                                   | No       | -             |
+| `selectedList`           | List number selected in your application for the connected user.                            | No       | -             |
+| `onProfileClick`         | Function called when a profile in the list is clicked.                                      | No       | -             |
+| `showHeaderImage`        | Whether to show header images in the profile list.                                          | No       | false         |
+| `rowHeight`              | Height of each row in the profile list (in pixels).                                         | No       | 80            |
+| `preventDefaultScroll`   | Whether to prevent default scroll behavior.                                                 | No       | false         |
+| `useVirtualList`         | Whether to use virtual scrolling for better performance with large lists.                   | No       | false         |
+
+## Features
+
+### Tabbed Interface
+
+The component provides a clean tabbed interface to switch between viewing followers and following lists.
+
+### Search and Filtering
+
+- **Search**: Find specific profiles by name or address
+- **Tag Filtering**: Filter following list by custom tags (when `canEditTags` is enabled)
+- **Sort Options**: Multiple sorting options for organizing the lists
+
+### Tag Management
+
+When `canEditTags` is true and viewing your own following list, you can:
+
+- Add custom tags to profiles you follow
+- Filter by specific tags
+- Toggle tag visibility
+
+### Virtual Scrolling
+
+Enable `useVirtualList` for improved performance when displaying large lists of followers or following.
+
+### Empty States
+
+The component handles empty states gracefully with helpful messages and call-to-action text for connected users.
+
+### Recommendations
+
+When `showRecommendations` is enabled, users with no following will see personalized recommendations to help them get started.
+
+<Callout type="info">
+  The component automatically adapts to mobile layouts and provides optimized touch interactions. The header positioning
+  adjusts based on the `isTopEight` prop for integration with different layout contexts.
+</Callout>
+
+<Callout type="warning">
+  When using `useVirtualList`, ensure your container has a defined height for optimal performance. The virtual list
+  requires explicit dimensions to calculate visible items correctly.
+</Callout>
+
+<Callout type="info">
+  The component uses predefined styles and can be further customized using CSS classes. The appearance automatically
+  toggles between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your
+  application, the component will automatically detect and use that.
+</Callout>{' '}

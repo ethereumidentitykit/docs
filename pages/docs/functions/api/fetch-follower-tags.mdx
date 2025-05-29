@@ -1,0 +1,279 @@
+import { fetchFollowerTags } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# fetchFollowerTags
+
+Fetches tag data for the followers of a given Ethereum address, ENS name, or list number. Returns information about how the user has been tagged by their followers.
+
+<Callout type="warning">
+  The function returns a default null object with empty arrays if the request fails. Always handle the case where tag
+  data might be unavailable.
+</Callout>
+
+## Usage
+
+```tsx
+import { fetchFollowerTags } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchFollowerTags } from 'ethereum-identity-kit/utils'
+
+const followerTags = await fetchFollowerTags('vitalik.eth')
+
+// For a specific list
+const listFollowerTags = await fetchFollowerTags('0x...', 123)
+```
+
+## Parameters
+
+| Parameter       | Type               | Description                                                 | Required |
+| --------------- | ------------------ | ----------------------------------------------------------- | -------- |
+| `addressOrName` | `string`           | Ethereum address or ENS name to fetch follower tags for     | Yes      |
+| `list`          | `number \| string` | Optional list number; overrides `addressOrName` if provided | No       |
+
+<Callout type="info">
+  When `list` is provided, the function fetches tags for that specific list instead of the user's primary profile. This
+  shows how the list has been tagged by others.
+</Callout>
+
+## Return Value
+
+Returns a `FollowingTagsResponse` object containing tag information about how the user has been tagged:
+
+```tsx
+{
+  token_id: number,
+  tags: string[],
+  tagCounts: Array<{
+    tag: string,
+    count: number
+  }>,
+  taggedAddresses: Array<{
+    address: string,
+    tags: string[]
+  }>
+}
+```
+
+## Example Response
+
+```tsx
+{
+  token_id: 123,
+  tags: ['ethereum-expert', 'thought-leader', 'founder', 'developer'],
+  tagCounts: [
+    { tag: 'ethereum-expert', count: 25 },
+    { tag: 'thought-leader', count: 18 },
+    { tag: 'founder', count: 12 },
+    { tag: 'developer', count: 8 }
+  ],
+  taggedAddresses: [
+    {
+      address: '0x123...',
+      tags: ['ethereum-expert', 'thought-leader']
+    },
+    {
+      address: '0x456...',
+      tags: ['founder', 'developer']
+    }
+    // ... more addresses that tagged this user
+  ]
+}
+```
+
+## Features
+
+### Reputation Insights
+
+- **Tag Overview**: See how others perceive and categorize the user
+- **Tag Popularity**: Understand which descriptors are most commonly applied
+- **Tagger Identity**: Know which specific addresses applied which tags
+- **Social Validation**: Measure community consensus on user characteristics
+
+### Error Handling
+
+- Returns a consistent null object structure on failures:
+  ```tsx
+  {
+    token_id: 0,
+    tags: [],
+    tagCounts: [],
+    taggedAddresses: []
+  }
+  ```
+- Logs errors to console for debugging
+- Graceful degradation with empty arrays
+
+### List Support
+
+- Works with both user addresses/ENS names and specific list numbers
+- Uses the `/taggedAs` endpoint to fetch reverse tag relationships
+- Automatically constructs the appropriate API endpoint based on input type
+
+<Callout type="info">
+  Follower tags provide valuable social proof and reputation data. Use this information to display user credibility,
+  expertise areas, and community recognition.
+</Callout>
+
+## Example Implementation
+
+```tsx
+import { fetchFollowerTags } from 'ethereum-identity-kit'
+
+async function loadReputationData(addressOrName, listNumber = undefined) {
+  try {
+    const tagData = await fetchFollowerTags(addressOrName, listNumber)
+
+    if (tagData.tags.length === 0) {
+      console.log('No reputation tags found')
+      return {
+        hasReputation: false,
+        topTags: [],
+        totalTaggers: 0,
+      }
+    }
+
+    // Sort tags by popularity
+    const sortedTags = tagData.tagCounts.sort((a, b) => b.count - a.count).slice(0, 5) // Top 5 tags
+
+    return {
+      hasReputation: true,
+      topTags: sortedTags,
+      totalTaggers: tagData.taggedAddresses.length,
+      allTags: tagData.tags,
+    }
+  } catch (error) {
+    console.error('Error loading reputation data:', error)
+    return null
+  }
+}
+
+// Usage example
+const reputation = await loadReputationData('vitalik.eth')
+
+if (reputation?.hasReputation) {
+  console.log(`Tagged by ${reputation.totalTaggers} people`)
+  console.log('Top reputation tags:')
+  reputation.topTags.forEach(({ tag, count }) => {
+    console.log(`  ${tag}: ${count} mentions`)
+  })
+}
+```
+
+## Use Cases
+
+### Reputation Display
+
+```tsx
+import { fetchFollowerTags } from 'ethereum-identity-kit'
+
+function ReputationBadges({ userAddress }) {
+  const [reputationTags, setReputationTags] = useState([])
+
+  useEffect(() => {
+    fetchFollowerTags(userAddress).then((data) => {
+      // Show only tags with significant consensus (2+ mentions)
+      const significantTags = data.tagCounts
+        .filter((item) => item.count >= 2)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 3) // Top 3 most mentioned tags
+
+      setReputationTags(significantTags)
+    })
+  }, [userAddress])
+
+  return (
+    <div className="reputation-badges">
+      {reputationTags.map(({ tag, count }) => (
+        <span key={tag} className="badge">
+          {tag} ({count})
+        </span>
+      ))}
+    </div>
+  )
+}
+```
+
+### Social Proof Component
+
+```tsx
+import { fetchFollowerTags } from 'ethereum-identity-kit'
+
+function SocialProof({ userAddress }) {
+  const [socialData, setSocialData] = useState(null)
+
+  useEffect(() => {
+    fetchFollowerTags(userAddress).then((data) => {
+      const totalTaggers = data.taggedAddresses.length
+      const uniqueTags = data.tags.length
+      const mostPopularTag = data.tagCounts[0] // Assuming sorted by count
+
+      setSocialData({ totalTaggers, uniqueTags, mostPopularTag })
+    })
+  }, [userAddress])
+
+  if (!socialData) return null
+
+  return (
+    <div className="social-proof">
+      <p>Recognized by {socialData.totalTaggers} community members</p>
+      {socialData.mostPopularTag && (
+        <p>
+          Most known for: <strong>{socialData.mostPopularTag.tag}</strong>
+          <span className="count">({socialData.mostPopularTag.count} mentions)</span>
+        </p>
+      )}
+      <p>{socialData.uniqueTags} unique descriptors</p>
+    </div>
+  )
+}
+```
+
+### Tag Analysis
+
+```tsx
+import { fetchFollowerTags } from 'ethereum-identity-kit'
+
+async function analyzeUserReputation(userAddress) {
+  const tagData = await fetchFollowerTags(userAddress)
+
+  if (!tagData || tagData.tags.length === 0) {
+    return { type: 'unknown', confidence: 0 }
+  }
+
+  // Define expertise categories
+  const categories = {
+    technical: ['developer', 'engineer', 'programmer', 'coder'],
+    leadership: ['founder', 'ceo', 'leader', 'visionary'],
+    expertise: ['expert', 'specialist', 'guru', 'authority'],
+    community: ['influencer', 'advocate', 'educator', 'mentor'],
+  }
+
+  // Calculate category scores
+  const scores = Object.entries(categories).map(([category, keywords]) => {
+    const score = tagData.tagCounts
+      .filter((item) => keywords.some((keyword) => item.tag.toLowerCase().includes(keyword)))
+      .reduce((sum, item) => sum + item.count, 0)
+
+    return { category, score }
+  })
+
+  // Find dominant category
+  const dominant = scores.reduce((max, current) => (current.score > max.score ? current : max))
+
+  return {
+    type: dominant.category,
+    confidence: dominant.score,
+    breakdown: scores,
+  }
+}
+```
+
+<Callout type="warning">
+  Follower tags represent subjective opinions and may not always be accurate or appropriate. Use this data to supplement
+  other reputation indicators rather than as the sole source of user assessment.
+</Callout>
+
+<Callout type="info">
+  Unlike following tags (which show how a user tags others), follower tags show how others tag the user. This provides
+  valuable social proof and reputation insights for building trust in decentralized applications.
+</Callout>{' '}

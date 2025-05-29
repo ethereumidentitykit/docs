@@ -1,0 +1,227 @@
+import { fetchFollowingTags } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# fetchFollowingTags
+
+Fetches tag data for the following list of a given Ethereum address, ENS name, or list number. Returns tag counts, categories, and associated addresses with support for fresh data options.
+
+<Callout type="warning">
+  The function returns a default null object with empty arrays if the request fails. Always handle the case where tag
+  data might be unavailable.
+</Callout>
+
+## Usage
+
+```tsx
+import { fetchFollowingTags } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchFollowingTags } from 'ethereum-identity-kit/utils'
+
+const followingTags = await fetchFollowingTags('vitalik.eth')
+
+// For a specific list
+const listTags = await fetchFollowingTags('0x...', 123)
+
+// With fresh data (bypass cache)
+const freshTags = await fetchFollowingTags('vitalik.eth', undefined, true)
+```
+
+## Parameters
+
+| Parameter       | Type               | Description                                                 | Required |
+| --------------- | ------------------ | ----------------------------------------------------------- | -------- |
+| `addressOrName` | `string`           | Ethereum address or ENS name to fetch following tags for    | Yes      |
+| `list`          | `number \| string` | Optional list number; overrides `addressOrName` if provided | No       |
+| `fresh`         | `boolean`          | Flag to fetch fresh data bypassing cache                    | No       |
+
+<Callout type="info">
+  When `list` is provided, the function fetches tags for that specific list instead of the user's primary list.
+</Callout>
+
+## Return Value
+
+Returns a `FollowingTagsResponse` object containing comprehensive tag information:
+
+```tsx
+{
+  token_id: number,
+  tags: string[],
+  tagCounts: Array<{
+    tag: string,
+    count: number
+  }>,
+  taggedAddresses: Array<{
+    address: string,
+    tags: string[]
+  }>
+}
+```
+
+## Example Response
+
+```tsx
+{
+  token_id: 123,
+  tags: ['friend', 'developer', 'defi', 'nft'],
+  tagCounts: [
+    { tag: 'friend', count: 15 },
+    { tag: 'developer', count: 8 },
+    { tag: 'defi', count: 12 },
+    { tag: 'nft', count: 5 }
+  ],
+  taggedAddresses: [
+    {
+      address: '0x123...',
+      tags: ['friend', 'developer']
+    },
+    {
+      address: '0x456...',
+      tags: ['defi', 'nft']
+    }
+    // ... more tagged addresses
+  ]
+}
+```
+
+## Features
+
+### Comprehensive Tag Data
+
+- **Tag List**: All unique tags used in the following list
+- **Tag Counts**: Number of profiles associated with each tag
+- **Tagged Addresses**: Complete mapping of addresses to their assigned tags
+- **Token ID**: Associated list/token identifier
+
+### Cache Control
+
+- **Fresh Data**: Use `fresh: true` to bypass cache and get real-time tag data
+- **Default Caching**: Uses default browser/server caching for better performance
+
+### Error Handling
+
+- Returns a consistent null object structure on failures:
+  ```tsx
+  {
+    token_id: 0,
+    tags: [],
+    tagCounts: [],
+    taggedAddresses: []
+  }
+  ```
+- Logs errors to console for debugging
+- Graceful degradation with empty arrays
+
+### List Support
+
+- Works with both user addresses/ENS names and specific list numbers
+- Automatically constructs the appropriate API endpoint based on input type
+
+<Callout type="info">
+  Tag data is essential for filtering and organizing following lists. Use this function to populate tag filters and
+  display tag statistics in your UI.
+</Callout>
+
+## Example Implementation
+
+```tsx
+import { fetchFollowingTags } from 'ethereum-identity-kit'
+
+async function loadTagData(addressOrName, listNumber = undefined, forceRefresh = false) {
+  try {
+    const tagData = await fetchFollowingTags(addressOrName, listNumber, forceRefresh)
+
+    if (tagData.tags.length === 0) {
+      console.log('No tags found for this following list')
+      return null
+    }
+
+    console.log(`Found ${tagData.tags.length} unique tags`)
+    console.log(`Total tagged addresses: ${tagData.taggedAddresses.length}`)
+
+    return tagData
+  } catch (error) {
+    console.error('Error loading tag data:', error)
+    return null
+  }
+}
+
+// Usage example
+const tagData = await loadTagData('vitalik.eth')
+
+if (tagData) {
+  // Display tag statistics
+  tagData.tagCounts.forEach(({ tag, count }) => {
+    console.log(`${tag}: ${count} profiles`)
+  })
+
+  // Find addresses with specific tag
+  const friendAddresses = tagData.taggedAddresses
+    .filter((item) => item.tags.includes('friend'))
+    .map((item) => item.address)
+
+  console.log(`Friends: ${friendAddresses.length}`)
+}
+```
+
+## Use Cases
+
+### Tag Filter Implementation
+
+```tsx
+import { fetchFollowingTags } from 'ethereum-identity-kit'
+
+function TagFilter({ userAddress, onTagSelect, selectedTags }) {
+  const [tagData, setTagData] = useState(null)
+
+  useEffect(() => {
+    fetchFollowingTags(userAddress).then(setTagData)
+  }, [userAddress])
+
+  if (!tagData) return <div>Loading tags...</div>
+
+  return (
+    <div>
+      {tagData.tagCounts.map(({ tag, count }) => (
+        <button key={tag} onClick={() => onTagSelect(tag)} className={selectedTags.includes(tag) ? 'selected' : ''}>
+          {tag} ({count})
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+### Tag Statistics Display
+
+```tsx
+import { fetchFollowingTags } from 'ethereum-identity-kit'
+
+function TagStats({ userAddress }) {
+  const [stats, setStats] = useState(null)
+
+  useEffect(() => {
+    fetchFollowingTags(userAddress).then((data) => {
+      const totalTagged = data.taggedAddresses.length
+      const totalTags = data.tags.length
+      const mostUsedTag = data.tagCounts[0] // Assuming sorted by count
+
+      setStats({ totalTagged, totalTags, mostUsedTag })
+    })
+  }, [userAddress])
+
+  return stats ? (
+    <div>
+      <p>Tagged Profiles: {stats.totalTagged}</p>
+      <p>Unique Tags: {stats.totalTags}</p>
+      <p>
+        Most Used: {stats.mostUsedTag?.tag} ({stats.mostUsedTag?.count})
+      </p>
+    </div>
+  ) : null
+}
+```
+
+<Callout type="warning">
+  Tag data can become stale when users add or modify tags. Use `fresh: true` after tag modification operations to ensure
+  UI consistency.
+</Callout>{' '}

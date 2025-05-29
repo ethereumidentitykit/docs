@@ -1,0 +1,187 @@
+import { fetchProfileFollowers } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# fetchProfileFollowers
+
+Fetches followers data for a given Ethereum address, ENS name, or list number with support for pagination, search, sorting, and tag filtering.
+
+<Callout type="warning">
+  The function returns an empty followers array if the request fails. Always handle the case where the response might
+  contain no data.
+</Callout>
+
+## Usage
+
+```tsx
+import { fetchProfileFollowers } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchProfileFollowers } from 'ethereum-identity-kit/utils'
+
+const followersData = await fetchProfileFollowers({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+})
+
+// With search and filtering
+const filteredFollowers = await fetchProfileFollowers({
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+  pageParam: 0,
+  search: 'john',
+  tags: ['friend', 'dev'],
+  sort: 'follower count',
+})
+
+// For a specific list
+const listFollowers = await fetchProfileFollowers({
+  addressOrName: '0x...',
+  list: 123,
+  limit: 20,
+  pageParam: 0,
+})
+```
+
+## Parameters
+
+| Parameter       | Type             | Description                                                        | Required |
+| --------------- | ---------------- | ------------------------------------------------------------------ | -------- |
+| `addressOrName` | `string`         | Ethereum address or ENS name to fetch followers for                | Yes      |
+| `list`          | `number`         | Optional list number; overrides `addressOrName` if provided        | No       |
+| `limit`         | `number`         | Number of followers to fetch per page                              | Yes      |
+| `pageParam`     | `number`         | Page offset for pagination (0-based)                               | Yes      |
+| `sort`          | `FollowSortType` | Sort option: 'earliest first', 'latest first', or 'follower count' | No       |
+| `tags`          | `string[]`       | Array of tags to filter followers by                               | No       |
+| `search`        | `string`         | Search term to filter followers (minimum 2 characters)             | No       |
+| `allResults`    | `boolean`        | Flag to fetch all followers instead of paginated results           | No       |
+
+<Callout type="info">
+  When `search` is provided with 2+ characters, the function automatically uses the search endpoint for better
+  performance.
+</Callout>
+
+## Return Value
+
+Returns an object containing the followers data and pagination information:
+
+```tsx
+{
+  followers: FollowerResponse[],
+  nextPageParam: number
+}
+```
+
+### FollowerResponse Structure
+
+```tsx
+{
+  address: string,
+  ens?: {
+    name?: string,
+    avatar?: string,
+    // ... other ENS data
+  },
+  tags?: string[],
+  // ... other follower properties
+}
+```
+
+## Example Response
+
+```tsx
+{
+  followers: [
+    {
+      address: '0x123...',
+      ens: {
+        name: 'follower.eth',
+        avatar: 'https://example.com/avatar.png'
+      },
+      tags: ['friend', 'developer']
+    },
+    // ... more followers
+  ],
+  nextPageParam: 1
+}
+```
+
+## Features
+
+### Pagination Support
+
+- Uses offset-based pagination with `pageParam` and `limit`
+- Returns `nextPageParam` for seamless infinite scrolling
+- Supports fetching all results at once with `allResults` flag
+
+### Advanced Filtering
+
+- **Search**: Filter followers by name or address (requires 2+ characters)
+- **Tags**: Filter by multiple tags simultaneously
+- **Sorting**: Sort by earliest, latest, or follower count
+
+### Automatic Endpoint Selection
+
+The function intelligently selects the appropriate API endpoint:
+
+- `allFollowers` when `allResults` is true
+- `searchFollowers` when search term is provided (2+ chars)
+- `followers` for standard paginated requests
+
+### Error Handling
+
+- Gracefully handles API failures
+- Returns empty array with incremented page parameter on errors
+- Logs errors to console for debugging
+
+<Callout type="warning">
+  Search functionality requires a minimum of 2 characters. Shorter search terms will be ignored and use the standard
+  followers endpoint.
+</Callout>
+
+<Callout type="info">
+  The function supports both user-based and list-based queries. When `list` is provided, it takes precedence over
+  `addressOrName`.
+</Callout>
+
+## Example Implementation
+
+```tsx
+import { fetchProfileFollowers } from 'ethereum-identity-kit'
+
+async function loadFollowers(address, page = 0) {
+  try {
+    const response = await fetchProfileFollowers({
+      addressOrName: address,
+      limit: 50,
+      pageParam: page,
+      sort: 'follower count',
+    })
+
+    if (response.followers.length === 0) {
+      console.log('No more followers to load')
+      return null
+    }
+
+    console.log(`Loaded ${response.followers.length} followers`)
+    return response
+  } catch (error) {
+    console.error('Error loading followers:', error)
+    return null
+  }
+}
+
+// Usage with pagination
+let currentPage = 0
+const allFollowers = []
+
+while (true) {
+  const response = await loadFollowers('vitalik.eth', currentPage)
+
+  if (!response || response.followers.length === 0) {
+    break
+  }
+
+  allFollowers.push(...response.followers)
+  currentPage = response.nextPageParam
+}
+```

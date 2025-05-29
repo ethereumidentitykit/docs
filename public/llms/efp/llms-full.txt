@@ -2,6 +2,8 @@
 
 > Ethereum Follow Protocol (EFP) is an onchain social graph protocol for Ethereum accounts.
 
+> Updated at: 22:35 05/28/25
+
 **Is EFP a social network?**
 
 > No, EFP is just a social graph. It has no names or profiles (use [ENS](https://ens.domains/) for that), no authentication protocol (use [SIWE](https://login.xyz/)), nor posting or tweeting. It's a primitive of the Ethereum identity stack meant to be combined with others elements in that stack in third party apps. [This article](https://mirror.xyz/brantly.eth/7nJZCqyvhbdTIfq4oSnNEjlUUyxS9sf3pTHcBNi8Te8) explains the vision.

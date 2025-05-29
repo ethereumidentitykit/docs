@@ -1,8 +1,163 @@
+# Aggregated Ethereum Identity Context 
+
+> Updated at: 22:35 05/28/25
+
+# docs.efp.app llms.txt
+
+> Ethereum Follow Protocol (EFP) is an onchain social graph protocol for Ethereum accounts.
+
+## Documentation 
+
+- [EFP-Silo Deployment Guide](https://docs.efp.app/production/silo): Guide for deploying the EFP-Silo template on Railway with configuration instructions.
+- [EFP Frequently Asked Questions](https://docs.efp.app/faq): To provide frequently asked questions about the Ethereum Follow Protocol and its functionalities.
+- [EFP Logos Collection](https://docs.efp.app/design-components/logos): Downloadable EFP logos in multiple formats.
+- [Design Component Colors](https://docs.efp.app/design-components/colors): To provide a reference for color specifications used in design components.
+- [EFP List Roles](https://docs.efp.app/design/roles): Explains the roles associated with an EFP List in Ethereum including Owner, Manager, and User responsibilities.
+- [EFP List Registry Overview](https://docs.efp.app/design/list-registry): Explains the EFP List Registry as an ERC-721 contract for minting EFP List NFTs.
+- [Interpreting EFP Data](https://docs.efp.app/production/interpreting-state): This page explains how to interpret EFP data and validate list operations.
+- [List Ops Structure](https://docs.efp.app/design/list-ops): Explains List Ops structure for list operations including encoding and operation codes.
+- [List Storage Location](https://docs.efp.app/design/list-storage-location): This page outlines the specifications for defining list storage locations in the EFP system.
+- [Translation Bounty Program](https://docs.efp.app/translationbounty): Encourage users to contribute translations for the EFP app and earn rewards.
+- [EFP Glossary](https://docs.efp.app/design/glossary): Defines key terms related to the Ethereum Follow Protocol for users and developers.
+- [Tagging System Overview](https://docs.efp.app/design/tags): Explains the tagging system used in EFP lists and their functions.
+- [List Records Definition](https://docs.efp.app/design/list-records): Defines the structure and components of List Records in EFP, including versioning and record types.
+- [EFP Deployments Overview](https://docs.efp.app/production/deployments): Listing smart contracts and their addresses for EFP deployments on various blockchain networks.
+- [EFP Infrastructure Overview](https://docs.efp.app/production/infra): Overview of EFP's backend infrastructure components and setup.
+- [EFP Follow Bot](https://docs.efp.app/production/follow-bot): To provide functionality for users to track Ethereum addresses and ENS names via a Telegram bot.
+- [Bug Bounty Program](https://docs.efp.app/bugbounty): Encourages reporting vulnerabilities in specific smart contracts for monetary rewards.
+- [EFP List Metadata Overview](https://docs.efp.app/design/list-metadata): Explains List Metadata structure for EFP, including keys and roles assigned to Managers and Users.
+- [EFP Emergency Response](https://docs.efp.app/production/emergency-response): Outlines procedures for responding to bugs in EFP contracts and managing affected data.
+- [Ethereum Follow Protocol Overview](https://docs.efp.app/intro): Explains the Ethereum Follow Protocol, its roles, and functionality for managing social graphs on Ethereum.
+- [EFP Multisig Overview](https://docs.efp.app/production/multisig): This page provides information about the EFP multisig wallet, its addresses, signers, and contract privileges.
+- [API Documentation Redirect](https://docs.efp.app/api/): Redirects users to the API documentation for the Eth Identity Kit.
+- [Ethereum Follow Protocol Overview](https://docs.efp.app/): Explains the Ethereum Follow Protocol for creating and managing on-chain social graphs using NFTs.
+- [Account Metadata Overview](https://docs.efp.app/design/account-metadata): Explains how to use Account Metadata for Ethereum accounts in the EFP ecosystem.
+
+## Code Repositories
+
+- [EFP App](https://github.com/ethereumfollowprotocol/app): Ethereum Follow Protocol Web App
+- [EFP Docs](https://github.com/ethereumfollowprotocol/docs): Ethereum Follow Protocol Documentation
+- [EFP API](https://github.com/ethereumfollowprotocol/api): Ethereum Follow Protocol Public API
+- [EFP Services](https://github.com/ethereumfollowprotocol/services): Ethereum Follow Protocol Services
+- [EFP Indexer](https://github.com/ethereumfollowprotocol/indexer): Ethereum Follow Protocol Indexer
+- [EFP Notification Service](https://github.com/ethereumfollowprotocol/notification-service): EFP notifications served piping hot over websocket
+- [EFP Follow-bot](https://github.com/ethereumfollowprotocol/follow-bot): A telegram bot for subscribing to EFP account activity
+- [EFP Contracts](https://github.com/ethereumfollowprotocol/contracts): Core smart contracts of Ethereum Follow Protocol
+- [EFP Replay](https://github.com/ethereumfollowprotocol/replay): EFP Historical Event Recovery
+- [EFP Onchain](https://github.com/ethereumfollowprotocol/onchain): Tools and example scripts for recovering EFP data onchain
+
+---
+
+# ethidentitykit.com llms.txt
+
+> Ethereum Identity Kit facilitates the integration of Ethereum identity features into applications via a React component library, providing developers with tools and documentation for user profile management and on-chain transactions.
+
+## Components
+
+- [followers-you-know](https://docs.efp.app/followers-you-know): The Followers you know component displays a list of common followers between two Ethereum addresses or ENS names, showing their avatars and names.
+- [profile-socials](https://docs.efp.app/profile-socials): The Profile Socials component displays the social links of a user, including URLs and decentralized web links.
+- [transaction-modal](https://docs.efp.app/transaction-modal): The Transaction Modal component allows users to initiate and manage on-chain transactions. It provides a user interface for viewing transaction details, selecting chains, and managing transaction batches.
+- [avatar](https://docs.efp.app/avatar): The Avatar component displays an avatar image for a given Ethereum address or ENS name, with support for fallback images.
+- [profile-stats](https://docs.efp.app/profile-stats): The Profile Stats component displays follower and following statistics for a given Ethereum address or ENS name.
+- [follower-tag](https://docs.efp.app/follower-tag): The Follower Tag component displays the relationship status between a given Ethereum address and the connected user, such as whether the user follows, blocks, or mutes the address.
+- [full-width-profile](https://docs.efp.app/full-width-profile): The Full Width Profile component displays a comprehensive Ethereum Profile with ENS and EFP details.
+- [follow-button](https://docs.efp.app/follow-button): The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
+- [transaction-provider](https://docs.efp.app/transaction-provider): The Transaction Provider component supplies the necessary context for managing on-chain transactions within the application.
+- [profile-card](https://docs.efp.app/profile-card): The Profile Card component displays a user's ENS and EFP details.
+
+## Functions
+
+- [list-ops](https://docs.efp.app/list-ops): The list operations module provides utility functions for creating list operations in the EFP (Ethereum Follow Protocol) system.
+- [transactions](https://docs.efp.app/transactions): The transactions module provides utility functions for handling EFP (Ethereum Follow Protocol) list operations and transactions.
+- [validity](https://docs.efp.app/validity): The validity module provides utility functions for validating various types of data in the application.
+- [list-storage-location](https://docs.efp.app/list-storage-location): The list storage location module provides functionality to retrieve the storage location of an EFP list from the list registry contract.
+- [formatters](https://docs.efp.app/formatters): The formatters module provides utility functions for formatting various types of data in the application.
+- [profile](https://docs.efp.app/profile): The profile module provides utility functions for handling profile-related operations.
+- [generate-slot](https://docs.efp.app/generate-slot): The generateSlot utility generates a random storage slot value using keccak256 and the current timestamp.
+- [fetch-followers-you-know](https://docs.efp.app/api/fetch-followers-you-know): Fetches the list of followers that you (connected address) follow, who also follow another address.
+- [fetch-follow-state](https://docs.efp.app/api/fetch-follow-state): Fetches the follow state between two addresses or a list and an address.
+- [fetch-profile-efp-poaps](https://docs.efp.app/api/fetch-profile-efp-poaps): Fetches EFP [POAPs (Proof of Attendance Protocol)](https://poap.xyz).
+- [fetch-eth-price](https://docs.efp.app/api/fetch-eth-price): Fetches the current ETH price in USD from the CoinGecko API.
+- [fetch-profile-details](https://docs.efp.app/api/fetch-profile-details): Fetches profile details for a given Ethereum address, ENS name, or list number.
+- [fetch-profile-lists](https://docs.efp.app/api/fetch-profile-lists): Fetches all lists associated with a given address or ENS name.
+- [fetch-profile-stats](https://docs.efp.app/api/fetch-profile-stats): Fetches profile statistics (followers and following counts) for a given address, ENS name, or list.
+- [fetch-account](https://docs.efp.app/api/fetch-account): Fetches condensed account information for a given address, ENS name, or list.
+- [fetch-recommended](https://docs.efp.app/api/fetch-recommended): Fetches recommended profiles or recent activity from the EFP API, with optional pagination.
+- [fetch-all-followers-you-know](https://docs.efp.app/api/fetch-all-followers-you-know): Fetches a paginated list of followers that you (connected address) follow, who also follow another address, with optional search functionality.
+
+## Hooks
+
+- [useFollowButton](https://docs.efp.app/useFollowButton): The `useFollowButton` hook manages the state and actions for a follow button component.
+- [useProfileDetails](https://docs.efp.app/useProfileDetails): The `useProfileDetails` hook fetches and manages the profile details for a given Ethereum address or ENS name, including ENS data and primary list information.
+- [useFollowingState](https://docs.efp.app/useFollowingState): The `useFollowingState` hook fetches and manages the following state between a given Ethereum address or ENS name and the connected user, indicating if the user follows, blocks, or mutes the address.
+- [useFollowerState](https://docs.efp.app/useFollowerState): The `useFollowerState` hook fetches and manages the follower state between a given Ethereum address or ENS name and the connected user, indicating if the user is followed, blocked, or muted by the address.
+- [useProfileStats](https://docs.efp.app/useProfileStats): The `useProfileStats` hook fetches and manages the follower and following statistics for a given Ethereum address or ENS name.
+- [useTransactions](https://docs.efp.app/useTransactions): The `useTransactions` hook provides access to the transaction context, allowing components to manage and interact with on-chain transactions.
+- [Interpreting EFP Data](https://docs.efp.app/interpreting-state): Interpreting EFP Data 
+- [EFP Railway Template](https://docs.efp.app/efp-silo): Deploying the EFP Railway Template  
+- [EFP Infrastructure](https://docs.efp.app/infra): EFP Infrastructure 
+
+## API
+
+- [Discover](https://docs.efp.app/discover): Get recently active accounts to follow.
+- [Metadata](https://docs.efp.app/token/metadata): Get NFT metadata for a specified token id 
+- [Image](https://docs.efp.app/token/image): Get NFT image for a specified token id
+- [Stats](https://docs.efp.app/stats): Get global EFP statistics.
+- [Export State](https://docs.efp.app/export-state): Get all accounts that are being followed by EFP list id, excludes blocks and mutes 
+- [Recommended](https://docs.efp.app/lists/recommended): Get recommended users for a user by their EFP list id.
+- [Latest Followers](https://docs.efp.app/lists/latestFollowers): Get the latest followers (excluding blocked and muted) of a user by their EFP list id.
+- [Stats](https://docs.efp.app/lists/stats): Get stats of a user by their EFP list id.
+- [Details](https://docs.efp.app/lists/details): Get details of a user by their EFP list id.
+- [Account](https://docs.efp.app/lists/account): Get account information by their EFP list id 
+- [All Following Addresses](https://docs.efp.app/lists/allFollowingAddresses): Get all accounts in list format, that are being followed (including blocked and muted) by a user by their EFP list id.
+- [Search Followers](https://docs.efp.app/lists/searchFollowers): Search for followers of a user by their EFP list id.
+- [Poap Badges](https://docs.efp.app/lists/badges): Get EFP POAPs of a user by their EFP list id.
+- [Search Following](https://docs.efp.app/lists/searchFollowing): Search for following of a user by their EFP list id.
+- [All Followers](https://docs.efp.app/lists/allFollowers): Get all followers (including blocked and muted) of a user by their EFP list id.
+- [Tagged As](https://docs.efp.app/lists/taggedAs): Get the tags that are applied to a user by their EFP list id.
+- [Tags](https://docs.efp.app/lists/tags): Get the tags of a user by their EFP list id.
+- [Button State](https://docs.efp.app/lists/buttonState): Get the following state between a given list and a given user.
+- [Following](https://docs.efp.app/lists/following): Get accounts being followed (excluding blocked and muted) by a user by their EFP list id.
+- [All Following](https://docs.efp.app/lists/allFollowing): Get all accounts being followed (including blocked and muted) by a user by their EFP list id.
+- [Follower State](https://docs.efp.app/lists/followerState): Get the follower state between a given list and a given user.
+- [Followers](https://docs.efp.app/lists/followers): Get followers (excluding blocked and muted) of a user by their EFP list id.
+- [List Records](https://docs.efp.app/users/listRecords): Get the list records of a user by their address or ENS name.
+- [Recommended](https://docs.efp.app/users/recommended): Get recommended users for a user by their address or ENS name.
+- [Lists](https://docs.efp.app/users/lists): Get the lists of a user by their address or ENS name.
+- [Latest Followers](https://docs.efp.app/users/latestFollowers): Get a user's latest followers by Address or ENS Name  
+- [Notifications](https://docs.efp.app/users/notifications): Get incoming actions received from other users by Address or ENS Name  
+- [Stats](https://docs.efp.app/users/stats): Get stats of a user by their address or ENS name.
+- [Details](https://docs.efp.app/users/details): Get account details, populates most of the data on a profile card  
+- [Common Followers](https://docs.efp.app/users/commonFollowers): Get common followers that are shared by two accounts  
+- [QR Code](https://docs.efp.app/users/qr): Get a QR code that links to a user's profile page.
+- [Account](https://docs.efp.app/users/account): Get account information by Address or ENS Name  
+- [Search Followers](https://docs.efp.app/users/searchFollowers): Search for followers of a user by their address or ENS name.
+- [Poap Badges](https://docs.efp.app/users/badges): Get EFP POAPs of a user by their address or ENS name.
+- [Primary List](https://docs.efp.app/users/primaryList): Get the primary list of a user by their address or ENS name.
+- [Search Following](https://docs.efp.app/users/searchFollowing): Search for following of a user by their address or ENS name.
+- [ENS](https://docs.efp.app/users/ens): Get the ENS data of a user by their address or ENS name.
+- [Tagged As](https://docs.efp.app/users/taggedAs): Get the tags that are applied to a user by their address or ENS name.
+- [Tags](https://docs.efp.app/users/tags): Get the tags of a user by their address or ENS name.
+- [Following](https://docs.efp.app/users/following): Get following by Address or ENS Name 
+- [Follower State](https://docs.efp.app/users/followerState): Get the follower state between two users.
+- [Followers](https://docs.efp.app/users/followers): Get followers by Address or ENS Name  
+- [Introduction](https://docs.efp.app/index): EFP provides an open source indexer and API for indexing and retrieving EFP data.
+- [Blocked](https://docs.efp.app/leaderboard/blocked): Get leaderboard of users ranked according to count of users that blocked them.
+- [All](https://docs.efp.app/leaderboard/all): Get addresses and ens names of all leaderboard records.
+- [Ranked](https://docs.efp.app/leaderboard/ranked): Get leaderboard of users ranked according to count of mutual follows.
+- [Search](https://docs.efp.app/leaderboard/search): Search for leaderboard addresses and ENS names by a specified search term.
+- [Muted](https://docs.efp.app/leaderboard/muted): Get leaderboard of users ranked according to count of users that muted them.
+- [Count](https://docs.efp.app/leaderboard/count): Get count of all accounts in the leaderboard.
+- [Mutes](https://docs.efp.app/leaderboard/mutes): Get leaderboard of users ranked according to count of users that they muted.
+- [Following](https://docs.efp.app/leaderboard/following): Get leaderboard of users ranked according to following counts.
+- [Blocks](https://docs.efp.app/leaderboard/blocks): Get leaderboard of users ranked according to count of users that they blocked.
+- [Followers](https://docs.efp.app/leaderboard/followers): Get leaderboard of users ranked according to follower counts.
+
+---
+
 # docs.ens.domains llms.txt
 
 > The Ethereum Name Service (ENS) is a distributed, open, and extensible naming system based on the Ethereum blockchain. ENS maps human-readable names like 'alice.eth' to machine-readable identifiers such as Ethereum addresses, other cryptocurrency addresses, content hashes, metadata, and more. 
-
-> Updated at: 22:35 05/28/25
 
 ## General
 
@@ -340,3 +495,47 @@
 - [ens-ponder](https://github.com/ensdomains/ens-ponder): No description available
 - [ens-manager-v4-demo](https://github.com/ensdomains/ens-manager-v4-demo): No description available
 - [vite-plugin-i18next-loader](https://github.com/ensdomains/vite-plugin-i18next-loader): Vite plugin to client bundle i18next locales composited from one to many json/yaml files from one to many libraries. Zero config HMR support included.
+
+---
+
+# docs.login.xyz llms.txt
+
+> Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
+
+- [Community Highlights](https://docs.login.xyz/additional-support/community-highlights): To showcase libraries, guides, and community projects related to Sign-In with Ethereum.
+- [Sign-In with Ethereum](https://docs.login.xyz/integrations/auth0): Guide to integrating Sign-In with Ethereum using Auth0 for authentication in web applications.
+- [Elixir Sign-In Guide](https://docs.login.xyz/libraries/elixir): Guide for implementing Sign-In with Ethereum using Elixir.
+- [Python Sign-In Documentation](https://docs.login.xyz/libraries/python): Provides documentation for using the Sign-In with Ethereum library in Python.
+- [Sign-In with Ethereum Overview](https://docs.login.xyz/general-information/siwe-overview): Explains Sign-In with Ethereum and its benefits for users and developers in both Web2 and Web3 contexts.
+- [Creating SIWE Messages](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/creating-siwe-messages): Guide to create SIWE messages for Ethereum sign-in using JavaScript.
+- [Sign-In with Ethereum for Rails](https://docs.login.xyz/libraries/ruby/rails): Guide for integrating Sign-In with Ethereum in Rails applications.
+- [ENS Profile Resolution Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/resolve-ens-profiles): Guide to resolving ENS profiles in a Sign-In with Ethereum implementation.
+- [Ethereum Sign-In Support](https://docs.login.xyz/additional-support): Provide support resources for integrating sign-in with Ethereum across various programming languages and tools.
+- [Sign-In with Ethereum Docs](https://docs.login.xyz/libraries): To provide comprehensive documentation and resources for integrating Sign-In with Ethereum across various programming languages and platforms.
+- [Sign-In with Ethereum Guide](https://docs.login.xyz/): Guide for implementing Sign-In with Ethereum authentication.
+- [Discourse Ethereum Integration Guide](https://docs.login.xyz/integrations/discourse): Guide for integrating Sign-In with Ethereum into Discourse platforms.
+- [OIDC Provider Deployment Guide](https://docs.login.xyz/servers/oidc-provider/deployment-guide): Guide for deploying an OIDC provider using Ethereum-based authentication.
+- [TypeScript Migration Guide](https://docs.login.xyz/libraries/typescript/migrating-to-v2): Guidelines for migrating applications to TypeScript v2.0 related to Sign-In with Ethereum.
+- [Sign-In with Ethereum Go](https://docs.login.xyz/libraries/go): Provides documentation for implementing Sign-In with Ethereum using the Go programming language.
+- [Implement Sessions Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/implement-sessions): Guide on implementing sessions for Sign-In with Ethereum in applications.
+- [EIP-4361 Overview](https://docs.login.xyz/general-information/siwe-overview/eip-4361): Explain the EIP-4361 specification for Sign-In with Ethereum, emphasizing decentralized identity and user-controlled authentication.
+- [Ruby SIWE Implementation](https://docs.login.xyz/libraries/ruby): Guidance on implementing Sign-In with Ethereum in Ruby applications.
+- [Sign-In with Ethereum Docs](https://docs.login.xyz/general-information): To provide comprehensive documentation for implementing Sign-In with Ethereum across various programming languages and integrations.
+- [Ethereum Improvement Proposals](https://docs.login.xyz/general-information/siwe-overview/review-of-related-eips): Overviews of Ethereum Improvement Proposals related to decentralized identity and SIWE standards.
+- [Sign-In with Ethereum Guides](https://docs.login.xyz/libraries/typescript): Provide resources and guides for implementing Sign-In with Ethereum using TypeScript and other programming languages.
+- [Frontend Implementation Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/implement-the-frontend): Guide for implementing a frontend to enable sign-in with Ethereum.
+- [Ethereum Authentication Guide](https://docs.login.xyz/integrations/nextauth.js): To guide users in implementing Ethereum authentication using NextAuth.js.
+- [Connect Frontend Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/connect-the-frontend): Guide to connect frontend for Sign-In with Ethereum implementation.
+- [Sign-In with Ethereum Guide](https://docs.login.xyz/servers): Documentation for implementing Sign-In with Ethereum and related technologies.
+- [Sign-In with Ethereum Docs](https://docs.login.xyz/integrations): To provide documentation and resources for integrating Sign-In with Ethereum and related technologies.
+- [Sign-In with Ethereum](https://docs.login.xyz/servers/oidc-provider): Guide for implementing Sign-In with Ethereum using OpenID Connect.
+- [Backend Implementation Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/implement-the-backend): Guide for implementing backend for Sign-In with Ethereum authentication.
+- [TypeScript Quickstart Guide](https://docs.login.xyz/libraries/typescript/typescript-quickstart): Guide for signing in with Ethereum using TypeScript, with setup instructions and requirements.
+- [ENS Profile Resolution Guide](https://docs.login.xyz/additional-support/ens-profile-resolution): Guide for resolving ENS profiles using Ethereum addresses in authentication workflows.
+- [Security Considerations for SIWE](https://docs.login.xyz/additional-support/security-considerations): Provide security considerations for implementing Sign-In with Ethereum (SIWE).
+- [SIWE Code of Conduct](https://docs.login.xyz/general-information/siwe-code-of-conduct): Establish guidelines for respectful community interaction in the Sign-In with Ethereum project.
+- [Hosted OIDC Provider Guide](https://docs.login.xyz/servers/oidc-provider/hosted-oidc-provider): Guide for developers on configuring and using a hosted OpenID Connect Provider with Ethereum integration.
+- [Resolve NFT Holdings](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/resolve-nft-holdings): Guide for resolving NFT holdings through Ethereum sign-in.
+- [Quickstart Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide): Guide for integrating Sign-In with Ethereum into applications.
+- [Rust Sign-In Documentation](https://docs.login.xyz/libraries/rust): Provides documentation for the Rust implementation of Sign-In with Ethereum.
+- [EIP-4361: Sign-In with Ethereum](https://eips.ethereum.org/EIPS/eip-4361): Off-chain authentication for Ethereum accounts to establish sessions.

@@ -2,6 +2,8 @@
 
 > Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
 
+> Updated at: 22:35 05/28/25
+
 - [Community Highlights](https://docs.login.xyz/additional-support/community-highlights): To showcase libraries, guides, and community projects related to Sign-In with Ethereum.
 - [Sign-In with Ethereum](https://docs.login.xyz/integrations/auth0): Guide to integrating Sign-In with Ethereum using Auth0 for authentication in web applications.
 - [Elixir Sign-In Guide](https://docs.login.xyz/libraries/elixir): Guide for implementing Sign-In with Ethereum using Elixir.
@@ -38,3 +40,4 @@
 - [Resolve NFT Holdings](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/resolve-nft-holdings): Guide for resolving NFT holdings through Ethereum sign-in.
 - [Quickstart Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide): Guide for integrating Sign-In with Ethereum into applications.
 - [Rust Sign-In Documentation](https://docs.login.xyz/libraries/rust): Provides documentation for the Rust implementation of Sign-In with Ethereum.
+- [EIP-4361: Sign-In with Ethereum](https://eips.ethereum.org/EIPS/eip-4361): Off-chain authentication for Ethereum accounts to establish sessions.

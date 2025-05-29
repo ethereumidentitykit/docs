@@ -1,67 +1,59 @@
-## Markdown for Machines
->_Large language models increasingly rely on website information, but face a critical limitation: context windows are too small to handle most websites in their entirety. Converting complex HTML pages with navigation, ads, and JavaScript into LLM-friendly plain text is both difficult and imprecise._
-
->_While websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. This is particularly important for use cases like development environments, where LLMs need quick access to programming documentation and APIs._
-
-> -- from https://llmstxt.org/
-
-
 ## LLM Context files
 
-In accordance with the [llms.txt](https://llmstxt.org/) standard, EIK provides four sets of context files with both minimal and full context:
+The following context files adhere to the [llms.txt standard](https://llmstxt.org/).
 
-### EIK - Ethereum Identity Kit
-- [https://ethidentitykit.com/llms/eik/llms.txt](https://ethidentitykit.com/llms/eik/llms.txt) Minimal EIK context for remote agents [<a href="https://ethidentitykit.com/llms/eik/llms.txt" download="llms.txt">Download</a>]
-- [https://ethidentitykit.com/llms/eik/llms-full.txt](https://ethidentitykit.com/llms/eik/llms-full.txt) Full EIK context for local agents [<a href="https://ethidentitykit.com/llms/eik/llms-full.txt" download="llms-full.txt">Download</a>]
+### Complete Ethereum Identity Stack
 
-### EFP - Ethereum Follow Protocol
-- [https://ethidentitykit.com/llms/efp/llms.txt](https://ethidentitykit.com/llms/efp/llms.txt) Minimal EFP context for remote agents [<a href="https://ethidentitykit.com/llms/efp/llms.txt" download="llms.txt">Download</a>]
-- [https://ethidentitykit.com/llms/efp/llms-full.txt](https://ethidentitykit.com/llms/efp/llms-full.txt) Full EFP context for local agents [<a href="https://ethidentitykit.com/llms/efp/llms-full.txt" download="llms-full.txt">Download</a>]
-
-### ENS - Ethereum Name Service
-- [https://ethidentitykit.com/llms/ens/llms.txt](https://ethidentitykit.com/llms/ens/llms.txt) Minimal ENS context for remote agents [<a href="https://ethidentitykit.com/llms/ens/llms.txt" download="llms.txt">Download</a>]
-- [https://ethidentitykit.com/llms/ens/llms-full.txt](https://ethidentitykit.com/llms/ens/llms-full.txt) Full ENS context for local agents [<a href="https://ethidentitykit.com/llms/ens/llms-full.txt" download="llms-full.txt">Download</a>]
-
-### SIWE - Sign In With Ethereum
-- [https://ethidentitykit.com/llms/siwe/llms.txt](https://ethidentitykit.com/llms/siwe/llms.txt) Minimal SIWE context for remote agents [<a href="https://ethidentitykit.com/llms/siwe/llms.txt" download="llms.txt">Download</a>]
-- [https://ethidentitykit.com/llms/siwe/llms-full.txt](https://ethidentitykit.com/llms/siwe/llms-full.txt) Full SIWE context for local agents [<a href="https://ethidentitykit.com/llms/siwe/llms-full.txt" download="llms-full.txt">Download</a>]
-
-### Aggregated Ethereum Identity Context
-
-The above sets of LLM context files are also provided together as an aggregated 'Ethereum Identity Context':
-- [https://ethidentitykit.com/llms/aggr/llms.txt](https://ethidentitykit.com/llms/aggr/llms.txt) Minimal aggregated identity context for remote agents [<a href="https://ethidentitykit.com/llms/aggr/llms.txt" download="llms.txt">Download</a>]
-- [https://ethidentitykit.com/llms/aggr/llms-full.txt](https://ethidentitykit.com/llms/aggr/llms-full.txt) Full aggregated identity context for local agents [<a href="https://ethidentitykit.com/aggr/siwe/llms-full.txt" download="llms-full.txt">Download</a>]
+Combined LLM context for Ethereum Identity Kit, ENS, EFP, and Sign in with Ethereum.
+- **Minimal**: [https://ethidentitykit.com/llms/complete/llms.txt](https://ethidentitykit.com/llms/complete/llms.txt) [<a href="https://ethidentitykit.com/llms/complete/llms.txt" download="llms.txt">Download</a>]
+- **Full**: [https://ethidentitykit.com/llms/complete/llms-full.txt](https://ethidentitykit.com/llms/complete/llms-full.txt) [<a href="https://ethidentitykit.com/complete/siwe/llms-full.txt" download="llms-full.txt">Download</a>]
 
 ---
-> ⚠️ **CAUTION**
->
-> EIK's implementation of `llms.txt` is experimental.  Users should remain aware that large language models and agents can 'hallucinate' responses or return otherwise inaccurate data.  Any data returned from an LLM or AI Agent should not be used for critical operations and should be used for educational purposes only
+
+### Individual Elements
+
+#### Ethereum Identity Kit 
+[Ethereum Identity Kit](https://ethidentitykit.com) is a component library for the Ethereum identity stack. Context includes docs, API, components, and React hooks.
+
+- **Minimal**: [https://ethidentitykit.com/llms/eik/llms.txt](https://ethidentitykit.com/llms/eik/llms.txt) [<a href="https://ethidentitykit.com/llms/eik/llms.txt" download="llms.txt">Download</a>]
+- **Full**: [https://ethidentitykit.com/llms/eik/llms-full.txt](https://ethidentitykit.com/llms/eik/llms-full.txt) [<a href="https://ethidentitykit.com/llms/eik/llms-full.txt" download="llms-full.txt">Download</a>]
+
+
+#### Ethereum Follow Protocol (EFP)
+[Ethereum Follow Protocol](https://efp.app) is an onchain social graph protocol for Ethereum accounts. Context includes smart contracts, spec, docs, and API.
+
+- **Minimal**: [https://ethidentitykit.com/llms/efp/llms.txt](https://ethidentitykit.com/llms/efp/llms.txt) [<a href="https://ethidentitykit.com/llms/efp/llms.txt" download="llms.txt">Download</a>]
+- **Full**: [https://ethidentitykit.com/llms/efp/llms-full.txt](https://ethidentitykit.com/llms/efp/llms-full.txt) [<a href="https://ethidentitykit.com/llms/efp/llms-full.txt" download="llms-full.txt">Download</a>]
+
+
+#### Ethereum Name Service (ENS)
+[Ethereum Name Service](https://ens.domains) is an onchain naming and profile system. Context includes smart contracts, spec, docs, ENSIPs, and DAO governance information.
+
+- **Minimal**: [https://ethidentitykit.com/llms/ens/llms.txt](https://ethidentitykit.com/llms/ens/llms.txt) [<a href="https://ethidentitykit.com/llms/ens/llms.txt" download="llms.txt">Download</a>]
+- **Full**: [https://ethidentitykit.com/llms/ens/llms-full.txt](https://ethidentitykit.com/llms/ens/llms-full.txt) [<a href="https://ethidentitykit.com/llms/ens/llms-full.txt" download="llms-full.txt">Download</a>]
+
+
+#### Sign In With Ethereum (SIWE)
+[Sign in with Ethereum](https://login.xyz) is a authentication standard for Ethereum accounts. Context includes EIP, docs, and implementation libraries.
+
+- **Minimal**: [https://ethidentitykit.com/llms/siwe/llms.txt](https://ethidentitykit.com/llms/siwe/llms.txt) [<a href="https://ethidentitykit.com/llms/siwe/llms.txt" download="llms.txt">Download</a>]
+- **Full**: [https://ethidentitykit.com/llms/siwe/llms-full.txt](https://ethidentitykit.com/llms/siwe/llms-full.txt) [<a href="https://ethidentitykit.com/llms/siwe/llms-full.txt" download="llms-full.txt">Download</a>]
+
+
+---
+⚠️ **CAUTION**
+
+Large language models and agents can sometimes ‘hallucinate’ responses or return otherwise inaccurate data.
+
 ---
 
 ### Why Use `llms.txt`?
 
-`llms.txt` is a standardized file format designed to help **Large Language Models (LLMs)** discover and understand the content and capabilities of a website or service. Here are key reasons to adopt it:
+From [llmstxt.org](https://llmstxt.org/):
 
-#### 1. Improves LLM Discovery
+>_Large language models increasingly rely on website information, but face a critical limitation: context windows are too small to handle most websites in their entirety. Converting complex HTML pages with navigation, ads, and JavaScript into LLM-friendly plain text is both difficult and imprecise._
 
-Gives LLMs a clear, machine-readable way to index important site content, enabling better answers and interactions when users ask questions about the site.
+>_While websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. This is particularly important for use cases like development environments, where LLMs need quick access to programming documentation and APIs._
 
-#### 2. Enables Smarter LLM Integrations
 
-When an LLM knows what your site offers — including `API` endpoints, documentation, product pages, or support materials — it can guide users more effectively to the right resources.
 
-#### 3. Increases Visibility and Usage
-
-Structured exposure through `llms.txt` can boost traffic to your site, tools, or APIs by making them more accessible in AI-driven interfaces like ChatGPT or other assistants.
-
-#### 4. Enhances Content Control
-
-Site owners can explicitly define what content they want LLMs to use or ignore, offering more editorial control over how their services are presented in AI conversations.
-
-#### 5. Supports AI Assistant Use Cases
-
-Helps your service become part of the emerging _AI-native web_, where users rely on assistants to interact with APIs, fetch data, or answer questions about your platform.
-
-#### 6. Simple to Implement
-
-Like `robots.txt` or `sitemap.xml`, it’s just a static text file served at a known location.

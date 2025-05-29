@@ -14,6 +14,7 @@
 - [contracts-index](https://docs.ens.domains/contracts/index): The Ethereum Name Service Smart Contracts Overview
 - [dns-tlds](https://docs.ens.domains/dns/tlds): Alongside the `.eth` Top Level Domain, the ENS Protocol also supports most of your favourite DNS Top Level Domains (such as `.com`, `.cash` or `.domains`).
 - [changelog](https://docs.ens.domains/changelog): This page contains a list of changes and events that happened to the ENS protocol & ecosystem.
+- [ens-discussion](https://discuss.ens.domains/) Ethereum Name Service Discussion Board
 
 ## Registry
 

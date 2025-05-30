@@ -6,6 +6,7 @@ export default {
   useUserInfo: 'useUserInfo',
   useFollowersAndFollowing: 'useFollowersAndFollowing',
   useFollowButton: 'useFollowButton',
+  useSiwe: 'useSiwe',
   useTransactions: 'useTransactions',
   useNotifications: 'useNotifications',
 }

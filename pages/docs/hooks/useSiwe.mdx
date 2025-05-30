@@ -1,0 +1,141 @@
+import { Callout } from 'nextra/components'
+
+# useSiwe
+
+The `useSiwe` hook provides functionality for implementing [Sign in with Ethereum (SIWE)](https://login.xyz/) authentication. It handles the complete SIWE flow including message creation, wallet signing, and backend verification while managing loading states and error handling.
+
+### Add to your project
+
+```tsx copy
+import { useSiwe } from 'ethereum-identity-kit'
+
+export default function SignInComponent() {
+  const handleVerifySignature = async (message: string, signature: string) => {
+    // Verify signature on your backend
+    const response = await fetch('/api/verify-siwe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, signature }),
+    })
+    return response.ok
+  }
+
+  const handleGetNonce = async () => {
+    // Get nonce from your backend
+    const response = await fetch('/api/siwe-nonce')
+    const { nonce } = await response.json()
+    return nonce
+  }
+
+  const { handleSignIn, isSigningMessage } = useSiwe({
+    verifySignature: handleVerifySignature,
+    getNonce: handleGetNonce,
+    onSignInSuccess: ({ address, message, signature }) => {
+      console.log('Sign in successful!', { address, message, signature })
+    },
+    onSignInError: (error) => {
+      console.error('Sign in failed:', error)
+    },
+    statement: 'Sign in to access your account',
+    expirationTime: 300000, // 5 minutes in milliseconds
+  })
+
+  return (
+    <button onClick={handleSignIn} disabled={isSigningMessage}>
+      {isSigningMessage ? 'Signing Message...' : 'Sign In with Ethereum'}
+    </button>
+  )
+}
+```
+
+## Parameters
+
+| Parameter         | Description                                                                                 | Required | Default Value  |
+| ----------------- | ------------------------------------------------------------------------------------------- | -------- | -------------- |
+| `verifySignature` | Function to verify the signature on your backend. Receives message and signature as params. | Yes      | -              |
+| `getNonce`        | Function to get a nonce from your backend for security.                                     | Yes      | -              |
+| `statement`       | The statement to display to the user during authentication.                                 | No       | -              |
+| `onSignInSuccess` | Callback function called when the user signs in successfully.                               | No       | -              |
+| `onSignInError`   | Callback function called when sign in fails. Receives error as parameter.                   | No       | -              |
+| `expirationTime`  | The expiration time of the nonce in milliseconds.                                           | No       | 300000 (5 min) |
+
+<Callout type="warning">
+  Both `verifySignature` and `getNonce` functions are required for the hook to work properly. Ensure your backend
+  properly validates signatures and manages nonces to maintain security.
+</Callout>
+
+## Return Values
+
+| Return Value       | Description                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `handleSignIn`     | Function to initiate the SIWE authentication flow. Handles message creation and signing. |
+| `isSigningMessage` | Boolean indicating if a message is currently being signed by the user's wallet.          |
+
+## SIWE Message Parameters
+
+The hook automatically creates a SIWE message with the following parameters:
+
+- **Domain**: Current window host
+- **Address**: Connected wallet address
+- **Statement**: Custom statement provided in hook parameters
+- **URI**: Current window origin
+- **Version**: SIWE version (always "1")
+- **Chain ID**: Current blockchain network ID
+- **Nonce**: Secure nonce from your backend
+- **Issued At**: Current timestamp
+- **Expiration Time**: Calculated from `expirationTime` parameter
+
+## Error Handling
+
+The hook provides comprehensive error handling for common scenarios:
+
+- **User Rejection**: When users reject the signature request
+- **Network Issues**: Connection problems during backend verification
+- **Invalid Signatures**: Backend verification failures
+- **Missing Requirements**: No connected wallet or chain ID
+
+<Callout type="info">
+  The hook automatically detects when users reject signature requests and provides appropriate error messages. All
+  errors are passed to the `onSignInError` callback if provided.
+</Callout>
+
+## Backend Integration Requirements
+
+To use this hook, you'll need to implement two backend endpoints:
+
+### 1. Nonce Generation (`getNonce`)
+
+```typescript
+// Example implementation
+export async function GET() {
+  const nonce = generateSecureNonce()
+  // Store nonce in session/database
+  return Response.json({ nonce })
+}
+```
+
+### 2. Signature Verification (`verifySignature`)
+
+```typescript
+// Example implementation
+export async function POST(request: Request) {
+  const { message, signature } = await request.json()
+
+  try {
+    const siweMessage = new SiweMessage(message)
+    const result = await siweMessage.verify({ signature })
+
+    if (result.success) {
+      // Create user session
+      return Response.json({ success: true })
+    }
+  } catch (error) {
+    return Response.json({ error: 'Invalid signature' }, { status: 400 })
+  }
+}
+```
+
+<Callout type="info">
+  The hook uses wagmi's `useSignMessage` hook internally and requires a wallet to be connected. Ensure your application
+  has proper wallet connection setup before using this hook.
+</Callout>{' '}

@@ -6,6 +6,7 @@ export default {
   'list-ops': 'List Operations',
   profile: 'Profile',
   'generate-slot': 'Generate Slot',
+  siwe: 'SIWE',
   // address: 'Address',
   api: 'API Functions',
 }

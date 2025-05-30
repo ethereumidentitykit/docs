@@ -11,5 +11,5 @@ export default {
   'transaction-modal': 'Transaction Modal',
   'transaction-provider': 'Transaction Provider',
   notifications: 'Notifications',
-  'siwe-button': 'SIWE Button - (Coming Soon)',
+  'siwe-button': 'SIWE Button',
 }

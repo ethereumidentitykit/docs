@@ -22,3 +22,10 @@
   color: light-dark(white, black);
   background: light-dark(black, white);
 }
+
+.siwe-container .sign-in-with-ethereum-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

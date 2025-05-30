@@ -1,0 +1,105 @@
+# SIWE
+
+The SIWE utilities provide functions for creating and formatting Sign in with Ethereum (SIWE) messages according to the [EIP-4361](https://eips.ethereum.org/EIPS/eip-4361) standard.
+
+## Import
+
+```tsx
+import { createSiweMessageString } from 'ethereum-identity-kit'
+
+// For server side usage
+import { createSiweMessageString } from 'ethereum-identity-kit/utils'
+```
+
+## Functions
+
+### createSiweMessageString
+
+Creates a properly formatted SIWE message string from the provided parameters according to the EIP-4361 specification.
+
+```tsx
+const message = createSiweMessageString({
+  domain: 'example.com',
+  address: '0x1234567890123456789012345678901234567890',
+  uri: 'https://example.com',
+  version: '1',
+  chainId: 1,
+  nonce: 'abcd1234',
+  issuedAt: '2023-10-01T12:00:00.000Z',
+  statement: 'Sign in to access your account',
+  expirationTime: '2023-10-01T12:05:00.000Z',
+})
+```
+
+#### Parameters
+
+| Parameter        | Type     | Description                                                                       | Required |
+| ---------------- | -------- | --------------------------------------------------------------------------------- | -------- |
+| `domain`         | string   | The domain that is requesting the signing                                         | Yes      |
+| `address`        | string   | Ethereum address performing the signing                                           | Yes      |
+| `uri`            | string   | A URI the user is signing in to                                                   | Yes      |
+| `version`        | string   | Current version of the SIWE Message (should be "1")                               | Yes      |
+| `chainId`        | number   | EIP-155 Chain ID to which the session is bound                                    | Yes      |
+| `nonce`          | string   | Randomized token to prevent replay attacks                                        | Yes      |
+| `issuedAt`       | string   | ISO 8601 datetime string of when the message was generated                        | Yes      |
+| `statement`      | string   | Human-readable ASCII assertion that the user will sign                            | No       |
+| `expirationTime` | string   | ISO 8601 datetime string of when the signed authentication expires                | No       |
+| `notBefore`      | string   | ISO 8601 datetime string of when the signed authentication becomes valid          | No       |
+| `requestId`      | string   | System-specific identifier that may be used to refer back to the request          | No       |
+| `resources`      | string[] | List of information or references to information the user wishes to have resolved | No       |
+| `scheme`         | string   | The scheme of the URI (typically omitted for web applications)                    | No       |
+
+#### Return Value
+
+Returns a string containing the properly formatted SIWE message that conforms to the EIP-4361 standard.
+
+#### Example Output
+
+```
+example.com wants you to sign in with your Ethereum account:
+0x1234567890123456789012345678901234567890
+
+Sign in to access your account
+
+URI: https://example.com
+Version: 1
+Chain ID: 1
+Nonce: abcd1234
+Issued At: 2023-10-01T12:00:00.000Z
+Expiration Time: 2023-10-01T12:05:00.000Z
+```
+
+#### Example with All Parameters
+
+```tsx
+const message = createSiweMessageString({
+  scheme: 'https',
+  domain: 'example.com',
+  address: '0x1234567890123456789012345678901234567890',
+  statement: 'I accept the ExampleOrg Terms of Service: https://example.com/tos',
+  uri: 'https://example.com/login',
+  version: '1',
+  chainId: 1,
+  nonce: 'abcd1234',
+  issuedAt: '2023-10-01T12:00:00.000Z',
+  expirationTime: '2023-10-01T12:05:00.000Z',
+  notBefore: '2023-10-01T11:55:00.000Z',
+  requestId: 'request-123',
+  resources: ['https://example.com/my-web2-claim.json', 'https://example.com/my-web3-claim.json'],
+})
+```
+
+#### Technical Details
+
+- The function formats the message according to the exact specification in EIP-4361
+- Required fields are always included in a specific order
+- Optional fields are only included if provided and non-empty
+- Resources are formatted as a bulleted list if provided
+- The message structure ensures compatibility with SIWE verification libraries
+
+#### Use Cases
+
+- **Authentication**: Creating messages for wallet-based authentication
+- **Session Management**: Generating time-bound authentication tokens
+- **Access Control**: Creating signed messages for resource access
+- **Integration**: Building SIWE-compatible authentication flows

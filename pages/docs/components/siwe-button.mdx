@@ -1,1 +1,135 @@
-# Sign in with Ethereum Button (Coming Soon)
+import { Callout } from 'nextra/components'
+import { generateClientSideNonce } from '@/utils/siwe'
+import { SignInWithEthereum } from 'ethereum-identity-kit'
+
+# Sign in with Ethereum Button
+
+The Sign in with Ethereum (SIWE) Button component provides a secure authentication method allowing users to sign in using their Ethereum wallet. It implements the [Sign in with Ethereum](https://login.xyz/) standard for decentralized authentication.
+
+The component features:
+
+- Ethereum wallet-based authentication
+- Customizable authentication message
+- Loading states during signing
+
+### Add to your project
+
+```tsx copy
+import { SignInWithEthereum } from 'ethereum-identity-kit'
+
+export default function LoginPage() {
+  const handleVerifySignature = async (message: string, nonce: string, signature: string) => {
+    // Verify signature on your backend
+    const response = await fetch('/api/verify-siwe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, nonce, signature }),
+    })
+    return response.ok
+  }
+
+  const handleGetNonce = async () => {
+    // Get nonce from your backend
+    const response = await fetch('/api/siwe-nonce')
+    const { nonce } = await response.json()
+    return nonce
+  }
+
+  return (
+    <SignInWithEthereum
+      message="Sign in to access your account"
+      verifySignature={handleVerifySignature}
+      getNonce={handleGetNonce}
+      onSignInSuccess={() => console.log('Sign in successful!')}
+      onSignInError={(error) => console.error('Sign in failed:', error)}
+    />
+  )
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-sign-in-with-ethereum--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-sign-in-with-ethereum--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-6 flex justify-center items-center">
+  <SignInWithEthereum
+    message="Ethereum Identity Kit says hi!"
+    onSignInSuccess={() => {}}
+    onSignInError={() => {}}
+    getNonce={generateClientSideNonce}
+    verifySignature={() => {
+      console.log('signature verified')
+    }}
+  />
+</div>
+
+## Parameters
+
+| Parameter         | Description                                                                                         | Required | Default Value |
+| ----------------- | --------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| `verifySignature` | Function to verify the signature on your backend. Receives message, nonce, and signature as params. | Yes      | -             |
+| `getNonce`        | Function to get a nonce from your backend for security.                                             | Yes      | -             |
+| `message`         | The message to display to the user during authentication.                                           | No       | -             |
+| `onSignInSuccess` | Callback function called when the user signs in successfully.                                       | No       | -             |
+| `onSignInError`   | Callback function called when sign in fails. Receives error as parameter.                           | No       | -             |
+| `darkMode`        | Enables dark mode styling for the button.                                                           | No       | false         |
+| `expirationTime`  | The expiration time of the nonce in minutes.                                                        | No       | 5             |
+
+## Backend Integration
+
+To use the Sign in with Ethereum button, you'll need to implement two backend endpoints:
+
+### Nonce Generation Endpoint
+
+```typescript
+// Example: /api/siwe-nonce
+export async function GET() {
+  const nonce = generateNonce() // Generate a secure random nonce
+  // Store nonce in session/database for verification
+  return Response.json({ nonce })
+}
+```
+
+### Signature Verification Endpoint
+
+```typescript
+// Example: /api/verify-siwe
+export async function POST(request: Request) {
+  const { message, signature } = await request.json()
+
+  try {
+    const siweMessage = new SiweMessage(message)
+    const result = await siweMessage.verify({ signature })
+
+    if (result.success) {
+      // Create user session, JWT, etc.
+      return Response.json({ success: true })
+    }
+  } catch (error) {
+    return Response.json({ error: 'Invalid signature' }, { status: 400 })
+  }
+}
+```
+
+<Callout type="warning">
+  Both `verifySignature` and `getNonce` functions are required for the component to work properly. Ensure your backend
+  properly validates signatures and manages nonces to maintain security.
+</Callout>
+
+<Callout type="info">
+  The component automatically handles wallet connection prompts and message signing. The button text changes to "Signing
+  Message..." during the authentication process and is disabled to prevent multiple simultaneous attempts.
+</Callout>
+
+<Callout type="info">
+  The component uses predefined styles and can be further customized using CSS classes. The appearance can be manually
+  toggled between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your
+  application, the component will automatically use that.
+</Callout>

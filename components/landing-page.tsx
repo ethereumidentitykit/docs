@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useAccount } from 'wagmi'
 import React, { useState } from 'react'
-import { ProfileCard } from 'ethereum-identity-kit'
+import { ProfileCard, SignInWithEthereum } from 'ethereum-identity-kit'
 
 import efp from '/public/assets/efp.png'
 import ens from '/public/assets/ens.png'
@@ -12,8 +12,8 @@ import siwe from '/public/assets/siwe.png'
 import FollowButton from './follow-button'
 import Copy from '/public/assets/icons/copy.svg'
 import Check from '/public/assets/icons/check.svg'
-import Ethereum from '/public/assets/icons/ethereum.svg'
 import ArrowDown from '/public/assets/icons/arrow-down.svg'
+import { generateClientSideNonce } from '@/utils/siwe'
 
 const Home = () => {
   const [copied, setCopied] = useState(false)
@@ -74,18 +74,17 @@ const Home = () => {
         <div className="z-50 flex flex-col items-center xl:items-end w-full xl:w-1/2 gap-24 sm:gap-32 xl:gap-36">
           <div className="flex items-start">
             <div className="flex flex-col items-end translate-x-0 sm:translate-x-8 translate-y-14 z-50">
-              <div className="bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
-                <button className="flex items-center w-full justify-center gap-3 border-white group hover:bg-white text-white hover:text-black transition-all border-2 rounded-sm p-4 [box-shadow:3px_3px_1px_0px_rgba(255,255,255,0.8)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5">
-                  <Image
-                    src={Ethereum}
-                    alt="EFP Logo"
-                    width={18}
-                    height={18}
-                    className="group-hover:invert transition-all"
-                  />
-                  <p className=" font-bold text-xl">Sign in with Ethereum</p>
-                </button>
-
+              <div className="siwe-container bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
+                <SignInWithEthereum
+                  message="Ethereum Identity Kit says hi!"
+                  onSignInSuccess={() => {}}
+                  onSignInError={() => {}}
+                  getNonce={generateClientSideNonce}
+                  verifySignature={() => {
+                    console.log('signature verified')
+                  }}
+                  darkMode={true}
+                />
                 <div className="bg-[#222] p-4 w-full flex text-sm font-medium rounded-sm flex-col gap-4">
                   <div className="flex items-center justify-between w-full">
                     <p className="font-bold">Message</p>

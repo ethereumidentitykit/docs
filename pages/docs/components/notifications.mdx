@@ -4,6 +4,7 @@ description: A notification bell component that displays user notifications in a
 ---
 
 import { Callout } from 'nextra/components'
+import { Notifications } from 'ethereum-identity-kit'
 
 # Notifications
 
@@ -26,6 +27,27 @@ import { Notifications } from '@efp/identity-kit'
   onProfileClick={(address) => console.log(address)}
 />
 ```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/organisms-notifications--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-notifications--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-6 overflow-hidden flex h-[60vh]">
+  <Notifications
+    addressOrName="brantly.eth"
+    position="right"
+    align="bottom"
+    darkMode={true}
+    onProfileClick={(address) => window.open(`https://efp.app/${address}`, '_blank')}
+  />
+</div>
 
 ## Props
 

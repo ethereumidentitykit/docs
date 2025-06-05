@@ -9,4 +9,5 @@ export default {
   useSiwe: 'useSiwe',
   useTransactions: 'useTransactions',
   useNotifications: 'useNotifications',
+  useTranslation: 'useTranslation',
 }

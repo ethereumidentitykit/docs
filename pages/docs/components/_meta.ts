@@ -12,4 +12,5 @@ export default {
   'transaction-provider': 'Transaction Provider',
   notifications: 'Notifications',
   'siwe-button': 'SIWE Button',
+  'translation-provider': 'Translation Provider',
 }

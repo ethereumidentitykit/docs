@@ -1,0 +1,136 @@
+import { Callout } from 'nextra/components'
+
+# useTranslation
+
+The `useTranslation` hook provides internationalization support for the Ethereum Identity Kit. It allows you to access translation functionality, manage the active language, and switch between available languages in your application.
+
+<Callout type="warning">
+  This hook provides default English translations when used outside of a
+  [TranslationProvider](/docs/components/translation-provider) context. For full internationalization support, wrap your
+  component with [TranslationProvider](/docs/components/translation-provider).
+</Callout>
+
+<Callout type="info">
+  The hook gracefully falls back to English translations and provides a no-op setLanguage function when no provider is
+  available, ensuring your application remains functional.
+</Callout>
+
+### Add to your project
+
+```tsx copy
+import { useTranslation } from 'ethereum-identity-kit'
+
+export default function TranslatedComponent() {
+  const { t, activeLanguage, availableLanguages, setLanguage } = useTranslation()
+
+  return (
+    <div>
+      <h1>{t('welcome.title')}</h1>
+      <p>{t('welcome.description')}</p>
+
+      <div>
+        <span>Current Language: {activeLanguage}</span>
+        <select value={activeLanguage} onChange={(e) => setLanguage(e.target.value)}>
+          {availableLanguages.map((lang) => (
+            <option key={lang} value={lang}>
+              {lang.toUpperCase()}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  )
+}
+```
+
+## Return Values
+
+| Return Value         | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `t`                  | Translation function to get localized strings.           |
+| `activeLanguage`     | Currently active language code (e.g., 'en', 'es', 'fr'). |
+| `availableLanguages` | Array of available language codes.                       |
+| `setLanguage`        | Function to change the active language.                  |
+
+### `t`
+
+**Description**:  
+The translation function that returns localized strings based on the provided key. When no TranslationProvider is available, it defaults to English translations.
+
+**Example**:
+
+```tsx
+const { t } = useTranslation()
+
+// Basic translation
+const welcomeText = t('welcome.message')
+
+// Translation with parameters (if supported by your translation function)
+const personalizedGreeting = t('greeting.user', { name: 'Alice' })
+```
+
+### `activeLanguage`
+
+**Description**:  
+A string representing the currently active language code. Defaults to 'en' when no TranslationProvider is available.
+
+**Example**:
+
+```tsx
+const { activeLanguage } = useTranslation()
+console.log(`Current language: ${activeLanguage}`) // Current language: en
+```
+
+### `availableLanguages`
+
+**Description**:  
+An array of available language codes that users can switch between. Defaults to `['en']` when no TranslationProvider is available.
+
+**Example**:
+
+```tsx
+const { availableLanguages } = useTranslation()
+
+// Display language selector
+return (
+  <select>
+    {availableLanguages.map((lang) => (
+      <option key={lang} value={lang}>
+        {lang.toUpperCase()}
+      </option>
+    ))}
+  </select>
+)
+```
+
+### `setLanguage`
+
+**Description**:  
+A function to change the active language. When no TranslationProvider is available, this function is a no-op (does nothing).
+
+**Example**:
+
+```tsx
+const { setLanguage } = useTranslation()
+
+// Change language to Spanish
+const handleLanguageChange = (newLanguage: string) => {
+  setLanguage(newLanguage)
+}
+
+// In a click handler
+;<button onClick={() => setLanguage('es')}>Switch to Spanish</button>
+```
+
+### Notes
+
+- The hook provides graceful fallbacks when used outside of a TranslationProvider context
+- Default behavior includes English translations and a single 'en' language option
+- The `setLanguage` function will be a no-op when no provider is available
+- For full internationalization features, ensure your component tree is wrapped with a TranslationProvider
+- Translation keys should follow a consistent naming convention (e.g., 'section.subsection.key')
+
+<Callout type="info">
+  Consider implementing a TranslationProvider at your application root to take full advantage of the
+  internationalization features provided by this hook.
+</Callout>{' '}

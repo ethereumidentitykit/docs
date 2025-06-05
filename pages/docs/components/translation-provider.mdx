@@ -1,0 +1,280 @@
+# Translation
+
+Ethereum Identity Kit supports native internationalization (i18n). This guide shows you how to integrate translations with your existing i18n setup.
+
+## Overview
+
+The library uses a **flexible translation system** that supports:
+
+- Multiple languages with automatic fallbacks
+- JSON translation files
+- Dynamic language switching
+- Integration with existing i18n solutions (react-i18next, react-intl, etc.)
+- Backward compatibility with the simple translation function approach
+
+## Playground demo
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/organisms-translation-system--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-translation-system--component-docs'}
+  </span>
+</a>
+
+## Quick Start
+
+### Method 1: Multiple Languages with Objects
+
+```tsx
+import { TranslationProvider, ProfileCard, useTranslation } from 'ethereum-identity-kit'
+
+const translations = {
+  en: {
+    signInWithEthereum: 'Sign in with Ethereum',
+    follow: 'Follow',
+    unfollow: 'Unfollow',
+  },
+  fr: {
+    signInWithEthereum: 'Se connecter avec Ethereum',
+    follow: 'Suivre',
+    unfollow: 'Ne plus suivre',
+  },
+  es: {
+    signInWithEthereum: 'Iniciar sesión con Ethereum',
+    follow: 'Seguir',
+    unfollow: 'Dejar de seguir',
+  },
+}
+
+function LanguageSwitcher() {
+  const { activeLanguage, availableLanguages, setLanguage } = useTranslation()
+
+  return (
+    <select value={activeLanguage} onChange={(e) => setLanguage(e.target.value)}>
+      {availableLanguages.map((lang) => (
+        <option key={lang} value={lang}>
+          {lang.toUpperCase()}
+        </option>
+      ))}
+    </select>
+  )
+}
+
+function App() {
+  return (
+    <TranslationProvider translations={translations} activeLanguage="fr" fallbackLanguage="en">
+      <LanguageSwitcher />
+      <ProfileCard addressOrName="0x..." />
+    </TranslationProvider>
+  )
+}
+```
+
+### Method 2: Loading from JSON Files
+
+```tsx
+import { TranslationProvider, ProfileCard, loadTranslationsFromJSON } from 'ethereum-identity-kit'
+
+function App() {
+  const [translations, setTranslations] = useState(null)
+
+  useEffect(() => {
+    loadTranslationsFromJSON({
+      en: '/locales/en.json',
+      fr: '/locales/fr.json',
+      es: '/locales/es.json',
+    }).then(setTranslations)
+  }, [])
+
+  return (
+    <TranslationProvider translationsFromJSON={translations} activeLanguage="fr">
+      <ProfileCard addressOrName="0x..." />
+    </TranslationProvider>
+  )
+}
+```
+
+### Method 3: Custom Translation Function (Backward Compatible)
+
+```tsx
+import { useTranslation } from 'react-i18next'
+import { TranslationProvider, ProfileCard } from 'ethereum-identity-kit'
+
+function App() {
+  const { t } = useTranslation()
+
+  const translateFn = (key, fallback) => {
+    return t(`ethereumIdentityKit.${key}`, { defaultValue: fallback })
+  }
+
+  return (
+    <TranslationProvider translateFn={translateFn}>
+      <ProfileCard addressOrName="0x..." />
+    </TranslationProvider>
+  )
+}
+```
+
+## Translation Provider Options
+
+The `TranslationProvider` accepts the following props:
+
+```tsx
+interface TranslationConfig {
+  // Option 1: Custom translation function (for advanced integration)
+  translateFn?: (key: TranslationKey, fallback?: string) => string
+
+  // Option 2: Direct translation objects
+  translations?: Record<string, Partial<Record<TranslationKey, string>>>
+
+  // Option 3: Translations loaded from JSON files
+  translationsFromJSON?: Record<string, Partial<Record<TranslationKey, string>>>
+
+  // Active language code (e.g., 'en', 'fr', 'es')
+  activeLanguage?: string
+
+  // Fallback language when translation is missing (defaults to 'en')
+  fallbackLanguage?: string
+}
+```
+
+## JSON Translation Files
+
+Create JSON files for each language. Here's an example structure:
+
+**en.json**
+
+```json
+{
+  "signInWithEthereum": "Sign in with Ethereum",
+  "signingMessage": "Signing Message...",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "following": "Following",
+  "loading": "Loading..."
+}
+```
+
+**fr.json**
+
+```json
+{
+  "signInWithEthereum": "Se connecter avec Ethereum",
+  "signingMessage": "Signature du message...",
+  "follow": "Suivre",
+  "unfollow": "Ne plus suivre",
+  "following": "Suivi",
+  "loading": "Chargement..."
+}
+```
+
+## Dynamic Language Switching
+
+Use the `useTranslation` hook to access language switching functionality:
+
+```tsx
+import { useTranslation } from 'ethereum-identity-kit'
+
+function LanguageSelector() {
+  const {
+    activeLanguage, // Current active language
+    availableLanguages, // Array of available language codes
+    setLanguage, // Function to switch languages
+  } = useTranslation()
+
+  return (
+    <div>
+      <p>Current language: {activeLanguage}</p>
+      {availableLanguages.map((lang) => (
+        <button key={lang} onClick={() => setLanguage(lang)} disabled={lang === activeLanguage}>
+          {lang}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+## Advanced Examples
+
+For more advanced usage patterns, see [Advanced Translation Examples](./examples/advanced-i18n-examples.md) which covers:
+
+- Mixed JSON + custom translations
+- Environment-based language detection
+- Integration with existing i18n libraries
+- Partial translations with fallbacks
+- Performance optimization techniques
+
+## Example JSON Files
+
+- english (en) - https://github.com/ethereumidentitykit/ethereum-identity-kit/blob/ethereum-identity-kit-0.2.48/src/translations/en.json
+- spanish (es) - https://github.com/ethereumidentitykit/ethereum-identity-kit/blob/ethereum-identity-kit-0.2.48/src/translations/es.json
+- french (fr) - https://github.com/ethereumidentitykit/ethereum-identity-kit/blob/ethereum-identity-kit-0.2.48/src/translations/fr.json
+
+## Helper Functions
+
+### loadTranslationsFromJSON
+
+Utility function to load translations from JSON files:
+
+```tsx
+import { loadTranslationsFromJSON } from 'ethereum-identity-kit'
+
+const translations = await loadTranslationsFromJSON({
+  en: '/locales/en.json',
+  fr: '/locales/fr.json',
+  es: '/locales/es.json',
+})
+```
+
+### defaultTranslations
+
+Import default English translations to use as a base:
+
+```tsx
+import { defaultTranslations, TranslationKey } from 'ethereum-identity-kit'
+
+const myTranslations: Record<TranslationKey, string> = {
+  ...defaultTranslations,
+  // Override specific translations
+  signInWithEthereum: 'Custom Sign In Text',
+}
+```
+
+## Migration Guide
+
+### From Simple Translation Function
+
+If you were using the simple `translateFn` approach:
+
+```tsx
+// Before (still works)
+<TranslationProvider translateFn={myTranslateFn}>
+
+// New options
+<TranslationProvider translations={multiLangObject}>
+<TranslationProvider translationsFromJSON={loadedTranslations}>
+```
+
+### Adding New Languages
+
+1. Create a new JSON file or add to your translations object
+2. The language will automatically appear in `availableLanguages`
+3. Users can switch to it using `setLanguage(newLang)`
+
+## TypeScript Support
+
+Full TypeScript support with strict typing:
+
+```tsx
+import { TranslationKey, TranslationFunction, TranslationConfig, TranslationsMap } from 'ethereum-identity-kit'
+
+const myTranslations: TranslationsMap = {
+  en: { signInWithEthereum: 'Sign in with Ethereum' },
+  fr: { signInWithEthereum: 'Se connecter avec Ethereum' },
+}
+```

@@ -40189,3 +40189,202 @@ CC0
 
 > Wayne Chang (@wyc), Gregory Rocco (@obstropolos), Brantly Millegan (@brantlymillegan), Nick Johnson (@Arachnid), Oliver Terbu (@awoie), "ERC-4361: Sign-In with Ethereum [DRAFT]," Ethereum Improvement Proposals, no. 4361, October 2021. [Online serial]. Available: https://eips.ethereum.org/EIPS/eip-4361.
 
+---
+
+# Additional Context Regarding the Creation of EFP 
+
+## EFP Creation Proposal 
+
+On April 19 2023 Brantly Millegan introduced the idea of 'Ethereum Follow Protocol' and gave a high level overview of how it would work
+
+The Ethereum Follow Protocol (EFP)
+
+**Thesis: Ethereum needs a native protocol for following other Ethereum accounts.**
+
+This is a high level proposal meant for soliciting feedback and sentiment.
+
+I propose a protocol for following other Ethereum accounts that has its root on Ethereum and natively uses ENS. It should be a simple, open, composable, foundational protocol for the Ethereum ecosystem that makes use of existing Ethereum ecosystem primitives.
+
+Simplicity and extensibility
+EFP should be as simple as possible so as to be open to many use cases:
+- An Ethereum account can create and manage a list of other Ethereum accounts or ENS names. These lists could also theoretically contain any arbitrary data a person would want to store in a list (Twitter handles, email addresses, etc).
+- Like ENS, users can store their list on Ethereum L1, or else they can use CCIP-read to enable users to store their lists at any arbitrary location outside of Ethereum. This could be an Ethereum L2, another L1, a server, AWS, etc. This would enable managing a list for free or very cheap, though it would require an initial L1 setup transaction.
+- A tagging system, with both standardized and arbitrary tags, so that an account can maintain multiple lists for different purposes.
+
+Lists would of course be public and would be “useless” unless utilized by apps. The lists by themselves don’t do anything (except maintain the list).
+
+Since it's simply a list of accounts, it could be used for diverse use cases. Some possibilities include:
+- social graph for a decentralized social network
+- following defi activity for trading purposes
+- following historically important accounts for activity
+- keeping track of important smart-contracts
+- whatever else people decide to do
+
+Another basic primitive
+We already have a few basic primitives for on-chain identity:
+
+- Private keys: Crypto finally achieved with economic incentives what the cypherpunks couldn’t achieve with ideological concerns for privacy and freedom: getting a large number of people to hold and use private keys. Though people generate Ethereum accounts to hold and transact tokens and NFTs, the same private key can be used for other non-blockchain uses, including being the root of an Internet identity.
+- Sign-in with Ethereum: A standard for using your Ethereum private key to authenticate yourself to services, it’s an example of a great non-blockchain use case of your Ethereum private key.
+- ENS: Your portable web3 username and profile, controlled by your private key and paired with SIWE
+
+EFP would be an addition to this growing constellation of composable identity primitives on Ethereum.
+
+Just extend ENS?
+If we were fine making the lists attached to an ENS name (instead of owned by an Ethereum account directly), ENS itself could simply be extended with a new record type to store a list of accounts you follow. I’m open to being convinced this is the superior model.
+
+But my instinct is to have a separate protocol that would have a list owned by an Ethereum account directly (but allow the list to contain both Ethereum addresses and ENS names). To allow portability of one’s list, the list itself could be a transferable NFT.
+
+Having lists be based on Ethereum accounts also follows the precedent of SIWE, which treats the user’s private key as the root of their identity, rather than their ENS name.
+
+The Name
+I’ve used the name Ethereum Follow Protocol in this blog post, though another option could be Ethereum List Protocol. The former is named for what the user does, the latter is named for what the protocol is.
+
+What about Lens?
+Yes, Lens already exists, but it runs on Polygon and has its own naming system, among other things. EFP would be native to Ethereum, be much simpler, and make use of existing Ethereum ecosystem primitives like ENS.
+
+Path Forward
+I want to first get feedback and gauge community sentiment from this high-level post, so please do respond in the tweet replies or in my DMs with comments, support, criticism, questions, etc.
+
+If sentiment is positive, the eventual goal would be an EIP standard, deployed smart-contracts, manager app, and a team for maintenance and further development. (Not sure right now what my involvement would be, but I’d certainly support such an effort.)
+
+---
+
+## The Path to Web3 Identity 
+On May 31, 2023 Brantly Millegan wrote an article on mirror.xyz that outlined the challenges relating to building decentralized protocols and best approaches for building the "Web3 Identity Stack"
+
+TLDR: Unbundle the elements of identity to their smallest viable parts and have separate teams solve them individually with decentralized protocols and open standards. In its mature state, your web3 identity will be the sum of the information and relationships held in various decentralized protocols and open standards, which I call the “web3 identity stack.”
+
+I. Introduction
+
+II. A constellation of problems
+
+III. A constellation of protocols
+
+IV. The existing web3 identity stack
+
+V. What to build next
+
+VI. IT’S TIME TO BUILD
+
+
+### I. Introduction
+
+The idea of using Ethereum for identity goes back to the beginning: one of the five application categories listed in Vitalik’s Ethereum whitepaper published in 2014 is “Identity and Reputation Systems.” Today, we have a few key primitives of the web3 identity stack in place, but much more work is needed.
+
+And more work is warranted: the total addressable market for identity is ultimately every person in the world (not to mention identity for corporations, groups, devices, etc), so identity could become the Ethereum use case utilized by the largest number of people.
+
+In fact, since just about everything you do in web3 tells others something about who you are, web3 identity is really the meta Ethereum use case of which everything else is a part. (The real Ethereum is the friends we made along the way, unironically.)
+
+In this blog post, I expand on my comments about web3 identity primitives from my twitter post proposing the Ethereum Follow Protocol (EFP), laying out my vision for how web3 identity will work, proposing a general strategy for further building out the web3 identity stack, and finally proposing specific elements to work on next.
+
+### II. A constellation of problems
+
+People mistakenly think they understand how to build web3 identity since web2 social media is so well developed. But if web2 is about ad-supported global scale centralized consumer products, web3 is about something more fundamental: an entirely new decentralized protocol stack for the Internet enabled by blockchain technology.
+
+This does not mean, however, we simply need to build a web3 identity protocol (a common mistake). This is because identity isn’t a single hard problem, it’s a constellation of many hard problems and elements, among them:
+
+the root of your identity, loss and recovery, identity theft protection and remediation, authentication, your name, avatar, profile data, privacy and selective sharing, portability, what you own, receiving and sending payments, permissions, group memberships, your family, who you know and how you know them, your history, reputation, and more.
+
+Notice that just about everything in web3 tells others about who you are and thus in some way contributes to your identity. Multiply that by the need for the elements to be decentralized, credibly neutral, open, and for them to reach a critical mass of adoption and establish a network effect, and you have too many problems to solve in a single protocol.
+
+### III. A constellation of protocols
+
+Instead, we need to take the elements of digital identity that have normally been bundled in siloed centralized web2 systems, unbundle the elements to their smallest viable parts, and have separate teams solve them individually with decentralized protocols and open standards.
+
+In its mature state, your web3 identity will be the sum of information and relationships held in a constellation of decentralized protocols and open standards, which I call the “web3 identity stack.”
+
+Services can then make use of this stack, which will remain fundamentally decentralized at the protocol level, and thus portable between services. What makes it web3 is that centralized entities will not run the fundamental primitives, as they do in web2.
+
+It’s important to unbundle the elements to their smallest viable parts because building and gaining adoption of a decentralized protocol is very difficult and trying to do too much makes it less likely to succeed. It also makes the stack itself decentralized, letting the elements to stand or fall on their own individual merit, allowing for more organic evolution of the stack over time.
+
+**Therefore, to contribute to the web3 identity stack** find a facet of web3 identity that doesn’t exist or you think is ill served and try to design, build, and gain a critical mass of adoption of a decentralized protocol or open standard that fulfills the need and fits into the existing web3 identity stack.
+
+If you can achieve even moderate success in building and gaining adoption for your solution to just one of the constituent elements of web3 identity, that is an incredible and potentially career-defining accomplishment that could keep you busy with maintenance and development for years to come.
+
+**Funding models**
+
+If you build a credibly neutral decentralized protocol… how do you pay yourself and your team, particularly for its ongoing long term maintenance? This is a tricky problem for protocols in general, which I will acknowledge but won’t try to solve in this post. Ultimately, the answer will depend on the nature of the protocol or standard.
+
+But crude attempts at inserting unnecessary value capture mechanisms can taint the credible neutrality of a protocol and significantly hamper its long-term prospects, so tread carefully.
+
+### IV. The existing web3 identity stack
+
+There are many projects and elements that could be listed, but I’ve only included ones I judge to have at least a moderate amount of adoption. That doesn’t mean other projects couldn’t gain a critical mass of adoption in the future, and non-inclusion is not intended as a slight against anyone. Of course, feel free to disagree with my judgement calls.
+
+I propose the following as the main components of the existing web3 identity stack:
+
+- Private keys: Crypto finally achieved with economic incentives what the cypherpunks couldn’t achieve with ideological concerns for privacy and freedom: getting a large number of people to hold and use private keys. Though most people generate Ethereum accounts in order to hold and transact tokens and NFTs, the same private key can be used for other non-blockchain uses, including functioning as the root of their Internet identity.
+
+- Wallets: Programs that help you manage your private key, which is the root of your web3 identity. Most wallets are designed around managing your crypto assets but should consider expanding to include web3 identity. More on this in the next section.
+
+- Sign-in with Ethereum (SIWE): A standard for using your Ethereum private key to authenticate yourself off-chain to services. It’s an example of a non-blockchain use of your Ethereum private key.
+
+- Other off-chain signing: Snapshot votes, attestations, etc. These can tell others about your roles, interests, group membership, etc.
+
+- Off-chain storage: IPFS, Arweave, etc. This includes your decentralized website accessible with ENS, and other important data.
+
+- ENS: Your unique, self-sovereign, and portable web3 username and profile.
+
+- NFT profile pics: Web3 fashion, or a way of representing yourself and signaling group membership with meaning derived from exclusivity. I don’t think this was simply a short lived fad, and I expect there to be further development with composable NFT profile pics and NFT header images.
+
+- What you own, or your on-chain assets: The tokens and NFTs you own indicate your interests, social status, and group membership.
+
+- What you’ve done, or your on-chain history: This indicates how long you’ve been active in crypto, your interests, group membership, skills, etc, and how these things have shifted over time.
+
+- Roles: Serving as a protocol governance DAO delegate, how you vote, delegating to someone else, participating in a multi-sig, and other similar web3 coordination mechanism roles. Again, this indicates your interests, group membership, etc.
+
+Note that only one of the above elements, SIWE, was created intentionally to be part of the web3 identity stack. The rest were built for other reasons but have become important parts of the web3 identity stack accidentally. Meanwhile, most projects working explicitly on web3 identity have failed, underscoring the difficulty of building out the web3 identity stack.
+
+### V. What to build next
+
+Here are my proposals for near-term development in four areas. Some of these things exist to some degree already but aren’t yet widely adopted. Again, this isn’t intended as a slight against any teams already working on one of these problems.
+
+**Reframe the Wallet Experience around Web3 Identity**
+
+With the rise of NFTs, ENS, DAOs, and SIWE, wallets have been about a lot more than just your crypto finances for a long time. They should evolve in their design to reflect this, shifting from being mostly about holding and sending crypto assets to being the manager of your web3 identity.
+
+This isn’t a departure from the previous purpose of wallets, but a natural evolution to what their purpose really has been all along: what you own and what you do on-chain tells others about who you are, so web3 identity is a superset of your crypto assets. 
+
+We can keep the term “wallet” because a person’s physical wallet includes many things beyond means of payment, like a personal ID card, maybe a building access card, contact information, medical information, family photos, maybe a health insurance card, etc.
+
+Concretely, wallets should consider adding the following features:
+
+- SIWE support: Recognize a Sign-in with Ethereum message signing request and display it with a unique UI that makes it clear what it is compared to other message signing requests. MetaMask is an example of a wallet that already does this.
+
+- Free ENS subdomains: Give new users a free off-chain ENS subdomain (via CCIP-read) and a free starter ENS profile avatar as part of the wallet creation process. Coinbase Wallet is an example of a wallet that offers free off-chain ENS subdomains to its users. Creating a wallet without an ENS name and profile should only be something advanced users do for a specific purpose, not the default for the average user being onboarded to web3.
+
+- Wallet as profile: Redesign the wallet UI as a profile, displaying the user’s ENS Primary Name as their username, their ENS profile’s avatar as their avatar, other profile data from their ENS records, roles they have in major DAOs, in addition to their assets. The tokens and NFTs they own are simply part of this greater web3 profile. Rainbow Wallet is an example of a wallet pioneering this approach.
+
+**Ethereum Follow Protocol (EFP)**
+
+I was inspired to write this blog post in part to explain how my proposed Ethereum Follow Protocol (EFP) fits into a broader vision for web3 identity.
+
+An important element of identity is your connections, but the Ethereum ecosystem currently lacks a social graph. So I’ve proposed a simple protocol that allows Ethereum accounts to manage a list of other Ethereum accounts and ENS names, with tags to enable multiple overlapping lists, and CCIP-read for L2 and off-chain storage.
+
+Since it’s simply a list of accounts, it could also be used for things besides a social graph, including: web of trust (h/t trent.eth), keeping track of important smart-contracts, following historically important accounts for activity, following defi activity for trading purposes, and whatever other uses organically emerge.
+
+Like other web3 protocols, EFP proposes to take something that has normally been accomplished with siloed centralized apps that bundle it with other features and instead accomplishes it with a standalone decentralized protocol, enabling the user to take their lists with them across many apps.
+
+EFP is an example of a proposed new web3 identity protocol that’s both simple and useful enough to stand on its own, as well as fits into the existing web3 identity stack without unnecessarily duplicating existing functionality.
+
+**Privacy and Selective Information Sharing**
+
+Privacy is a major problem with blockchain technology in general but is obviously highly desirable for personal data connected to your web3 identity. In fact, I think this has been a stumbling block for many web3 identity projects, thinking they have to solve privacy in order to do anything. The reality is that privacy is a really hard problem and if we had waited until it was solved before we did anything we wouldn’t have made any progress so far. It’s okay to build the pieces we are able to build now, even if we don’t yet have everything we’re going to want in the long-term.
+
+That said, we will need privacy and selective information sharing at some point. It seems likely the solution will make use of zero-knowledge proofs in some way, so this is a great project for small teams of experts in zero-knowledge proofs to try to tackle.
+
+**Messaging**
+
+We need a native web3 messaging protocol that enables users to message other Ethereum accounts and that is more robustly decentralized than SMTP (which is technically decentralized but has become practically centralized in order to deal with spam). Dm3 is one attempt at this that leverages ENS as a core component, but it needs more adoption.
+
+### VI. IT’S TIME TO BUILD
+
+The whole project of web3 identity is a major long shot, with unsolved technical problems, a new complicated paradigm to teach users, and direct competition from the largest companies in human history.
+
+But if it’s successful, it could become the new standard for how identity works on the Internet, and thus the world, for years to come. Yes, the protocols we build today could end up being used by billions of people to represent themselves to the world.
+
+Which means the opportunity couldn’t be bigger nor the stakes higher.
+
+There’s plenty of work to do. You in?
+
+---

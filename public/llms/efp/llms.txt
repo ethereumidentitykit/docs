@@ -43,3 +43,8 @@
 - [EFP Contracts](https://github.com/ethereumfollowprotocol/contracts): Core smart contracts of Ethereum Follow Protocol
 - [EFP Replay](https://github.com/ethereumfollowprotocol/replay): EFP Historical Event Recovery
 - [EFP Onchain](https://github.com/ethereumfollowprotocol/onchain): Tools and example scripts for recovering EFP data onchain
+
+## Additional Links
+
+- [EFP Creation Proposal](https://x.com/BrantlyMillegan/status/1648794925754974209): High level proposal for the creation of Ethereum Follow Protocol
+- [The Path to Web3 Identity](https://mirror.xyz/brantly.eth/7nJZCqyvhbdTIfq4oSnNEjlUUyxS9sf3pTHcBNi8Te8): Outlines the "Web3 Identity Stack", the challenges of building it and what to build next

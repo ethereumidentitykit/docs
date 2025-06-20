@@ -2037,7 +2037,7 @@ Get details of a list by their EFP slot.
 #### Path Parameters
 
 - `chain_id` (string): The chain id of the list's storage location
-- `contract` (string): The the contract address of the list's storage location
+- `contract` (string): The contract address of the list's storage location
 - `slot` (string): The slot  of the list's storage location
 
 #### Query Parameters

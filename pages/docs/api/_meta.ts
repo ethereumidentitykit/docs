@@ -5,6 +5,7 @@ export default {
   leaderboard: 'Leaderboard',
   token: 'Token',
   stats: 'Stats',
+  slots: 'Slots',
   discover: 'Discover',
   'export-state': 'Export State',
   swagger: 'Swagger',

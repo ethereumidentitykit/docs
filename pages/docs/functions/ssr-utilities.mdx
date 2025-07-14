@@ -1,0 +1,133 @@
+# SSR Utilities
+
+The Ethereum Identity Kit v0.2.49 introduces improved Server-Side Rendering (SSR) compatibility with new utility functions that safely handle browser-specific APIs.
+
+## Overview
+
+When using Ethereum Identity Kit in SSR environments (Next.js, Remix, etc.), browser APIs like `window` and `localStorage` are not available during server-side rendering. These utilities provide safe wrappers that prevent runtime errors in SSR contexts.
+
+## safeLocalStorage
+
+A SSR-safe wrapper for `localStorage` that prevents errors when accessed on the server.
+
+```tsx
+import { safeLocalStorage } from 'ethereum-identity-kit'
+
+// Safe to use in SSR environments
+const value = safeLocalStorage.getItem('key')
+safeLocalStorage.setItem('key', 'value')
+safeLocalStorage.removeItem('key')
+safeLocalStorage.clear()
+```
+
+### API
+
+The `safeLocalStorage` object provides all standard localStorage methods:
+
+- `getItem(key: string): string | null` - Returns null on server
+- `setItem(key: string, value: string): void` - No-op on server
+- `removeItem(key: string): void` - No-op on server
+- `clear(): void` - No-op on server
+- `key(index: number): string | null` - Returns null on server
+- `length: number` - Returns 0 on server
+
+## safeWindow
+
+A SSR-safe accessor for the `window` object that returns `undefined` on the server.
+
+```tsx
+import { safeWindow } from 'ethereum-identity-kit'
+
+// Safe to use in SSR environments
+if (safeWindow) {
+  // Window is available (client-side)
+  const width = safeWindow.innerWidth
+}
+```
+
+## SSR Best Practices
+
+### 1. Component Mounting
+
+Use React hooks to ensure browser APIs are only accessed client-side:
+
+```tsx
+import { useEffect, useState } from 'react'
+import { safeWindow } from 'ethereum-identity-kit'
+
+function MyComponent() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <div>Loading...</div>
+  }
+
+  // Safe to use browser APIs here
+  return <div>Window width: {safeWindow?.innerWidth}</div>
+}
+```
+
+### 2. Conditional Rendering
+
+Check for browser environment before rendering browser-dependent components:
+
+```tsx
+import { safeWindow } from 'ethereum-identity-kit'
+
+function BrowserOnlyFeature() {
+  if (!safeWindow) {
+    return null // Don't render on server
+  }
+
+  return <div>Browser-only content</div>
+}
+```
+
+### 3. Framework Integration
+
+#### Next.js
+
+Use dynamic imports with SSR disabled for browser-only components:
+
+```tsx
+import dynamic from 'next/dynamic'
+
+const ProfileCard = dynamic(
+  () => import('ethereum-identity-kit').then(mod => mod.ProfileCard),
+  { ssr: false }
+)
+```
+
+#### Remix
+
+Use `ClientOnly` wrapper for browser-only components:
+
+```tsx
+import { ClientOnly } from 'remix-utils'
+import { ProfileCard } from 'ethereum-identity-kit'
+
+export default function Profile() {
+  return (
+    <ClientOnly fallback={<div>Loading...</div>}>
+      {() => <ProfileCard addressOrName="vitalik.eth" />}
+    </ClientOnly>
+  )
+}
+```
+
+## Migration Guide
+
+If you're upgrading from a previous version and experiencing SSR issues:
+
+1. Replace direct `localStorage` access with `safeLocalStorage`
+2. Replace direct `window` access with `safeWindow`
+3. Wrap browser-dependent components with appropriate SSR guards
+4. Test your application with JavaScript disabled to identify SSR issues
+
+## TypeScript Support
+
+All SSR utilities are fully typed and provide the same interfaces as their browser counterparts, ensuring type safety across your application.

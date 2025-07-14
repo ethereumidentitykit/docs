@@ -10,4 +10,5 @@ export default {
   useTransactions: 'useTransactions',
   useNotifications: 'useNotifications',
   useTranslation: 'useTranslation',
+  useETHPrice: 'useETHPrice',
 }

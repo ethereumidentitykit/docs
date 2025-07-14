@@ -7,6 +7,7 @@ export default {
   profile: 'Profile',
   'generate-slot': 'Generate Slot',
   siwe: 'SIWE',
+  'ssr-utilities': 'SSR Utilities',
   // address: 'Address',
   api: 'API Functions',
 }

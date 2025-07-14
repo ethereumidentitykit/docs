@@ -1,0 +1,68 @@
+# useETHPrice
+
+The `useETHPrice` hook fetches the real-time ETH price from the Chainlink oracle on-chain. This hook provides accurate, decentralized price data that can be used for gas cost calculations and other price-related features.
+
+## Usage
+
+```tsx
+import { useETHPrice } from 'ethereum-identity-kit'
+
+function MyComponent() {
+  const { ethPrice, isLoading, error } = useETHPrice()
+
+  if (isLoading) return <div>Loading ETH price...</div>
+  if (error) return <div>Error loading price</div>
+
+  return (
+    <div>
+      Current ETH Price: ${ethPrice?.toFixed(2)}
+    </div>
+  )
+}
+```
+
+## Features
+
+- **Real-time Updates**: Fetches current ETH price from Chainlink oracle
+- **Decentralized**: Uses on-chain oracle data instead of centralized APIs
+- **Gas Cost Calculations**: Ideal for calculating transaction costs in USD
+- **TypeScript Support**: Fully typed return values
+
+## Return Value
+
+The hook returns an object with the following properties:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `ethPrice` | `number \| null` | Current ETH price in USD |
+| `isLoading` | `boolean` | Loading state indicator |
+| `error` | `Error \| null` | Error object if the fetch fails |
+
+## Example: Gas Cost Calculator
+
+```tsx
+import { useETHPrice } from 'ethereum-identity-kit'
+
+function GasCostCalculator({ gasAmount, gasPrice }) {
+  const { ethPrice } = useETHPrice()
+
+  if (!ethPrice) return null
+
+  const gasCostInETH = (gasAmount * gasPrice) / 1e9 // Convert gwei to ETH
+  const gasCostInUSD = gasCostInETH * ethPrice
+
+  return (
+    <div>
+      <p>Gas Cost: {gasCostInETH.toFixed(6)} ETH</p>
+      <p>≈ ${gasCostInUSD.toFixed(2)} USD</p>
+    </div>
+  )
+}
+```
+
+## Notes
+
+- The hook uses Chainlink's ETH/USD price feed for accurate pricing
+- Price updates automatically when the oracle updates
+- No API keys or configuration required
+- Works on all supported networks with Chainlink oracles

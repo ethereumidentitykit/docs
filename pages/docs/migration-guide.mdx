@@ -1,0 +1,443 @@
+# Migration Guide
+
+This guide will help you migrate your application to use the latest version of Ethereum Identity Kit with the new consolidated API structure.
+
+## Breaking Changes Overview
+
+The latest version introduces several breaking changes focused on API consolidation, enhanced error handling, and improved accessibility:
+
+### API Consolidation
+1. **ProfileCard & FullWidthProfile**: `options` → `extraOptions`
+2. **Prefetched data structure**: Flat props → Nested `prefetched` object
+3. **FollowersYouKnow**: `displayEmpty` → `showEmpty`
+4. **FollowButton**: `followButton` → `customFollowButton`
+5. **FullWidthProfile**: `role` prop moved to `extraOptions`
+6. **ProfileStats**: `prefetchedStats`/`isPrefetchedStatsLoading` → `prefetched` object
+
+### Enhanced Features
+1. **useFollowButton**: Extended return type with error handling and accessibility
+2. **FollowButton**: New error display and accessibility features
+3. **Address Validation**: Automatic validation using viem's `isAddress`
+
+## Step-by-Step Migration
+
+### 1. Update ProfileCard Components
+
+#### Before (Old API)
+```tsx
+<ProfileCard
+  addressOrName="vitalik.eth"
+  options={{
+    followButton: <CustomFollowButton />,
+    nameMenu: <CustomMenu />,
+    profileData: profileData,
+    prefetchedProfileLoading: isProfileLoading,
+    refetchProfileData: refetchProfile,
+    statsData: statsData,
+    prefetchedStatsLoading: isStatsLoading,
+    refetchStatsData: refetchStats,
+  }}
+/>
+```
+
+#### After (New API)
+```tsx
+<ProfileCard
+  addressOrName="vitalik.eth"
+  extraOptions={{
+    customFollowButton: <CustomFollowButton />,
+    nameMenu: <CustomMenu />,
+  }}
+  prefetched={{
+    profile: {
+      data: profileData,
+      isLoading: isProfileLoading,
+      refetch: refetchProfile,
+    },
+    stats: {
+      data: statsData,
+      isLoading: isStatsLoading,
+      refetch: refetchStats,
+    },
+  }}
+/>
+```
+
+### 2. Update FullWidthProfile Components
+
+#### Before (Old API)
+```tsx
+<FullWidthProfile
+  addressOrName="vitalik.eth"
+  role="Developer"
+  options={{
+    followButton: <CustomFollowButton />,
+    nameMenu: <CustomMenu />,
+    profileData: profileData,
+    prefetchedProfileLoading: isProfileLoading,
+    refetchProfileData: refetchProfile,
+    openListSettings: () => setShowSettings(true),
+  }}
+/>
+```
+
+#### After (New API)
+```tsx
+<FullWidthProfile
+  addressOrName="vitalik.eth"
+  extraOptions={{
+    role: "Developer",
+    customFollowButton: <CustomFollowButton />,
+    nameMenu: <CustomMenu />,
+    openListSettings: () => setShowSettings(true),
+  }}
+  prefetched={{
+    profile: {
+      data: profileData,
+      isLoading: isProfileLoading,
+      refetch: refetchProfile,
+    },
+  }}
+/>
+```
+
+### 3. Update FollowersYouKnow Components
+
+#### Before (Old API)
+```tsx
+<FollowersYouKnow
+  lookupAddress="vitalik.eth"
+  connectedAddress="0x123..."
+  displayEmpty={false}
+/>
+```
+
+#### After (New API)
+```tsx
+<FollowersYouKnow
+  lookupAddress="vitalik.eth"
+  connectedAddress="0x123..."
+  showEmpty={false}
+  showLoading={true}
+/>
+```
+
+### 4. Update FollowButton Usage
+
+If you were using the FollowButton through component options:
+
+#### Before (Old API)
+```tsx
+const customFollowButton = (
+  <FollowButton
+    lookupAddress={lookupAddress}
+    connectedAddress={connectedAddress}
+  />
+)
+
+<ProfileCard
+  addressOrName="vitalik.eth"
+  options={{ followButton: customFollowButton }}
+/>
+```
+
+#### After (New API)
+```tsx
+const customFollowButton = (
+  <FollowButton
+    lookupAddress={lookupAddress}
+    connectedAddress={connectedAddress}
+    customOnClick={(buttonState) => {
+      console.log('Button state:', buttonState)
+      return false // Continue with default behavior
+    }}
+  />
+)
+
+<ProfileCard
+  addressOrName="vitalik.eth"
+  extraOptions={{ customFollowButton }}
+/>
+```
+
+### 5. Update ProfileStats Usage
+
+#### Before (Old API)
+```tsx
+<ProfileStats
+  addressOrName="vitalik.eth"
+  prefetchedStats={statsData}
+  isPrefetchedStatsLoading={isLoading}
+/>
+```
+
+#### After (New API)
+```tsx
+<ProfileStats
+  addressOrName="vitalik.eth"
+  prefetched={{
+    stats: {
+      data: statsData,
+      isLoading: isLoading
+    }
+  }}
+/>
+```
+
+### 6. Update useFollowButton Implementation
+
+#### Before (Old API)
+```tsx
+const { buttonText, buttonState, handleAction, isLoading } = useFollowButton({
+  lookupAddress: '0x123...',
+  connectedAddress: '0xabc...'
+})
+
+// Basic button implementation
+<button onClick={handleAction} disabled={isLoading}>
+  {buttonText}
+</button>
+```
+
+#### After (New API)
+```tsx
+const { 
+  buttonText, 
+  buttonState, 
+  handleAction, 
+  isLoading,
+  isDisabled,
+  error,
+  clearError,
+  ariaLabel,
+  ariaPressed
+} = useFollowButton({
+  lookupAddress: '0x123...',
+  connectedAddress: '0xabc...'
+})
+
+// Enhanced button with error handling and accessibility
+<button 
+  onClick={handleAction} 
+  disabled={isDisabled}
+  aria-label={ariaLabel}
+  aria-pressed={ariaPressed}
+  title={error || undefined}
+  className={error ? 'error' : ''}
+>
+  {buttonText}
+</button>
+```
+
+## Automated Migration Script
+
+Here's a simple script to help automate some of the migration:
+
+```bash
+# Find and replace common patterns in your codebase
+# Note: Always review changes before applying
+
+# Replace options prop with extraOptions
+find . -name "*.tsx" -o -name "*.ts" | xargs sed -i 's/options={{/extraOptions={{/g'
+
+# Replace displayEmpty with showEmpty
+find . -name "*.tsx" -o -name "*.ts" | xargs sed -i 's/displayEmpty=/showEmpty=/g'
+
+# Replace followButton with customFollowButton
+find . -name "*.tsx" -o -name "*.ts" | xargs sed -i 's/followButton:/customFollowButton:/g'
+```
+
+## Common Migration Patterns
+
+### Pattern 1: Consolidating Prefetched Props
+
+```tsx
+// Helper function to consolidate prefetched data
+function consolidatePrefetchedData(
+  profileData: any,
+  isProfileLoading: boolean,
+  refetchProfile: () => void,
+  statsData?: any,
+  isStatsLoading?: boolean,
+  refetchStats?: () => void
+) {
+  return {
+    profile: {
+      data: profileData,
+      isLoading: isProfileLoading,
+      refetch: refetchProfile,
+    },
+    ...(statsData && {
+      stats: {
+        data: statsData,
+        isLoading: isStatsLoading || false,
+        refetch: refetchStats || (() => {}),
+      },
+    }),
+  }
+}
+
+// Usage
+const prefetched = consolidatePrefetchedData(
+  profileData,
+  isProfileLoading,
+  refetchProfile,
+  statsData,
+  isStatsLoading,
+  refetchStats
+)
+
+<ProfileCard prefetched={prefetched} />
+```
+
+### Pattern 2: TypeScript Interface Updates
+
+```tsx
+// Before
+interface OldProfileOptions {
+  followButton?: React.ReactNode
+  nameMenu?: React.ReactNode
+  profileData?: any
+  prefetchedProfileLoading?: boolean
+  refetchProfileData?: () => void
+}
+
+interface OldUseFollowButtonReturn {
+  buttonText: string
+  buttonState: string
+  handleAction: () => void
+  isLoading: boolean
+  pendingState: string | null
+  disableHover: boolean
+  setDisableHover: (value: boolean) => void
+}
+
+// After
+interface NewExtraOptions {
+  customFollowButton?: React.ReactNode
+  nameMenu?: React.ReactNode
+  role?: string
+  openListSettings?: () => void
+}
+
+interface NewPrefetchedData {
+  profile?: {
+    data: any
+    isLoading: boolean
+    refetch: () => void
+  }
+  stats?: {
+    data: any
+    isLoading: boolean
+    refetch: () => void
+  }
+}
+
+interface NewUseFollowButtonReturn {
+  buttonText: string
+  buttonState: string
+  handleAction: () => Promise<void> // Now async
+  isLoading: boolean
+  isDisabled: boolean // New computed property
+  error: string | null // New error state
+  clearError: () => void // New error handler
+  ariaLabel: string // New accessibility
+  ariaPressed: boolean | undefined // New accessibility
+  pendingState: string | null
+  disableHover: boolean
+  setDisableHover: (value: boolean) => void
+}
+```
+
+## Testing Your Migration
+
+### 1. Component Rendering Tests
+
+```tsx
+import { render } from '@testing-library/react'
+import { ProfileCard } from 'ethereum-identity-kit'
+
+test('ProfileCard renders with new API', () => {
+  const { getByTestId } = render(
+    <ProfileCard
+      addressOrName="test.eth"
+      extraOptions={{
+        customFollowButton: <button data-testid="custom-button">Follow</button>,
+      }}
+      prefetched={{
+        profile: {
+          data: mockProfileData,
+          isLoading: false,
+          refetch: jest.fn(),
+        },
+      }}
+    />
+  )
+  
+  expect(getByTestId('custom-button')).toBeInTheDocument()
+})
+```
+
+### 2. Type Checking
+
+```tsx
+// Ensure TypeScript compilation passes
+import type { 
+  ProfileExtraOptions, 
+  PrefetchedData,
+  UseFollowButtonParams,
+  UseFollowButtonReturn 
+} from 'ethereum-identity-kit'
+
+const extraOptions: ProfileExtraOptions = {
+  customFollowButton: <button>Follow</button>,
+  role: 'Developer',
+}
+
+const prefetched: PrefetchedData = {
+  profile: {
+    data: mockData,
+    isLoading: false,
+    refetch: () => {},
+  },
+  stats: {
+    data: statsData,
+    isLoading: false,
+    refetch: () => {},
+  },
+}
+
+// Test new hook interfaces
+const hookParams: UseFollowButtonParams = {
+  lookupAddress: '0x123...',
+  connectedAddress: '0xabc...',
+  selectedList: 1
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **TypeScript Errors**: Make sure you've updated all prop names and interface imports
+2. **Runtime Errors**: Check that prefetched data structure is correctly nested
+3. **Missing Props**: Ensure `role` prop is moved to `extraOptions` in FullWidthProfile
+4. **Async Errors**: The `handleAction` in useFollowButton is now async - update any custom wrappers
+5. **Validation Errors**: Invalid addresses now set error state instead of throwing
+
+### Getting Help
+
+If you encounter issues during migration:
+
+1. Check the [TypeScript documentation](./typescript) for updated interfaces
+2. Review component-specific documentation for detailed prop information
+3. [Open an issue](https://github.com/ethereumidentitykit/ethereum-identity-kit/issues) if you find migration problems
+
+## What's Next
+
+After completing the migration:
+
+1. **Test thoroughly** - Ensure all components render correctly
+2. **Review new features** - Explore enhanced TypeScript support and new props
+3. **Update documentation** - Update your internal docs to reflect the new API
+4. **Consider new capabilities** - Take advantage of improved loading states and custom click handlers

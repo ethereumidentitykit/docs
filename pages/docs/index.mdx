@@ -77,10 +77,22 @@ If you are hitting the following error trying to run your project:
 Error: cannot use import statement outside a module
 ```
 
+### Next.js
+
 Make sure to transpile `ethereum-identity-kit` in your `next.config.mjs`:
 
-```js copy
+```ts copy
 transpilePackages: ['ethereum-identity-kit'],
+```
+
+### Vite
+
+Make sure to transpile `ethereum-identity-kit` in your `vite.config.ts`:
+
+```ts copy
+ssr: {
+  noExternal: ['ethereum-identity-kit'],
+},
 ```
 
 Are you experiencing issues with the library? [Report an issue](https://github.com/ethereumidentitykit/identity-kit/issues/new)

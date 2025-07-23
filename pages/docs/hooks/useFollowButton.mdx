@@ -4,13 +4,33 @@ import { Callout } from 'nextra/components'
 
 The `useFollowButton` hook manages the state and actions for a follow button component. It determines the current follow state between a `lookupAddress` and a `connectedAddress`, and provides functions to handle follow, unfollow, block, and mute actions.
 
+## Features
+
+- **Input Validation**: Validates both addresses using viem's `isAddress` function
+- **Error Handling**: Comprehensive error state management with error display and recovery
+- **Accessibility**: Built-in ARIA attributes for screen reader support
+- **Async Operations**: Proper async/await handling with try/catch error management
+- **TypeScript Support**: Exported interfaces for better type safety
+
 ### Add to your project
 
 ```tsx copy
 import { useFollowButton } from 'ethereum-identity-kit'
 
 export default function FollowButtonComponent() {
-  const { buttonText, buttonState, handleAction, isLoading, disableHover, setDisableHover } = useFollowButton({
+  const { 
+    buttonText, 
+    buttonState, 
+    handleAction, 
+    isLoading, 
+    isDisabled,
+    error,
+    clearError,
+    ariaLabel,
+    ariaPressed,
+    disableHover, 
+    setDisableHover 
+  } = useFollowButton({
     lookupAddress: '0x1234...abcd',
     connectedAddress: '0xabcd...1234',
   })
@@ -20,9 +40,13 @@ export default function FollowButtonComponent() {
 
   return (
     <button
-      className={`follow-button ${disableHover ? 'no-hover' : ''}`}
+      className={`follow-button ${disableHover ? 'no-hover' : ''} ${error ? 'error' : ''}`}
       onClick={handleAction}
       onMouseEnter={() => setDisableHover(false)}
+      disabled={isDisabled}
+      aria-label={ariaLabel}
+      aria-pressed={ariaPressed}
+      title={error || undefined}
     >
       {buttonText}
     </button>
@@ -38,9 +62,8 @@ export default function FollowButtonComponent() {
 | `connectedAddress` | Ethereum address of the currently connected user.                         | No       | -             |
 | `selectedList`     | List number to manage the follow state for; defaults to the primary list. | No       | -             |
 
-<Callout type="warning">
-  Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses. Invalid addresses will cause the
-  hook to fail.
+<Callout type="info">
+  The hook now automatically validates addresses using viem's `isAddress` function. Invalid addresses will set an error state instead of throwing.
 </Callout>
 
 ## Return Values
@@ -48,14 +71,76 @@ export default function FollowButtonComponent() {
 | Return Value      | Description                                                                                  |
 | ----------------- | -------------------------------------------------------------------------------------------- |
 | `buttonText`      | The text to display on the follow button, indicating the current or pending follow state.    |
-| `buttonState`     | The current state of the button, such as 'Follow', 'Following', 'Blocked', etc.              |
-| `handleAction`    | Function to handle the button click action, updating the follow state accordingly.           |
+| `buttonState`     | The current state of the button, such as 'Follow', 'Following', 'Blocked', etc.             |
+| `handleAction`    | Async function to handle button clicks, now with proper error handling.                      |
 | `isLoading`       | Boolean indicating if the follow state is currently loading.                                 |
+| `isDisabled`      | Boolean combining multiple disable conditions (loading, invalid addresses, etc.).            |
+| `error`           | Error message string if an operation fails, null otherwise.                                 |
+| `clearError`      | Function to manually clear the current error state.                                         |
+| `ariaLabel`       | Computed ARIA label for screen reader accessibility.                                        |
+| `ariaPressed`     | ARIA pressed state for toggle button semantics.                                            |
 | `pendingState`    | The pending state of the follow action, if any (e.g., 'Pending Following', 'Pending Block'). |
-| `disableHover`    | Boolean indicating if hover effects should be disabled. (it is disabled after a click)       |
-| `setDisableHover` | Function to set the `disableHover` state.                                                    |
+| `disableHover`    | Boolean indicating if hover effects should be disabled.                                     |
+| `setDisableHover` | Function to set the `disableHover` state.                                                  |
+
+## TypeScript Interface
+
+```tsx
+interface UseFollowButtonParams {
+  lookupAddress: string
+  connectedAddress?: string
+  selectedList?: number
+}
+
+interface UseFollowButtonReturn {
+  buttonText: string
+  buttonState: string
+  handleAction: () => Promise<void>
+  isLoading: boolean
+  isDisabled: boolean
+  error: string | null
+  clearError: () => void
+  ariaLabel: string
+  ariaPressed: boolean | undefined
+  pendingState: string | null
+  disableHover: boolean
+  setDisableHover: (value: boolean) => void
+}
+```
+
+## Error Handling
+
+The hook now includes comprehensive error handling:
+
+```tsx
+const { error, clearError, handleAction } = useFollowButton({
+  lookupAddress: '0x1234...abcd',
+})
+
+// Errors are automatically displayed and can be manually cleared
+if (error) {
+  console.error('Follow button error:', error)
+  // Optionally clear the error after a delay
+  setTimeout(clearError, 5000)
+}
+```
+
+## Accessibility Features
+
+The hook provides built-in accessibility attributes:
+
+```tsx
+<button
+  aria-label={ariaLabel} // e.g., "Follow vitalik.eth"
+  aria-pressed={ariaPressed} // true when following
+  // ... other props
+>
+```
 
 ### Notes
 
-- The `handleAction` function manages the follow, unfollow, block, and mute actions based on the current state.
-- The `disableHover` state can be used to control hover effects on the button during certain actions as the state is set to true every time the button is clicked.
+- The `handleAction` function is now async and includes try/catch error handling
+- Address validation happens automatically using viem's `isAddress`
+- Errors are automatically cleared when the user retries an action
+- The `isDisabled` property combines loading state, address validation, and other conditions
+- The hook uses an `ACTION_CONFIG` pattern internally for cleaner action organization

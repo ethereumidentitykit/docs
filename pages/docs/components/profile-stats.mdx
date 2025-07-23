@@ -14,6 +14,25 @@ export default function Home() {
 }
 ```
 
+### With Prefetched Data
+
+```tsx copy
+import { ProfileStats, useProfileStats } from 'ethereum-identity-kit'
+
+export default function Home() {
+  const { stats, isLoading } = useProfileStats('vitalik.eth')
+  
+  return (
+    <ProfileStats 
+      addressOrName="vitalik.eth"
+      prefetched={{
+        stats: { data: stats, isLoading }
+      }}
+    />
+  )
+}
+```
+
 <a
   className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
   href="https://playground.ethidentitykit.com/?path=/docs/molecules-profile-stats--component-docs"
@@ -40,4 +59,5 @@ export default function Home() {
 | `statsStyle`         | Inline styles for the stats section.                                                                    | No       | -                    |
 | `containerStyle`     | Inline styles for the container.                                                                        | No       | -                    |
 | `onStatClick`        | Function to be called when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
+| `prefetched`         | Prefetched stats data with nested structure: `{ stats: { data, isLoading } }`                           | No       | -                    |
 | `props`              | Additional props for the `<div>` element.                                                               | No       | -                    |

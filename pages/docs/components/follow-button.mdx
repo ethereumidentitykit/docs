@@ -7,6 +7,14 @@ import { Callout } from 'nextra/components'
 
 The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
 
+## Features
+
+- **Error Display**: Shows error messages via tooltip (title attribute)
+- **Visual Feedback**: Error CSS class with shake animation when errors occur
+- **Error Recovery**: Automatically clears errors when user retries the action
+- **Enhanced Accessibility**: Built-in ARIA attributes for screen reader support
+- **Improved Disabled State**: Combines prop-based and computed disabled states
+
 ### Add to your project
 
 <Steps>
@@ -79,12 +87,15 @@ export default function YourComponent() {
 | `selectedList`        | The EFP list number to manage follow state for. (defaults to connectedAddress) | No       | -             |
 | `disabled`            | Disables the button if set to true.                                            | No       | false         |
 | `onDisconnectedClick` | Function to call when the button is clicked and the user is not connected.     | No       | -             |
+| `customOnClick`       | Custom click handler that receives current button state as parameter.          | No       | -             |
 | `sounds`              | Object containing sound files to play on button actions.                       | No       | -             |
 | `customClassName`     | Custom CSS class names to apply to the button. (overwrites the default styles) | No       | -             |
 | `customLoader`        | Custom loader component to display while loading.                              | No       | -             |
 | `props`               | Additional HTML button element props.                                          | No       | -             |
 
-<Callout type="warning">Ensure that the `lookupAddress` and `connectedAddress` are valid Ethereum addresses.</Callout>
+<Callout type="info">
+  The component now includes automatic address validation. Invalid addresses will display an error message in the button's tooltip.
+</Callout>
 
 <Callout type="info">
   The `onDisconnectedClick` function is optional but recommended to handle cases where the user is not connected.
@@ -92,7 +103,26 @@ export default function YourComponent() {
 
 ### Styling
 
-The component uses predefined styles from `FOLLOW_BUTTON_STYLES` and can be further customized using the `className` prop. The button's appearance changes based on its state (e.g., pending, disabled).
+The component uses predefined styles from `FOLLOW_BUTTON_STYLES` and can be further customized using the `className` prop. The button's appearance changes based on its state:
+
+- **Normal states**: Follow, Following, Blocked, etc.
+- **Pending states**: Shows loading indicator
+- **Disabled state**: Reduced opacity and no hover effects
+- **Error state**: Adds shake animation and error styling
+
+```css
+/* Example error animation */
+.follow-button.error {
+  animation: shake 0.5s;
+  border-color: #ef4444;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+```
 
 ### Sound Effects
 
@@ -110,7 +140,53 @@ You can provide sound effects for different button states by passing a `sounds` 
 />
 ```
 
+### Custom Click Handler
+
+You can provide a custom click handler to override or extend the default button behavior:
+
+```tsx copy
+<FollowButton
+  lookupAddress="0x123..."
+  connectedAddress="0xabc..."
+  customOnClick={(buttonState) => {
+    console.log('Button clicked with state:', buttonState)
+    // Add custom logic here
+    // Return true to prevent default action, false to continue
+    return false
+  }}
+/>
+```
+
+<Callout type="info">The `customOnClick` handler receives the current button state and can return a boolean to control default behavior.</Callout>
+
 <Callout type="info">The `sounds` prop is optional and can enhance user experience with auditory feedback.</Callout>
+
+### Accessibility
+
+The Follow Button includes comprehensive accessibility features:
+
+```tsx
+<FollowButton
+  lookupAddress="0x123..."
+  connectedAddress="0xabc..."
+/>
+// Renders with:
+// - aria-label="Follow vitalik.eth" (or appropriate action)
+// - aria-pressed={true/false} (for following state)
+// - title={error} (when errors occur)
+```
+
+### Error Handling
+
+Errors are displayed as tooltips and trigger visual feedback:
+
+```tsx
+// When an error occurs:
+// 1. Error message appears in title attribute
+// 2. Button gets 'error' CSS class
+// 3. Shake animation plays
+// 4. Error clears automatically on retry
+```
 
 ### Custom Loader
 

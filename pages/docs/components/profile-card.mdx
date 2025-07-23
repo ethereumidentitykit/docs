@@ -60,22 +60,19 @@ export default function Home() {
 | `showEmptySocials`        | Shows empty socials in the profile card.                                                            | No       | true                 |
 | `onStatClick`             | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | `defaultOnStatClick` |
 | `hasCommonFollowersModal` | Whether to show the [common followers modal](./common-followers.mdx).                               | No       | true                 |
-| `options`                 | Additional options for profile data and stats. See `ProfileCardOption` type for details:            | No       | -                    |
-|                           | - `followButton`: React node for a follow button.                                                   |          |                      |
+| `extraOptions`            | Additional options for profile data and functionality. See `ProfileExtraOptions` type for details:  | No       | -                    |
+|                           | - `customFollowButton`: React node for a custom follow button.                                      |          |                      |
 |                           | - `nameMenu`: React node for a name menu.                                                           |          |                      |
-|                           | - `profileData`: Prefetched profile data.                                                           |          |                      |
-|                           | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |                      |
-|                           | - `refetchProfileData`: Function to refetch profile data.                                           |          |                      |
-|                           | - `statsData`: Prefetched stats data.                                                               |          |                      |
-|                           | - `prefetchedStatsLoading`: Loading state for prefetched stats data.                                |          |                      |
-|                           | - `refetchStatsData`: Function to refetch stats data.                                               |          |                      |
+| `prefetched`              | Prefetched data for improved performance. Object with nested structure:                             | No       | -                    |
+|                           | - `profile`: `{ data, isLoading, refetch }` - Profile data with loading state                       |          |                      |
+|                           | - `stats`: `{ data, isLoading, refetch }` - Stats data with loading state                           |          |                      |
 | `className`               | Additional CSS class names to apply to the component.                                               | No       | -                    |
 | `style`                   | Inline CSS styles to apply to the component.                                                        | No       | -                    |
 | `props`                   | Additional props for the `<div>` element.                                                           | No       | -                    |
 
 <Callout type="warning">
-  When using the `options` prop, ensure that all required data is provided if you're using prefetched data. Missing data
-  may cause the component to fail to render properly.
+  When using the `prefetched` prop, ensure that all required data is provided. The new nested structure provides better
+  type safety and organization compared to the previous flat prop structure.
 </Callout>
 
 <Callout type="info">

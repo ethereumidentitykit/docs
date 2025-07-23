@@ -51,7 +51,6 @@ export default function Home() {
 | `list`                | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -             |
 | `connectedAddress`    | Address of the user connected to the app.                                                           | No       | -             |
 | `darkMode`            | Enables dark mode styling for the profile.                                                          | No       | false         |
-| `role`                | Additional information to display on the profile (used for roles on ethid.org).                     | No       | -             |
 | `showFollowerState`   | Shows follower state tag (follows you, blocks you, mutes you).                                      | No       | false         |
 | `showFollowButton`    | Shows the follow button in the profile.                                                             | No       | true          |
 | `showEmptySocials`    | Shows empty socials in the profile.                                                                 | No       | true          |
@@ -60,14 +59,14 @@ export default function Home() {
 | `onProfileClick`      | Action to perform when the profile is clicked.                                                      | No       | -             |
 | `showPoaps`           | Shows EFP related POAPs on the profile.                                                             | No       | true          |
 | `alignProfileContent` | Aligns the profile content when max-width is surpassed (center, start, end).                        | No       | 'center'      |
-| `options`             | Additional options for profile data and functionality. See `ProfileCardOption` type for details:    | No       | -             |
-|                       | - `followButton`: React node for a follow button.                                                   |          |               |
+| `extraOptions`        | Additional options for profile data and functionality. See `ProfileExtraOptions` type for details: | No       | -             |
+|                       | - `customFollowButton`: React node for a custom follow button.                                      |          |               |
 |                       | - `nameMenu`: React node for a name menu.                                                           |          |               |
-|                       | - `profileData`: Prefetched profile data.                                                           |          |               |
-|                       | - `prefetchedProfileLoading`: Loading state for prefetched profile data.                            |          |               |
-|                       | - `refetchProfileData`: Function to refetch profile data.                                           |          |               |
-|                       | - `statsData`: Prefetched stats data.                                                               |          |               |
+|                       | - `role`: Additional information to display on the profile (used for roles on ethid.org).          |          |               |
 |                       | - `openListSettings`: Function to open list settings modal.                                         |          |               |
+| `prefetched`          | Prefetched data for improved performance. Object with nested structure:                             | No       | -             |
+|                       | - `profile`: `{ data, isLoading, refetch }` - Profile data with loading state                       |          |               |
+|                       | - `stats`: `{ data, isLoading, refetch }` - Stats data with loading state                           |          |               |
 | `className`           | Additional CSS class names to apply to the component.                                               | No       | -             |
 | `style`               | Inline CSS styles to apply to the component.                                                        | No       | -             |
 

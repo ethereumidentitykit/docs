@@ -3,6 +3,8 @@ export default {
   components: 'Components',
   hooks: 'React Hooks',
   functions: 'Functions',
+  typescript: 'TypeScript',
+  'migration-guide': 'Migration Guide',
   api: 'Public API',
   services: 'Services',
   'llms-txt': 'LLMs.txt',

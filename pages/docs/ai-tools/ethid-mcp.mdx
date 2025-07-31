@@ -1,0 +1,912 @@
+# ETHID MCP (Model Context Protocol) Documentation
+
+The ETHID MCP is a comprehensive Model Context Protocol server that provides seamless access to the Ethereum Follow Protocol (EFP) ecosystem. It enables AI assistants and applications to interact with Ethereum's social graph, query social relationships, analyze network connections, and access rich identity data across the Ethereum ecosystem.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Quick Setup](#quick-setup)
+- [Available Tools](#available-tools)
+- [Usage Examples](#usage-examples)
+- [Best Practices](#best-practices)
+- [Integration Guide](#integration-guide)
+- [Troubleshooting](#troubleshooting)
+- [Advanced Usage](#advanced-usage)
+
+## Overview
+
+### What is ETHID MCP?
+
+ETHID MCP serves as a bridge between AI models and Ethereum's social layer, offering **22 specialized tools** that cover everything from basic follower queries to advanced social graph analysis. It operates as a globally distributed Cloudflare Worker that efficiently proxies requests to the EFP API while providing AI-optimized responses.
+
+### Key Features
+
+- **🌐 Comprehensive Social Graph Access**: Query followers, following relationships, and social connections across Ethereum
+- **🔗 ENS Integration**: Automatic ENS name resolution with bulk address-to-ENS conversion capabilities
+- **🏷️ Tag-Based Filtering**: Filter social connections using custom tags like "top8", "friend", "developer"
+- **👤 Complete Profile Management**: Access profile data, stats, badges, lists, and reputation metrics
+- **⚡ Real-Time Data**: Always fetch the latest social graph information with optional live data queries
+- **🤖 AI-Optimized**: Responses formatted specifically for optimal AI understanding and processing
+- **🚀 High Performance**: Global edge deployment with automatic scaling and intelligent caching
+
+### Architecture
+
+```
+AI Assistant  ←→  ETHID MCP (Cloudflare Worker)  ←→  EFP API + ENS
+    (Client)           (Proxy & Optimizer)           (Data Sources)
+```
+
+The system provides:
+
+- **Global Edge Deployment**: Low latency worldwide
+- **Automatic Scaling**: Handle any request volume
+- **Intelligent Caching**: Optimize performance while maintaining data freshness
+- **Secure Proxy**: Safe access to blockchain data without direct API keys
+
+## Quick Setup
+
+### Prerequisites
+
+- An AI assistant that supports Model Context Protocol (MCP)
+- Node.js v22.12.0+ (for some MCP clients)
+- Basic understanding of Ethereum addresses and ENS names
+
+### Configuration
+
+Add ETHID MCP to your MCP configuration:
+
+#### For Claude Desktop/Code
+
+```json
+{
+  "mcpServers": {
+    "ethid-mcp": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://ethid-mcp.efp.workers.dev/sse"]
+    }
+  }
+}
+```
+
+#### For Other MCP Clients
+
+```bash
+# Using the SSE endpoint
+https://ethid-mcp.efp.workers.dev/sse
+
+# Or HTTP endpoint
+https://ethid-mcp.efp.workers.dev
+```
+
+### Important: Run Initialization
+
+⚠️ **Before first use**, run the initialization prompt from [`ETHID_MCP_INITIALIZATION_PROMPT.md`](https://github.com/ethereumfollowprotocol/ethid-mcp/blob/main/ETHID_MCP_INITIALIZATION_PROMPT.md) to ensure optimal performance and proper tool usage patterns.
+
+## Available Tools
+
+### Core Social Graph Tools (6)
+
+#### `getProfileStats`
+
+Get comprehensive statistics for any Ethereum address or ENS name.
+
+**Parameters:**
+
+- `addressOrName` (required): ENS name (e.g., 'vitalik.eth') or Ethereum address
+
+**Example:**
+
+```typescript
+await getProfileStats({ addressOrName: 'vitalik.eth' })
+// Returns: follower count, following count, engagement metrics
+```
+
+#### `getFollowers`
+
+Retrieve followers with advanced filtering and search capabilities.
+
+**Parameters:**
+
+- `addressOrName` (required): Target address/ENS name
+- `limit` (optional): Number of results (default: 10, max: 100)
+- `search` (optional): Search term to filter results
+- `sort` (optional): 'earliest first', 'latest first', or 'follower count'
+- `tags` (optional): Array of tags to filter by
+
+**Example:**
+
+```typescript
+await getFollowers({
+  addressOrName: 'vitalik.eth',
+  limit: 50,
+  tags: ['developer', 'ethereum'],
+  sort: 'follower count',
+})
+```
+
+#### `getFollowing`
+
+Get who someone follows with the same filtering options as getFollowers.
+
+**Parameters:** Same as `getFollowers`
+
+**Example:**
+
+```typescript
+await getFollowing({
+  addressOrName: 'brantly.eth',
+  tags: ['top8'],
+  limit: 25,
+})
+```
+
+#### `checkFollowing`
+
+Verify if a specific list follows an address.
+
+**Parameters:**
+
+- `following` (required): Address/ENS name being checked
+- `list` (optional): List number to check
+
+**Example:**
+
+```typescript
+await checkFollowing({ following: 'brantly.eth', list: 6509 })
+// Returns: { isFollowing: true/false }
+```
+
+#### `checkFollower`
+
+Check if one address follows another at the user level.
+
+**Parameters:**
+
+- `addressOrName` (required): Target address/ENS name
+- `follower` (required): Potential follower address/ENS name
+
+**Example:**
+
+```typescript
+await checkFollower({
+  addressOrName: 'vitalik.eth',
+  follower: 'brantly.eth',
+})
+// Returns: "Following", "Not Following", or "Blocked"
+```
+
+### Account & Profile Tools (5)
+
+#### `fetchAccount`
+
+Retrieve comprehensive account information including ENS records, avatar, bio, and social links.
+
+**Parameters:**
+
+- `addressOrName` (required): Address or ENS name
+- `list` (optional): Specific list ID
+
+**Returns:** Complete profile data with ENS name, avatar, metadata, and social links.
+
+#### `fetchBulkAccounts` ⭐ **Most Important**
+
+Convert multiple Ethereum addresses to their primary ENS names efficiently.
+
+**Parameters:**
+
+- `addresses` (required): Array of Ethereum addresses (recommended: up to 10 per call)
+
+**Key Features:**
+
+- **Order Preservation**: Results maintain same order as input addresses
+- **Fallback Handling**: Addresses without ENS names return as addresses
+- **Batch Processing**: Efficiently handles multiple addresses at once
+
+**Example:**
+
+```typescript
+await fetchBulkAccounts({
+  addresses: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', '0x849151d7d0bf1f34b70d5cad5149d28cc2308bf1'],
+})
+// Returns: ['vitalik.eth', 'jesse.xyz']
+```
+
+#### `fetchProfileLists`
+
+Get all EFP lists owned by an address.
+
+**Parameters:**
+
+- `addressOrName` (required): Target address/ENS name
+- `fresh` (optional): Whether to fetch fresh data
+
+#### `fetchProfileBadges`
+
+Retrieve badges and achievements earned by a profile.
+
+**Parameters:**
+
+- `addressOrName` (required): Target address/ENS name
+- `fresh` (optional): Whether to fetch fresh data
+- `list` (optional): Specific list ID
+
+### Tag Management Tools (2)
+
+#### `fetchFollowingTags`
+
+Get tag statistics for accounts being followed.
+
+**Parameters:**
+
+- `addressOrName` (required): Target address/ENS name
+- `fresh` (optional): Whether to fetch fresh data
+- `list` (optional): Specific list ID
+
+**Example:**
+
+```typescript
+await fetchFollowingTags({ addressOrName: 'brantly.eth' })
+// Returns: { top8: 8, developer: 5, friend: 12 }
+```
+
+#### `fetchFollowerTags`
+
+Get tag statistics for followers.
+
+**Parameters:** Same as `fetchFollowingTags`
+
+### Discovery & Recommendations (3)
+
+#### `fetchNotifications`
+
+Get notifications with time filtering.
+
+**Parameters:**
+
+- `userAddress` (required): User address
+- `interval` (optional): Time interval for notifications
+
+#### `fetchRecommendations`
+
+Get personalized account recommendations based on social graph analysis.
+
+**Parameters:**
+
+- `endpoint` (required): "discover" or "recommended"
+- `addressOrName` (optional): For personalized recommendations
+- `limit` (optional): Number of results
+- `list` (optional): Specific list ID
+- `pageParam` (optional): Page number for pagination
+
+**Example:**
+
+```typescript
+await fetchRecommendations({
+  endpoint: 'recommended',
+  addressOrName: 'vitalik.eth',
+  limit: 20,
+})
+```
+
+#### `fetchLeaderboard`
+
+Get top users by follower count and other metrics.
+
+**Parameters:**
+
+- `limit` (optional): Number of results
+- `pageParam` (optional): Page number
+- `search` (optional): Search term
+- `filter` (optional): 'mutuals', 'followers', 'following', 'top8', 'blocked'
+- `direction` (optional): Sort direction
+
+### List Management Tools (2)
+
+#### `fetchAllFollowings`
+
+Export complete following list for a specific list.
+
+**Parameters:**
+
+- `list` (required): List ID to export
+
+#### `fetchListsForUser`
+
+Get all lists associated with a user.
+
+**Parameters:**
+
+- `addressOrName` (required): Target address/ENS name
+
+### Help & Guidance Tools (4)
+
+#### `searchContexts`
+
+Search through documentation and best practices.
+
+**Parameters:**
+
+- `query` (required): Search query for documentation
+- `category` (optional): Filter by category (protocols, usage, technical)
+
+#### `getBestPractices`
+
+Learn recommended usage patterns for specific scenarios.
+
+**Parameters:**
+
+- `scenario` (optional): Usage scenario
+
+#### `getUsagePattern`
+
+Get specific guidance for common query patterns.
+
+**Parameters:**
+
+- `queryType` (optional): Type of query pattern needed
+
+#### `getToolGuidance`
+
+Get specific guidance for using tools effectively.
+
+**Parameters:**
+
+- `task` (optional): Task description
+
+#### `getEfficiencyTips`
+
+Optimize your queries for performance.
+
+**Parameters:**
+
+- `area` (optional): Performance area to optimize
+
+## Usage Examples
+
+### Basic Queries
+
+#### Get Follower Count
+
+```bash
+# Simple query
+"How many followers does vitalik.eth have?"
+
+# Expected response:
+"vitalik.eth has 4,811 followers and is following 10 accounts."
+```
+
+#### Check Relationships
+
+```bash
+# Check if one user follows another
+"Does brantly.eth follow vitalik.eth?"
+
+# Expected response:
+"Following" | "Not Following" | "Blocked"
+```
+
+### Advanced Social Graph Analysis
+
+#### Discover Network Connections
+
+```bash
+# Get someone's top8 tagged connections
+"Show me vitalik.eth's top8 tagged followers"
+
+# Get following with multiple tag filters
+"Who does brantly.eth follow that's tagged with 'developer' or 'ethereum'?"
+```
+
+#### ENS Resolution Workflow
+
+```bash
+# Get following list with readable names
+"Show me who brantly.eth follows with their ENS names"
+
+# Behind the scenes:
+# 1. getFollowing() → returns addresses
+# 2. fetchBulkAccounts() → converts to ENS names
+# 3. Combined response with both
+```
+
+### Tag Analysis Patterns
+
+#### Efficient Tag Discovery
+
+```bash
+# Step 1: Get available tags
+"What tags does efp.encrypteddegen.eth use?"
+
+# Step 2: Get all tagged users efficiently
+"Show me everyone efp.encrypteddegen.eth has tagged"
+
+# AI automatically uses the efficient pattern:
+# 1. fetchFollowingTags() → get all tags
+# 2. getFollowing() with all tags as filter
+```
+
+### Community Analysis
+
+#### Find Mutual Connections
+
+```bash
+# Multi-step workflow
+"Find mutual followers between vitalik.eth and brantly.eth"
+
+# Process:
+# 1. Get both users' follower lists
+# 2. Compare and find intersections
+# 3. Convert addresses to ENS names
+# 4. Present readable results
+```
+
+#### Analyze Community Structure
+
+```bash
+# Get top influencers and their networks
+"Show me the top 10 users by followers and who they follow"
+
+# Process:
+# 1. fetchLeaderboard() → get top users
+# 2. For each user: getFollowing() → get their network
+# 3. Analyze patterns and present insights
+```
+
+## Best Practices
+
+### Performance Optimization
+
+#### ✅ Efficient Patterns
+
+**1. Use Bulk ENS Resolution:**
+
+```typescript
+// Good: Batch process
+const addresses = followers.map((f) => f.address)
+const ensNames = await fetchBulkAccounts({ addresses })
+```
+
+**2. Tag-Based Filtering:**
+
+```typescript
+// Good: Get tags first, then filter
+const tags = await fetchFollowingTags({ addressOrName: 'user.eth' })
+const tagged = await getFollowing({
+  addressOrName: 'user.eth',
+  tags: Object.keys(tags),
+})
+```
+
+**3. Proper Pagination:**
+
+```typescript
+// Good: Use pagination for large datasets
+const results = await getFollowing({
+  addressOrName: 'user.eth',
+  limit: 50,
+  offset: 0,
+})
+```
+
+#### ❌ Avoid These Patterns
+
+**1. Individual ENS Resolution:**
+
+```typescript
+// Bad: One request per address
+for (const address of addresses) {
+  const ens = await resolveENS(address) // Slow!
+}
+```
+
+**2. Large Unfiltered Queries:**
+
+```typescript
+// Bad: Getting everything then filtering locally
+const all = await getFollowing({ limit: 1000 }) // Slow!
+const filtered = all.filter((user) => user.tags.includes('top8'))
+```
+
+### Data Handling
+
+#### ENS Name Handling
+
+```typescript
+// Always handle cases where ENS resolution fails
+const names = await fetchBulkAccounts({ addresses })
+// names array maintains order: addresses[i] → names[i]
+// Addresses without ENS names return as addresses
+```
+
+#### Error Handling
+
+```typescript
+// Graceful fallbacks
+try {
+  const result = await getFollowing({ addressOrName: 'user.eth' })
+} catch (error) {
+  // Try with .eth suffix if missing
+  // Try with address instead of ENS
+  // Use cached data if live data fails
+}
+```
+
+### Query Optimization
+
+#### Response Time Tiers
+
+**Fast Queries (\<1s):**
+
+- `getProfileStats`
+- `checkFollower`
+- `checkFollowing`
+
+**Medium Queries (1-3s):**
+
+- `getFollowing` with filters
+- `fetchRecommendations`
+- `fetchBulkAccounts`
+
+**Slower Queries (3-5s):**
+
+- Large pagination requests
+- `fetchLeaderboard`
+- Bulk operations with `allResults: true`
+
+#### Caching Strategy
+
+**Cached Data (5-15 minutes):**
+
+- Profile statistics
+- ENS name resolutions
+- Account data
+
+**Always Fresh:**
+
+- Live statistics (`isLive: true`)
+- Real-time relationship checks
+- Blockchain-verified data (`fresh: true`)
+
+## Integration Guide
+
+### For AI Assistants
+
+#### Tool Selection Decision Tree
+
+**For Follower Counts:**
+
+- Basic counts → `getProfileStats`
+- Detailed stats → `fetchProfileStats`
+- Live data needed → use `isLive: true`
+
+**For Social Lists:**
+
+- Simple list → `getFollowing`
+- With filtering → `getFollowing` with tags/search
+- All tagged users → use efficient tag pattern
+- Advanced pagination → `fetchProfileFollowing`
+
+**For Relationship Checks:**
+
+- User-level → `checkFollower`
+- List-level → `checkFollowing`
+- Detailed state → `fetchFollowState`
+
+#### Efficient Workflows
+
+**Getting Tagged Users:**
+
+```bash
+1. "What tags does X use?" → fetchFollowingTags
+2. Use all tags in getFollowing with tags parameter
+```
+
+**Profile Analysis:**
+
+```bash
+1. Basic info → fetchAccount
+2. Statistics → fetchProfileStats
+3. Lists → fetchProfileLists
+4. Social connections → getFollowing/getFollowers
+```
+
+**ENS Resolution:**
+
+```bash
+1. Get data (returns addresses)
+2. Extract addresses from response
+3. Use fetchBulkAccounts to convert to ENS names
+4. Present combined data
+```
+
+### For Developers
+
+#### Configuration Examples
+
+**Claude Desktop:**
+
+```json
+{
+  "mcpServers": {
+    "ethid-mcp": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://ethid-mcp.efp.workers.dev/sse"]
+    }
+  }
+}
+```
+
+**Custom MCP Client:**
+
+```typescript
+import { MCPClient } from '@modelcontextprotocol/sdk'
+
+const client = new MCPClient({
+  transport: {
+    type: 'sse',
+    url: 'https://ethid-mcp.efp.workers.dev/sse',
+  },
+})
+```
+
+#### Rate Limiting & Performance
+
+**Recommended Patterns:**
+
+- Batch requests when possible
+- Use appropriate pagination (50-100 items per request)
+- Cache frequently accessed data
+- Use live data only when necessary
+
+**Rate Limits:**
+
+- No strict rate limits on the MCP server
+- EFP API has reasonable rate limits
+- Global caching reduces backend load
+
+## Troubleshooting
+
+### Common Issues
+
+#### "Tool not available" Error
+
+**Problem:** MCP server not connected properly
+
+**Solutions:**
+
+```bash
+# Check MCP server status
+claude mcp list
+
+# Re-add server
+claude mcp remove ethid-mcp
+claude mcp add --transport sse ethid-mcp https://ethid-mcp.efp.workers.dev/sse
+```
+
+#### "Address not found" Error
+
+**Problem:** Invalid address or ENS name
+
+**Solutions:**
+
+- Verify ENS name format (include .eth if needed)
+- Try with Ethereum address instead of ENS name
+- Check if the address has EFP profile data
+
+#### Empty Results
+
+**Problem:** No followers/following found
+
+**Solutions:**
+
+- Verify the user has public EFP lists
+- Check if ENS name is correctly formatted
+- Try different search terms or remove filters
+
+#### Timeout Errors
+
+**Problem:** Queries taking too long
+
+**Solutions:**
+
+- Reduce query limits (use 50 instead of 100)
+- Use pagination for large datasets
+- Avoid `allResults: true` for large lists
+- Check network connectivity
+
+### Debugging Workflow
+
+#### Test Basic Connectivity
+
+```bash
+# Test the endpoint
+curl https://ethid-mcp.efp.workers.dev
+
+# Expected response: MCP server info
+```
+
+#### Test Specific Tools
+
+```bash
+# Test with a simple query
+"How many followers does vitalik.eth have?"
+
+# Expected: Numerical response with follower count
+```
+
+#### Check Logs
+
+```bash
+# If you have access to Cloudflare dashboard
+# Check worker logs for detailed error information
+```
+
+### Performance Issues
+
+#### Slow Response Times
+
+**Check:**
+
+- Query complexity (reduce limits)
+- Network connectivity
+- Use cached data when possible
+
+#### Memory Issues
+
+**Solutions:**
+
+- Use pagination instead of large queries
+- Process results in batches
+- Avoid storing large datasets in memory
+
+## Advanced Usage
+
+### Multi-Step Analysis Workflows
+
+#### Community Mapping
+
+```typescript
+// 1. Get community leaders
+const leaders = await fetchLeaderboard({ limit: 20 })
+
+// 2. For each leader, get their network
+for (const leader of leaders) {
+  const network = await getFollowing({
+    addressOrName: leader.address,
+    tags: ['top8'],
+  })
+
+  // 3. Convert addresses to ENS names
+  const addresses = network.map((n) => n.address)
+  const ensNames = await fetchBulkAccounts({ addresses })
+}
+```
+
+#### Influence Analysis
+
+```typescript
+// 1. Get user's followers and following
+const followers = await getFollowers({ addressOrName: 'user.eth' })
+const following = await getFollowing({ addressOrName: 'user.eth' })
+
+// 2. Analyze relationship patterns
+const mutualConnections = findMutuals(followers, following)
+
+// 3. Get influence metrics
+const stats = await fetchProfileStats({ addressOrName: 'user.eth' })
+```
+
+### Custom Analytics
+
+#### Tag Distribution Analysis
+
+```typescript
+// 1. Get all tags used by a user
+const tags = await fetchFollowingTags({ addressOrName: 'user.eth' })
+
+// 2. For each tag, get the users
+const taggedUsers = {}
+for (const [tag, count] of Object.entries(tags)) {
+  taggedUsers[tag] = await getFollowing({
+    addressOrName: 'user.eth',
+    tags: [tag],
+  })
+}
+```
+
+#### Network Growth Tracking
+
+```typescript
+// 1. Get current stats
+const currentStats = await fetchProfileStats({
+  addressOrName: 'user.eth',
+  isLive: true,
+})
+
+// 2. Compare with historical data
+// 3. Track growth patterns
+// 4. Generate insights
+```
+
+### Integration Patterns
+
+#### Real-Time Monitoring
+
+```typescript
+// Set up periodic checks for profile changes
+setInterval(async () => {
+  const stats = await fetchProfileStats({
+    addressOrName: 'user.eth',
+    isLive: true,
+  })
+
+  // Check for changes and notify
+}, 300000) // Check every 5 minutes
+```
+
+#### Batch Processing
+
+```typescript
+// Process multiple users efficiently
+const users = ['user1.eth', 'user2.eth', 'user3.eth']
+
+// Process in parallel
+const results = await Promise.all(users.map((user) => fetchProfileStats({ addressOrName: user })))
+```
+
+## Resources & Support
+
+### Documentation
+
+- [EFP Protocol Documentation](https://docs.ethfollow.xyz)
+- [Model Context Protocol Specification](https://modelcontext.dev)
+- [ENS Documentation](https://docs.ens.domains)
+
+### API References
+
+- **EFP API**: `https://api.ethfollow.xyz/api/v1`
+- **ENS Worker**: `https://ens.ethfollow.xyz`
+- **ETHID MCP**: `https://ethid-mcp.efp.workers.dev`
+
+### Community
+
+- [EFP GitHub](https://github.com/ethereumfollowprotocol)
+- [EFP Discord](https://discord.gg/ethereumfollowprotocol)
+- [EFP Twitter](https://twitter.com/efp)
+
+### Contributing
+
+The ETHID MCP is open source and welcomes contributions:
+
+- Report issues on GitHub
+- Suggest new features
+- Submit pull requests
+- Improve documentation
+
+---
+
+## Quick Reference
+
+### Essential Tools
+
+- `getProfileStats` - Get follower/following counts
+- `getFollowing` - List who someone follows (with filtering)
+- `getFollowers` - List someone's followers (with filtering)
+- `fetchBulkAccounts` - Convert addresses to ENS names
+- `checkFollower` - Check if A follows B
+
+### Key Patterns
+
+- **Tag Analysis**: Get tags first, then filter
+- **ENS Resolution**: Always use `fetchBulkAccounts` for multiple addresses
+- **Large Queries**: Use pagination with appropriate limits
+- **Fresh Data**: Use `isLive: true` for real-time stats
+
+### Performance Tips
+
+- Batch related queries
+- Use appropriate pagination
+- Cache frequently accessed data
+- Prefer filtered queries over large unfiltered ones
+
+**🚀 Remember: Run the initialization prompt before first use for optimal performance!**

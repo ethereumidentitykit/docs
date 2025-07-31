@@ -7,7 +7,7 @@ export default {
   'migration-guide': 'Migration Guide',
   api: 'Public API',
   services: 'Services',
-  'llms-txt': 'LLMs.txt',
+  'ai-tools': 'AI Tools',
   'media-kit': 'Media Kit',
   theme: 'Theme',
   ethid_link: {

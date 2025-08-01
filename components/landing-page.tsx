@@ -77,8 +77,8 @@ const Home = () => {
               <div className="siwe-container bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
                 <SignInWithEthereum
                   message="Ethereum Identity Kit says hi!"
-                  onSignInSuccess={() => {}}
-                  onSignInError={() => {}}
+                  onSignInSuccess={() => { }}
+                  onSignInError={() => { }}
                   getNonce={generateClientSideNonce}
                   verifySignature={() => {
                     console.log('signature verified')
@@ -124,8 +124,8 @@ const Home = () => {
               style={{ paddingBottom: '12px', gap: '12px', boxShadow: '2px 2px 10px 0px rgba(255,255,255,0.2)' }}
               className="-translate-x-12 sm:translate-x-0 z-50"
               hasCommonFollowersModal={false}
-              options={{
-                followButton: <FollowButton lookupAddress="0xd63c2582b071f41090e89d975f738e87e7b8da50" />,
+              extraOptions={{
+                customFollowButton: <FollowButton lookupAddress="0xd63c2582b071f41090e89d975f738e87e7b8da50" />,
               }}
             />
           </div>

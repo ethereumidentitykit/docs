@@ -1,17 +1,52 @@
-# ETHID MCP (Model Context Protocol) Documentation
+# ETHID MCP (Model Context Protocol)
 
-The ETHID MCP is a comprehensive Model Context Protocol server that provides seamless access to the Ethereum Follow Protocol (EFP) ecosystem. It enables AI assistants and applications to interact with Ethereum's social graph, query social relationships, analyze network connections, and access rich identity data across the Ethereum ecosystem.
+The ETHID MCP is a comprehensive Model Context Protocol server that provides seamless access to the Ethereum Follow Protocol (EFP), Ethereum Name Service (ENS), Sign in with Ethereum (SIWE), and Ethereum Identity Kit. It enables AI assistants and applications to interact with Ethereum's social graph, query social relationships, analyze network connections, and access rich identity data across the Ethereum ecosystem.
 
-## Table of Contents
+## Quick Setup
 
-- [Overview](#overview)
-- [Quick Setup](#quick-setup)
-- [Available Tools](#available-tools)
-- [Usage Examples](#usage-examples)
-- [Best Practices](#best-practices)
-- [Integration Guide](#integration-guide)
-- [Troubleshooting](#troubleshooting)
-- [Advanced Usage](#advanced-usage)
+### 1. Use the online server
+
+Use one of the following endpoints to connect the MCP server to your AI assistant (Claude, Wireshark, ChatGPT, etc.).
+
+```bash
+# Using the SSE endpoint
+https://ethid-mcp.efp.workers.dev/sse
+
+# Or HTTP endpoint
+https://ethid-mcp.efp.workers.dev
+```
+
+### 2. Run it locally
+
+```bash
+npm install
+npm run dev
+```
+
+### Prerequisites
+
+- An AI assistant that supports Model Context Protocol (MCP)
+- Node.js v22.12.0+ (for some MCP clients)
+- Basic understanding of Ethereum addresses and ENS names
+
+### Configuration
+
+Add ETHID MCP to your MCP configuration:
+
+#### Add to MCP config file
+
+```json
+{
+  "ethid-mcp": {
+    "command": "npx",
+    "args": ["mcp-remote", "https://ethid-mcp.efp.workers.dev/sse"]
+  }
+}
+```
+
+### Important: Run Initialization
+
+⚠️ **Before first use**, run the initialization prompt from [`ETHID_MCP_INITIALIZATION_PROMPT.md`](https://github.com/ethereumfollowprotocol/ethid-mcp/blob/main/ETHID_MCP_INITIALIZATION_PROMPT.md) to ensure optimal performance and proper tool usage patterns.
 
 ## Overview
 
@@ -42,45 +77,6 @@ The system provides:
 - **Automatic Scaling**: Handle any request volume
 - **Intelligent Caching**: Optimize performance while maintaining data freshness
 - **Secure Proxy**: Safe access to blockchain data without direct API keys
-
-## Quick Setup
-
-### Prerequisites
-
-- An AI assistant that supports Model Context Protocol (MCP)
-- Node.js v22.12.0+ (for some MCP clients)
-- Basic understanding of Ethereum addresses and ENS names
-
-### Configuration
-
-Add ETHID MCP to your MCP configuration:
-
-#### For Claude Desktop/Code
-
-```json
-{
-  "mcpServers": {
-    "ethid-mcp": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://ethid-mcp.efp.workers.dev/sse"]
-    }
-  }
-}
-```
-
-#### For Other MCP Clients
-
-```bash
-# Using the SSE endpoint
-https://ethid-mcp.efp.workers.dev/sse
-
-# Or HTTP endpoint
-https://ethid-mcp.efp.workers.dev
-```
-
-### Important: Run Initialization
-
-⚠️ **Before first use**, run the initialization prompt from [`ETHID_MCP_INITIALIZATION_PROMPT.md`](https://github.com/ethereumfollowprotocol/ethid-mcp/blob/main/ETHID_MCP_INITIALIZATION_PROMPT.md) to ensure optimal performance and proper tool usage patterns.
 
 ## Available Tools
 

@@ -3,7 +3,7 @@ import { Chivo_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 
 import Providers from './providers'
-import { Production } from './production'
+import Production from './production'
 import { sharedMetadata } from '../lib/metadata'
 
 import './global.css'

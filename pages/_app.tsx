@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
 import { Chivo_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 
 import Providers from './providers'
+import { Production } from './production'
 import { sharedMetadata } from '../lib/metadata'
 
 import './global.css'
@@ -26,6 +28,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Providers>
         <Component {...pageProps} />{' '}
       </Providers>
+      <Production>
+        <Analytics />
+      </Production>
     </div>
   )
 }

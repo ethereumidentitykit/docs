@@ -1,6 +1,6 @@
 # Aggregated Ethereum Identity Context 
 
-> Updated at: 22:35 05/28/25
+> Updated at: 21:29 08/27/25
 
 # docs.efp.app llms.txt
 
@@ -507,40 +507,34 @@
 
 > Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
 
-- [Community Highlights](https://docs.login.xyz/additional-support/community-highlights): To showcase libraries, guides, and community projects related to Sign-In with Ethereum.
-- [Sign-In with Ethereum](https://docs.login.xyz/integrations/auth0): Guide to integrating Sign-In with Ethereum using Auth0 for authentication in web applications.
-- [Elixir Sign-In Guide](https://docs.login.xyz/libraries/elixir): Guide for implementing Sign-In with Ethereum using Elixir.
-- [Python Sign-In Documentation](https://docs.login.xyz/libraries/python): Provides documentation for using the Sign-In with Ethereum library in Python.
-- [Sign-In with Ethereum Overview](https://docs.login.xyz/general-information/siwe-overview): Explains Sign-In with Ethereum and its benefits for users and developers in both Web2 and Web3 contexts.
-- [Creating SIWE Messages](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/creating-siwe-messages): Guide to create SIWE messages for Ethereum sign-in using JavaScript.
-- [Sign-In with Ethereum for Rails](https://docs.login.xyz/libraries/ruby/rails): Guide for integrating Sign-In with Ethereum in Rails applications.
-- [ENS Profile Resolution Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/resolve-ens-profiles): Guide to resolving ENS profiles in a Sign-In with Ethereum implementation.
-- [Ethereum Sign-In Support](https://docs.login.xyz/additional-support): Provide support resources for integrating sign-in with Ethereum across various programming languages and tools.
-- [Sign-In with Ethereum Docs](https://docs.login.xyz/libraries): To provide comprehensive documentation and resources for integrating Sign-In with Ethereum across various programming languages and platforms.
-- [Sign-In with Ethereum Guide](https://docs.login.xyz/): Guide for implementing Sign-In with Ethereum authentication.
-- [Discourse Ethereum Integration Guide](https://docs.login.xyz/integrations/discourse): Guide for integrating Sign-In with Ethereum into Discourse platforms.
-- [OIDC Provider Deployment Guide](https://docs.login.xyz/servers/oidc-provider/deployment-guide): Guide for deploying an OIDC provider using Ethereum-based authentication.
-- [TypeScript Migration Guide](https://docs.login.xyz/libraries/typescript/migrating-to-v2): Guidelines for migrating applications to TypeScript v2.0 related to Sign-In with Ethereum.
-- [Sign-In with Ethereum Go](https://docs.login.xyz/libraries/go): Provides documentation for implementing Sign-In with Ethereum using the Go programming language.
-- [Implement Sessions Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/implement-sessions): Guide on implementing sessions for Sign-In with Ethereum in applications.
-- [EIP-4361 Overview](https://docs.login.xyz/general-information/siwe-overview/eip-4361): Explain the EIP-4361 specification for Sign-In with Ethereum, emphasizing decentralized identity and user-controlled authentication.
-- [Ruby SIWE Implementation](https://docs.login.xyz/libraries/ruby): Guidance on implementing Sign-In with Ethereum in Ruby applications.
-- [Sign-In with Ethereum Docs](https://docs.login.xyz/general-information): To provide comprehensive documentation for implementing Sign-In with Ethereum across various programming languages and integrations.
-- [Ethereum Improvement Proposals](https://docs.login.xyz/general-information/siwe-overview/review-of-related-eips): Overviews of Ethereum Improvement Proposals related to decentralized identity and SIWE standards.
-- [Sign-In with Ethereum Guides](https://docs.login.xyz/libraries/typescript): Provide resources and guides for implementing Sign-In with Ethereum using TypeScript and other programming languages.
-- [Frontend Implementation Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/implement-the-frontend): Guide for implementing a frontend to enable sign-in with Ethereum.
-- [Ethereum Authentication Guide](https://docs.login.xyz/integrations/nextauth.js): To guide users in implementing Ethereum authentication using NextAuth.js.
-- [Connect Frontend Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/connect-the-frontend): Guide to connect frontend for Sign-In with Ethereum implementation.
-- [Sign-In with Ethereum Guide](https://docs.login.xyz/servers): Documentation for implementing Sign-In with Ethereum and related technologies.
-- [Sign-In with Ethereum Docs](https://docs.login.xyz/integrations): To provide documentation and resources for integrating Sign-In with Ethereum and related technologies.
-- [Sign-In with Ethereum](https://docs.login.xyz/servers/oidc-provider): Guide for implementing Sign-In with Ethereum using OpenID Connect.
-- [Backend Implementation Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/implement-the-backend): Guide for implementing backend for Sign-In with Ethereum authentication.
-- [TypeScript Quickstart Guide](https://docs.login.xyz/libraries/typescript/typescript-quickstart): Guide for signing in with Ethereum using TypeScript, with setup instructions and requirements.
-- [ENS Profile Resolution Guide](https://docs.login.xyz/additional-support/ens-profile-resolution): Guide for resolving ENS profiles using Ethereum addresses in authentication workflows.
-- [Security Considerations for SIWE](https://docs.login.xyz/additional-support/security-considerations): Provide security considerations for implementing Sign-In with Ethereum (SIWE).
-- [SIWE Code of Conduct](https://docs.login.xyz/general-information/siwe-code-of-conduct): Establish guidelines for respectful community interaction in the Sign-In with Ethereum project.
-- [Hosted OIDC Provider Guide](https://docs.login.xyz/servers/oidc-provider/hosted-oidc-provider): Guide for developers on configuring and using a hosted OpenID Connect Provider with Ethereum integration.
-- [Resolve NFT Holdings](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide/resolve-nft-holdings): Guide for resolving NFT holdings through Ethereum sign-in.
-- [Quickstart Guide](https://docs.login.xyz/sign-in-with-ethereum/quickstart-guide): Guide for integrating Sign-In with Ethereum into applications.
-- [Rust Sign-In Documentation](https://docs.login.xyz/libraries/rust): Provides documentation for the Rust implementation of Sign-In with Ethereum.
+- [SIWE Security Guidelines](https://docs.siwe.xyz/security-considerations): Offer comprehensive security best practices for implementing Sign In with Ethereum (SIWE) authentication.
+- [SIWE Auth0 Integration](https://docs.siwe.xyz/integrations/auth0): Guide integration of Sign In With Ethereum (SIWE) authentication with Auth0 for web2 applications.
+- [TypeScript SIWE Library](https://docs.siwe.xyz/libraries/typescript): Provide TypeScript library documentation and integration examples for Sign in with Ethereum (EIP-4361) implementation.
+- [SIWE Integration for Rails](https://docs.siwe.xyz/libraries/ruby/rails): Guide Rails developers on integrating Sign in with Ethereum authentication using multiple approaches and setup steps.
+- [Retrieve Onchain Data](https://docs.siwe.xyz/quickstart/retrieve-onchain-data): Guide developers on accessing and using onchain Ethereum data like ENS, EFP, and assets after user authentication.
+- [Sign in with Ethereum Quickstart](https://docs.siwe.xyz/quickstart): Guide to implement Sign in with Ethereum authentication including frontend, backend, and session management.
+- [Go SIWE Library Guide](https://docs.siwe.xyz/libraries/go): Guide to installing and using the Go library for Sign in with Ethereum authentication.
+- [Sign in with Ethereum Docs](https://docs.siwe.xyz): Guide developers to implement secure Ethereum account authentication via the Sign in with Ethereum (SIWE) standard.
+- [SIWE Backend Verification](https://docs.siwe.xyz/quickstart/backend-verification): Guide to building a secure Express.js backend for verifying SIWE signatures and managing authentication.
+- [OIDC Provider Guide](https://docs.siwe.xyz/oidc-provider): Explain how to use OpenID Connect for consolidated Sign in with Ethereum authentication.
+- [EFP Data Integration Guide](https://docs.siwe.xyz/quickstart/resolve-efp-data): Guide developers to integrate and display Ethereum Follow Protocol (EFP) social graph data using API and React components.
+- [SIWE Session Implementation](https://docs.siwe.xyz/quickstart/implement-sessions): Guide to implement Express.js sessions for backend security in Sign in with Ethereum (SIWE) projects.
+- [SIWE Message Validator](https://docs.siwe.xyz/validator): Validate and lint Sign in with Ethereum messages for EIP-4361 compliance and security best practices.
+- [Migrating SIWE to v2](https://docs.siwe.xyz/libraries/typescript/migrating-to-v2): Guide to upgrading TypeScript SIWE library from version 1.1.6 to 2.1.x with detailed changes and steps.
+- [SIWE TypeScript Quickstart](https://docs.siwe.xyz/libraries/typescript/typescript-quickstart): Guide to quickly set up and run a TypeScript example for Sign in with Ethereum using a notepad app.
+- [Onchain Holdings Guide](https://docs.siwe.xyz/quickstart/resolve-onchain-holdings): Guide for developers to retrieve and display users' onchain token and NFT holdings via blockchain APIs.
+- [Connect Frontend Guide](https://docs.siwe.xyz/quickstart/connect-the-frontend): Guide to updating frontend for signing and sending Ethereum authentication messages to backend.
+- [SIWE React Frontend Setup](https://docs.siwe.xyz/quickstart/frontend-setup): Guide to build a React frontend for connecting Ethereum wallets and using SIWE for authentication user signatures.
+- [Elixir SIWE Library](https://docs.siwe.xyz/libraries/elixir): Provide Elixir library installation and usage instructions for Sign in with Ethereum integration.
+- [Ruby SIWE Library](https://docs.siwe.xyz/libraries/ruby): Provide installation, usage, and error handling instructions for the Ruby Sign-In with Ethereum library.
+- [SIWE Integration Guide](https://docs.siwe.xyz/integrations): Guide developers on integrating Sign in with Ethereum (SIWE) for decentralized authentication across platforms.
+- [NextAuth.js Ethereum Integration](https://docs.siwe.xyz/integrations/nextauth.js): Guide to integrating Sign in with Ethereum using NextAuth.js in Next.js applications.
+- [SIWE Validator Guide](https://docs.siwe.xyz/validator/validator-guide): Guide to validating, linting, and debugging Sign-In with Ethereum messages per EIP-4361 standards.
+- [Rust SIWE Documentation](https://docs.siwe.xyz/libraries/rust): Provide documentation and resources for using the Rust implementation of Sign in with Ethereum.
+- [Resolving ENS Profiles](https://docs.siwe.xyz/quickstart/resolve-ens-profiles): Guide to integrating ENS profile resolution and display into applications using JavaScript and React components.
+- [SIWE Libraries Overview](https://docs.siwe.xyz/libraries): Detail official SIWE libraries across languages for EIP-4361 authentication integration with usage and migration guidance.
+- [Ethereum Identity Kit Docs](https://docs.siwe.xyz/libraries/ethereum-idetntiy-kit): Provide documentation and resources for using the Ethereum Identity Kit library in dapp development.
+- [Sign in with Ethereum Python](https://docs.siwe.xyz/libraries/python): Provide documentation and resources for the Python implementation of Sign in with Ethereum.
+- [SIWE Integration for Discourse](https://docs.siwe.xyz/integrations/discourse): Guide to integrate Sign in with Ethereum authentication into a Discourse discussion platform.
+- [SIWE Message Creation Guide](https://docs.siwe.xyz/quickstart/creating-messages): Guide developers to create and implement Sign in with Ethereum (SIWE) authentication messages securely using TypeScript.
 - [EIP-4361: Sign-In with Ethereum](https://eips.ethereum.org/EIPS/eip-4361): Off-chain authentication for Ethereum accounts to establish sessions.

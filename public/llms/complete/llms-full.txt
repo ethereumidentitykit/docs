@@ -8,7 +8,7 @@
 
 **Is EFP a social network?**
 
-> No, EFP is just a social graph. It has no names or profiles (use [ENS](https://ens.domains/) for that), no authentication protocol (use [SIWE](https://login.xyz/)), nor posting or tweeting. It's a primitive of the Ethereum identity stack meant to be combined with others elements in that stack in third party apps. [This article](https://mirror.xyz/brantly.eth/7nJZCqyvhbdTIfq4oSnNEjlUUyxS9sf3pTHcBNi8Te8) explains the vision.
+> No, EFP is just a social graph. It has no names or profiles (use [ENS](https://ens.domains/) for that), no authentication protocol (use [SIWE](https://siwe.xyz/)), nor posting or tweeting. It's a primitive of the Ethereum identity stack meant to be combined with others elements in that stack in third party apps. [This article](https://mirror.xyz/brantly.eth/7nJZCqyvhbdTIfq4oSnNEjlUUyxS9sf3pTHcBNi8Te8) explains the vision.
 
 **Can I post or tweet on EFP?**
 
@@ -37785,12 +37785,12 @@ Create two files:
 `message.txt`:
 
 ```
-login.xyz wants you to sign in with your Ethereum account:
+siwe.xyz wants you to sign in with your Ethereum account:
 0xfA151B5453CE69ABf60f0dbdE71F6C9C5868800E
 
 Sign in with Ethereum Example Statement
 
-URI: https://login.xyz
+URI: https://siwe.xyz
 Version: 1
 Chain ID: 1
 Nonce: ToTaLLyRanDOM

@@ -503,7 +503,7 @@
 
 ---
 
-# docs.login.xyz llms.txt
+# docs.siwe.xyz llms.txt
 
 > Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
 

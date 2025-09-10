@@ -2,7 +2,7 @@
 
 > Offering resources and guidance for integrating Sign-In with Ethereum, enhancing user control over digital identities in web applications, while promoting best practices and supporting community involvement within the Ethereum ecosystem.
 
-> Updated at: 21:35 08/27/25
+> Updated at: 23:25 09/09/25
 
 # ⭐ Deployment Guide
 
@@ -10,10 +10,11 @@ This guide covers deploying the SIWE OIDC Provider in production environments. C
 
 ## Deployment Options
 
-The SIWE OIDC Provider can be deployed in two primary modes:
+The SIWE OIDC Provider can be deployed in three primary modes:
 
-1. **[Cloudflare Workers](#cloudflare-workers-deployment)** - Serverless, globally distributed
-2. **[Standalone Binary](#standalone-binary-deployment)** - Self-hosted with full control
+1. **[Railway Template](#railway-template-deployment)** - Preconfigured and easily deployed
+2. **[Cloudflare Workers](#cloudflare-workers-deployment)** - Serverless, globally distributed
+3. **[Standalone Binary](#standalone-binary-deployment)** - Self-hosted with full control
 
 ## Prerequisites
 
@@ -33,6 +34,15 @@ The SIWE OIDC Provider can be deployed in two primary modes:
 
 -   **Cloudflare account** with Workers enabled
 -   **Wrangler CLI** installed locally
+
+## Railway Template Deployment
+
+Railway is a platform that allows users to easily deploy and manage services and environments.  
+
+Deploying the SIWE-OIDC template on Railway is the easiest option to deploy the service and is as simple as clicking the button below.  The template is preconfigured and only requires you to create a Railway account if you don't already have one, and enter in a Re-Own (Wallet Connect) project ID.
+
+<a href="https://railway.com/deploy/siwe-oidc?referralCode=98Kre1" target="_blank" rel="noopener noreferrer"><img src="https://railway.com/button.svg" alt="Deploy on Railway" /></a>
+
 
 ## Cloudflare Workers Deployment
 
@@ -441,6 +451,16 @@ Axum and Redis) and (2) a WASM module within a Cloudflare Worker. Both are built
 from the same codebase, specializing at build time. Compilation with a `cargo` target
 of `wasm32` will build for Cloudflare Worker deployments.
 
+## Demo
+
+A demo site is available that demonstrates how the OIDC flow works in production
+
+<FullWidthLink
+	href='https://oidc-demo.siwe.xyz'
+	logo='/img/logo.svg'
+	text='signinwithethereum/oidc-demo'
+/>
+<br />
 ---
 
 import FullWidthLink from '@site/src/components/full-width-link'
@@ -853,12 +873,12 @@ Create two files:
 `message.txt`:
 
 ```
-login.xyz wants you to sign in with your Ethereum account:
+siwe.xyz wants you to sign in with your Ethereum account:
 0xfA151B5453CE69ABf60f0dbdE71F6C9C5868800E
 
 Sign in with Ethereum Example Statement
 
-URI: https://login.xyz
+URI: https://siwe.xyz
 Version: 1
 Chain ID: 1
 Nonce: ToTaLLyRanDOM

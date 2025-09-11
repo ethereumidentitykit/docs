@@ -9,6 +9,7 @@ The Followers and Following component displays a comprehensive interface for vie
 - Tabbed interface (Followers/Following)
 - Search functionality
 - Tag management and filtering
+- Filtered views for blocked and muted profiles
 - Follower state indicators (follows you, blocks you, mutes you)
 - Virtual scrolling for performance
 - Mobile-responsive design
@@ -21,7 +22,7 @@ The Followers and Following component displays a comprehensive interface for vie
 import { FollowersAndFollowing } from 'ethereum-identity-kit'
 
 export default function Profile() {
-  return <FollowersAndFollowing user="vitalik.eth" defaultTab="followers" connectedAddress="0x..." />
+  return <FollowersAndFollowing user="vitalik.eth" defaultTab="followers" showOnlyBlocked={false} showBlocked={false} />
 }
 ```
 
@@ -36,25 +37,31 @@ export default function Profile() {
   </span>
 </a>
 
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <FollowersAndFollowing user="vitalik.eth" defaultTab="following" showProfileTooltip={true} />
+</div>
+
 ## Parameters
 
-| Parameter                | Description                                                                                 | Required | Default Value |
-| ------------------------ | ------------------------------------------------------------------------------------------- | -------- | ------------- |
-| `user`                   | Ethereum Address or ENS name to display followers and following for.                        | Yes      | -             |
-| `defaultTab`             | The default tab to display ('followers' or 'following').                                    | Yes      | -             |
-| `canEditTags`            | Whether the user can edit tags for profiles in the following list.                          | No       | false         |
-| `showTagsByDefault`      | Whether to show tags by default when viewing the following list.                            | No       | false         |
-| `includeBlocked`         | Whether to include blocked users from the lists.                                            | No       | false         |
-| `showRecommendations`    | Whether to show recommendations on the following tab for connected users with no following. | No       | false         |
-| `isConnectedUserProfile` | Whether the profile being viewed belongs to the connected user.                             | No       | false         |
-| `darkMode`               | Enables dark mode styling for the component.                                                | No       | false         |
-| `connectedAddress`       | Address of the user connected to the app.                                                   | No       | -             |
-| `selectedList`           | List number selected in your application for the connected user.                            | No       | -             |
-| `onProfileClick`         | Function called when a profile in the list is clicked.                                      | No       | -             |
-| `showHeaderImage`        | Whether to show header images in the profile list.                                          | No       | false         |
-| `rowHeight`              | Height of each row in the profile list (in pixels).                                         | No       | 80            |
-| `preventDefaultScroll`   | Whether to prevent default scroll behavior.                                                 | No       | false         |
-| `useVirtualList`         | Whether to use virtual scrolling for better performance with large lists.                   | No       | false         |
+| Parameter                | Description                                                                                                        | Required | Default Value |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------ | -------- | ------------- |
+| `user`                   | Ethereum Address or ENS name to display followers and following for.                                               | Yes      | -             |
+| `defaultTab`             | The default tab to display ('followers' or 'following').                                                           | Yes      | -             |
+| `canEditTags`            | Whether the user can edit tags for profiles in the following list.                                                 | No       | false         |
+| `showTagsByDefault`      | Whether to show tags by default when viewing the following list.                                                   | No       | false         |
+| `showBlocked`            | Whether to include blocked users from the lists.                                                                   | No       | false         |
+| `showOnlyBlocked`        | Whether to include only blocked users from the lists.                                                              | No       | false         |
+| `showRecommendations`    | Whether to show recommendations on the following tab for connected users with no following.                        | No       | false         |
+| `isConnectedUserProfile` | Whether the profile being viewed belongs to the connected user.                                                    | No       | false         |
+| `darkMode`               | Enables dark mode styling for the component.                                                                       | No       | false         |
+| `connectedAddress`       | Address of the user connected to the app.                                                                          | No       | -             |
+| `selectedList`           | List number selected in your application for the connected user.                                                   | No       | -             |
+| `onProfileClick`         | Function called when a profile in the list is clicked.                                                             | No       | -             |
+| `showHeaderImage`        | Whether to show header images in the profile list.                                                                 | No       | false         |
+| `showProfileTooltip`     | Whether to show [`ProfileTooltip`](./profile-tooltip) when hovering over profile items (for more than one second). | No       | false         |
+| `rowHeight`              | Height of each row in the profile list (in pixels).                                                                | No       | 80            |
+| `preventDefaultScroll`   | Whether to prevent default scroll behavior.                                                                        | No       | false         |
+| `useVirtualList`         | Whether to use virtual scrolling for better performance with large lists.                                          | No       | false         |
 
 ## Features
 
@@ -66,7 +73,30 @@ The component provides a clean tabbed interface to switch between viewing follow
 
 - **Search**: Find specific profiles by name or address
 - **Tag Filtering**: Filter following list by custom tags (when `canEditTags` is enabled)
+- **Blocked/Muted Filtering**: View only blocked or muted profiles using the `filter` prop
 - **Sort Options**: Multiple sorting options for organizing the lists
+
+### Filtered Views
+
+The component now supports filtered views to display only specific types of profiles:
+
+```tsx
+// Show only blocked profiles
+<FollowersAndFollowing
+  user="vitalik.eth"
+  defaultTab="following"
+  filter="onlyBlocked"
+  connectedAddress="0x..."
+/>
+
+// Show only muted profiles
+<FollowersAndFollowing
+  user="vitalik.eth"
+  defaultTab="following"
+  filter="onlyMuted"
+  connectedAddress="0x..."
+/>
+```
 
 ### Tag Management
 
@@ -103,3 +133,14 @@ When `showRecommendations` is enabled, users with no following will see personal
   toggles between light and dark modes using the `darkMode` prop, however, if you have a `dark` class applied in your
   application, the component will automatically detect and use that.
 </Callout>{' '}
+
+### Show Only Blocked
+
+When `showOnlyBlocked` is enabled, the component will only show blocked & muted users from the lists (both who blocked/muted that user, and who that user is blocking/muting).
+
+```tsx
+<FollowersAndFollowing
+  user="vitalik.eth"
+  defaultTab="followers"
+  showOnlyBlocked={true}
+```

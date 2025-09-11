@@ -18,18 +18,18 @@ The `useFollowButton` hook manages the state and actions for a follow button com
 import { useFollowButton } from 'ethereum-identity-kit'
 
 export default function FollowButtonComponent() {
-  const { 
-    buttonText, 
-    buttonState, 
-    handleAction, 
-    isLoading, 
+  const {
+    buttonText,
+    buttonState,
+    handleAction,
+    isLoading,
     isDisabled,
     error,
     clearError,
     ariaLabel,
     ariaPressed,
-    disableHover, 
-    setDisableHover 
+    disableHover,
+    setDisableHover,
   } = useFollowButton({
     lookupAddress: '0x1234...abcd',
     connectedAddress: '0xabcd...1234',
@@ -63,25 +63,28 @@ export default function FollowButtonComponent() {
 | `selectedList`     | List number to manage the follow state for; defaults to the primary list. | No       | -             |
 
 <Callout type="info">
-  The hook now automatically validates addresses using viem's `isAddress` function. Invalid addresses will set an error state instead of throwing.
+  The hook now automatically validates addresses using viem's `isAddress` function. Invalid addresses will set an error
+  state instead of throwing.
 </Callout>
 
 ## Return Values
 
-| Return Value      | Description                                                                                  |
-| ----------------- | -------------------------------------------------------------------------------------------- |
-| `buttonText`      | The text to display on the follow button, indicating the current or pending follow state.    |
-| `buttonState`     | The current state of the button, such as 'Follow', 'Following', 'Blocked', etc.             |
-| `handleAction`    | Async function to handle button clicks, now with proper error handling.                      |
-| `isLoading`       | Boolean indicating if the follow state is currently loading.                                 |
-| `isDisabled`      | Boolean combining multiple disable conditions (loading, invalid addresses, etc.).            |
-| `error`           | Error message string if an operation fails, null otherwise.                                 |
-| `clearError`      | Function to manually clear the current error state.                                         |
-| `ariaLabel`       | Computed ARIA label for screen reader accessibility.                                        |
-| `ariaPressed`     | ARIA pressed state for toggle button semantics.                                            |
-| `pendingState`    | The pending state of the follow action, if any (e.g., 'Pending Following', 'Pending Block'). |
-| `disableHover`    | Boolean indicating if hover effects should be disabled.                                     |
-| `setDisableHover` | Function to set the `disableHover` state.                                                  |
+| Return Value      | Description                                                                                                         |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `buttonText`      | The text to display on the follow button, indicating the current or pending follow state.                           |
+| `buttonState`     | The current state of the button, such as 'Follow', 'Following', 'Blocked', etc.                                     |
+| `handleAction`    | Async function to handle button clicks, now with proper error handling.                                             |
+| `isLoading`       | Boolean indicating if the follow state is currently loading.                                                        |
+| `isDisabled`      | Boolean combining multiple disable conditions (loading, invalid addresses, etc.).                                   |
+| `error`           | Error message string if an operation fails, null otherwise.                                                         |
+| `clearError`      | Function to manually clear the current error state.                                                                 |
+| `ariaLabel`       | Computed ARIA label for screen reader accessibility.                                                                |
+| `ariaPressed`     | ARIA pressed state for toggle button semantics.                                                                     |
+| `pendingState`    | The pending state of the follow action, if any (e.g., 'Pending Following', 'Pending Block').                        |
+| `disableHover`    | Boolean indicating if hover effects should be disabled.                                                             |
+| `setDisableHover` | Function to set the `disableHover` state.                                                                           |
+| `showBlockBack`   | Boolean indicating if the block back button should be shown (only if you are not already blocking that user).       |
+| `showMuteBack`    | Boolean indicating if the mute back button should be shown (only if you are not already blocking/muting that user). |
 
 ## TypeScript Interface
 

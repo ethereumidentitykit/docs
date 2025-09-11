@@ -21,12 +21,12 @@ import { ProfileStats, useProfileStats } from 'ethereum-identity-kit'
 
 export default function Home() {
   const { stats, isLoading } = useProfileStats('vitalik.eth')
-  
+
   return (
-    <ProfileStats 
+    <ProfileStats
       addressOrName="vitalik.eth"
       prefetched={{
-        stats: { data: stats, isLoading }
+        stats: { data: stats, isLoading },
       }}
     />
   )

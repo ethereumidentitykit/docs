@@ -29,3 +29,7 @@
   justify-content: center;
   align-items: center;
 }
+
+.dark .tooltip-card {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}

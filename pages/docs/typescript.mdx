@@ -5,6 +5,7 @@ Ethereum Identity Kit is built with TypeScript and provides comprehensive type d
 ## Overview
 
 The library provides:
+
 - **Complete type coverage** for all exports
 - **Strict type checking** with no `any` types
 - **Enhanced JSDoc documentation** for better IDE support
@@ -53,7 +54,7 @@ interface UseFollowingStateReturn {
 
 const result: UseFollowingStateReturn = useFollowingState({
   userAddress: '0x123...',
-  targetAddress: '0x456...'
+  targetAddress: '0x456...',
 })
 ```
 
@@ -86,7 +87,7 @@ interface UseFollowButtonReturn {
 // Usage with full type safety and error handling
 const buttonProps = useFollowButton({
   lookupAddress: '0x123...',
-  connectedAddress: '0xabc...'
+  connectedAddress: '0xabc...',
 })
 
 if (buttonProps.error) {
@@ -138,15 +139,15 @@ interface ProfileCardProps {
 }
 
 // Usage with full type safety
-<ProfileCard
+;<ProfileCard
   addressOrName="vitalik.eth"
   showFollowButton={true}
-  extraOptions={{ 
+  extraOptions={{
     customFollowButton: <CustomButton />,
-    role: "Developer" 
+    role: 'Developer',
   }}
   prefetched={{
-    profile: { data: profileData, isLoading: false, refetch: () => {} }
+    profile: { data: profileData, isLoading: false, refetch: () => {} },
   }}
   onStatClick={(stat) => console.log(stat)} // stat is typed as string
 />
@@ -170,7 +171,7 @@ interface FollowButtonProps {
 }
 
 // Usage with custom click handler
-<FollowButton
+;<FollowButton
   lookupAddress="0x123..."
   customOnClick={(state) => {
     console.log('Current state:', state)
@@ -187,19 +188,15 @@ Updated prop names for consistency:
 interface FollowersYouKnowProps {
   lookupAddress: string
   connectedAddress?: string
-  showEmpty?: boolean      // Previously displayEmpty
-  showLoading?: boolean    // New prop for loading control
+  showEmpty?: boolean // Previously displayEmpty
+  showLoading?: boolean // New prop for loading control
   hasModal?: boolean
   onProfileClick?: (address: string) => void
   className?: string
 }
 
 // Usage with new prop names
-<FollowersYouKnow
-  lookupAddress="vitalik.eth"
-  showEmpty={false}
-  showLoading={true}
-/>
+;<FollowersYouKnow lookupAddress="vitalik.eth" showEmpty={false} showLoading={true} />
 ```
 
 ### ProfileStats
@@ -224,10 +221,10 @@ interface ProfileStatsProps {
 }
 
 // Usage with prefetched data
-<ProfileStats
+;<ProfileStats
   addressOrName="vitalik.eth"
   prefetched={{
-    stats: { data: statsData, isLoading: false }
+    stats: { data: statsData, isLoading: false },
   }}
 />
 ```
@@ -247,7 +244,7 @@ interface ProfileSocialsProps {
 }
 
 // Usage with full type safety
-<ProfileSocials
+;<ProfileSocials
   userAddress="0x123..."
   records={{ 'com.twitter': 'username' }}
   showEmptySocials={false}
@@ -267,7 +264,7 @@ The latest version introduces several API consolidation changes for better consi
 <FullWidthProfile role="Developer" options={{ followButton: <Button /> }} />
 <FollowersYouKnow displayEmpty={false} />
 
-// After  
+// After
 <ProfileCard extraOptions={{ customFollowButton: <Button /> }} />
 <FullWidthProfile extraOptions={{ role: "Developer", customFollowButton: <Button /> }} />
 <FollowersYouKnow showEmpty={false} />
@@ -277,7 +274,7 @@ The latest version introduces several API consolidation changes for better consi
 
 ```tsx
 // Before - flat props
-<ProfileCard 
+<ProfileCard
   profileData={data}
   prefetchedProfileLoading={loading}
   refetchProfileData={refetch}
@@ -287,7 +284,7 @@ The latest version introduces several API consolidation changes for better consi
 />
 
 // After - nested structure
-<ProfileCard 
+<ProfileCard
   prefetched={{
     profile: { data, isLoading: loading, refetch },
     stats: { data: statsData, isLoading: statsLoading, refetch: refetchStats }
@@ -302,7 +299,7 @@ The latest version introduces several API consolidation changes for better consi
 <FullWidthProfile role="Developer" />
 
 // After - in extraOptions
-<FullWidthProfile 
+<FullWidthProfile
   extraOptions={{ role: "Developer" }}
 />
 ```
@@ -360,15 +357,19 @@ type ActionConfig = {
 // Example usage in custom implementations
 const ACTION_CONFIG: ActionConfig = {
   follow: {
-    execute: async () => { /* follow logic */ },
+    execute: async () => {
+      /* follow logic */
+    },
     nextState: 'Following',
-    errorMessage: 'Failed to follow user'
+    errorMessage: 'Failed to follow user',
   },
   unfollow: {
-    execute: async () => { /* unfollow logic */ },
+    execute: async () => {
+      /* unfollow logic */
+    },
     nextState: 'Follow',
-    errorMessage: 'Failed to unfollow user'
-  }
+    errorMessage: 'Failed to unfollow user',
+  },
 }
 ```
 
@@ -378,9 +379,7 @@ const ACTION_CONFIG: ActionConfig = {
 
 ```tsx
 // Custom hook with type constraints
-function useTypedProfile<T extends string | `0x${string}`>(
-  addressOrName: T
-): UseProfileDetailsReturn {
+function useTypedProfile<T extends string | `0x${string}`>(addressOrName: T): UseProfileDetailsReturn {
   return useProfileDetails(addressOrName)
 }
 
@@ -396,10 +395,7 @@ import { forwardRef } from 'react'
 import { ProfileCard } from 'ethereum-identity-kit'
 
 // Forward ref with proper typing
-const CustomProfileCard = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ProfileCard>
->((props, ref) => {
+const CustomProfileCard = forwardRef<HTMLDivElement, React.ComponentProps<typeof ProfileCard>>((props, ref) => {
   return <ProfileCard {...props} ref={ref} />
 })
 ```
@@ -409,19 +405,21 @@ const CustomProfileCard = forwardRef<
 ### From Previous Version
 
 1. **Update prop names**:
+
    ```tsx
    // Change options → extraOptions
-   // Change displayEmpty → showEmpty  
+   // Change displayEmpty → showEmpty
    // Change followButton → customFollowButton
    // Move role to extraOptions
    ```
 
 2. **Restructure prefetched data**:
+
    ```tsx
    // Convert flat props to nested prefetched object
    const prefetched = {
      profile: { data: profileData, isLoading, refetch },
-     stats: { data: statsData, isLoading: statsLoading, refetch: refetchStats }
+     stats: { data: statsData, isLoading: statsLoading, refetch: refetchStats },
    }
    ```
 
@@ -434,38 +432,42 @@ const CustomProfileCard = forwardRef<
 ## Best Practices
 
 1. **Use the new nested structures** for better organization:
+
    ```tsx
    // Good - new nested structure
    const extraOptions: ProfileExtraOptions = {
      customFollowButton: <CustomButton />,
      role: 'Developer'
    }
-   
+
    <ProfileCard extraOptions={extraOptions} />
    ```
 
 2. **Leverage the prefetched data structure** for performance:
+
    ```tsx
    const prefetched: PrefetchedData = {
      profile: { data, isLoading, refetch },
      stats: { data: statsData, isLoading: statsLoading, refetch: refetchStats }
    }
-   
+
    <ProfileCard prefetched={prefetched} />
    ```
 
 3. **Use discriminated unions** for state management:
+
    ```tsx
-   type LoadingState = 
+   type LoadingState =
      | { status: 'loading'; data: null }
      | { status: 'success'; data: ProfileDetails }
      | { status: 'error'; error: Error }
    ```
 
 4. **Use strict null checks** to catch potential runtime errors:
+
    ```tsx
    const profile = useProfileDetails('vitalik.eth')
-   
+
    if (profile.profileDetails) {
      // TypeScript knows profileDetails is not null here
      console.log(profile.profileDetails.name)
@@ -477,13 +479,14 @@ const CustomProfileCard = forwardRef<
 The library provides excellent IDE support with:
 
 - **IntelliSense autocompletion** for all props and methods
-- **Inline documentation** via JSDoc comments  
+- **Inline documentation** via JSDoc comments
 - **Type checking** in real-time
 - **Go to definition** for all exported types
 - **Refactoring support** with type safety
 - **Migration warnings** for deprecated props
 
 Popular IDEs with full support:
+
 - Visual Studio Code
 - WebStorm
 - Vim with TypeScript plugins

@@ -77,8 +77,8 @@ const Home = () => {
               <div className="siwe-container bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
                 <SignInWithEthereum
                   message="Ethereum Identity Kit says hi!"
-                  onSignInSuccess={() => { }}
-                  onSignInError={() => { }}
+                  onSignInSuccess={() => {}}
+                  onSignInError={() => {}}
                   getNonce={generateClientSideNonce}
                   verifySignature={() => {
                     console.log('signature verified')

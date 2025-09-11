@@ -1,0 +1,165 @@
+import { Callout } from 'nextra/components'
+
+# useTooltipPosition
+
+The `useTooltipPosition` hook manages intelligent positioning for tooltips, automatically calculating the optimal placement based on available viewport space. It handles dynamic positioning updates and provides coordinates for rendering tooltips above or below trigger elements.
+
+## Features
+
+- **Smart Positioning**: Automatically determines whether to show tooltip above or below the trigger element
+- **Viewport Awareness**: Prevents tooltips from rendering outside the visible viewport
+- **Dynamic Updates**: Recalculates position on scroll and resize events
+- **Responsive Support**: Adapts positioning logic for different screen sizes
+- **TypeScript Support**: Full type definitions for position data
+
+### Add to your project
+
+```tsx copy
+import { useTooltipPosition } from 'ethereum-identity-kit'
+
+export default function TooltipComponent({ children }) {
+  const triggerRef = useRef<HTMLDivElement>(null)
+  const tooltipRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  const { position, actualPlacement, arrowPosition, updatePosition } = useTooltipPosition(triggerRef, tooltipRef, {
+    verticalPlacement: 'auto',
+    horizontalPlacement: 'left',
+    verticalOffset: 8,
+    horizontalOffset: 0,
+    flipBehavior: 'flip',
+    boundary: 'viewport',
+  })
+
+  return (
+    <div ref={triggerRef} onMouseEnter={() => setIsVisible(true)}>
+      {children}
+      {isVisible && (
+        <div
+          ref={tooltipRef}
+          style={{
+            position: 'absolute',
+            top: position.top,
+            left: position.left,
+            transform: position.transform,
+          }}
+        >
+          Tooltip content
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter    | Description                                        | Required | Default Value |
+| ------------ | -------------------------------------------------- | -------- | ------------- |
+| `triggerRef` | React ref to the element that triggers the tooltip | Yes      | -             |
+| `tooltipRef` | React ref to the tooltip element                   | Yes      | -             |
+| `options`    | Options for the tooltip position                   | Yes      | -             |
+
+### Options
+
+| Parameter             | Description                          | Required | Default Value |
+| --------------------- | ------------------------------------ | -------- | ------------- |
+| `verticalPlacement`   | Vertical placement of the tooltip    | No       | 'auto'        |
+| `horizontalPlacement` | Horizontal placement of the tooltip  | No       | 'left'        |
+| `verticalOffset`      | Vertical offset of the tooltip       | No       | 8             |
+| `horizontalOffset`    | Horizontal offset of the tooltip     | No       | 0             |
+| `boundary`            | Boundary of the tooltip              | No       | 'viewport'    |
+| `flipBehavior`        | Flip behavior of the tooltip         | No       | 'flip'        |
+| `arrowPadding`        | Padding for the arrow of the tooltip | No       | 8             |
+
+## Return Value
+
+The hook returns a position object with the following properties:
+
+```typescript
+interface TooltipPosition {
+  position: Position
+  actualPlacement
+  arrowPosition
+  updatePosition
+  isColliding
+}
+```
+
+## Usage Examples
+
+### Basic Tooltip
+
+```tsx
+function BasicTooltip({ text, children }) {
+  const triggerRef = useRef(null)
+  const tooltipRef = useRef(null)
+  const [show, setShow] = useState(false)
+
+  const { position } = useTooltipPosition({
+    triggerRef,
+    tooltipRef,
+    options: {
+      verticalPlacement: 'auto',
+      horizontalPlacement: 'left',
+      verticalOffset: 8,
+      horizontalOffset: 0,
+      flipBehavior: 'flip',
+      boundary: 'viewport',
+    },
+  })
+
+  return (
+    <span ref={triggerRef} onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+      {children}
+      {show && (
+        <div
+          ref={tooltipRef}
+          className="tooltip"
+          style={{
+            ...position,
+          }}
+        >
+          {text}
+        </div>
+      )}
+    </span>
+  )
+}
+```
+
+### With Custom Offset
+
+```tsx
+const position = useTooltipPosition({
+  triggerRef,
+  tooltipRef,
+  isVisible,
+  offset: 12, // Larger gap between trigger and tooltip
+  preferredPosition: 'bottom', // Prefer showing below
+})
+```
+
+<Callout type="info">
+  The hook automatically handles edge cases where the tooltip would be cut off by the viewport edges, flipping the
+  position as needed to ensure full visibility.
+</Callout>
+
+<Callout type="warning">
+  Ensure both `triggerRef` and `tooltipRef` are properly attached to DOM elements before the tooltip becomes visible, as
+  the hook needs to measure element dimensions for accurate positioning.
+</Callout>
+
+## Implementation Notes
+
+- The hook uses `getBoundingClientRect()` to calculate positions relative to the viewport
+- Position updates are triggered by:
+  - Changes to the `isVisible` prop
+  - Window scroll events
+  - Window resize events
+- The hook automatically cleans up event listeners when unmounted
+- For performance, position calculations are only performed when the tooltip is visible
+
+## Integration with ProfileTooltip
+
+This hook is used internally by the [`ProfileTooltip`](/docs/components/profile-tooltip) component to handle its positioning logic. You can use it to create your own custom tooltip components with similar intelligent positioning behavior.

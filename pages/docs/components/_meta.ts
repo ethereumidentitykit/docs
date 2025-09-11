@@ -1,6 +1,9 @@
 export default {
   'full-width-profile': 'Full Width Profile',
   'profile-card': 'Profile Card',
+  'profile-tooltip': 'Profile Tooltip',
+  'profile-list': 'Profile List',
+  'profile-list-row': 'Profile List Row',
   'profile-stats': 'Profile Stats',
   'profile-socials': 'Profile Socials',
   avatar: 'Avatar',

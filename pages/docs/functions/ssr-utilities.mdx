@@ -96,10 +96,7 @@ Use dynamic imports with SSR disabled for browser-only components:
 ```tsx
 import dynamic from 'next/dynamic'
 
-const ProfileCard = dynamic(
-  () => import('ethereum-identity-kit').then(mod => mod.ProfileCard),
-  { ssr: false }
-)
+const ProfileCard = dynamic(() => import('ethereum-identity-kit').then((mod) => mod.ProfileCard), { ssr: false })
 ```
 
 #### Remix
@@ -111,11 +108,7 @@ import { ClientOnly } from 'remix-utils'
 import { ProfileCard } from 'ethereum-identity-kit'
 
 export default function Profile() {
-  return (
-    <ClientOnly fallback={<div>Loading...</div>}>
-      {() => <ProfileCard addressOrName="vitalik.eth" />}
-    </ClientOnly>
-  )
+  return <ClientOnly fallback={<div>Loading...</div>}>{() => <ProfileCard addressOrName="vitalik.eth" />}</ClientOnly>
 }
 ```
 

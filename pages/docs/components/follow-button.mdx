@@ -5,7 +5,7 @@ import { Callout } from 'nextra/components'
 
 # Follow Button
 
-The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state.
+The Follow Button component allows users to manage their social connection with another user. It displays the current relationship status between the `lookupAddress` and the `connectedAddress` and provides actions to change this state, including new reciprocal actions like "Block Back" and "Mute Back".
 
 ## Features
 
@@ -14,6 +14,7 @@ The Follow Button component allows users to manage their social connection with 
 - **Error Recovery**: Automatically clears errors when user retries the action
 - **Enhanced Accessibility**: Built-in ARIA attributes for screen reader support
 - **Improved Disabled State**: Combines prop-based and computed disabled states
+- **Reciprocal Actions**: "Block Back" and "Mute Back" functionality when the other user has blocked or muted you
 
 ### Add to your project
 
@@ -94,18 +95,38 @@ export default function YourComponent() {
 | `props`               | Additional HTML button element props.                                          | No       | -             |
 
 <Callout type="info">
-  The component now includes automatic address validation. Invalid addresses will display an error message in the button's tooltip.
+  The component now includes automatic address validation. Invalid addresses will display an error message in the
+  button's tooltip.
 </Callout>
 
 <Callout type="info">
   The `onDisconnectedClick` function is optional but recommended to handle cases where the user is not connected.
 </Callout>
 
+### Button States
+
+The Follow Button intelligently detects and displays different states based on the relationship between users:
+
+#### Standard States
+
+- **Follow**: User can follow the other user
+- **Following**: User is currently following the other user
+- **Blocked**: User has blocked the other user
+- **Muted**: User has muted the other user
+
+#### Reciprocal States (New in v0.2.54)
+
+- **Block Back**: Displayed when the other user has blocked you, allowing you to block them in return
+- **Mute Back**: Displayed when the other user has muted you, allowing you to mute them in return
+
+These reciprocal states help users manage their social boundaries more effectively by providing quick actions to respond to blocks and mutes.
+
 ### Styling
 
 The component uses predefined styles from `FOLLOW_BUTTON_STYLES` and can be further customized using the `className` prop. The button's appearance changes based on its state:
 
-- **Normal states**: Follow, Following, Blocked, etc.
+- **Normal states**: Follow, Following, Blocked, Muted, etc.
+- **Reciprocal states**: Block Back, Mute Back (when the other user has blocked/muted you)
 - **Pending states**: Shows loading indicator
 - **Disabled state**: Reduced opacity and no hover effects
 - **Error state**: Adds shake animation and error styling
@@ -118,9 +139,16 @@ The component uses predefined styles from `FOLLOW_BUTTON_STYLES` and can be furt
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
 }
 ```
 
@@ -157,7 +185,9 @@ You can provide a custom click handler to override or extend the default button 
 />
 ```
 
-<Callout type="info">The `customOnClick` handler receives the current button state and can return a boolean to control default behavior.</Callout>
+<Callout type="info">
+  The `customOnClick` handler receives the current button state and can return a boolean to control default behavior.
+</Callout>
 
 <Callout type="info">The `sounds` prop is optional and can enhance user experience with auditory feedback.</Callout>
 
@@ -166,10 +196,7 @@ You can provide a custom click handler to override or extend the default button 
 The Follow Button includes comprehensive accessibility features:
 
 ```tsx
-<FollowButton
-  lookupAddress="0x123..."
-  connectedAddress="0xabc..."
-/>
+<FollowButton lookupAddress="0x123..." connectedAddress="0xabc..." />
 // Renders with:
 // - aria-label="Follow vitalik.eth" (or appropriate action)
 // - aria-pressed={true/false} (for following state)

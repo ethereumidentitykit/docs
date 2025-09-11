@@ -1,0 +1,188 @@
+import Link from 'next/link'
+import { ProfileTooltip } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# Profile Tooltip
+
+The Profile Tooltip component provides a lightweight hover interaction to preview profile information. When hovering over any wrapped element, it displays a compact profile summary including avatar, name, bio, and follow status.
+
+### Add to your project
+
+```tsx copy
+import { ProfileTooltip } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return (
+    <ProfileTooltip addressOrName="vitalik.eth" darkMode={true}>
+      <span>Hover over me to see profile</span>
+    </ProfileTooltip>
+  )
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/organisms-profile-tooltip--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/organisms-profile-tooltip--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ProfileTooltip addressOrName="vitalik.eth">
+    <button>Hover over me to see profile</button>
+  </ProfileTooltip>
+</div>
+
+## Features
+
+- **Smart positioning**: Automatically positions above or below the trigger element based on available viewport space
+- **Advanced positioning controls**: Full control over vertical and horizontal placement with offset customization
+- **Responsive design**: Adapts width for mobile (360px) and desktop (420px) screens
+- **Rich profile content**: Shows avatar, name, bio, stats, POAPs, and social links
+- **Interactive elements**: Built-in follow button and clickable profile stats
+- **Customizable delays**: Configure show/hide timing for better user experience
+- **Hover persistence**: Tooltip remains visible when hovering over it with configurable behavior
+- **Boundary awareness**: Respects container boundaries and viewport edges
+- **Optional arrow**: Visual pointer connecting tooltip to trigger element
+
+## Parameters
+
+| Parameter                 | Description                                                                                         | Required | Default Value |
+| ------------------------- | --------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| `addressOrName`           | Ethereum Address or ENS name to fetch profile data for.                                             | Yes      | -             |
+| `children`                | React node(s) to wrap that will trigger the tooltip on hover.                                       | Yes      | -             |
+| `list`                    | Search profile data by list number; overrides `addressOrName` if provided.                          | No       | -             |
+| `connectedAddress`        | Address of the user connected to the app.                                                           | No       | -             |
+| `selectedList`            | List number selected in your application for the connected user.                                    | No       | -             |
+| `darkMode`                | Enables dark mode styling for the tooltip.                                                          | No       | false         |
+| `showFollowerState`       | Shows follower state tag (e.g., follows you, blocks you, mutes you).                                | No       | -             |
+| `showFollowButton`        | Shows the follow button in the profile tooltip.                                                     | No       | true          |
+| `showPoaps`               | Shows POAPs in the profile tooltip.                                                                 | No       | false         |
+| `showEmptySocials`        | Shows empty socials in the profile tooltip.                                                         | No       | true          |
+| `hasCommonFollowersModal` | Whether to show the common followers modal.                                                         | No       | true          |
+| `onProfileClick`          | Function called when the profile in the tooltip is clicked.                                         | No       | -             |
+| `onStatClick`             | Action to perform when a stat is clicked; defaults to navigating to EFP profile with selected stat. | No       | -             |
+| `extraOptions`            | Additional options for profile data and functionality.                                              | No       | -             |
+| `verticalPlacement`       | Preferred vertical position for the tooltip ('auto', 'top', 'bottom').                              | No       | 'auto'        |
+| `horizontalPlacement`     | Preferred horizontal position for the tooltip ('left', 'right').                                    | No       | 'left'        |
+| `verticalOffset`          | Distance in pixels between the trigger and tooltip vertically.                                      | No       | 8             |
+| `horizontalOffset`        | Distance in pixels between the trigger and tooltip horizontally.                                    | No       | 0             |
+| `showArrow`               | Whether to display an arrow pointing from the tooltip to the trigger element.                       | No       | true          |
+| `showDelay`               | Delay in milliseconds before showing the tooltip after hover.                                       | No       | 500           |
+| `hideDelay`               | Delay in milliseconds before hiding the tooltip after mouse leave.                                  | No       | 300           |
+| `flipBehavior`            | How the tooltip should behave when it would be cut off ('flip', 'shift').                           | No       | 'flip'        |
+| `boundary`                | The boundary element to constrain tooltip positioning within.                                       | No       | 'viewport'    |
+| `keepTooltipOnHover`      | Whether to keep the tooltip visible when hovering over the tooltip itself.                          | No       | true          |
+
+<Callout type="info">
+  The ProfileTooltip is perfect for profile lists, mentions, or any UI element where you want to provide quick profile
+  previews without navigating away from the current context.
+</Callout>
+
+## Positioning System
+
+The ProfileTooltip uses an advanced positioning system that provides fine-grained control over tooltip placement:
+
+### Vertical Placement
+
+- **'auto'** (default): Automatically chooses between top/bottom based on available space
+- **'top'**: Always position above the trigger element
+- **'bottom'**: Always position below the trigger element
+
+### Horizontal Placement
+
+- **'left'** (default): Align tooltip to the left edge of trigger element
+- **'right'**: Align tooltip to the right edge of trigger element
+
+### Flip Behavior
+
+- **'flip'** (default): Flip to opposite side when constrained (e.g., top to bottom)
+- **'shift'**: Shift position within the same placement to avoid constraints
+
+### Boundary Options
+
+- **'viewport'** (default): Constrain positioning within the browser viewport
+- **'clippingParents'**: Constrain within scrollable ancestor containers
+
+## Usage Examples
+
+### In a Profile List
+
+```tsx
+import { ProfileTooltip } from 'ethereum-identity-kit'
+
+function ProfileList({ profiles }) {
+  return (
+    <ul>
+      {profiles.map((profile) => (
+        <li key={profile.address}>
+          <ProfileTooltip addressOrName={profile.address}>
+            <a href={`/profile/${profile.address}`}>{profile.name}</a>
+          </ProfileTooltip>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### With Custom Delays and Positioning
+
+```tsx
+<ProfileTooltip
+  addressOrName="vitalik.eth"
+  showDelay={200} // Show faster
+  hideDelay={600} // Hide slower
+  verticalPlacement="bottom" // Show below
+  horizontalPlacement="right" // Align to right
+  verticalOffset={12} // Larger vertical gap
+>
+  <button>Quick preview on hover</button>
+</ProfileTooltip>
+```
+
+### With Profile Features
+
+```tsx
+<ProfileTooltip
+  addressOrName="vitalik.eth"
+  connectedAddress="0xabc..."
+  showFollowButton={true}
+  showFollowerState={true}
+  showPoaps={true}
+  hasCommonFollowersModal={true}
+  onProfileClick={(address) => (window.location.href = `/profile/${address}`)}
+>
+  <span>Full-featured tooltip</span>
+</ProfileTooltip>
+```
+
+### Without Arrow
+
+```tsx
+<ProfileTooltip addressOrName="vitalik.eth" showArrow={false}>
+  <span>Clean tooltip without arrow</span>
+</ProfileTooltip>
+```
+
+### Custom Boundary and Flip Behavior
+
+```tsx
+<ProfileTooltip
+  addressOrName="vitalik.eth"
+  flipBehavior="shift" // Shift instead of flip when constrained
+  boundary="clippingParents" // Constrain to parent container
+  keepTooltipOnHover={false} // Hide when mouse leaves trigger
+>
+  <div>Advanced positioning controls</div>
+</ProfileTooltip>
+```
+
+<Callout type="warning">
+  The tooltip positioning is calculated dynamically. Ensure the parent container has proper positioning context
+  (relative, absolute, or fixed) for accurate placement.
+</Callout>

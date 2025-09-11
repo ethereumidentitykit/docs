@@ -1,0 +1,189 @@
+import Link from 'next/link'
+import { ProfileList } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# Profile List
+
+The Profile List component renders a customizable list of user profiles with support for virtual scrolling, loading states, and interactive elements. It's designed to efficiently display large lists of Ethereum addresses and ENS profiles with various display options.
+
+### Add to your project
+
+```tsx copy
+import { ProfileList } from 'ethereum-identity-kit'
+
+export default function ProfileListExample() {
+  const profiles = [
+    { address: '0x983110309620d911731ac0932219af06091b6744', tags: ['EthID Org', 'Founder'] },
+    { address: '0x111111176b0b13ffc31d387d08726772a0492948', tags: ['ENS collector'] },
+    { address: '0xc983ebc9db969782d994627bdffec0ae6efee1b3', tags: ['EthID Org', 'Developer'] },
+    { address: '0xe2cded674643743ec1316858dfd4fd2116932e63', tags: ['Ethereum follow protocol'] },
+    { address: '0x34ab2a3c4b2ae1c940e5e307f22eb92e47906e28', tags: ['Ethereum identity kit'] },
+    { address: '0xc9c3a4337a1bba75d0860a1a81f7b990dc607334', tags: ['EthID Org', 'Developer'] },
+    { address: '0xa8b4756959e1192042fc2a8a103dfe2bddf128e8', tags: ['EthID Org', 'Vibe Dev'] },
+  ]
+
+  return (
+    <ProfileList
+      profiles={profiles}
+      showTags={true}
+      showHeaderImage={true}
+      showProfileTooltip={true}
+      onProfileClick={(profile) => console.log('Clicked:', profile)}
+    />
+  )
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-profile-list--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-profile-list--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ProfileList
+    profiles={[
+      { address: '0x983110309620d911731ac0932219af06091b6744', tags: ['EthID Org', 'Founder'] },
+      { address: '0x111111176b0b13ffc31d387d08726772a0492948', tags: ['ENS collector'] },
+      { address: '0xc983ebc9db969782d994627bdffec0ae6efee1b3', tags: ['EthID Org', 'Developer'] },
+      { address: '0xe2cded674643743ec1316858dfd4fd2116932e63', tags: ['Ethereum follow protocol'] },
+      { address: '0x34ab2a3c4b2ae1c940e5e307f22eb92e47906e28', tags: ['Ethereum identity kit'] },
+      { address: '0xc9c3a4337a1bba75d0860a1a81f7b990dc607334', tags: ['EthID Org', 'Developer'] },
+      { address: '0xa8b4756959e1192042fc2a8a103dfe2bddf128e8', tags: ['EthID Org', 'Vibe Dev'] },
+    ]}
+    showTags={true}
+    showHeaderImage={true}
+    showProfileTooltip={true}
+    onProfileClick={(profile) => console.log('Clicked:', profile)}
+  />
+</div>
+
+## Features
+
+- **Virtual Scrolling**: Efficient rendering of large profile lists with virtual list support
+- **Loading States**: Built-in loading placeholders with configurable row counts
+- **Interactive Profiles**: Click handlers for profile interactions
+- **Tag Support**: Display and manage profile tags
+- **Responsive Design**: Adaptable to different screen sizes and layouts
+- **Performance Optimized**: Supports overscan rendering for smooth scrolling
+
+## Parameters
+
+| Parameter              | Description                                                            | Required | Default Value |
+| ---------------------- | ---------------------------------------------------------------------- | -------- | ------------- |
+| `profiles`             | Array of profile objects to display                                    | Yes      | -             |
+| `connectedAddress`     | Address of the currently connected user                                | No       | -             |
+| `selectedList`         | List number for managing follow states                                 | No       | -             |
+| `isLoading`            | Whether the list is in loading state                                   | No       | false         |
+| `loadingRows`          | Number of loading placeholder rows to show                             | No       | 10            |
+| `showTags`             | Whether to display profile tags                                        | No       | false         |
+| `canEditTags`          | Whether tags can be edited (requires appropriate permissions)          | No       | false         |
+| `showHeaderImage`      | Whether to display header images for profiles                          | No       | false         |
+| `showProfileTooltip`   | Whether to show [`ProfileTooltip`](./profile-tooltip) on hover         | No       | false         |
+| `onProfileClick`       | Function called when a profile is clicked                              | No       | -             |
+| `useVirtualList`       | Enable virtual scrolling for better performance with large lists       | No       | false         |
+| `rowHeight`            | Height of each row in pixels                                           | No       | 80            |
+| `visibleCount`         | Number of rows visible in the virtual list viewport (for virtual list) | No       | 10            |
+| `overscanCount`        | Number of extra rows to render outside viewport (for virtual list)     | No       | 5             |
+| `preventDefaultScroll` | Whether to prevent default scroll behavior (for virtual list)          | No       | false         |
+| `darkMode`             | Enables dark mode styling                                              | No       | false         |
+| `className`            | Additional CSS classes for the container                               | No       | -             |
+| `style`                | Inline styles for the container                                        | No       | -             |
+
+## Profile Object Structure
+
+Each profile object in the `profiles` array should have the following structure:
+
+```typescript
+interface ProfileItem {
+  address: string // Ethereum address (required)
+  tags?: string[] // Array of tag strings
+  ens?: {
+    // ENS information (optional)
+    name?: string // ENS name
+    avatar?: string // ENS avatar URL
+    records?: Record<string, string> // ENS text records
+  }
+}
+```
+
+## Usage Examples
+
+### Basic Profile List
+
+```tsx
+const profiles = [
+  { address: '0x123...', ens: { name: 'alice.eth' } },
+  { address: '0x456...', ens: { name: 'bob.eth' } },
+]
+
+<ProfileList profiles={profiles} />
+```
+
+### With Virtual Scrolling
+
+```tsx
+<ProfileList profiles={largeProfileArray} useVirtualList={true} rowHeight={80} visibleCount={15} overscanCount={5} />
+```
+
+### With Tags and Interaction
+
+```tsx
+<ProfileList
+  profiles={profiles}
+  showTags={true}
+  canEditTags={true}
+  connectedAddress="0xabcd..."
+  onProfileClick={(profile, index) => {
+    console.log('Clicked profile:', profile.address)
+  }}
+/>
+```
+
+### With Loading State
+
+```tsx
+<ProfileList profiles={profiles} isLoading={true} loadingRows={8} />
+```
+
+### With Profile Tooltips
+
+```tsx
+<ProfileList profiles={profiles} showProfileTooltip={true} connectedAddress="0xabcd..." />
+```
+
+## Performance Considerations
+
+<Callout type="info">
+  For lists with more than 50-100 profiles, consider enabling `useVirtualList` to maintain smooth scrolling performance.
+  The virtual list only renders visible rows plus a configurable overscan buffer.
+</Callout>
+
+<Callout type="warning">
+  When using virtual scrolling, ensure the container has a fixed height and the `rowHeight` prop matches your actual row
+  heights for accurate positioning.
+</Callout>
+
+## Integration with Other Components
+
+The ProfileList component integrates seamlessly with:
+
+- **[ProfileListRow](./profile-list-row)**: Used internally to render individual profile items
+- **[ProfileTooltip](./profile-tooltip)**: Enabled via `showProfileTooltip` prop
+- **[FollowButton](./follow-button)**: Automatically included in each row when `connectedAddress` is provided
+- **[Avatar](./avatar)**: Used for profile avatars in each row
+- **[FollowerTag](./follower-tag)**: Used for displaying relationship states
+
+## Styling
+
+The component uses predefined styles and can be customized using the `className` prop. It automatically adapts to dark mode when the `darkMode` prop is enabled or when a `dark` class is applied to the application.
+
+<Callout type="info">
+  The component is designed to be fully responsive and will adapt its layout based on the available space and screen
+  size.
+</Callout>

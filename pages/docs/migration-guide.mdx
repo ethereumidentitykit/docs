@@ -7,6 +7,7 @@ This guide will help you migrate your application to use the latest version of E
 The latest version introduces several breaking changes focused on API consolidation, enhanced error handling, and improved accessibility:
 
 ### API Consolidation
+
 1. **ProfileCard & FullWidthProfile**: `options` → `extraOptions`
 2. **Prefetched data structure**: Flat props → Nested `prefetched` object
 3. **FollowersYouKnow**: `displayEmpty` → `showEmpty`
@@ -15,6 +16,7 @@ The latest version introduces several breaking changes focused on API consolidat
 6. **ProfileStats**: `prefetchedStats`/`isPrefetchedStatsLoading` → `prefetched` object
 
 ### Enhanced Features
+
 1. **useFollowButton**: Extended return type with error handling and accessibility
 2. **FollowButton**: New error display and accessibility features
 3. **Address Validation**: Automatic validation using viem's `isAddress`
@@ -24,6 +26,7 @@ The latest version introduces several breaking changes focused on API consolidat
 ### 1. Update ProfileCard Components
 
 #### Before (Old API)
+
 ```tsx
 <ProfileCard
   addressOrName="vitalik.eth"
@@ -41,6 +44,7 @@ The latest version introduces several breaking changes focused on API consolidat
 ```
 
 #### After (New API)
+
 ```tsx
 <ProfileCard
   addressOrName="vitalik.eth"
@@ -66,6 +70,7 @@ The latest version introduces several breaking changes focused on API consolidat
 ### 2. Update FullWidthProfile Components
 
 #### Before (Old API)
+
 ```tsx
 <FullWidthProfile
   addressOrName="vitalik.eth"
@@ -82,11 +87,12 @@ The latest version introduces several breaking changes focused on API consolidat
 ```
 
 #### After (New API)
+
 ```tsx
 <FullWidthProfile
   addressOrName="vitalik.eth"
   extraOptions={{
-    role: "Developer",
+    role: 'Developer',
     customFollowButton: <CustomFollowButton />,
     nameMenu: <CustomMenu />,
     openListSettings: () => setShowSettings(true),
@@ -104,22 +110,15 @@ The latest version introduces several breaking changes focused on API consolidat
 ### 3. Update FollowersYouKnow Components
 
 #### Before (Old API)
+
 ```tsx
-<FollowersYouKnow
-  lookupAddress="vitalik.eth"
-  connectedAddress="0x123..."
-  displayEmpty={false}
-/>
+<FollowersYouKnow lookupAddress="vitalik.eth" connectedAddress="0x123..." displayEmpty={false} />
 ```
 
 #### After (New API)
+
 ```tsx
-<FollowersYouKnow
-  lookupAddress="vitalik.eth"
-  connectedAddress="0x123..."
-  showEmpty={false}
-  showLoading={true}
-/>
+<FollowersYouKnow lookupAddress="vitalik.eth" connectedAddress="0x123..." showEmpty={false} showLoading={true} />
 ```
 
 ### 4. Update FollowButton Usage
@@ -127,6 +126,7 @@ The latest version introduces several breaking changes focused on API consolidat
 If you were using the FollowButton through component options:
 
 #### Before (Old API)
+
 ```tsx
 const customFollowButton = (
   <FollowButton
@@ -142,6 +142,7 @@ const customFollowButton = (
 ```
 
 #### After (New API)
+
 ```tsx
 const customFollowButton = (
   <FollowButton
@@ -163,23 +164,21 @@ const customFollowButton = (
 ### 5. Update ProfileStats Usage
 
 #### Before (Old API)
+
 ```tsx
-<ProfileStats
-  addressOrName="vitalik.eth"
-  prefetchedStats={statsData}
-  isPrefetchedStatsLoading={isLoading}
-/>
+<ProfileStats addressOrName="vitalik.eth" prefetchedStats={statsData} isPrefetchedStatsLoading={isLoading} />
 ```
 
 #### After (New API)
+
 ```tsx
 <ProfileStats
   addressOrName="vitalik.eth"
   prefetched={{
     stats: {
       data: statsData,
-      isLoading: isLoading
-    }
+      isLoading: isLoading,
+    },
   }}
 />
 ```
@@ -187,6 +186,7 @@ const customFollowButton = (
 ### 6. Update useFollowButton Implementation
 
 #### Before (Old API)
+
 ```tsx
 const { buttonText, buttonState, handleAction, isLoading } = useFollowButton({
   lookupAddress: '0x123...',
@@ -200,11 +200,12 @@ const { buttonText, buttonState, handleAction, isLoading } = useFollowButton({
 ```
 
 #### After (New API)
+
 ```tsx
-const { 
-  buttonText, 
-  buttonState, 
-  handleAction, 
+const {
+  buttonText,
+  buttonState,
+  handleAction,
   isLoading,
   isDisabled,
   error,
@@ -217,8 +218,8 @@ const {
 })
 
 // Enhanced button with error handling and accessibility
-<button 
-  onClick={handleAction} 
+<button
+  onClick={handleAction}
   disabled={isDisabled}
   aria-label={ariaLabel}
   aria-pressed={ariaPressed}
@@ -373,7 +374,7 @@ test('ProfileCard renders with new API', () => {
       }}
     />
   )
-  
+
   expect(getByTestId('custom-button')).toBeInTheDocument()
 })
 ```
@@ -382,11 +383,11 @@ test('ProfileCard renders with new API', () => {
 
 ```tsx
 // Ensure TypeScript compilation passes
-import type { 
-  ProfileExtraOptions, 
+import type {
+  ProfileExtraOptions,
   PrefetchedData,
   UseFollowButtonParams,
-  UseFollowButtonReturn 
+  UseFollowButtonReturn,
 } from 'ethereum-identity-kit'
 
 const extraOptions: ProfileExtraOptions = {
@@ -411,7 +412,7 @@ const prefetched: PrefetchedData = {
 const hookParams: UseFollowButtonParams = {
   lookupAddress: '0x123...',
   connectedAddress: '0xabc...',
-  selectedList: 1
+  selectedList: 1,
 }
 ```
 

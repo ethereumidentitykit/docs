@@ -1,0 +1,245 @@
+import Link from 'next/link'
+import { ProfileListRow } from 'ethereum-identity-kit'
+import { Callout } from 'nextra/components'
+
+# Profile List Row
+
+The Profile List Row component renders an individual profile item within a list, providing a comprehensive view of user information including avatar, name, tags, follower state, and interactive elements like follow buttons.
+
+### Add to your project
+
+```tsx copy
+import { ProfileListRow } from 'ethereum-identity-kit'
+
+export default function ProfileRowExample() {
+  const profile = {
+    address: '0xa7860e99e3ce0752d1ac53b974e309fff80277c6',
+  }
+
+  return (
+    <ProfileListRow
+      profile={profile}
+      showTags={true}
+      tags={['ens', 'steward']}
+      showProfileTooltip={true}
+      onProfileClick={(profile) => console.log('Clicked:', profile)}
+    />
+  )
+}
+```
+
+<a
+  className="w-full block border-[3px] rounded-sm border-[#444] hover:border-primary/80 cursor-pointer transition-all p-4 mt-6 truncate text-gray-400"
+  href="https://playground.ethidentitykit.com/?path=/docs/molecules-profile-list-row--component-docs"
+  target="_blank"
+>
+  <span className="text-primary">Try it out!</span>
+  <span className="text-gray-400">
+    {' - https://playground.ethidentitykit.com/?path=/docs/molecules-profile-list-row--component-docs'}
+  </span>
+</a>
+
+<div className="w-full bg-[#222] border-[3px] rounded-sm border-[#444] p-8 mt-8 flex flex-col gap-6 justify-center items-center">
+  <ProfileListRow
+    profile={{
+      address: '0xa7860e99e3ce0752d1ac53b974e309fff80277c6',
+    }}
+    tags={['ens', 'steward']}
+    showTags={true}
+    showHeaderImage={true}
+    showProfileTooltip={true}
+    onProfileClick={(profile) => console.log('Clicked:', profile)}
+  />
+</div>
+
+## Features
+
+- **Rich Profile Display**: Shows avatar, ENS name, address, and profile information
+- **Interactive Elements**: Built-in follow button and click handlers
+- **Tag Management**: Display and edit profile tags with appropriate permissions
+- **Follower State**: Shows relationship indicators (follows you, blocked, muted)
+- **Loading States**: Graceful handling of loading and error states
+- **Profile Tooltips**: Optional hover tooltips for quick profile previews
+- **Header Images**: Support for displaying profile header/banner images
+
+## Parameters
+
+| Parameter              | Description                                                          | Required | Default Value |
+| ---------------------- | -------------------------------------------------------------------- | -------- | ------------- |
+| `profile`              | Profile object containing address, ENS, and tag information          | Yes      | -             |
+| `connectedAddress`     | Address of the currently connected user                              | No       | -             |
+| `selectedList`         | List number for managing follow states                               | No       | -             |
+| `showTags`             | Whether to display profile tags                                      | No       | false         |
+| `canEditTags`          | Whether tags can be edited (requires connected user to own the list) | No       | false         |
+| `showHeaderImage`      | Whether to display the profile's header/banner image                 | No       | false         |
+| `showProfileTooltip`   | Whether to show a [`ProfileTooltip`](./profile-tooltip) on hover     | No       | false         |
+| `onProfileClick`       | Function called when the name or avatar are clicked                  | No       | -             |
+| `rowHeight`            | Height of the row in pixels                                          | No       | 80            |
+| `darkMode`             | Enables dark mode styling                                            | No       | false         |
+| `className`            | Additional CSS classes for the row                                   | No       | -             |
+| `style`                | Inline styles for the row                                            | No       | -             |
+| `showFollowsYouBadges` | Whether to show the "Follows You" badge                              | No       | false         |
+| `showBlockBack`        | Whether to show the "Block Back" badge                               | No       | false         |
+
+## Profile Object Structure
+
+The profile object should follow this structure:
+
+```typescript
+interface ProfileRowItem {
+  address: string // Ethereum address (required)
+  tags?: string[] // Array of tag strings
+  ens?: {
+    // ENS information (optional)
+    name?: string // ENS name
+    avatar?: string // ENS avatar URL
+    records?: {
+      // ENS text records
+      [key: string]: string // Key-value pairs of ENS records
+    }
+  }
+}
+```
+
+## Usage Examples
+
+### Basic Profile Row
+
+```tsx
+const profile = {
+  address: '0x123...',
+  ens: { name: 'alice.eth' }
+}
+
+<ProfileListRow profile={profile} />
+```
+
+### With Follow Interaction
+
+```tsx
+<ProfileListRow
+  profile={profile}
+  connectedAddress="0xabcd..."
+  onProfileClick={(profile, index) => {
+    // Handle profile click
+    window.location.href = `/profile/${profile.address}`
+  }}
+/>
+```
+
+### With Tag Management
+
+```tsx
+<ProfileListRow
+  profile={profile}
+  connectedAddress="0xabcd..."
+  showTags={true}
+  canEditTags={true} // User can add/remove tags
+  selectedList={1} // Target list for tag operations
+/>
+```
+
+### With Profile Tooltip
+
+```tsx
+<ProfileListRow
+  profile={profile}
+  connectedAddress="0xabcd..."
+  showProfileTooltip={true} // Shows profile preview on hover
+/>
+```
+
+### With Header Image
+
+```tsx
+<ProfileListRow
+  profile={profile}
+  showHeaderImage={true}
+  rowHeight={120} // Taller row to accommodate header image
+/>
+```
+
+### Custom Height
+
+```tsx
+<ProfileListRow
+  profile={profile}
+  rowHeight={100} // Custom row height
+/>
+```
+
+## Component Behavior
+
+### Address Display
+
+The component intelligently displays profile names:
+
+- Shows ENS name if available (e.g., "vitalik.eth")
+- Falls back to truncated address if no ENS name
+- Handles ENS name beautification and normalization
+
+### Follow Button Integration
+
+When `connectedAddress` is provided, each row automatically includes a follow button that:
+
+- Shows the current relationship status
+- Allows follow/unfollow actions
+- Displays reciprocal states (Block Back, Mute Back)
+- Handles loading and error states
+
+### Tag Functionality
+
+Tags are displayed when `showTags` is enabled and can be managed when `canEditTags` is true:
+
+- View existing tags on profiles
+- Add new tags to profiles (with permissions)
+- Remove existing tags
+- Tags are automatically synced with the selected list
+
+### Loading States
+
+The component gracefully handles:
+
+- Profile data loading with skeleton placeholders
+- Avatar loading with fallback states
+- ENS resolution delays
+- Error states for failed requests
+
+## Integration Points
+
+This component integrates with several other components:
+
+- **[Avatar](./avatar)**: For profile pictures
+- **[FollowButton](./follow-button)**: For social interactions
+- **[FollowerTag](./follower-tag)**: For relationship status indicators
+- **[ProfileTooltip](./profile-tooltip)**: For hover previews
+
+## Accessibility
+
+The component includes comprehensive accessibility features:
+
+- Proper ARIA labels and roles
+- Keyboard navigation support
+- Screen reader compatible text
+- Focus management for interactive elements
+
+<Callout type="info">
+  The ProfileListRow is designed to be used within a ProfileList component but can also be used independently for single
+  profile displays or custom list implementations.
+</Callout>
+
+<Callout type="warning">
+  When enabling tag editing (`canEditTags`), ensure the connected user has appropriate permissions to modify the
+  selected list. The component will handle permission validation automatically.
+</Callout>
+
+## Styling
+
+The component uses predefined styles that automatically adapt to:
+
+- Light and dark themes
+- Different row heights
+- Mobile and desktop layouts
+- Loading and error states
+
+Custom styling can be applied using the `className` prop or by targeting the component's CSS classes.

@@ -1,0 +1,30 @@
+name: AI On-Demand Assistant  
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  ai-response:
+    uses: ethereumidentitykit/workflow-automation/.github/workflows/issue-response.yml@v1.0.2
+    with:
+      config-profile: "frontend"
+      bot-mention: "@eik-dev-ops"
+      enable-auto-labeling: true
+      enable-escalation: true
+    secrets:
+      DEV_OPS_BOT_CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.DEV_OPS_BOT_CLAUDE_CODE_OAUTH_TOKEN }}
+      DEV_OPS_BOT_APP_ID: ${{ secrets.DEV_OPS_BOT_APP_ID }}
+      DEV_OPS_BOT_PRIVATE_KEY: ${{ secrets.DEV_OPS_BOT_PRIVATE_KEY }}
+      DEV_OPS_BOT_ALLOWED_USER_LIST: ${{ secrets.DEV_OPS_BOT_ALLOWED_USER_LIST }}

@@ -1,0 +1,21 @@
+name: AI Code Review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  actions: read    
+
+jobs:
+  ai-review:
+    uses: ethereumidentitykit/workflow-automation/.github/workflows/pr-review.yml@v1.0.2
+    with:
+      config-profile: "frontend"
+    secrets:
+      DEV_OPS_BOT_CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.DEV_OPS_BOT_CLAUDE_CODE_OAUTH_TOKEN }}
+      DEV_OPS_BOT_APP_ID: ${{ secrets.DEV_OPS_BOT_APP_ID }}
+      DEV_OPS_BOT_PRIVATE_KEY: ${{ secrets.DEV_OPS_BOT_PRIVATE_KEY }}
+      DEV_OPS_BOT_ALLOWED_USER_LIST: ${{ secrets.DEV_OPS_BOT_ALLOWED_USER_LIST }}

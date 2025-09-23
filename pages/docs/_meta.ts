@@ -9,7 +9,6 @@ export default {
   services: 'Services',
   'ai-tools': 'AI Tools',
   'media-kit': 'Media Kit',
-  theme: 'Theme',
   ethid_link: {
     title: 'Ethereum Identity Foundation',
     href: 'https://ethid.org',

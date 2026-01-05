@@ -8,7 +8,7 @@ import { ProfileCard, SignInWithEthereum } from 'ethereum-identity-kit'
 
 import efp from '/public/assets/efp.png'
 import ens from '/public/assets/ens.png'
-import siwe from '/public/assets/siwe.png'
+import siwe from '/public/assets/siwe.svg'
 import FollowButton from './follow-button'
 import Copy from '/public/assets/icons/copy.svg'
 import Check from '/public/assets/icons/check.svg'
@@ -77,8 +77,8 @@ const Home = () => {
               <div className="siwe-container bg-[#444] w-[320px] flex flex-col items-center gap-4 p-4 rounded-sm font-sans">
                 <SignInWithEthereum
                   message="Ethereum Identity Kit says hi!"
-                  onSignInSuccess={() => {}}
-                  onSignInError={() => {}}
+                  onSignInSuccess={() => { }}
+                  onSignInError={() => { }}
                   getNonce={generateClientSideNonce}
                   verifySignature={() => {
                     console.log('signature verified')

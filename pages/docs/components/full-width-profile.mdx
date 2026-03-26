@@ -64,6 +64,11 @@ export default function Home() {
 |                       | - `nameMenu`: React node for a name menu.                                                           |          |               |
 |                       | - `role`: Additional information to display on the profile (used for roles on ethid.org).           |          |               |
 |                       | - `openListSettings`: Function to open list settings modal.                                         |          |               |
+|                       | - `onEditProfileClick`: Function that runs when clicking the edit profile button.                   |          |               |
+|                       | - `hideSocials`: Array of social media platforms to hide.                                           |          |               |
+|                       | - `hideEFPPoaps`: Boolean to hide EFP POAPs.                                                        |          |               |
+|                       | - `customPoaps`: Array of custom POAPs to display. See `ProfileEFPPoapResponse` type for details.   |          |               |
+|                       | - `onBioLinkClick`: Function to handle link clicks in the bio.                                      |          |               |
 | `prefetched`          | Prefetched data for improved performance. Object with nested structure:                             | No       | -             |
 |                       | - `profile`: `{ data, isLoading, refetch }` - Profile data with loading state                       |          |               |
 |                       | - `stats`: `{ data, isLoading, refetch }` - Stats data with loading state                           |          |               |

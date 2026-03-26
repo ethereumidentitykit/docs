@@ -8,6 +8,7 @@ export default {
   'fetch-profile-stats': 'Profile Stats',
   'fetch-profile-efp-poaps': 'Profile EFP POAPs',
   'fetch-follow-state': 'Follow State',
+  'fetch-batch-follow-state': 'Batch Follow State',
   'fetch-recommended': 'Recommended',
   'fetch-account': 'Account',
   'fetch-eth-price': 'ETH Price',

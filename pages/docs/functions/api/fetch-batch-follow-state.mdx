@@ -1,0 +1,57 @@
+import { fetchBatchFollowState } from 'ethereum-identity-kit'
+
+# fetchBatchFollowState
+
+Fetches the follow state for multiple addresses or ENS names at once for a given list.
+
+## Usage
+
+```tsx
+import { fetchBatchFollowState } from 'ethereum-identity-kit'
+// For server-side usage
+import { fetchBatchFollowState } from 'ethereum-identity-kit/utils'
+
+const batchFollowState = await fetchBatchFollowState({
+  lookupAddressesOrNames: ['vitalik.eth', '0x1234...', 'nick.eth'],
+  list: 1,
+})
+```
+
+## Parameters
+
+| Parameter               | Type       | Description                                                    |
+| ----------------------- | ---------- | -------------------------------------------------------------- |
+| `lookupAddressesOrNames` | `string[]` | Array of Ethereum addresses or ENS names to check follow state for |
+| `list`                  | `number`   | List number to check follow state against                      |
+
+## Return Value
+
+Returns a `BatchFollowStateResponse` object containing the follow state for each address, or `null` if:
+
+- The request fails
+- No `list` is provided
+
+## Example Response
+
+```tsx
+{
+  '0x1234...': {
+    token_id: '123',
+    address: '0x1234...',
+    state: {
+      follow: true,
+      block: false,
+      mute: false,
+    },
+  },
+  '0x5678...': {
+    token_id: '456',
+    address: '0x5678...',
+    state: {
+      follow: false,
+      block: false,
+      mute: false,
+    },
+  },
+}
+```

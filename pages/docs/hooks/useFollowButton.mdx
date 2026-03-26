@@ -61,6 +61,10 @@ export default function FollowButtonComponent() {
 | `lookupAddress`    | Ethereum address to manage the follow state for.                          | Yes      | -             |
 | `connectedAddress` | Ethereum address of the currently connected user.                         | No       | -             |
 | `selectedList`     | List number to manage the follow state for; defaults to the primary list. | No       | -             |
+| `forceState`       | State of the follow button to be displayed over the normal follow state.  | No       | -             |
+| `initialState`     | Initial state of the follow button.                                       | No       | -             |
+| `showBlockBack`    | Whether to show the block back button.                                    | No       | false         |
+| `showMuteBack`     | Whether to show the mute back button.                                     | No       | false         |
 
 <Callout type="info">
   The hook now automatically validates addresses using viem's `isAddress` function. Invalid addresses will set an error

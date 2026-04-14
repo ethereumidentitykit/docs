@@ -1,0 +1,34 @@
+---
+title: Simple Profile
+description: Ethereum Follow Protocol API v1
+---
+
+### /users/\:addressOrENS/simple-profile
+
+Get a simple profile of a user by their address or ENS name. Returns display-ready fields with sensible fallbacks for display name and avatar.
+
+#### Path Parameters
+
+- `addressOrENS` (string): The address or ENS name of the account.
+
+#### Query Parameters
+
+- `cache` (string, optional): If set to 'fresh' the cache lookup will be skipped, fresh data will be returned and the cache record will be updated with the new data.
+
+#### Sample Query
+
+```sh
+curl https://api.ethfollow.xyz/api/v1/users/vitalik.eth/simple-profile
+```
+
+```jsonc
+// sample response
+{
+  "address": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+  "display_name": "vitalik.eth",
+  "avatar": "https://euc.li/vitalik.eth",
+  "followers_count": 5368,
+  "following_count": 10,
+  "url": "https://efp.app/0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+}
+```

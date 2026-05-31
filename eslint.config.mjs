@@ -6,7 +6,7 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-  { ignores: ['public/*', 'node_modules/*', '.next/*'] },
+  { ignores: ['public/*', 'node_modules/*', '.next/*', 'next-env.d.ts'] },
   { languageOptions: { globals: globals.browser } },
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,

@@ -3,7 +3,7 @@ description: 'lint, format, typecheck, build'
 
 inputs:
   skip-steps:
-    description: "Format is comma-seperated steps to skip. Example: 'build,typecheck'"
+    description: "Format is comma-separated steps to skip. Example: 'build,typecheck'"
     required: false
     default: ''
 
